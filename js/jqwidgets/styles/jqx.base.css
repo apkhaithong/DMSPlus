@@ -124,7 +124,9 @@
 .jqx-disableselect
 {
     -webkit-user-select: none;
+    -khtml-user-select: none;
     -moz-user-select: none;
+    -o-user-select: none;
     user-select: none;
     -ms-user-select:none;
     -webkit-touch-callout:none;
@@ -132,7 +134,9 @@
 }
 .jqx-enableselect {
     -webkit-user-select: text;
+    -khtml-user-select: text;
     -moz-user-select: text;
+    -o-user-select: auto;
     -ms-user-select:text;
     user-select:all;
 }
@@ -1435,7 +1439,6 @@ button.jqx-button, input[type=button].jqx-button,  input[type=submit].jqx-button
     margin: 0 0 0 0;
     padding: 0 0 0 0;
 }
-.jqx-tabs-close-button, .jqx-tabs-close-button-selected, .jqx-tabs-close-button-hover{background-repeat:no-repeat;  background-position:center;}
 /*applied to the tab's left scroll arrow.*/
 .jqx-tabs-arrow-left
 {
@@ -2774,7 +2777,6 @@ of the horizontal scrollbar.*/
 }
 .jqx-slider-button
 {
-    cursor: pointer;
     -moz-border-radius: 100%;
     -webkit-border-radius: 100%;
     border-radius: 100%;  
@@ -2982,13 +2984,13 @@ of the horizontal scrollbar.*/
 .jqx-left-arrow
 {
     background: transparent;
-    background-image: url('images/icon-left.png');
+    background-image: url('icon-left.png');
     cursor: pointer;
 }
 .jqx-right-arrow
 {
     background: transparent;
-    background-image: url('images/icon-right.png');
+    background-image: url('icon-right.png');
     cursor: pointer;
 }
 .jqx-icon-delete
@@ -4104,6 +4106,7 @@ ol.jqx-listmenu, ul.jqx-listmenu
 {
     -moz-border-radius: 10px;
     -webkit-border-radius: 10px;
+    -o-border-radius: 10px;
     border-radius: 10px;
     padding: 6px 10px;
 }
@@ -4199,11 +4202,13 @@ ol li .jqx-listmenu-item-label:before
 .jqx-shadow{
     -webkit-box-shadow: 0 2px 3px rgba(0,0,0,.15)!important;
     -moz-box-shadow   : 0 2px 3px rgba(0,0,0,.15)!important;
+    -o-box-shadow     : 0 2px 3px rgba(0,0,0,.15)!important;
     box-shadow        : 0 2px 3px rgba(0,0,0,.15)!important;
 }
 .jqx-noshadow {
     -webkit-box-shadow: none !important;
     -moz-box-shadow   : none !important;
+    -o-box-shadow     : none !important;
     box-shadow        : none !important;
 }
 .jqx-passwordinput-password-icon, .jqx-passwordinput-password-icon-rtl
@@ -5231,7 +5236,7 @@ ol li .jqx-listmenu-item-label:before
     cursor: pointer;
     background-repeat: no-repeat !important;
     background-position: center !important;
-    z-index: 0;
+    z-index: 1000;
 }
 .jqx-ribbon-scrollbutton-top, .jqx-ribbon-scrollbutton-bottom
 {
@@ -5323,7 +5328,7 @@ ol li .jqx-listmenu-item-label:before
 .jqx-ribbon-selection-token
 {
     position: absolute;
-    z-index: 0;
+    z-index: 1000;
 }
 .jqx-ribbon-selection-token-top, .jqx-ribbon-selection-token-bottom
 {
@@ -5960,14 +5965,13 @@ ol li .jqx-listmenu-item-label:before
     background: -moz-linear-gradient(#FFE4B5,  #FFD280) !important;
     background: linear-gradient(#FFE4B5,  #FFD280 ) !important;
 }
-.jqx-docking-layout-overlay, .jqx-docking-layout-overlay-square-edge {
+.jqx-docking-layout-overlay, .jqx-docking-layout-overlay-square-edge
+{
+    display: none;
     z-index: 99999;
     opacity: 0.9;
     -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=90)";
     *filter: alpha(opacity=90);
-}
-.jqx-docking-layout-overlay-square-edge {
-    display: none;
 }
 .jqx-docking-layout-overlay
 {
@@ -6062,15 +6066,14 @@ ol li .jqx-listmenu-item-label:before
     height: 9px;
     border-top-style: dashed;
 }
-.jqx-docking-layout-drop-overlay {
+.jqx-docking-layout-drop-overlay
+{
     display: none;
     background-color: #6495ED;
     opacity: 0.5;
     -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=50)";
     *filter: alpha(opacity=50);
     z-index: 10000;
-    top: 0px;
-    left: 0px;
 }
 .jqx-docking-layout-square-disabled
 {

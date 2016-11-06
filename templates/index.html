@@ -284,35 +284,37 @@
     <!-- BEGIN: PAGE SCRIPTS -->
 
     <!-- jQuery -->
-    <script src="js/vendor/jquery/jquery-1.11.1.min.js"></script>
-    <script src="js/vendor/jquery/jquery_ui/jquery-ui.min.js"></script>
+    <script type="text/javascript" src="js/vendor/jquery/jquery-1.11.1.min.js"></script>
+    <script type="text/javascript" src="js/vendor/jquery/jquery_ui/jquery-ui.min.js"></script>
 
     <!-- HighCharts Plugin -->
-    <script src="js/vendor/plugins/highcharts/highcharts.js"></script>
+    <script type="text/javascript" src="js/vendor/plugins/highcharts/highcharts.js"></script>
 
     <!-- Sparklines Plugin -->
-    <script src="js/vendor/plugins/sparkline/jquery.sparkline.min.js"></script>
+    <script type="text/javascript" src="js/vendor/plugins/sparkline/jquery.sparkline.min.js"></script>
 
     <!-- Simple Circles Plugin -->
-    <script src="js/vendor/plugins/circles/circles.js"></script>
+    <script type="text/javascript" src="js/vendor/plugins/circles/circles.js"></script>
 
     <!-- JvectorMap Plugin + US Map (more maps in plugin/assets folder) -->
-    <script src="js/vendor/plugins/jvectormap/jquery.jvectormap.min.js"></script>
-    <script src="js/vendor/plugins/jvectormap/assets/jquery-jvectormap-us-lcc-en.js"></script>
+    <script type="text/javascript" src="js/vendor/plugins/jvectormap/jquery.jvectormap.min.js"></script>
+    <script type="text/javascript" src="js/vendor/plugins/jvectormap/assets/jquery-jvectormap-us-lcc-en.js"></script>
 
     <!-- Theme Javascript -->
-    <script src="css/assets/js/utility/utility.js"></script>
-    <script src="css/assets/js/demo/demo.js"></script>
-    <script src="css/assets/js/main.js"></script>
+    <script type="text/javascript" src="css/assets/js/utility/utility.js"></script>
+    <script type="text/javascript" src="css/assets/js/demo/demo.js"></script>
+    <script type="text/javascript" src="css/assets/js/main.js"></script>
 
     <!-- jqwidgets -->
-    <script src="js/jqwidgets/jqxcore.js"></script>
-    <script src="js/jqwidgets/jqx-all.js"></script>
+    <script type="text/javascript" src="js/jqwidgets/jqxcore.js"></script>
+    <script type="text/javascript" src="js/jqwidgets/jqx-all.js"></script>
+    <script type="text/javascript" src="js/jqwidgets/globalization/globalize.js"></script>
+    <script type="text/javascript" src="js/jqwidgets/globalization/globalize.culture.en-US.js"></script>
 
     <!-- Widget Javascript -->
-    <script src="css/assets/js/demo/widgets.js"></script>
-    <script src="js/mainmenu.js"></script>
-    <script src="js/search.js"></script>
+    <script type="text/javascript" src="css/assets/js/demo/widgets.js"></script>
+    <script type="text/javascript" src="js/mainmenu.js"></script>
+    <script type="text/javascript" src="js/search.js"></script>
     <script type="text/javascript">
         var xlocat = '';
         //Load Menu
@@ -385,6 +387,9 @@
             //ระบบสต๊อกสินค้า
             $("#STK06").click(function() {
                 loadHTML("stk_onhand");
+            });
+            $("#STK07").click(function() {
+                loadHTML("stk_onhanddate");
             });
 
             //ระบบการขายสินค้า
