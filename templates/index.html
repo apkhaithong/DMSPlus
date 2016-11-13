@@ -281,6 +281,9 @@
     </div>
     <!-- End: Main -->
 
+    <!-- Loading -->
+    <div id="jqxLoader"></div>
+
     <!-- BEGIN: PAGE SCRIPTS -->
 
     <!-- jQuery -->
@@ -352,6 +355,7 @@
             $.jqx.theme = "bootstrap";
             var width = $(document).width();
             var height = $(document).height();
+            $("#jqxLoader").jqxLoader({ width: 110, height: 60, imagePosition: 'top', text: "กำลังโหลด..." });
 
             //ค้นหา
             $('#search').jqxWindow({
@@ -391,6 +395,9 @@
             $("#STK07").click(function() {
                 loadHTML("stk_onhanddate");
             });
+            $("#STK08").click(function() {
+                loadHTML("stk_stockcard");
+            });
 
             //ระบบการขายสินค้า
             $("#SAL01").click(function() {
@@ -399,6 +406,11 @@
             $("#SAL02").click(function() {
                 loadHTML("sale_prospect");
             });
+
+            //รายงาน
+            $("#RP01").click(function() {
+                loadHTML("rp_receiptdaily");
+            });            
         });
     </script>
     <!-- END: PAGE SCRIPTS -->

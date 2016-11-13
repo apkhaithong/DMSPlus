@@ -19,7 +19,7 @@
                                 <div class="form-group">
                                     <label class="col-sm-4 control-label" for="atdate">ณ วันที่</label>
                                     <div class="col-sm-8">
-                                        <div class="bs-component">
+                                        <div class="bs-component pr5">
                                             <div id="atdate"></div>
                                         </div>
                                     </div>
@@ -101,7 +101,7 @@
                                 <div class="form-group">
                                     <label class="col-sm-4 control-label" for="statuscode">สถานะสินค้า</label>
                                     <div class="col-sm-8">
-                                        <div class="bs-component">
+                                        <div class="bs-component pr5">
                                             <div id="statuscode"></div>
                                         </div>
                                     </div>
@@ -135,7 +135,7 @@
                                 <div class="form-group">
                                     <label class="col-sm-4 control-label" for="currentcode">สถานะจอง</label>
                                     <div class="col-sm-8">
-                                        <div class="bs-component">
+                                        <div class="bs-component pr5">
                                             <div id="currentcode"></div>
                                         </div>
                                     </div>
@@ -200,13 +200,8 @@
             { text: "ไม่รวมจอง", value: '2' },
             { text: "เฉพาะจอง", value: '3' }
         ];
-        var data    = [];
-        var source  = {
-            localdata: data,
-            datatype: 'json'
-        };
+        var emptyStock = [];
         var sourceStock = {
-            async:false,
             datatype: "json",
             datafields: [
                 { name: 'LOCAT', type: 'string' },
@@ -225,11 +220,11 @@
                 { name: 'VATTAXBUY', type: 'float' },
                 { name: 'TOTTAXBUY', type: 'float' }
             ],
-            url: "sqltext"
+            localdata: emptyStock
         };
         // create Data Adapter
         var dataInvlocat = new $.jqx.dataAdapter(sourceInvlocat);
-        var dataEmpty = new $.jqx.dataAdapter(source);
+        var dataStock = new $.jqx.dataAdapter(sourceStock);
         // create jqxInput widget.
         $("#atdate").jqxDateTimeInput({ height: 28, width: '100%', culture:'en-US' });
         $('#locatcd').jqxInput({ height: 28, width: '100%' });
@@ -245,7 +240,7 @@
         $("#gridStock").jqxGrid({
             width: '100%',
             height: 570,
-            source: dataEmpty,
+            source: dataStock,
             sortable: true,
             columnsresize: true,
             filterable: true,
@@ -363,12 +358,12 @@
             ]
         });
         // On Click
-        $("#btnQuery").click(function() {
+        $("#btnQuery").off().on('click', function() {
+            $("#jqxLoader").jqxLoader('open');
             var atDate = $("#atdate").jqxDateTimeInput('getDate');
             var currentCulture = Globalize.cultures['en-US'];
             var localizationObject = currentCulture.calendar;
             var xdate = $.jqx.dataFormat.formatdate(atDate, "yyyy-MM-dd",localizationObject );
-            $('#gridStock').jqxGrid('showloadelement');
             var txtCurrent = "";
             if ($("#currentcode").val() === '1') {
                 txtCurrent = " AND (CURSTAT ='' OR CURSTAT='R' OR CURSTAT IS NULL ) ";
@@ -377,12 +372,19 @@
             } else {
                 txtCurrent = " AND (CURSTAT ='R') ";
             }
-            sourceStock.data = {
-                sql: "SELECT * FROM VWSTKCARD WHERE REFDTIN <= '"+xdate+"' AND (REFDTOUT > '"+xdate+"' OR REFDTOUT IS  NULL) AND (TYPECOD LIKE '"+$("#typecode").val()+"%') AND (MODELCOD LIKE '"+$("#modelcode").val()+"%') AND (BAABCOD LIKE '"+$("#baabcode").val()+"%') AND (COLORCOD LIKE '"+$("#colorcode").val()+"%') AND (LOCAT LIKE '"+$("#locatcd").val()+"%') AND (LOCATPARK LIKE '"+$("#parkcode").val()+"%' OR LOCATPARK IS NULL) AND (GCODE LIKE '"+$("#groupcode").val()+"%') AND STAT LIKE '"+$("#statuscode").val()+"' "+txtCurrent
-            };
-            var dataStock = new $.jqx.dataAdapter(sourceStock);
-            $("#gridStock").jqxGrid({source: dataStock});
-            $('#gridStock').jqxGrid('hideloadelement');
+            // Get Data
+            $.ajax({
+                async: false,
+                method: 'GET',
+                dataType: 'json',
+                url: "sqltext",
+                data: { sql: "SELECT * FROM VWSTKCARD WHERE REFDTIN <= '"+xdate+"' AND (REFDTOUT > '"+xdate+"' OR REFDTOUT IS  NULL) AND (TYPECOD LIKE '"+$("#typecode").val()+"%') AND (MODELCOD LIKE '"+$("#modelcode").val()+"%') AND (BAABCOD LIKE '"+$("#baabcode").val()+"%') AND (COLORCOD LIKE '"+$("#colorcode").val()+"%') AND (LOCAT LIKE '"+$("#locatcd").val()+"%') AND (LOCATPARK LIKE '"+$("#parkcode").val()+"%' OR LOCATPARK IS NULL) AND (GCODE LIKE '"+$("#groupcode").val()+"%') AND STAT LIKE '"+$("#statuscode").val()+"' "+txtCurrent },
+                success: function (data) {
+                    sourceStock.localdata = data;
+                    $("#gridStock").jqxGrid('updatebounddata');
+                   $("#jqxLoader").jqxLoader('close');
+                }
+            });
         });
         // Search
         $("#searchInvlocat").off().on('click', function() {

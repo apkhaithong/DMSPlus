@@ -93,6 +93,28 @@
         ];
         keyno = 'LOCATPARK';
     }
+    else if (show === "payfor") {
+        datafields = [
+            { name: 'FORCODE', type: 'string' },
+            { name: 'FORDESC', type: 'string' },
+        ];
+        fields = [
+            { text: 'รหัสชำระค่า', datafield: 'FORCODE', minwidth: 100,width: 250 },
+            { text: 'คำอธิบาย', datafield: 'FORDESC', minwidth: 200, width: 250 },
+        ];
+        keyno = 'FORCODE';
+    }
+    else if (show === "paytyp") {
+        datafields = [
+            { name: 'PAYCODE', type: 'string' },
+            { name: 'PAYDESC', type: 'string' },
+        ];
+        fields = [
+            { text: 'รหัสชำระโดย', datafield: 'PAYCODE', minwidth: 100,width: 250 },
+            { text: 'คำอธิบาย', datafield: 'PAYDESC', minwidth: 200, width: 250 },
+        ];
+        keyno = 'PAYCODE';
+    }
 
     $("#tbSearch").jqxGrid({
         width: width-35,
@@ -135,6 +157,12 @@
         }
         else if (show === "invparking") {
             sqltxt = "SELECT * FROM INVPARKING WHERE UPPER(LOCATPARK||LOCATPARKNM) LIKE '%"+param1+"%' AND LOCATCD = '"+xlocat+"' ORDER BY LOCATPARK";
+        }
+        else if (show === "payfor") {
+            sqltxt = "SELECT * FROM PAYFOR WHERE UPPER(FORCODE||FORDESC) LIKE '%"+param1+"%' ORDER BY FORCODE";
+        }
+        else if (show === "paytyp") {
+            sqltxt = "SELECT * FROM PAYTYP WHERE UPPER(PAYCODE||PAYDESC) LIKE '%"+param1+"%' ORDER BY PAYCODE";
         }
 
         // Qurey Data
