@@ -18946,6 +18946,10 @@ body.tray-rescale .tray-right:hover {
   margin-right: 10px;
   font-size: 11px;
 }
+.sidebar-menu > li > ul > li > ul > li > a > span:nth-child(1) {
+  margin-right: 10px;
+  font-size: 11px;
+}
 /* Sidebar-Menu Sub Level Item - Label */
 .sidebar-menu > li > ul > li > a > span.label {
   float: right;
