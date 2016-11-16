@@ -1,4 +1,5 @@
 ﻿function loadMenu() {
+    var username = $.session.get('username');
     var mastMenu = [],
         subMenu1 = [],
         subMenu2 = [],
@@ -12,7 +13,7 @@
         contentType : "application/json;charset=utf-8",
         dataType: "json",
         async: false,
-        data: {sql: "SELECT A.MENUCODE, B.MENUNAME FROM USERMENU A, MAINMENU B WHERE A.MENUCODE = B.MENUCODE AND A.USERID = 'ADMIN' AND B.LEVAL = 1 AND ACTIVE = 'Y' AND SYSTEMCOD = 'DMSPlus' AND A.M_ACCESS = 'Y' AND B.MENUCODE NOT LIKE 'RP%' ORDER BY B.SORT"}
+        data: {sql: "SELECT A.MENUCODE, B.MENUNAME FROM USERMENU A, MAINMENU B WHERE A.MENUCODE = B.MENUCODE AND A.USERID = '"+username+"' AND B.LEVAL = 1 AND ACTIVE = 'Y' AND SYSTEMCOD = 'DMSPlus' AND A.M_ACCESS = 'Y' AND B.MENUCODE NOT LIKE 'RP%' ORDER BY B.SORT"}
     })
     .done(function(data) {
         mastMenu = data;
@@ -40,7 +41,7 @@
             contentType : "application/json;charset=utf-8",
             dataType: "json",
             async: false,
-            data: {sql: "SELECT A.MENUCODE, B.MENUNAME FROM USERMENU A, MAINMENU B WHERE A.MENUCODE = B.MENUCODE AND B.MENUGRP = '"+menuCode+"' AND A.USERID = 'ADMIN' AND B.LEVAL = 2 AND B.ACTIVE = 'Y' AND B.SYSTEMCOD = 'DMSPlus' AND A.M_ACCESS = 'Y' ORDER BY B.SORT"}
+            data: {sql: "SELECT A.MENUCODE, B.MENUNAME FROM USERMENU A, MAINMENU B WHERE A.MENUCODE = B.MENUCODE AND B.MENUGRP = '"+menuCode+"' AND A.USERID = '"+username+"' AND B.LEVAL = 2 AND B.ACTIVE = 'Y' AND B.SYSTEMCOD = 'DMSPlus' AND A.M_ACCESS = 'Y' ORDER BY B.SORT"}
         })
         .done(function(data, status, xhr) {
             subMenu1 = data;
@@ -56,7 +57,7 @@
                 contentType : "application/json;charset=utf-8",
                 dataType: "json",
                 async: false,
-                data: {sql: "SELECT A.MENUCODE, B.MENUNAME FROM USERMENU A, MAINMENU B WHERE A.MENUCODE = B.MENUCODE AND B.MENUGRP = '"+subMenu1Code+"' AND A.USERID = 'ADMIN' AND B.LEVAL = 3 AND B.ACTIVE = 'Y' AND B.SYSTEMCOD = 'DMSPlus' AND A.M_ACCESS = 'Y' ORDER BY B.SORT"}
+                data: {sql: "SELECT A.MENUCODE, B.MENUNAME FROM USERMENU A, MAINMENU B WHERE A.MENUCODE = B.MENUCODE AND B.MENUGRP = '"+subMenu1Code+"' AND A.USERID = '"+username+"' AND B.LEVAL = 3 AND B.ACTIVE = 'Y' AND B.SYSTEMCOD = 'DMSPlus' AND A.M_ACCESS = 'Y' ORDER BY B.SORT"}
             })
             .done(function(data, status, xhr) {
                 subMenu2 = data;
@@ -84,7 +85,7 @@
         contentType : "application/json;charset=utf-8",
         dataType: "json",
         async: false,
-        data: {sql: "SELECT A.MENUCODE, B.MENUNAME FROM USERMENU A, MAINMENU B WHERE A.MENUCODE = B.MENUCODE AND A.USERID = 'ADMIN' AND B.LEVAL = 1 AND ACTIVE = 'Y' AND SYSTEMCOD = 'DMSPlus' AND A.M_ACCESS = 'Y' AND B.MENUCODE LIKE 'RP%' ORDER BY B.SORT"}
+        data: {sql: "SELECT A.MENUCODE, B.MENUNAME FROM USERMENU A, MAINMENU B WHERE A.MENUCODE = B.MENUCODE AND A.USERID = '"+username+"' AND B.LEVAL = 1 AND ACTIVE = 'Y' AND SYSTEMCOD = 'DMSPlus' AND A.M_ACCESS = 'Y' AND B.MENUCODE LIKE 'RP%' ORDER BY B.SORT"}
     })
     .done(function(data) {
         rpMenu1 = data;
@@ -107,7 +108,7 @@
             contentType : "application/json;charset=utf-8",
             dataType: "json",
             async: false,
-            data: {sql:  "SELECT A.MENUCODE, B.MENUNAME FROM USERMENU A, MAINMENU B WHERE A.MENUCODE = B.MENUCODE AND B.MENUGRP = '"+rpMenu1Code+"' AND A.USERID = 'ADMIN' AND B.LEVAL = 2 AND B.ACTIVE = 'Y' AND B.SYSTEMCOD = 'DMSPlus' AND A.M_ACCESS = 'Y' ORDER BY B.SORT"}
+            data: {sql:  "SELECT A.MENUCODE, B.MENUNAME FROM USERMENU A, MAINMENU B WHERE A.MENUCODE = B.MENUCODE AND B.MENUGRP = '"+rpMenu1Code+"' AND A.USERID = '"+username+"' AND B.LEVAL = 2 AND B.ACTIVE = 'Y' AND B.SYSTEMCOD = 'DMSPlus' AND A.M_ACCESS = 'Y' ORDER BY B.SORT"}
         })
         .done(function(data) {
             rpMenu2 = data;
@@ -124,7 +125,7 @@
                 contentType : "application/json;charset=utf-8",
                 dataType: "json",
                 async: false,
-                data: {sql:  "SELECT A.MENUCODE, B.MENUNAME FROM USERMENU A, MAINMENU B WHERE A.MENUCODE = B.MENUCODE AND B.MENUGRP = '"+rpMenu2Code+"' AND A.USERID = 'ADMIN' AND B.LEVAL = 3 AND B.ACTIVE = 'Y' AND B.SYSTEMCOD = 'DMSPlus' AND A.M_ACCESS = 'Y' ORDER BY B.SORT"}
+                data: {sql:  "SELECT A.MENUCODE, B.MENUNAME FROM USERMENU A, MAINMENU B WHERE A.MENUCODE = B.MENUCODE AND B.MENUGRP = '"+rpMenu2Code+"' AND A.USERID = '"+username+"' AND B.LEVAL = 3 AND B.ACTIVE = 'Y' AND B.SYSTEMCOD = 'DMSPlus' AND A.M_ACCESS = 'Y' ORDER BY B.SORT"}
             })
             .done(function(data) {
                 rpMenu3 = data;

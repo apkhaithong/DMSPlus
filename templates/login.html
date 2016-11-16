@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html>
 
 <head>
@@ -15,6 +15,7 @@
 
     <!-- Theme CSS -->
     <link rel="stylesheet" type="text/css" href="css/assets/skin/default_skin/css/theme.css">
+    <link rel="stylesheet" type="text/css" href="css/main.css">
 
     <!-- Stateface CSS(font) -->
     <link rel="stylesheet" type="text/css" href="css/assets/fonts/stateface/stateface.css">
@@ -26,6 +27,16 @@
     <link rel="shortcut icon" href="css/assets/img/favicon.ico">
     <script type="text/javascript" src="js/base64.js"></script>
     <script type="text/javascript" src="js/json2.js"></script>
+
+    <!-- jQuery -->
+    <script type="text/javascript" src="js/vendor/jquery/jquery-1.11.1.min.js"></script>
+    <script type="text/javascript" src="js/vendor/jquery/jquery_ui/jquery-ui.min.js"></script>
+    <script type="text/javascript" src="js/vendor/jquery/jquery.session.js"></script>
+    <script type="text/javascript">
+        if (($.session.get('username') !== undefined) && ($.session.get('username') !== '')) {
+            window.location.href = '/index';
+        }
+    </script>
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
@@ -45,118 +56,61 @@
 </head>
 
 <body class="external-page sb-l-c sb-r-c">
-
     <!-- Start: Main -->
     <div id="main" class="animated fadeIn">
-
         <!-- Start: Content-Wrapper -->
         <section id="content_wrapper">
-
             <!-- begin canvas animation bg -->
             <div id="canvas-wrapper">
                 <canvas id="demo-canvas"></canvas>
             </div>
-
             <!-- Begin: Content -->
             <section id="content">
-
                 <div class="admin-form theme-info" id="login1">
-
                     <div class="row mb15 table-layout">
-
                         <div class="col-xs-6 va-m pln">
-                            <a href="dashboard.html" title="Return to Dashboard">
-                                <img src="assets/img/logos/logo_white.png" title="AdminDesigns Logo" class="img-responsive w250">
+                            <a href="login" title="login">
+                                <img src="images/LOGO_DMSPlus.jpg" title="DMSPlus Logo" class="img-responsive w250">
                             </a>
                         </div>
-
                         <div class="col-xs-6 text-right va-b pr5">
                             <div class="login-links">
-                                <a href="pages_login.html" class="active" title="Sign In">Sign In</a>
-                                <span class="text-white"> | </span>
-                                <a href="pages_register.html" class="" title="Register">Register</a>
+                                <span class="" title="DMSPlus">บริษัท โตโยต้าชุมพร ผู้จำหน่ายโตโยต้า จำกัด</span>
                             </div>
-
                         </div>
-
                     </div>
-
                     <div class="panel panel-info mt10 br-n">
-
                         <div class="panel-heading heading-border bg-white">
-                            <span class="panel-title hidden">
-                <i class="fa fa-sign-in"></i>Register</span>
+                            <span class="panel-title hidden"><i class="fa fa-sign-in"></i>Login</span>
                             <div class="section row mn">
-                                <div class="col-sm-4">
-                                    <a href="#" class="button btn-social facebook span-left mr5 btn-block">
-                                        <span>
-                      <i class="fa fa-facebook"></i>
-                    </span>Facebook</a>
-                                </div>
-                                <div class="col-sm-4">
-                                    <a href="#" class="button btn-social twitter span-left mr5 btn-block">
-                                        <span>
-                      <i class="fa fa-twitter"></i>
-                    </span>Twitter</a>
-                                </div>
-                                <div class="col-sm-4">
-                                    <a href="#" class="button btn-social googleplus span-left btn-block">
-                                        <span>
-                      <i class="fa fa-google-plus"></i>
-                    </span>Google+</a>
-                                </div>
+                                <h2 class="mtn"><span class="glyphicons glyphicons-keys ml10 mr10"></span> Login เข้าใช้งานระบบ</h2>
                             </div>
                         </div>
-
                         <!-- end .form-header section -->
-                        <form method="post" action="/" id="contact">
+                        <form action="#" id="contact">
                             <div class="panel-body bg-light p30">
                                 <div class="row">
                                     <div class="col-sm-7 pr30">
-
-                                        <div class="section row hidden">
-                                            <div class="col-md-4">
-                                                <a href="#" class="button btn-social facebook span-left mr5 btn-block">
-                                                    <span>
-                            <i class="fa fa-facebook"></i>
-                          </span>Facebook</a>
-                                            </div>
-                                            <div class="col-md-4">
-                                                <a href="#" class="button btn-social twitter span-left mr5 btn-block">
-                                                    <span>
-                            <i class="fa fa-twitter"></i>
-                          </span>Twitter</a>
-                                            </div>
-                                            <div class="col-md-4">
-                                                <a href="#" class="button btn-social googleplus span-left btn-block">
-                                                    <span>
-                            <i class="fa fa-google-plus"></i>
-                          </span>Google+</a>
-                                            </div>
-                                        </div>
-
                                         <div class="section">
                                             <label for="username" class="field-label text-muted fs18 mb10">Username</label>
                                             <label for="username" class="field prepend-icon">
-                        <input type="text" name="username" id="username" class="gui-input" placeholder="Enter username">
-                        <label for="username" class="field-icon">
-                          <i class="fa fa-user"></i>
-                        </label>
+                                                <input type="text" name="username" id="username" class="gui-input" placeholder="Enter username">
+                                                <label for="username" class="field-icon">
+                                                    <i class="fa fa-user"></i>
+                                                </label>
                                             </label>
                                         </div>
                                         <!-- end section -->
-
                                         <div class="section">
                                             <label for="username" class="field-label text-muted fs18 mb10">Password</label>
                                             <label for="password" class="field prepend-icon">
-                        <input type="password" name="password" id="password" class="gui-input" placeholder="Enter password">
-                        <label for="password" class="field-icon">
-                          <i class="fa fa-lock"></i>
-                        </label>
+                                                <input type="password" name="password" id="password" class="gui-input" placeholder="Enter password">
+                                                <label for="password" class="field-icon">
+                                                    <i class="fa fa-lock"></i>
+                                                </label>
                                             </label>
                                         </div>
                                         <!-- end section -->
-
                                     </div>
                                     <div class="col-sm-5 br-l br-grey pl30">
                                         <h3 class="mb25"> You'll Have Access To Your:</h3>
@@ -173,32 +127,20 @@
                             </div>
                             <!-- end .form-body section -->
                             <div class="panel-footer clearfix p10 ph15">
-                                <button type="submit" class="button btn-primary mr10 pull-right">Sign In</button>
-                                <label class="switch ib switch-primary pull-left input-align mt10">
-                  <input type="checkbox" name="remember" id="remember" checked>
-                  <label for="remember" data-on="YES" data-off="NO"></label>
-                                <span>Remember me</span>
-                                </label>
+                                <button type="button" class="button btn-primary mr10 pull-right" id="login">Sign In</button>
                             </div>
                             <!-- end .form-footer section -->
                         </form>
                     </div>
                 </div>
-
             </section>
             <!-- End: Content -->
-
         </section>
         <!-- End: Content-Wrapper -->
-
     </div>
     <!-- End: Main -->
 
     <!-- BEGIN: PAGE SCRIPTS -->
-
-    <!-- jQuery -->
-    <script type="text/javascript" src="js/vendor/jquery/jquery-1.11.1.min.js"></script>
-    <script type="text/javascript" src="js/vendor/jquery/jquery_ui/jquery-ui.min.js"></script>
 
     <!-- CanvasBG Plugin(creates mousehover effect) -->
     <script type="text/javascript" src="js/vendor/plugins/canvasbg/canvasbg.js"></script>
@@ -210,8 +152,7 @@
 
     <!-- Page Javascript -->
     <script type="text/javascript">
-        jQuery(document).ready(function() {
-
+        $(document).ready(function(){
             "use strict";
 
             // Init Theme Core      
@@ -228,6 +169,46 @@
                 },
             });
 
+            $('#username').keyup(function () {
+                this.value = this.value.toUpperCase();
+            });
+
+            $('#password').keyup(function () {
+                this.value = this.value.toUpperCase();
+            });
+
+            $('input').keypress(function (e) {
+                if (e.which == 13) {
+                    $("#login").click();
+                }
+            });
+
+            $("#login").click(function(){
+                var username = $("#username").val();
+                var password = $("#password").val();
+                // Checking for blank fields.
+                if ( username == '' || password == '') {
+                    $('input[type="text"],input[type="password"]').addClass("has-error-login");
+                } else {
+                    $('input[type="text"],input[type="password"]').removeClass("has-error-login");
+                    $.get("checklogin",{ username1: username, password1:password},
+                        function(data) {
+                            if (data[0].LOGIN === "TRUE") {
+                                $.session.set('username', data[0].USERID);
+                                $.session.set('locatcd', data[0].LOCATCD);
+                                $.session.set('officecode', data[0].CUSCOD);
+                                $.session.set('level', data[0].LEVEL);
+                                $.session.set('keydisc', data[0].KEYDISC);
+                                $.session.set('changelocat', data[0].CHGLOC);
+                                $.session.set('changedate', data[0].CHGDATE);
+                                window.location.href = 'index';
+                            } else {
+                                $('input[type="text"],input[type="password"]').addClass("has-error-login");
+                            }
+                        }
+                    );
+                }
+            });
         });
     </script>
 

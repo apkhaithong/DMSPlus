@@ -32,6 +32,16 @@
     <script type="text/javascript" src="js/base64.js"></script>
     <script type="text/javascript" src="js/json2.js"></script>
 
+    <!-- jQuery -->
+    <script type="text/javascript" src="js/vendor/jquery/jquery-1.11.1.min.js"></script>
+    <script type="text/javascript" src="js/vendor/jquery/jquery_ui/jquery-ui.min.js"></script>
+    <script type="text/javascript" src="js/vendor/jquery/jquery.session.js"></script>
+    <script type="text/javascript">
+        if (($.session.get('username') === undefined) || ($.session.get('username') === '')) {
+            window.location.href = '/';
+        }
+    </script>
+
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
     <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
@@ -96,49 +106,23 @@
                     <span class="caret caret-tp hidden-xs"></span>
                 </a>
                     <ul class="dropdown-menu list-group dropdown-persist w250" role="menu">
-                        <li class="dropdown-header clearfix">
-                            <div class="pull-left ml10">
-                                <select id="user-status">
-                                    <optgroup label="Current Status:">
-                                        <option value="1-1">Away</option>
-                                        <option value="1-2">Offline</option>
-                                        <option value="1-3" selected="selected">Online</option>
-                                    </optgroup>
-                                </select>
-                            </div>
-
-                            <div class="pull-right mr10">
-                                <select id="user-role">
-                                    <optgroup label="Logged in As:">
-                                        <option value="1-1">Client</option>
-                                        <option value="1-2">Editor</option>
-                                        <option value="1-3" selected="selected">Admin</option>
-                                    </optgroup>
-                                </select>
-                            </div>
-
+                        <li class="list-group-item">
+                            <a href="#" class="animated animated-short fadeInUp">
+                                <span class="fa fa-envelope"></span> รหัสพนักงาน </a>
                         </li>
                         <li class="list-group-item">
                             <a href="#" class="animated animated-short fadeInUp">
-                                <span class="fa fa-envelope"></span> Messages
-                                <span class="label label-warning">2</span>
-                            </a>
+                                <span class="fa fa-user"></span> สาขา </a>
                         </li>
                         <li class="list-group-item">
                             <a href="#" class="animated animated-short fadeInUp">
-                                <span class="fa fa-user"></span> Friends
-                                <span class="label label-warning">6</span>
-                            </a>
+                                <span class="fa fa-gear"></span> ระดับ </a>
                         </li>
                         <li class="list-group-item">
                             <a href="#" class="animated animated-short fadeInUp">
-                                <span class="fa fa-gear"></span> Account Settings </a>
+                                <span class="fa fa-bell"></span> เปลี่ยนรหัสผ่าน </a>
                         </li>
-                        <li class="list-group-item">
-                            <a href="#" class="animated animated-short fadeInUp">
-                                <span class="fa fa-bell"></span> Activity </a>
-                        </li>
-                        <li class="dropdown-footer">
+                        <li class="dropdown-footer" id="logout">
                             <a href="#" class="">
                                 <span class="fa fa-power-off pr5"></span> Logout </a>
                         </li>
@@ -289,6 +273,7 @@
     <!-- jQuery -->
     <script type="text/javascript" src="js/vendor/jquery/jquery-1.11.1.min.js"></script>
     <script type="text/javascript" src="js/vendor/jquery/jquery_ui/jquery-ui.min.js"></script>
+    <script type="text/javascript" src="js/vendor/jquery/jquery.session.js"></script>
 
     <!-- HighCharts Plugin -->
     <script type="text/javascript" src="js/vendor/plugins/highcharts/highcharts.js"></script>
@@ -357,6 +342,12 @@
             var height = $(document).height();
             $("#jqxLoader").jqxLoader({ width: 110, height: 60, imagePosition: 'top', text: "กำลังโหลด..." });
 
+            //Log Out
+            $("#logout").click(function() {
+                $.session.clear();
+                window.location.href = '/';
+            });
+
             //ค้นหา
             $('#search').jqxWindow({
                 width: width-5,
@@ -388,29 +379,47 @@
             function loadHTML(filename) {
                 $("#panelContent").load(filename);
             }
+
+            //กำหนดรายละเอียดสินค้า
+            $("#SET101").click(function() {
+                loadHTML("set_settype");
+            });
+            $("#SET102").click(function() {
+                loadHTML("set_setmodel");
+            });
+            $("#SET103").click(function() {
+                loadHTML("set_setbaab");
+            });
+            $("#SET104").click(function() {
+                loadHTML("set_setcolor");
+            });
+            $("#SET105").click(function() {
+                loadHTML("set_setgroup");
+            });
+            
             //ระบบสต๊อกสินค้า
-            $("#STK06").click(function() {
+            $("#STK006").click(function() {
                 loadHTML("stk_onhand");
             });
-            $("#STK07").click(function() {
+            $("#STK010").click(function() {
                 loadHTML("stk_onhanddate");
             });
-            $("#STK08").click(function() {
+            $("#STK011").click(function() {
                 loadHTML("stk_stockcard");
             });
 
             //ระบบการขายสินค้า
-            $("#SAL01").click(function() {
+            $("#SAL001").click(function() {
                 loadHTML("sale_customer");
             });
-            $("#SAL02").click(function() {
+            $("#SAL002").click(function() {
                 loadHTML("sale_prospect");
             });
 
             //รายงาน
             $("#RP01").click(function() {
                 loadHTML("rp_receiptdaily");
-            });            
+            });          
         });
     </script>
     <!-- END: PAGE SCRIPTS -->
