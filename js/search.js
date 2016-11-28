@@ -1,4 +1,5 @@
 ﻿function searchAll(show, returnid) {
+    $("body").css("overflow", "hidden");
     var width = $(document).width();
     var height = $(document).height();
     var sqltxt  = "";
@@ -115,10 +116,35 @@
         ];
         keyno = 'PAYCODE';
     }
-
+    fields.unshift({
+        text: 'ลำดับ',
+        sortable: false,
+        filterable: false,
+        editable: false,
+        groupable: false,
+        draggable: false,
+        resizable: false,
+        align: 'center',
+        cellsalign: 'center',
+        datafield: '',
+        columntype: 'number',
+        width: 40,
+        exportable: false,
+        cellsrenderer: function (row, column, value) {
+            return "<div style='margin:4px;'>" + (value + 1) + "</div>";
+        },
+        aggregates: ['count'],
+        aggregatesrenderer: function (aggregates) {
+            var renderstring = "";
+            $.each(aggregates, function (key, value) {
+                renderstring += '<div style="position: relative; margin: 4px; overflow: hidden; font-weight: bold;">' + value + '</div>';
+            });
+            return renderstring;
+        }
+    });
     $("#tbSearch").jqxGrid({
-        width: width-35,
-        height: height-100,
+        width: width-40,
+        height: height-180,
         sortable: true,
         columnsresize: true,
         altrows: true,
@@ -199,5 +225,10 @@
     });
     $('#tbSearch').on('rowdoubleclick', function (event) {
         $('#okButton').click();
+    });
+    $('#search').on('close', function (event) {
+        source.localdata = data;
+        $('#tbSearch').jqxGrid('updatebounddata');
+        $("body").css("overflow", "");
     });
 }

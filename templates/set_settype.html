@@ -38,16 +38,17 @@
                                     <div class="col-md-12">
                                         <div class="col-md-2 control-label"></div>
                                         <div class="col-md-10">
-                                            <button type="button" id="saveButton">บันทึก</button>
-                                            <button type="button" id="searchButton">ค้นหา</button>
-                                            <button type="button" id="deleteButton">ลบ</button>
-                                            <button type="button" id="closeButton">ปิดระบบ</button>
+                                            <button type="button" id="saveBtn">บันทึก</button>
+                                            <button type="button" id="searchBtn">ค้นหา</button>
+                                            <button type="button" id="deleteBtn">ลบ</button>
+                                            <button type="button" id="closeBtn">ปิดระบบ</button>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
+                    <input type="hidden" id="find_typecode" value="">
                 </form>
             </div>
         </div>
@@ -69,33 +70,29 @@
             width: 300,
             minLength: 1
         });
-        $("#saveButton").jqxButton({
+        $("#saveBtn").jqxButton({
             template: "primary",
             width: 80
         });
-        $("#searchButton").jqxButton({
+        $("#searchBtn").jqxButton({
             template: "success",
             width: 80
         });
-        $("#deleteButton").jqxButton({
+        $("#deleteBtn").jqxButton({
             template: "danger",
             width: 80
         });
-        $("#closeButton").jqxButton({
+        $("#closeBtn").jqxButton({
             template: "warning",
             width: 80
         });
-
-        $('#fmSettype').jqxValidator({
-            hintType: 'label',
-            animationDuration: 0,
-            closeOnClick: false,
-            rules: [{
+        var rules = [{
                 input: '#typecode',
                 message: 'กรุณาระบุรหัสยี่ห้อ!',
                 action: 'keyup, blur',
                 rule: 'required'
-            }, {
+            }, 
+            {
                 input: '#typecode',
                 message: 'ระบุรหัสยี่ห้อซ้ำ!',
                 action: 'keyup, blur',
@@ -121,10 +118,16 @@
                         });
                     }
                 }
-            }]
-        });
+            }] 
 
-        $('#saveButton').off().on('click', function() {
+        $('#fmSettype').jqxValidator({
+            hintType: 'label',
+            animationDuration: 0,
+            closeOnClick: false,
+            rules: rules 
+        });
+        //บันทึก
+        $('#saveBtn').off().on('click', function() {
             $('#fmSettype').jqxValidator('validate', function(result) {
                 if (result) {
                     $.when($.confirmdlg('ต้องการบันทึกข้อมูล?', 'info')).then(function() {
@@ -138,7 +141,6 @@
                         });
                         // Convert Value To JSON String
                         var value = JSON.stringify(valueJSON);
-                        console.log(value);
                         $('#ok').click(function(event) {
                             $.ajax({
                                 url: 'saveOne',
@@ -147,12 +149,34 @@
                                 dataType: "json",
                                 data: value,
                                 success: function(data) {
-
+                                    if (data === true) {
+                                        ShowMessage("บันทึกข้อมูลเรียบร้อย!", "success");
+                                        $('form')[0].reset();
+                                    } else {
+                                        ShowMessage("บันทึกไม่สำเร็จ!", "error");
+                                    }
                                 }
                             });
                         });
                     });
                 }
+            });
+        });
+        //ค้นหา
+        $('#searchBtn').off().on('click', function() {
+            searchAll('settype', 'find_typecode');
+            $('#okButton').off().on('click', function() {
+                $.ajax({
+                    async: false,
+                    method: 'GET',
+                    dataType: 'json',
+                    url: "sqltext",
+                    data: { sql: "SELECT * FROM SETTYPE WHERE TYPECOD = '"+$("#find_typecode").val()+"' " },
+                    success: function (data) {
+                        $("#typecode").val(data[0].TYPECOD);
+                        $("#typename").val(data[0].TYPEDESC);
+                    }
+                });                
             });
         });
     });
