@@ -13,13 +13,42 @@
                 </span>
             </div>
             <div class="panel-body">
-                <div class="p15 pt5 mt15">
-                    <div class="row">
-                        <div class="col-md-3">
-   
+                <form class="form-horizontal">
+                    <div class="p15 pt5 mt15">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <!-- Start -->
+                                <div class="admin-form">
+                                    <div class="form-group">
+                                        <label class="col-md-3 control-label" for="groupcode">รหัสกลุ่มสินค้า</label>
+                                        <div class="col-md-9">
+                                            <div class="bs-component">
+                                                <input type="text" id="groupcode" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-md-3 control-label" for="groupdesc">รายละเอียดกลุ่มสินค้า</label>
+                                        <div class="col-md-9">
+                                            <div class="bs-component">
+                                                <input type="text" id="groupdesc" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12">
+                                        <div class="col-md-2 control-label"></div>
+                                        <div class="col-md-10">
+                                            <button id="saveButton">บันทึก</button>
+                                            <button id="searchButton">ค้นหา</button>
+                                            <button id="deleteButton">ลบ</button>
+                                            <button id="closeButton">ปิดระบบ</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                </div>
+                </form>
             </div>
         </div>
     </div>
@@ -28,6 +57,33 @@
 <!-- end: .row -->
 <script type="text/javascript">
     $(document).ready(function() {
-
+        $("#groupcode").jqxInput({
+            placeHolder: "Enter a group",
+            height: 25,
+            width: 300,
+            minLength: 1
+        });
+        $("#groupdesc").jqxInput({
+            placeHolder: "Enter a group",
+            height: 25,
+            width: 300,
+            minLength: 1
+        });
+        $("#saveButton").jqxButton({
+            template: "primary",
+            width: 80
+        });
+        $("#searchButton").jqxButton({
+            template: "success",
+            width: 80
+        });
+        $("#deleteButton").jqxButton({
+            template: "danger",
+            width: 80
+        });
+        $("#closeButton").jqxButton({
+            template: "warning",
+            width: 80
+        });
     });
 </script>

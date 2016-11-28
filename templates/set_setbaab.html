@@ -13,13 +13,79 @@
                 </span>
             </div>
             <div class="panel-body">
-                <div class="p15 pt5 mt15">
-                    <div class="row">
-                        <div class="col-md-3">
-   
+                <form class="form-horizontal">
+                    <div class="p15 pt5 mt15">
+                        <div class="row">
+                            <div class="col-md-12">
+
+                                <!-- Start -->
+                                <div class="admin-form">
+                                    <div class="form-group">
+                                        <label class="col-md-3 control-label" for="baabcode">รหัสแบบสินค้า</label>
+                                        <div class="col-md-9">
+                                            <div class="bs-component">
+                                                <input type="text" id="baabcode" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-md-3 control-label" for="baabdesc">รายละเอียดแบบสินค้า</label>
+                                        <div class="col-md-9">
+                                            <div class="bs-component">
+                                                <input type="text" id="baabdesc" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-md-3 control-label" for="baabgroup">กลุ่มแบบ</label>
+                                        <div class="col-md-9">
+                                            <div class="bs-component">
+                                                <input type="text" id="baabgroup" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-md-3 control-label" for="ccinv">CC ในการรับเข้า</label>
+                                        <div class="col-md-9">
+                                            <div class="bs-component">
+                                                <div style='margin-top: 3px;' id='ccinv'></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-md-3 control-label" for="ccreg">CC ทางทะเบียน</label>
+                                        <div class="col-md-9">
+                                            <div class="bs-component">
+                                                <div style='margin-top: 3px;' id='ccreg'></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-md-3 control-label" for="modelcode">รหัสรุ่นสินค้า</label>
+                                        <div class="col-md-9">
+                                            <div class="bs-component">
+                                                <div id="modelcode" class="input-button">
+                                                    <input type="text" id="v-modelcode" />
+                                                    <div id="searchModelcode"><img alt="search" width="20" height="20" src="/images/search_lg.png" /></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12">
+                                        <div class="col-md-2 control-label"></div>
+                                        <div class="col-md-10">
+                                            <button id="saveButton">บันทึก</button>
+                                            <button id="searchButton">ค้นหา</button>
+                                            <button id="deleteButton">ลบ</button>
+                                            <button id="closeButton">ปิดระบบ</button>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
                         </div>
                     </div>
-                </div>
+                </form>
             </div>
         </div>
     </div>
@@ -28,6 +94,50 @@
 <!-- end: .row -->
 <script type="text/javascript">
     $(document).ready(function() {
+        $("#baabcode").jqxInput({
+            placeHolder: "Enter a baab",
+            height: 25,
+            width: 300,
+            minLength: 1
+        });
+        $("#baabdesc").jqxInput({
+            placeHolder: "Enter a baab",
+            height: 25,
+            width: 300,
+            minLength: 1
+        });
+        $("#baabgroup").jqxInput({
+            placeHolder: "Enter a group",
+            height: 25,
+            width: 300,
+            minLength: 1
+        });
+        $("#ccinv").jqxNumberInput({ width: '250px', height: '25px', symbol: '$', spinButtons: true });
+        $("#ccreg").jqxNumberInput({ width: '250px', height: '25px', symbol: '$', spinButtons: true });
+        
+        $("#modelcode").jqxInput({
+            placeHolder: "Enter a model",
+            height: 25,
+            width: 300,
+            minLength: 1
+        });
+
+        $("#saveButton").jqxButton({
+            template: "primary",
+            width: 80
+        });
+        $("#searchButton").jqxButton({
+            template: "success",
+            width: 80
+        });
+        $("#deleteButton").jqxButton({
+            template: "danger",
+            width: 80
+        });
+        $("#closeButton").jqxButton({
+            template: "warning",
+            width: 80
+        });
 
     });
 </script>

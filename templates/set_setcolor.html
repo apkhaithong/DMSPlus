@@ -13,13 +13,65 @@
                 </span>
             </div>
             <div class="panel-body">
-                <div class="p15 pt5 mt15">
-                    <div class="row">
-                        <div class="col-md-3">
-   
+                <form class="form-horizontal">
+                    <div class="p15 pt5 mt15">
+                        <div class="row">
+                            <div class="col-md-12">
+
+                                <!-- Start -->
+                                <div class="admin-form">
+                                    <div class="form-group">
+                                        <label class="col-md-3 control-label" for="colorcode">รหัสสีสินค้า</label>
+                                        <div class="col-md-9">
+                                            <div class="bs-component">
+                                                <input type="text" id="colorcode" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-md-3 control-label" for="colordesc">รายละเอียดสีสินค้า</label>
+                                        <div class="col-md-9">
+                                            <div class="bs-component">
+                                                <input type="text" id="colordesc" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-md-3 control-label" for="colorgroup">สีตลาด</label>
+                                        <div class="col-md-9">
+                                            <div class="bs-component">
+                                                <input type="text" id="colorgroup" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-md-3 control-label" for="colorflag">ระงับการใช้งาน</label>
+                                        <div class="col-md-9">
+                                            <div class="bs-component">
+                                                <div id='jqxCheckBox' style='margin-left: 10px; float: left;'><span>ใช้งานปกติ</span></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="col-md-12">
+                                            <div id="tablesetcolor"></div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12">
+                                        <div class="col-md-2 control-label"></div>
+                                        <div class="col-md-10">
+                                            <button id="saveButton">บันทึก</button>
+                                            <button id="searchButton">ค้นหา</button>
+                                            <button id="deleteButton">ลบ</button>
+                                            <button id="closeButton">ปิดระบบ</button>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
                         </div>
                     </div>
-                </div>
+                </form>
             </div>
         </div>
     </div>
@@ -28,6 +80,190 @@
 <!-- end: .row -->
 <script type="text/javascript">
     $(document).ready(function() {
+        $("#colorcode").jqxInput({
+            placeHolder: "Enter a color",
+            height: 25,
+            width: 300,
+            minLength: 1
+        });
+        $("#colordesc").jqxInput({
+            placeHolder: "Enter a color",
+            height: 25,
+            width: 300,
+            minLength: 1
+        });
+        $("#colorgroup").jqxInput({
+            placeHolder: "Enter a group",
+            height: 25,
+            width: 300,
+            minLength: 1
+        });
+        $("#jqxCheckBox").jqxCheckBox({ width: 120, height: 25});
+        // states
+        $("#jqxCheckBox").jqxCheckBox({ width: 120, height: 25, checked: false});
+        $("#jqxCheckBox").on('change', function (event) {
+            var checked = event.args.checked;
+            if (checked) {
+                $("#jqxCheckBox").find('span')[1].innerHTML = 'ระงับ';
+            }
+            else {
+                $("#jqxCheckBox").find('span')[1].innerHTML = 'ใช้งานปกติ';
+            }
+        });
 
+        var dataXsettype = [];
+        var sourceListsettype = {
+            datatype: "json",
+            datafields: [{
+                name: 'modelcode',
+                type: 'string'
+            }, {
+                name: 'baabcode',
+                type: 'string'
+
+            }],
+            addrow: function(rowid, rowdata, position, commit) {
+                commit(true);
+            },
+            deleterow: function(rowid, commit) {
+                commit(true);
+            },
+            updaterow: function(rowid, newdata, commit) {
+                commit(true);
+            },
+            id: 'id',
+            localdata: dataXsettype
+        };
+
+        var dataSettype = new $.jqx.dataAdapter(sourceListsettype);
+        $("#tablesetcolor").jqxGrid({
+            width: '100%',
+            height: 250,
+            source: dataSettype,
+            editable: true,
+            altrows: true,
+            filterable: true,
+            columnsresize: true,     
+            selectionmode: 'singlerow',           
+            editmode: 'selectedrow',
+            showstatusbar: true,
+            statusbarheight: 35,
+            showaggregates: true,
+            columns: [{
+                text: '#',
+                sortable: false,
+                filterable: false,
+                editable: false,
+                groupable: false,
+                draggable: false,
+                resizable: false,
+                align: 'center',
+                cellsalign: 'center',
+                datafield: '',
+                columntype: 'number',
+                width: 15,
+                cellsrenderer: function(row, column, value) {
+                    return "<div style='margin:4px; text-align:center;'>" + (value + 1) + "</div>";
+                },
+                aggregates: ['count'],
+                aggregatesrenderer: function(aggregates, column, element) {
+                    var renderstring = "";
+                    $.each(aggregates, function(key, value) {
+                        // console.log(aggregates);
+                        renderstring += '<div style="position: relative; margin: 4px; overflow: hidden; font-weight: bold;">' + value + '</div>';
+                    });
+                    return renderstring;
+                }
+            }, {
+                text: 'รหัสรุ่น',
+                width: 200,
+                align: 'center',
+                cellsalign: 'left',
+                columntype: 'textbox',
+                datafield: 'modelcode',
+            }, {
+                text: 'รหัสแบบ',
+                columntype: 'textbox',
+                datafield: 'baabcode',
+                width: 200
+            }, ],
+            showtoolbar: true,
+            rendertoolbar: function(toolbar) {
+                var container = $("<div style='margin: 5px;'></div>");
+                toolbar.append(container);
+                container.append('<div id="addrow1" class="fa fa-plus toolsbtn"> เพิ่มรายการ</div>');
+                container.append('<div style="margin-left: 5px;" id="deleterow" class="fa fa-minus toolsbtn"> ลบรายการ</div>');
+
+                // create new row.
+                $("#addrow1").off().on('click', function() {
+                    var rows = $("#tablesetcolor").jqxGrid('getdisplayrows');
+                    var x1 = 0;
+                    // console.log(rows);
+                    for (var i = 0; i < rows.length; i++) {
+                        var row = rows[i];
+                        //console.log(row.payfor);
+                        if ((row.modelcode === undefined)) {
+                            x1++;
+                        };
+                    }
+
+                    if (x1 === 0) {
+                        var datarow = {
+                            dramt: 0.00,
+                            cramt: 0.00
+                        };
+                        var commit = $("#tablesetcolor").jqxGrid('addrow', null, datarow);
+                        $("#chkgrid").val("true");
+
+                        var recodecount = $("#tablesetcolor").jqxGrid('getdatainformation').rowscount;
+                        // console.log(recodecount);
+                        $("#tablesetcolor").jqxGrid('begincelledit', recodecount - 1, 'modelcode');
+                    }
+                });
+
+                //Delete row
+                $("#deleterow").click(function() {
+                    var selectedrowindex = $("#tablesetcolor").jqxGrid('getselectedrowindex');
+                    var rowscount = $("#tablesetcolor").jqxGrid('getdatainformation').rowscount;
+                    if (selectedrowindex >= 0 && selectedrowindex < rowscount) {
+                        var id = $("#tablesetcolor").jqxGrid('getrowid', selectedrowindex);
+                        var commit = $("#tablesetcolor").jqxGrid('deleterow', id);
+                        // console.log(rowscount);
+                        if (rowscount <= "1") {
+                            $("#chkgrid").val("false");
+                        }
+                    }
+                });
+
+                $("#addrow1").jqxButton({
+                    width: 80,
+                    template: "success"
+                });
+                $("#deleterow").jqxButton({
+                    width: 80,
+                    template: "danger",
+                });
+            }
+        });
+
+
+
+
+        $("#saveButton").jqxButton({
+            template: "primary",
+            width: 80
+        });
+        $("#searchButton").jqxButton({
+            template: "success",
+            width: 80
+        });
+        $("#deleteButton").jqxButton({
+            template: "danger",
+            width: 80
+        });
+        $("#closeButton").jqxButton({
+            template: "warning",
+            width: 80
+        });
     });
 </script>
