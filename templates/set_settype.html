@@ -90,45 +90,66 @@
             hintType: 'label',
             animationDuration: 0,
             closeOnClick: false,
-            rules:  [
-                { input: '#typecode', message: 'กรุณาระบุรหัสยี่ห้อ!', action: 'keyup, blur', rule: 'required' },
-                { input: '#typecode', message: 'ระบุรหัสยี่ห้อซ้ำ!', action: 'keyup, blur', rule: function (input, commit) {
+            rules: [{
+                input: '#typecode',
+                message: 'กรุณาระบุรหัสยี่ห้อ!',
+                action: 'keyup, blur',
+                rule: 'required'
+            }, {
+                input: '#typecode',
+                message: 'ระบุรหัสยี่ห้อซ้ำ!',
+                action: 'keyup, blur',
+                rule: function(input, commit) {
                     var typecode = $('#typecode').val();
-                        if (typecode !== '') {
-                            $.ajax({
-                                url: "duplicateCheck",
-                                type: 'get',
-                                data: { table: 'SETTYPE', field: 'TYPECOD', value: typecode },
-                                success: function(data) {
-                                    console.log(data);
-                                    if (data === true) {
-                                        commit(true);
-                                    }
-                                    else commit(false);
-                                },
-                                error: function() {
-                                    commit(false);
-                                }
-                            });
-                        }
+                    if (typecode !== '') {
+                        $.ajax({
+                            url: "duplicateCheck",
+                            type: 'get',
+                            data: {
+                                table: 'SETTYPE',
+                                field: 'TYPECOD',
+                                value: typecode
+                            },
+                            success: function(data) {
+                                if (data === true) {
+                                    commit(true);
+                                } else commit(false);
+                            },
+                            error: function() {
+                                commit(false);
+                            }
+                        });
                     }
-                } 
-            ]
+                }
+            }]
         });
 
-        $("#saveButton").off().on('click', function() {
-            $('#fmSettype').jqxValidator('validate', function (result) {
+        $('#saveButton').off().on('click', function() {
+            $('#fmSettype').jqxValidator('validate', function(result) {
                 if (result) {
                     $.when($.confirmdlg('ต้องการบันทึกข้อมูล?', 'info')).then(function() {
+                        var valueJSON = [];
+                        valueJSON.push({
+                            table: 'SETTYPE',
+                            value: [{
+                                TYPECOD: $('#typecode').val(),
+                                TYPEDESC: $('#typename').val()
+                            }]
+                        });
+                        // Convert Value To JSON String
+                        var value = JSON.stringify(valueJSON);
+                        console.log(value);
                         $('#ok').click(function(event) {
-                            // $.ajax({
-                            //     url: "setgroup/save",
-                            //     data: { menucod: menucod, gcode: $("#"+menucod+"gcode").val(), gdesc: $("#"+menucod+"gdesc").val(), assettype: $("#"+menucod+"assettype").val() },
-                            //     type: 'POST',
-                            //     success: function (data) {
-                            //         $("#"+menucod).html(data);
-                            //     }
-                            // });
+                            $.ajax({
+                                url: 'saveOne',
+                                type: 'POST',
+                                contentType: "application/json",
+                                dataType: "json",
+                                data: value,
+                                success: function(data) {
+
+                                }
+                            });
                         });
                     });
                 }
