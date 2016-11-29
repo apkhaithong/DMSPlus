@@ -35,13 +35,15 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-md-12">
-                                        <div class="col-md-2 control-label"></div>
-                                        <div class="col-md-10">
-                                            <button type="button" id="saveBtn">บันทึก</button>
-                                            <button type="button" id="searchBtn">ค้นหา</button>
-                                            <button type="button" id="deleteBtn">ลบ</button>
-                                            <button type="button" id="closeBtn">ปิดระบบ</button>
+                                    <div class="form-group">
+                                        <label class="col-md-3 control-label"></label>
+                                        <div class="col-md-9">
+                                            <div class="bs-component">
+                                                <button type="button" id="newBtn"><span class="fa fa-refresh"></span> เริ่มใหม่</button>
+                                                <button type="button" id="saveBtn"><span class="fa fa-floppy-o"></span> บันทึก</button>
+                                                <button type="button" id="searchBtn"><span class="fa fa-search"></span> ค้นหา</button>
+                                                <button type="button" id="deleteBtn"><span class="fa fa-trash-o"></span> ลบ</button>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -58,6 +60,20 @@
 <!-- end: .row -->
 <script type="text/javascript">
     $(document).ready(function() {
+        $('.admin-panels').adminpanel({
+            grid: '.admin-grid',
+            callback: function() {
+                bootbox.confirm('<h3>A Custom Callback!</h3>', function() {});
+            },
+            onFinish: function() {
+                $('.admin-panels').addClass('animated fadeIn').removeClass('fade-onload');
+                demoHighCharts.init();
+            },
+            onSave: function() {
+                $(window).trigger('resize');
+            }
+        });
+
         $("#typecode").jqxInput({
             placeHolder: "Enter a brand",
             height: 25,
@@ -70,61 +86,60 @@
             width: 300,
             minLength: 1
         });
+        $("#newBtn").jqxButton({
+            template: "info",
+            width: 90
+        });
         $("#saveBtn").jqxButton({
             template: "primary",
-            width: 80
+            width: 90
         });
         $("#searchBtn").jqxButton({
             template: "success",
-            width: 80
+            width: 90
         });
         $("#deleteBtn").jqxButton({
             template: "danger",
-            width: 80
-        });
-        $("#closeBtn").jqxButton({
-            template: "warning",
-            width: 80
+            width: 90
         });
         var rules = [{
-                input: '#typecode',
-                message: 'กรุณาระบุรหัสยี่ห้อ!',
-                action: 'keyup, blur',
-                rule: 'required'
-            }, 
-            {
-                input: '#typecode',
-                message: 'ระบุรหัสยี่ห้อซ้ำ!',
-                action: 'keyup, blur',
-                rule: function(input, commit) {
-                    var typecode = $('#typecode').val();
-                    if (typecode !== '') {
-                        $.ajax({
-                            url: "duplicateCheck",
-                            type: 'get',
-                            data: {
-                                table: 'SETTYPE',
-                                field: 'TYPECOD',
-                                value: typecode
-                            },
-                            success: function(data) {
-                                if (data === true) {
-                                    commit(true);
-                                } else commit(false);
-                            },
-                            error: function() {
-                                commit(false);
-                            }
-                        });
-                    }
+            input: '#typecode',
+            message: 'กรุณาระบุรหัสยี่ห้อ!',
+            action: 'keyup, blur',
+            rule: 'required'
+        }, {
+            input: '#typecode',
+            message: 'ระบุรหัสยี่ห้อซ้ำ!',
+            action: 'keyup, blur',
+            rule: function(input, commit) {
+                var typecode = $('#typecode').val();
+                if (typecode !== '') {
+                    $.ajax({
+                        url: "duplicateCheck",
+                        type: 'get',
+                        data: {
+                            table: 'SETTYPE',
+                            field: 'TYPECOD',
+                            value: typecode
+                        },
+                        success: function(data) {
+                            if (data === true) {
+                                commit(true);
+                            } else commit(false);
+                        },
+                        error: function() {
+                            commit(false);
+                        }
+                    });
                 }
-            }] 
+            }
+        }]
 
         $('#fmSettype').jqxValidator({
             hintType: 'label',
             animationDuration: 0,
             closeOnClick: false,
-            rules: rules 
+            rules: rules
         });
         //บันทึก
         $('#saveBtn').off().on('click', function() {
@@ -171,12 +186,14 @@
                     method: 'GET',
                     dataType: 'json',
                     url: "sqltext",
-                    data: { sql: "SELECT * FROM SETTYPE WHERE TYPECOD = '"+$("#find_typecode").val()+"' " },
-                    success: function (data) {
+                    data: {
+                        sql: "SELECT * FROM SETTYPE WHERE TYPECOD = '" + $("#find_typecode").val() + "' "
+                    },
+                    success: function(data) {
                         $("#typecode").val(data[0].TYPECOD);
                         $("#typename").val(data[0].TYPEDESC);
                     }
-                });                
+                });
             });
         });
     });
