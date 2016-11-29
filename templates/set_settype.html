@@ -23,7 +23,7 @@
                                         <label class="col-md-3 control-label" for="typecode">รหัสยี่ห้อ</label>
                                         <div class="col-md-9">
                                             <div class="bs-component">
-                                                <input type="text" id="typecode" />
+                                                <input type="text" id="typecode" class="input"/>
                                             </div>
                                         </div>
                                     </div>
@@ -31,7 +31,7 @@
                                         <label class="col-md-3 control-label" for="typename">รายละเอียดยี่ห้อ</label>
                                         <div class="col-md-9">
                                             <div class="bs-component">
-                                                <input type="text" id="typename" />
+                                                <input type="text" id="typename" class="input"/>
                                             </div>
                                         </div>
                                     </div>
@@ -50,7 +50,6 @@
                             </div>
                         </div>
                     </div>
-                    <input type="hidden" id="find_typecode" value="">
                 </form>
             </div>
         </div>
@@ -60,6 +59,7 @@
 <!-- end: .row -->
 <script type="text/javascript">
     $(document).ready(function() {
+        var status = 'insert';
         $('.admin-panels').adminpanel({
             grid: '.admin-grid',
             callback: function() {
@@ -75,13 +75,13 @@
         });
 
         $("#typecode").jqxInput({
-            placeHolder: "Enter a brand",
+            placeHolder: "Enter a brand code",
             height: 25,
             width: 300,
             minLength: 1
         });
         $("#typename").jqxInput({
-            placeHolder: "Enter a brand",
+            placeHolder: "Enter a brand description",
             height: 25,
             width: 300,
             minLength: 1
@@ -102,6 +102,16 @@
             template: "danger",
             width: 90
         });
+        function statusChange(disabled) {
+            if (disabled === false) {
+                status = 'insert';
+                $('#typecode').val('');
+                $('#typename').val('');
+            } else {
+                status = 'update';
+            }
+            $('#typecode').jqxInput({ disabled: disabled });
+        }
         var rules = [{
             input: '#typecode',
             message: 'กรุณาระบุรหัสยี่ห้อ!',
@@ -141,19 +151,26 @@
             closeOnClick: false,
             rules: rules
         });
+        //เริ่มใหม่
+        $('#newBtn').off().on('click', function() {
+            loadHTML("set_settype");
+        });
         //บันทึก
         $('#saveBtn').off().on('click', function() {
             $('#fmSettype').jqxValidator('validate', function(result) {
                 if (result) {
                     $.when($.confirmdlg('ต้องการบันทึกข้อมูล?', 'info')).then(function() {
-                        var valueJSON = [];
-                        valueJSON.push({
+                        var valueJSON = [{
+                            status: status,
                             table: 'SETTYPE',
+                            field: 'TYPECOD',
+                            key: $('#typecode').val(),
                             value: [{
                                 TYPECOD: $('#typecode').val(),
                                 TYPEDESC: $('#typename').val()
                             }]
-                        });
+                        }];
+                        //valueJSON.push();
                         // Convert Value To JSON String
                         var value = JSON.stringify(valueJSON);
                         $('#ok').click(function(event) {
@@ -166,7 +183,7 @@
                                 success: function(data) {
                                     if (data === true) {
                                         ShowMessage("บันทึกข้อมูลเรียบร้อย!", "success");
-                                        $('form')[0].reset();
+                                        statusChange(false);
                                     } else {
                                         ShowMessage("บันทึกไม่สำเร็จ!", "error");
                                     }
@@ -179,19 +196,23 @@
         });
         //ค้นหา
         $('#searchBtn').off().on('click', function() {
-            searchAll('settype', 'find_typecode');
-            $('#okButton').off().on('click', function() {
+            var rules2 = rules.slice();
+            rules2.splice(1, 1);
+            $('#fmSettype').jqxValidator('rules', rules2);
+            //Show Dialog Search
+            searchAll('settype', 'typecode');
+            $('#okButton').on('click', function() {
+                statusChange(true);
                 $.ajax({
                     async: false,
                     method: 'GET',
                     dataType: 'json',
                     url: "sqltext",
                     data: {
-                        sql: "SELECT * FROM SETTYPE WHERE TYPECOD = '" + $("#find_typecode").val() + "' "
+                        sql: "SELECT * FROM SETTYPE WHERE TYPECOD = '" + $('#typecode').val() + "' "
                     },
                     success: function(data) {
-                        $("#typecode").val(data[0].TYPECOD);
-                        $("#typename").val(data[0].TYPEDESC);
+                        $('#typename').val(data[0].TYPEDESC);
                     }
                 });
             });

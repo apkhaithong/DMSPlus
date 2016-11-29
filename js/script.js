@@ -26,6 +26,9 @@ function createElementAlert() {
     });
     $('#alertdlg').jqxWindow('open');
 }
+function loadHTML(filename) {
+	$("#panelContent").load(filename);
+}
 $(document).ready(function () {
 	$.confirmdlg = function (message, type) {
 		var info     = '<i class="fa fa-info-circle fa-3x" style="vertical-align: middle; color: #1F4788;"></i>&nbsp;&nbsp;';

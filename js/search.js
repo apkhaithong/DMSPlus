@@ -218,17 +218,14 @@
     $('#okButton').off().on('click', function() {
         var id = '#'+returnid;
         $(id).val($("#returnvalue").val());
-
         $(id).triggerHandler('blur');
         $('#search').jqxWindow('close');
-        $(id).jqxInput('focus');
     });
     $('#tbSearch').on('rowdoubleclick', function (event) {
         $('#okButton').click();
     });
     $('#search').on('close', function (event) {
-        source.localdata = data;
-        $('#tbSearch').jqxGrid('updatebounddata');
+        $('#tbSearch').jqxGrid('clear');
         $("body").css("overflow", "");
     });
 }
