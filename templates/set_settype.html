@@ -23,7 +23,7 @@
                                         <label class="col-md-3 control-label" for="typecode">รหัสยี่ห้อ</label>
                                         <div class="col-md-9">
                                             <div class="bs-component">
-                                                <input type="text" id="typecode" class="input"/>
+                                                <input type="text" id="typecode" class="input" />
                                             </div>
                                         </div>
                                     </div>
@@ -31,7 +31,7 @@
                                         <label class="col-md-3 control-label" for="typename">รายละเอียดยี่ห้อ</label>
                                         <div class="col-md-9">
                                             <div class="bs-component">
-                                                <input type="text" id="typename" class="input"/>
+                                                <input type="text" id="typename" class="input" />
                                             </div>
                                         </div>
                                     </div>
@@ -102,6 +102,7 @@
             template: "danger",
             width: 90
         });
+
         function statusChange(disabled) {
             if (disabled === false) {
                 status = 'insert';
@@ -110,7 +111,9 @@
             } else {
                 status = 'update';
             }
-            $('#typecode').jqxInput({ disabled: disabled });
+            $('#typecode').jqxInput({
+                disabled: disabled
+            });
         }
         var rules = [{
             input: '#typecode',
@@ -185,7 +188,7 @@
                                         ShowMessage("บันทึกข้อมูลเรียบร้อย!", "success");
                                         statusChange(false);
                                     } else {
-                                        ShowMessage("บันทึกไม่สำเร็จ!", "error");
+                                        ShowMessage("บันทึกไม่สำเร็จ!", "danger");
                                     }
                                 }
                             });
@@ -215,6 +218,32 @@
                         $('#typename').val(data[0].TYPEDESC);
                     }
                 });
+            });
+        });
+        //ลบ
+        $('#deleteBtn').off().on('click', function() {
+            var valueJSON = [{
+                table: 'SETTYPE',
+                field: 'TYPECOD',
+                key: $('#typecode').val(),
+            }];
+            // Convert Value To JSON String
+            var value = JSON.stringify(valueJSON);
+            $.ajax({
+                async: false,
+                method: 'POST',
+                dataType: 'json',
+                url: "delete",
+                data: value,
+                success: function(data) {
+                    if (data === true) {
+                        ShowMessage("ลบข้อมูลเรียบร้อย!", "success");
+                        statusChange(false);
+                    }
+                },
+                error: function(xhr, status, error) {
+                    ShowMessage("ลบข้อมูลไม่สำเร็จ! ", "danger");
+                }
             });
         });
     });

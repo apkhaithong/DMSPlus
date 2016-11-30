@@ -281,7 +281,7 @@
         loadMenu();
 
         function keyPressed(e) {
-            if(e.keyCode==13) {
+            if (e.keyCode == 13) {
                 //alert('keyPressed');
                 $("#searchButton").click();
             }
@@ -289,12 +289,12 @@
 
         // Show Alert
         function ShowMessage(text, type) {
-            $('#alert-'+type+'-1-text').text(text);
-            $('#alert-'+type+'-1').slideToggle('slow');
+            $('#alert-' + type + '-1-text').html(text);
+            $('#alert-' + type + '-1').slideToggle('slow');
             setTimeout(
                 function() {
-                    $('#alert-'+type+'-1').slideToggle('slow');
-                }, 
+                    $('#alert-' + type + '-1').slideToggle('slow');
+                },
                 2500
             );
         }
@@ -312,7 +312,12 @@
             $.jqx.theme = "bootstrap";
             var width = $(window).width();
             var height = $(window).height();
-            $("#jqxLoader").jqxLoader({ width: 110, height: 60, imagePosition: 'top', text: "กำลังโหลด..." });
+            $("#jqxLoader").jqxLoader({
+                width: 110,
+                height: 60,
+                imagePosition: 'top',
+                text: "กำลังโหลด..."
+            });
 
             //Log Out
             $("#logout").click(function() {
@@ -322,29 +327,40 @@
 
             //ค้นหา
             $('#search').jqxWindow({
-                width: width+13,
-                height: height-5,
-                maxWidth: width+13,
+                width: width + 13,
+                height: height - 5,
+                maxWidth: width + 13,
                 maxHeight: height,
                 resizable: false,
                 isModal: true,
                 autoOpen: false,
                 showCollapseButton: true,
                 cancelButton: $('#cancelButton'),
-                initContent: function () {
+                initContent: function() {
                     $('#search').jqxWindow('focus');
-                    $("#searchInput").jqxInput({ height: 23, width: width-360 });
-                    $('#searchButton').jqxButton({ width: '80px'});
-                    $('#okButton').jqxButton({ width: '80px', template: "success" });
-                    $('#cancelButton').jqxButton({ width: '80px', template: "danger" });
+                    $("#searchInput").jqxInput({
+                        height: 23,
+                        width: width - 360
+                    });
+                    $('#searchButton').jqxButton({
+                        width: '80px'
+                    });
+                    $('#okButton').jqxButton({
+                        width: '80px',
+                        template: "success"
+                    });
+                    $('#cancelButton').jqxButton({
+                        width: '80px',
+                        template: "danger"
+                    });
                 }
             });
 
-            $('#search').on('open', function (event) {
+            $('#search').on('open', function(event) {
                 $('#searchInput').jqxInput('focus');
             });
 
-            $('#search').on('close', function (event) {
+            $('#search').on('close', function(event) {
                 $("#searchInput").val('');
             });
 
@@ -364,7 +380,7 @@
             $("#SET105").click(function() {
                 loadHTML("set_setgroup");
             });
-            
+
             //ระบบสต๊อกสินค้า
             $("#STK006").click(function() {
                 loadHTML("stk_onhand");
@@ -387,7 +403,7 @@
             //รายงาน
             $("#RP01").click(function() {
                 loadHTML("rp_receiptdaily");
-            });          
+            });
         });
     </script>
     <!-- END: PAGE SCRIPTS -->

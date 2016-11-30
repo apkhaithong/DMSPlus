@@ -1,5 +1,4 @@
-﻿
-<div class="row" id="spy2">
+﻿<div class="row" id="spy2">
     <!-- Chart with filter Widget -->
     <div class="col-md-12 admin-grid">
         <div class="panel" id="p2">
@@ -14,7 +13,7 @@
                 </span>
             </div>
             <div class="panel-body">
-                <form class="form-horizontal">
+                <form class="form-horizontal" id="fmSetmodel">
                     <div class="p15 pt5 mt15">
                         <div class="row">
                             <div class="col-md-12">
@@ -72,13 +71,15 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-md-12">
-                                        <div class="col-md-2 control-label"></div>
-                                        <div class="col-md-10">
-                                            <button id="saveButton">บันทึก</button>
-                                            <button id="searchButton">ค้นหา</button>
-                                            <button id="deleteButton">ลบ</button>
-                                            <button id="closeButton">ปิดระบบ</button>
+                                    <div class="form-group">
+                                        <label class="col-md-3 control-label"></label>
+                                        <div class="col-md-9">
+                                            <div class="bs-component">
+                                                <button type="button" id="newBtn"><span class="fa fa-refresh"></span> เริ่มใหม่</button>
+                                                <button type="button" id="saveBtn"><span class="fa fa-floppy-o"></span> บันทึก</button>
+                                                <button type="button" id="searchBtn"><span class="fa fa-search"></span> ค้นหา</button>
+                                                <button type="button" id="deleteBtn"><span class="fa fa-trash-o"></span> ลบ</button>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -95,6 +96,21 @@
 <!-- end: .row -->
 <script type="text/javascript">
     $(document).ready(function() {
+        var status = 'insert';
+        $('.admin-panels').adminpanel({
+            grid: '.admin-grid',
+            callback: function() {
+                bootbox.confirm('<h3>A Custom Callback!</h3>', function() {});
+            },
+            onFinish: function() {
+                $('.admin-panels').addClass('animated fadeIn').removeClass('fade-onload');
+                demoHighCharts.init();
+            },
+            onSave: function() {
+                $(window).trigger('resize');
+            }
+        });
+
         $("#modelcode").jqxInput({
             placeHolder: "Enter a model",
             height: 25,
@@ -113,9 +129,19 @@
             width: 300,
             minLength: 1
         });
-        $("#cost").jqxNumberInput({ width: '250px', height: '25px', symbol: '$', spinButtons: true });
-        $("#price").jqxNumberInput({ width: '250px', height: '25px', symbol: '$', spinButtons: true });
-        
+        $("#cost").jqxNumberInput({
+            width: '250px',
+            height: '25px',
+            symbol: '$',
+            spinButtons: true
+        });
+        $("#price").jqxNumberInput({
+            width: '250px',
+            height: '25px',
+            symbol: '$',
+            spinButtons: true
+        });
+
         $("#typecode").jqxInput({
             placeHolder: "Enter a brand",
             height: 25,
@@ -123,22 +149,166 @@
             minLength: 1
         });
 
-        $("#saveButton").jqxButton({
+        $("#newBtn").jqxButton({
+            template: "info",
+            width: 90
+        });
+        $("#saveBtn").jqxButton({
             template: "primary",
-            width: 80
+            width: 90
         });
-        $("#searchButton").jqxButton({
+        $("#searchBtn").jqxButton({
             template: "success",
-            width: 80
+            width: 90
         });
-        $("#deleteButton").jqxButton({
+        $("#deleteBtn").jqxButton({
             template: "danger",
-            width: 80
-        });
-        $("#closeButton").jqxButton({
-            template: "warning",
-            width: 80
+            width: 90
         });
 
+        function statusChange(disabled) {
+            if (disabled === false) {
+                status = 'insert';
+                $('#modelcode').val('');
+                $('#modeldesc').val('');
+            } else {
+                status = 'update';
+            }
+            $('#modelcode').jqxInput({
+                disabled: disabled
+            });
+        }
+
+        var rules = [{
+            input: '#modelcode',
+            message: 'กรุณาระบุรหัสรุ่น!',
+            action: 'keyup, blur',
+            rule: 'required'
+        }, {
+            input: '#modelcode',
+            message: 'ระบุรหัสรุ่นซ้ำ!',
+            action: 'keyup, blur',
+            rule: function(input, commit) {
+                var modelcode = $('#modelcode').val();
+                if (modelcode !== '') {
+                    $.ajax({
+                        url: "duplicateCheck",
+                        type: 'get',
+                        data: {
+                            table: 'SETMODEL',
+                            field: 'MODELCOD',
+                            value: modelcode
+                        },
+                        success: function(data) {
+                            if (data === true) {
+                                commit(true);
+                            } else commit(false);
+                        },
+                        error: function() {
+                            commit(false);
+                        }
+                    });
+                }
+            }
+        }]
+
+        $('#fmSetmodel').jqxValidator({
+            hintType: 'label',
+            animationDuration: 0,
+            closeOnClick: false,
+            rules: rules
+        });
+        //เริ่มใหม่
+        $('#newBtn').off().on('click', function() {
+            loadHTML("set_settype");
+        });
+        //บันทึก
+        $('#saveBtn').off().on('click', function() {
+            $('#fmSetmodel').jqxValidator('validate', function(result) {
+                if (result) {
+                    $.when($.confirmdlg('ต้องการบันทึกข้อมูล?', 'info')).then(function() {
+                        var valueJSON = [{
+                            status: status,
+                            table: 'SETMODEL',
+                            field: 'MODELCOD',
+                            key: $('#modelcode').val(),
+                            value: [{
+                                MODELCOD: $('#modelcode').val(),
+                                MODELDESC: $('#modeldesc').val()
+                            }]
+                        }];
+                        //valueJSON.push();
+                        // Convert Value To JSON String
+                        var value = JSON.stringify(valueJSON);
+                        $('#ok').click(function(event) {
+                            $.ajax({
+                                url: 'saveOne',
+                                type: 'POST',
+                                contentType: "application/json",
+                                dataType: "json",
+                                data: value,
+                                success: function(data) {
+                                    if (data === true) {
+                                        ShowMessage("บันทึกข้อมูลเรียบร้อย!", "success");
+                                        statusChange(false);
+                                    } else {
+                                        ShowMessage("บันทึกไม่สำเร็จ!", "danger");
+                                    }
+                                }
+                            });
+                        });
+                    });
+                }
+            });
+        });
+        //ค้นหา
+        $('#searchBtn').off().on('click', function() {
+            var rules2 = rules.slice();
+            rules2.splice(1, 1);
+            $('#fmSetmodel').jqxValidator('rules', rules2);
+            //Show Dialog Search
+            searchAll('setmodel', 'modelcode');
+            $('#okButton').on('click', function() {
+                statusChange(true);
+                $.ajax({
+                    async: false,
+                    method: 'GET',
+                    dataType: 'json',
+                    url: "sqltext",
+                    data: {
+                        sql: "SELECT * FROM SETMODEL WHERE MODELCOD = '" + $('#modelcode').val() + "' "
+                    },
+                    success: function(data) {
+                        $('#modeldesc').val(data[0].MODELDESC);
+                    }
+                });
+            });
+        });
+        //ลบ
+        $('#deleteBtn').off().on('click', function() {
+            var valueJSON = [{
+                table: 'SETMODEL',
+                field: 'MODELCOD',
+                key: $('#modelcode').val(),
+            }];
+            // Convert Value To JSON String
+            var value = JSON.stringify(valueJSON);
+            $.ajax({
+                async: false,
+                method: 'POST',
+                dataType: 'json',
+                url: "delete",
+                data: value,
+                success: function(data) {
+                    if (data === true) {
+                        ShowMessage("ลบข้อมูลเรียบร้อย!", "success");
+                        statusChange(false);
+                    }
+                },
+                error: function(xhr, status, error) {
+                    ShowMessage("ลบข้อมูลไม่สำเร็จ! ", "danger");
+                }
+            });
+        });
     });
 </script>
