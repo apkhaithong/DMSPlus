@@ -78,13 +78,13 @@
             placeHolder: "Enter a brand code",
             height: 25,
             width: 300,
-            minLength: 1
+            maxLength: 20
         });
         $("#typename").jqxInput({
             placeHolder: "Enter a brand description",
             height: 25,
             width: 300,
-            minLength: 1
+            maxLength: 20
         });
         $("#newBtn").jqxButton({
             template: "info",
@@ -99,6 +99,7 @@
             width: 90
         });
         $("#deleteBtn").jqxButton({
+            disabled: true,
             template: "danger",
             width: 90
         });
@@ -113,6 +114,9 @@
             }
             $('#typecode').jqxInput({
                 disabled: disabled
+            });
+            $("#deleteBtn").jqxButton({
+                disabled: !disabled
             });
         }
         var rules = [{
@@ -146,7 +150,7 @@
                     });
                 }
             }
-        }]
+        }];
 
         $('#fmSettype').jqxValidator({
             hintType: 'label',
@@ -222,28 +226,32 @@
         });
         //ลบ
         $('#deleteBtn').off().on('click', function() {
-            var valueJSON = [{
-                table: 'SETTYPE',
-                field: 'TYPECOD',
-                key: $('#typecode').val(),
-            }];
-            // Convert Value To JSON String
-            var value = JSON.stringify(valueJSON);
-            $.ajax({
-                async: false,
-                method: 'POST',
-                dataType: 'json',
-                url: "delete",
-                data: value,
-                success: function(data) {
-                    if (data === true) {
-                        ShowMessage("ลบข้อมูลเรียบร้อย!", "success");
-                        statusChange(false);
-                    }
-                },
-                error: function(xhr, status, error) {
-                    ShowMessage("ลบข้อมูลไม่สำเร็จ! ", "danger");
-                }
+            $.when($.confirmdlg('ต้องการลบข้อมูล?', 'warning')).then(function() {
+                $('#ok').click(function(event) {
+                    var valueJSON = [{
+                        table: 'SETTYPE',
+                        field: 'TYPECOD',
+                        key: $('#typecode').val(),
+                    }];
+                    // Convert Value To JSON String
+                    var value = JSON.stringify(valueJSON);
+                    $.ajax({
+                        async: false,
+                        method: 'POST',
+                        dataType: 'json',
+                        url: "delete",
+                        data: value,
+                        success: function(data) {
+                            if (data === true) {
+                                ShowMessage("ลบข้อมูลเรียบร้อย!", "success");
+                                statusChange(false);
+                            }
+                        },
+                        error: function(xhr, status, error) {
+                            ShowMessage("ลบข้อมูลไม่สำเร็จ! ", "danger");
+                        }
+                    });
+                });
             });
         });
     });

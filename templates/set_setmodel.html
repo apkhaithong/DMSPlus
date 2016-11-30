@@ -112,22 +112,22 @@
         });
 
         $("#modelcode").jqxInput({
-            placeHolder: "Enter a model",
+            placeHolder: "Enter a model code",
             height: 25,
             width: 300,
-            minLength: 1
+            maxLength: 20
         });
         $("#modeldesc").jqxInput({
-            placeHolder: "Enter a model",
+            placeHolder: "Enter a model description",
             height: 25,
             width: 300,
-            minLength: 1
+            maxLength: 20
         });
         $("#prefix").jqxInput({
             placeHolder: "Enter a prefix",
             height: 25,
             width: 300,
-            minLength: 1
+            maxLength: 10
         });
         $("#cost").jqxNumberInput({
             width: '250px',
@@ -143,10 +143,10 @@
         });
 
         $("#typecode").jqxInput({
-            placeHolder: "Enter a brand",
+            placeHolder: "Enter a brand code",
             height: 25,
             width: 300,
-            minLength: 1
+            maxLength: 20
         });
 
         $("#newBtn").jqxButton({
@@ -162,6 +162,7 @@
             width: 90
         });
         $("#deleteBtn").jqxButton({
+            disabled: true,
             template: "danger",
             width: 90
         });
@@ -171,11 +172,18 @@
                 status = 'insert';
                 $('#modelcode').val('');
                 $('#modeldesc').val('');
+                $('#prefix').val('');
+                $('#cost').val(0);
+                $('#price').val(0);
+                $('#typecode').val('');
             } else {
                 status = 'update';
             }
             $('#modelcode').jqxInput({
                 disabled: disabled
+            });
+            $("#deleteBtn").jqxButton({
+                disabled: !disabled
             });
         }
 
@@ -210,7 +218,38 @@
                     });
                 }
             }
-        }]
+        }, {
+            input: '#typecode',
+            message: 'กรุณาระบุรหัสยี่ห้อ!',
+            action: 'keyup, blur, focusout',
+            rule: 'required'
+        }, {
+            input: '#typecode',
+            message: 'ไม่พบรหัสยี่ห้อนี้!',
+            action: 'keyup, blur, focusout',
+            rule: function(input, commit) {
+                var typecode = $('#typecode').val();
+                if (typecode !== '') {
+                    $.ajax({
+                        url: "duplicateCheck",
+                        type: 'get',
+                        data: {
+                            table: 'SETTYPE',
+                            field: 'TYPECOD',
+                            value: typecode
+                        },
+                        success: function(data) {
+                            if (data === true) {
+                                commit(false);
+                            } else commit(true);
+                        },
+                        error: function() {
+                            commit(false);
+                        }
+                    });
+                }
+            }
+        }];
 
         $('#fmSetmodel').jqxValidator({
             hintType: 'label',
@@ -220,7 +259,7 @@
         });
         //เริ่มใหม่
         $('#newBtn').off().on('click', function() {
-            loadHTML("set_settype");
+            loadHTML("set_setmodel");
         });
         //บันทึก
         $('#saveBtn').off().on('click', function() {
@@ -234,7 +273,11 @@
                             key: $('#modelcode').val(),
                             value: [{
                                 MODELCOD: $('#modelcode').val(),
-                                MODELDESC: $('#modeldesc').val()
+                                MODELDESC: $('#modeldesc').val(),
+                                PRESTRNO: $('#prefix').val(),
+                                COST: $('#cost').val(),
+                                PRICE: $('#price').val(),
+                                TYPECOD: $('#typecode').val()
                             }]
                         }];
                         //valueJSON.push();
@@ -280,34 +323,47 @@
                     },
                     success: function(data) {
                         $('#modeldesc').val(data[0].MODELDESC);
+                        $('#prefix').val(data[0].PRESTRNO);
+                        $('#cost').val(data[0].COST);
+                        $('#price').val(data[0].PRICE);
+                        $('#typecode').val(data[0].TYPECOD);
                     }
                 });
             });
         });
+        //ค้นหา ยี่ห้อสินค้า
+        $('#searchTypecode').off().on('click', function() {
+            //Show Dialog Search
+            searchAll('settype', 'typecode');
+        });
         //ลบ
         $('#deleteBtn').off().on('click', function() {
-            var valueJSON = [{
-                table: 'SETMODEL',
-                field: 'MODELCOD',
-                key: $('#modelcode').val(),
-            }];
-            // Convert Value To JSON String
-            var value = JSON.stringify(valueJSON);
-            $.ajax({
-                async: false,
-                method: 'POST',
-                dataType: 'json',
-                url: "delete",
-                data: value,
-                success: function(data) {
-                    if (data === true) {
-                        ShowMessage("ลบข้อมูลเรียบร้อย!", "success");
-                        statusChange(false);
-                    }
-                },
-                error: function(xhr, status, error) {
-                    ShowMessage("ลบข้อมูลไม่สำเร็จ! ", "danger");
-                }
+            $.when($.confirmdlg('ต้องการลบข้อมูล?', 'warning')).then(function() {
+                $('#ok').click(function(event) {
+                    var valueJSON = [{
+                        table: 'SETMODEL',
+                        field: 'MODELCOD',
+                        key: $('#modelcode').val(),
+                    }];
+                    // Convert Value To JSON String
+                    var value = JSON.stringify(valueJSON);
+                    $.ajax({
+                        async: false,
+                        method: 'POST',
+                        dataType: 'json',
+                        url: "delete",
+                        data: value,
+                        success: function(data) {
+                            if (data === true) {
+                                ShowMessage("ลบข้อมูลเรียบร้อย!", "success");
+                                statusChange(false);
+                            }
+                        },
+                        error: function(xhr, status, error) {
+                            ShowMessage("ลบข้อมูลไม่สำเร็จ! ", "danger");
+                        }
+                    });
+                });
             });
         });
     });

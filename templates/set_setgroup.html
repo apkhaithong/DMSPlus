@@ -13,7 +13,7 @@
                 </span>
             </div>
             <div class="panel-body">
-                <form class="form-horizontal">
+                <form class="form-horizontal" id="fmSetgroup">
                     <div class="p15 pt5 mt15">
                         <div class="row">
                             <div class="col-md-12">
@@ -35,13 +35,15 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-md-12">
-                                        <div class="col-md-2 control-label"></div>
-                                        <div class="col-md-10">
-                                            <button id="saveButton">บันทึก</button>
-                                            <button id="searchButton">ค้นหา</button>
-                                            <button id="deleteButton">ลบ</button>
-                                            <button id="closeButton">ปิดระบบ</button>
+                                    <div class="form-group">
+                                        <label class="col-md-3 control-label"></label>
+                                        <div class="col-md-9">
+                                            <div class="bs-component">
+                                                <button type="button" id="newBtn"><span class="fa fa-refresh"></span> เริ่มใหม่</button>
+                                                <button type="button" id="saveBtn"><span class="fa fa-floppy-o"></span> บันทึก</button>
+                                                <button type="button" id="searchBtn"><span class="fa fa-search"></span> ค้นหา</button>
+                                                <button type="button" id="deleteBtn"><span class="fa fa-trash-o"></span> ลบ</button>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -57,33 +59,199 @@
 <!-- end: .row -->
 <script type="text/javascript">
     $(document).ready(function() {
+        var status = 'insert';
+        $('.admin-panels').adminpanel({
+            grid: '.admin-grid',
+            callback: function() {
+                bootbox.confirm('<h3>A Custom Callback!</h3>', function() {});
+            },
+            onFinish: function() {
+                $('.admin-panels').addClass('animated fadeIn').removeClass('fade-onload');
+                demoHighCharts.init();
+            },
+            onSave: function() {
+                $(window).trigger('resize');
+            }
+        });
         $("#groupcode").jqxInput({
-            placeHolder: "Enter a group",
+            placeHolder: "Enter a group code",
             height: 25,
             width: 300,
-            minLength: 1
+            maxLength: 3
         });
         $("#groupdesc").jqxInput({
-            placeHolder: "Enter a group",
+            placeHolder: "Enter a group description",
             height: 25,
             width: 300,
-            minLength: 1
+            maxLength: 60
         });
-        $("#saveButton").jqxButton({
+        $("#newBtn").jqxButton({
+            template: "info",
+            width: 90
+        });
+        $("#saveBtn").jqxButton({
             template: "primary",
-            width: 80
+            width: 90
         });
-        $("#searchButton").jqxButton({
+        $("#searchBtn").jqxButton({
             template: "success",
-            width: 80
+            width: 90
         });
-        $("#deleteButton").jqxButton({
+        $("#deleteBtn").jqxButton({
+            disabled: true,
             template: "danger",
-            width: 80
+            width: 90
         });
-        $("#closeButton").jqxButton({
-            template: "warning",
-            width: 80
+
+        function statusChange(disabled) {
+            if (disabled === false) {
+                status = 'insert';
+                $('#groupcode').val('');
+                $('#groupdesc').val('');
+            } else {
+                status = 'update';
+            }
+            $('#groupcode').jqxInput({
+                disabled: disabled
+            });
+            $("#deleteBtn").jqxButton({
+                disabled: !disabled
+            });
+        }
+        var rules = [{
+            input: '#groupcode',
+            message: 'กรุณาระบุรหัสกลุ่ม!',
+            action: 'keyup, blur',
+            rule: 'required'
+        }, {
+            input: '#groupcode',
+            message: 'ระบุรหัสกลุ่มซ้ำ!',
+            action: 'keyup, blur',
+            rule: function(input, commit) {
+                var groupcode = $('#groupcode').val();
+                if (groupcode !== '') {
+                    $.ajax({
+                        url: "duplicateCheck",
+                        type: 'get',
+                        data: {
+                            table: 'SETGROUP',
+                            field: 'GCODE',
+                            value: groupcode
+                        },
+                        success: function(data) {
+                            if (data === true) {
+                                commit(true);
+                            } else commit(false);
+                        },
+                        error: function() {
+                            commit(false);
+                        }
+                    });
+                }
+            }
+        }];
+
+        $('#fmSetgroup').jqxValidator({
+            hintType: 'label',
+            animationDuration: 0,
+            closeOnClick: false,
+            rules: rules
+        });
+        //เริ่มใหม่
+        $('#newBtn').off().on('click', function() {
+            loadHTML("set_setgroup");
+        });
+        //บันทึก
+        $('#saveBtn').off().on('click', function() {
+            $('#fmSetgroup').jqxValidator('validate', function(result) {
+                if (result) {
+                    $.when($.confirmdlg('ต้องการบันทึกข้อมูล?', 'info')).then(function() {
+                        var valueJSON = [{
+                            status: status,
+                            table: 'SETGROUP',
+                            field: 'GCODE',
+                            key: $('#groupcode').val(),
+                            value: [{
+                                GCODE: $('#groupcode').val(),
+                                GDESC: $('#groupdesc').val()
+                            }]
+                        }];
+                        //valueJSON.push();
+                        // Convert Value To JSON String
+                        var value = JSON.stringify(valueJSON);
+                        $('#ok').click(function(event) {
+                            $.ajax({
+                                url: 'saveOne',
+                                type: 'POST',
+                                contentType: "application/json",
+                                dataType: "json",
+                                data: value,
+                                success: function(data) {
+                                    if (data === true) {
+                                        ShowMessage("บันทึกข้อมูลเรียบร้อย!", "success");
+                                        statusChange(false);
+                                    } else {
+                                        ShowMessage("บันทึกไม่สำเร็จ!", "danger");
+                                    }
+                                }
+                            });
+                        });
+                    });
+                }
+            });
+        });
+        //ค้นหา
+        $('#searchBtn').off().on('click', function() {
+            var rules2 = rules.slice();
+            rules2.splice(1, 1);
+            $('#fmSetgroup').jqxValidator('rules', rules2);
+            //Show Dialog Search
+            searchAll('setgroup', 'groupcode');
+            $('#okButton').on('click', function() {
+                statusChange(true);
+                $.ajax({
+                    async: false,
+                    method: 'GET',
+                    dataType: 'json',
+                    url: "sqltext",
+                    data: {
+                        sql: "SELECT * FROM SETGROUP WHERE GCODE = '" + $('#groupcode').val() + "' "
+                    },
+                    success: function(data) {
+                        $('#groupdesc').val(data[0].GDESC);
+                    }
+                });
+            });
+        });
+        //ลบ
+        $('#deleteBtn').off().on('click', function() {
+            $.when($.confirmdlg('ต้องการลบข้อมูล?', 'warning')).then(function() {
+                $('#ok').click(function(event) {
+                    var valueJSON = [{
+                        table: 'SETGROUP',
+                        field: 'GCODE',
+                        key: $('#groupcode').val(),
+                    }];
+                    // Convert Value To JSON String
+                    var value = JSON.stringify(valueJSON);
+                    $.ajax({
+                        async: false,
+                        method: 'POST',
+                        dataType: 'json',
+                        url: "delete",
+                        data: value,
+                        success: function(data) {
+                            if (data === true) {
+                                ShowMessage("ลบข้อมูลเรียบร้อย!", "success");
+                                statusChange(false);
+                            }
+                        },
+                        error: function(xhr, status, error) {
+                            ShowMessage("ลบข้อมูลไม่สำเร็จ! ", "danger");
+                        }
+                    });
+                });
+            });
         });
     });
 </script>
