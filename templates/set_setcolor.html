@@ -69,7 +69,7 @@
                                         </div>
                                     </div>
                                 </div>
-
+                                <input type="hidden" id="validecolortrn">
                             </div>
                         </div>
                     </div>
@@ -82,6 +82,21 @@
 <!-- end: .row -->
 <script type="text/javascript">
     $(document).ready(function() {
+        var status = 'insert';
+        var oldColortrn = [];
+        $('.admin-panels').adminpanel({
+            grid: '.admin-grid',
+            callback: function() {
+                bootbox.confirm('<h3>A Custom Callback!</h3>', function() {});
+            },
+            onFinish: function() {
+                $('.admin-panels').addClass('animated fadeIn').removeClass('fade-onload');
+                demoHighCharts.init();
+            },
+            onSave: function() {
+                $(window).trigger('resize');
+            }
+        });
         $("#colorcode").jqxInput({
             placeHolder: "Enter a color code",
             height: 25,
@@ -101,25 +116,120 @@
             maxLength: 30
         });
         // states
-        $("#block").jqxCheckBox({ width: 120, height: 25, checked: false});
-        $("#block").on('change', function (event) {
+        $("#block").jqxCheckBox({
+            width: 120,
+            height: 25,
+            checked: false
+        });
+        $("#block").on('change', function(event) {
             var checked = event.args.checked;
             if (checked) {
                 $("#block").find('span')[1].innerHTML = 'ระงับ';
-            }
-            else {
+            } else {
                 $("#block").find('span')[1].innerHTML = 'ใช้งานปกติ';
             }
         });
-
-        var dataXsettype = [];
-        var sourceListsettype = {
+        //ข้อมูลรุ่น ทั้งหมด
+        var sourceSetmodel = {
+            async: false,
             datatype: "json",
             datafields: [{
-                name: 'modelcode',
+                name: 'MODELCOD',
                 type: 'string'
             }, {
-                name: 'baabcode',
+                name: 'MODELDESC',
+                type: 'string'
+            }],
+            url: "sqltext",
+            data: {
+                sql: "SELECT * FROM SETMODEL ORDER BY MODELCOD"
+            }
+        };
+        var dataAdtSetmodel = new $.jqx.dataAdapter(sourceSetmodel);
+        //ข้อมูลแบบ ทั้งหมด
+        var sourceSetbaab = {
+            async: false,
+            datatype: "json",
+            datafields: [{
+                name: 'BAABCOD',
+                type: 'string'
+            }, {
+                name: 'BAABDESC',
+                type: 'string'
+            }],
+            url: "sqltext",
+            data: {
+                sql: "SELECT * FROM SETBAAB ORDER BY BAABCOD"
+            }
+        };
+        var dataAdtSetbaab = new $.jqx.dataAdapter(sourceSetbaab);
+        //Validate Grid
+        function createGridValidate(cell, value) {
+            $("#validecolortrn").val("true");
+            if (cell.column === "MODELCOD") {
+                var rows = $("#tablesetcolor").jqxGrid('getdisplayrows');
+                if ((value !== undefined) && (value !== '')) {
+                    var x1 = 0;
+                    for (var i = 0; i < rows.length; i++) {
+                        var row = rows[i];
+                        if ((i !== cell.row) && (row.MODELCOD === value)) {
+                            x1++;
+                        };
+                    }
+                    if (x1 !== 0) {
+                        return {
+                            result: false,
+                            message: "ไม่สามารถเลือกรหัสรุ่นซ้ำกันได้"
+                        };
+                    };
+                    if (x1 !== 0) {
+                        $("#validecolortrn").val("false");
+                    };
+                } else {
+                    $("#validecolortrn").val("false");
+                    return {
+                        result: false,
+                        message: "กรุณาเลือกรหัสรุ่น"
+                    };
+                }
+            } else if (cell.column === "BAABCOD") {
+                var rows = $("#tablesetcolor").jqxGrid('getdisplayrows');
+                if ((value !== undefined) && (value !== '')) {
+                    var x1 = 0;
+                    for (var i = 0; i < rows.length; i++) {
+                        var row = rows[i];
+                        if ((i !== cell.row) && (row.BAABCOD === value)) {
+                            x1++;
+                        };
+                    }
+                    if (x1 !== 0) {
+                        return {
+                            result: false,
+                            message: "ไม่สามารถเลือกรหัสแบบซ้ำกันได้"
+                        };
+                    };
+                    if (x1 !== 0) {
+                        $("#validecolortrn").val("false");
+                    };
+                } else {
+                    $("#validecolortrn").val("false");
+                    return {
+                        result: false,
+                        message: "กรุณาเลือกรหัสแบบ"
+                    };
+                }
+            }
+            return true;
+        }
+
+        var dataColortrn = [];
+        var sourceColortrn = {
+            datatype: "json",
+            datafields: [{
+                name: 'MODELCOD',
+                type: 'string'
+            }, {
+                name: 'BAABCOD',
                 type: 'string'
 
             }],
@@ -133,20 +243,20 @@
                 commit(true);
             },
             id: 'id',
-            localdata: dataXsettype
+            localdata: dataColortrn
         };
 
-        var dataSettype = new $.jqx.dataAdapter(sourceListsettype);
+        var dataAdtColortrn = new $.jqx.dataAdapter(sourceColortrn);
         $("#tablesetcolor").jqxGrid({
             width: '100%',
             height: 250,
-            source: dataSettype,
+            source: dataAdtColortrn,
             editable: true,
             altrows: true,
             filterable: true,
-            columnsresize: true,     
-            selectionmode: 'singlerow',           
-            editmode: 'selectedrow',
+            columnsresize: true,
+            selectionmode: 'singlerow',
+            editmode: 'selectedcell',
             showstatusbar: true,
             statusbarheight: 35,
             showaggregates: true,
@@ -170,24 +280,65 @@
                 aggregatesrenderer: function(aggregates, column, element) {
                     var renderstring = "";
                     $.each(aggregates, function(key, value) {
-                        // console.log(aggregates);
                         renderstring += '<div style="position: relative; margin: 4px; overflow: hidden; font-weight: bold;">' + value + '</div>';
                     });
                     return renderstring;
                 }
             }, {
                 text: 'รหัสรุ่น',
+                datafield: 'MODELCOD',
                 width: 200,
                 align: 'center',
                 cellsalign: 'left',
-                columntype: 'textbox',
-                datafield: 'modelcode',
+                validation: createGridValidate,
+                columntype: 'combobox',
+                createeditor: function(row, column, editor) {
+                    editor.jqxComboBox({
+                        source: dataAdtSetmodel,
+                        displayMember: 'MODELCOD',
+                        valueMember: 'MODELCOD',
+                        dropDownHeight: 203,
+                        selectionMode: "dropDownList",
+                        searchMode: 'containsignorecase',
+                        selectedIndex: 0,
+                        dropDownWidth: 270
+                    });
+                    editor.on('change', function(event) {
+                        if (event.args !== undefined) {
+                            if (event.args.type == "keyboard" || event.args.type == "mouse") {
+                                $("#tablesetcolor").jqxGrid('endcelledit', row, "MODELCOD", false);
+                            }
+                        }
+                    });
+                }
             }, {
                 text: 'รหัสแบบ',
-                columntype: 'textbox',
-                datafield: 'baabcode',
-                width: 200
-            }, ],
+                datafield: 'BAABCOD',
+                width: 200,
+                align: 'center',
+                cellsalign: 'left',
+                validation: createGridValidate,
+                columntype: 'combobox',
+                createeditor: function(row, column, editor) {
+                    editor.jqxComboBox({
+                        source: dataAdtSetbaab,
+                        displayMember: 'BAABCOD',
+                        valueMember: 'BAABCOD',
+                        dropDownHeight: 203,
+                        selectionMode: "dropDownList",
+                        searchMode: 'containsignorecase',
+                        selectedIndex: 0,
+                        dropDownWidth: 270
+                    });
+                    editor.on('change', function(event) {
+                        if (event.args !== undefined) {
+                            if (event.args.type == "keyboard" || event.args.type == "mouse") {
+                                $("#tablesetcolor").jqxGrid('endcelledit', row, "BAABCOD", false);
+                            }
+                        }
+                    });
+                }
+            }],
             showtoolbar: true,
             rendertoolbar: function(toolbar) {
                 var container = $("<div style='margin: 5px;'></div>");
@@ -196,29 +347,23 @@
 
                 // create new row.
                 $("#addrow1").off().on('click', function() {
-                    var rows = $("#tablesetcolor").jqxGrid('getdisplayrows');
-                    var x1 = 0;
-                    // console.log(rows);
-                    for (var i = 0; i < rows.length; i++) {
-                        var row = rows[i];
-                        //console.log(row.payfor);
-                        if ((row.modelcode === undefined)) {
-                            x1++;
-                        };
-                    }
-
-                    if (x1 === 0) {
-                        var datarow = {
-                            dramt: 0.00,
-                            cramt: 0.00
-                        };
-                        var commit = $("#tablesetcolor").jqxGrid('addrow', null, datarow);
-                        $("#chkgrid").val("true");
-
-                        var recodecount = $("#tablesetcolor").jqxGrid('getdatainformation').rowscount;
-                        // console.log(recodecount);
-                        $("#tablesetcolor").jqxGrid('begincelledit', recodecount - 1, 'modelcode');
-                    }
+                    if ($("#colorcode").val() !== '') {
+                        var rows = $("#tablesetcolor").jqxGrid('getdisplayrows');
+                        var x1 = 0;
+                        for (var i = 0; i < rows.length; i++) {
+                            var row = rows[i];
+                            if ((row.MODELCOD === undefined) || (row.BAABCOD === undefined) || (row.MODELCOD === '') || (row.BAABCOD === '')) {
+                                x1++;
+                            };
+                        }
+                        if (x1 === 0) {
+                            var datarow = {
+                                MODELCOD: '',
+                                BAABCOD: ''
+                            };
+                            var commit = $("#tablesetcolor").jqxGrid('addrow', null, datarow);
+                        }
+                    };
                 });
 
                 //Delete row
@@ -228,11 +373,8 @@
                     if (selectedrowindex >= 0 && selectedrowindex < rowscount) {
                         var id = $("#tablesetcolor").jqxGrid('getrowid', selectedrowindex);
                         var commit = $("#tablesetcolor").jqxGrid('deleterow', id);
-                        // console.log(rowscount);
-                        if (rowscount <= "1") {
-                            $("#chkgrid").val("false");
-                        }
                     }
+                    return false;
                 });
 
                 $("#addrow1").jqxButton({
@@ -330,13 +472,27 @@
         //บันทึก
         $('#saveBtn').off().on('click', function() {
             $('#fmSetcolor').jqxValidator('validate', function(result) {
-                if (result) {
+                if ((result) && ($("#validecolortrn").val() === "true")) {
                     $.when($.confirmdlg('ต้องการบันทึกข้อมูล?', 'info')).then(function() {
                         var valueBlock = '';
                         if ($("#block").val() === true) {
                             valueBlock = 'Y';
                         } else {
                             valueBlock = 'N';
+                        }
+                        $("#tablesetcolor").jqxGrid('refreshdata');
+                        var rowscount = $("#tablesetcolor").jqxGrid('getdatainformation').rowscount;
+                        var colortrn = [];
+                        if (oldColortrn.length === 0) {
+                            for (var i = 0; i < rowscount; i++) {
+                                var data = $("#tablesetcolor").jqxGrid('getrowdata', i);
+                                oldColortrn.push({
+                                    COLORCOD: $("#colorcode").val(),
+                                    MODELCOD: data.MODELCOD,
+                                    BAABCOD: data.BAABCOD,
+                                    INSTATUS: 'insert'
+                                });
+                            };
                         }
                         var valueJSON = [{
                             status: status,
@@ -349,27 +505,30 @@
                                 COLORGRP: $('#colorgroup').val(),
                                 BLOCK: valueBlock
                             }]
+                        }, {
+                            table: 'COLORTRAN',
+                            value: oldColortrn
                         }];
-                        //valueJSON.push();
                         // Convert Value To JSON String
                         var value = JSON.stringify(valueJSON);
-                        $('#ok').click(function(event) {
-                            $.ajax({
-                                url: 'saveOne',
-                                type: 'POST',
-                                contentType: "application/json",
-                                dataType: "json",
-                                data: value,
-                                success: function(data) {
-                                    if (data === true) {
-                                        ShowMessage("บันทึกข้อมูลเรียบร้อย!", "success");
-                                        statusChange(false);
-                                    } else {
-                                        ShowMessage("บันทึกไม่สำเร็จ!", "danger");
-                                    }
-                                }
-                            });
-                        });
+                        console.log(value);
+                        // $('#ok').click(function(event) {
+                        //     $.ajax({
+                        //         url: 'saveOne',
+                        //         type: 'POST',
+                        //         contentType: "application/json",
+                        //         dataType: "json",
+                        //         data: value,
+                        //         success: function(data) {
+                        //             if (data === true) {
+                        //                 ShowMessage("บันทึกข้อมูลเรียบร้อย!", "success");
+                        //                 statusChange(false);
+                        //             } else {
+                        //                 ShowMessage("บันทึกไม่สำเร็จ!", "danger");
+                        //             }
+                        //         }
+                        //     });
+                        // });
                     });
                 }
             });
