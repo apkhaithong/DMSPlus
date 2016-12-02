@@ -83,7 +83,6 @@
 <script type="text/javascript">
     $(document).ready(function() {
         var status = 'insert';
-        var oldColortrn = [];
         $('.admin-panels').adminpanel({
             grid: '.admin-grid',
             callback: function() {
@@ -226,6 +225,9 @@
         var sourceColortrn = {
             datatype: "json",
             datafields: [{
+                name: 'IDNO',
+                type: 'integer'
+            }, {
                 name: 'MODELCOD',
                 type: 'string'
             }, {
@@ -284,6 +286,11 @@
                     });
                     return renderstring;
                 }
+            }, {
+                text: 'IDNO',
+                datafield: 'IDNO',
+                width: 80,
+                hidden: false
             }, {
                 text: 'รหัสรุ่น',
                 datafield: 'MODELCOD',
@@ -358,6 +365,7 @@
                         }
                         if (x1 === 0) {
                             var datarow = {
+                                IDNO: 0,
                                 MODELCOD: '',
                                 BAABCOD: ''
                             };
@@ -483,17 +491,15 @@
                         $("#tablesetcolor").jqxGrid('refreshdata');
                         var rowscount = $("#tablesetcolor").jqxGrid('getdatainformation').rowscount;
                         var colortrn = [];
-                        if (oldColortrn.length === 0) {
-                            for (var i = 0; i < rowscount; i++) {
-                                var data = $("#tablesetcolor").jqxGrid('getrowdata', i);
-                                oldColortrn.push({
-                                    COLORCOD: $("#colorcode").val(),
-                                    MODELCOD: data.MODELCOD,
-                                    BAABCOD: data.BAABCOD,
-                                    INSTATUS: 'insert'
-                                });
-                            };
-                        }
+                        for (var i = 0; i < rowscount; i++) {
+                            var data = $("#tablesetcolor").jqxGrid('getrowdata', i);
+                            colortrn.push({
+                                IDNO: data.IDNO,
+                                COLORCOD: $("#colorcode").val(),
+                                MODELCOD: data.MODELCOD,
+                                BAABCOD: data.BAABCOD
+                            });
+                        };
                         var valueJSON = [{
                             status: status,
                             table: 'SETCOLOR',
@@ -507,28 +513,28 @@
                             }]
                         }, {
                             table: 'COLORTRAN',
-                            value: oldColortrn
+                            value: colortrn
                         }];
                         // Convert Value To JSON String
                         var value = JSON.stringify(valueJSON);
                         console.log(value);
-                        // $('#ok').click(function(event) {
-                        //     $.ajax({
-                        //         url: 'saveOne',
-                        //         type: 'POST',
-                        //         contentType: "application/json",
-                        //         dataType: "json",
-                        //         data: value,
-                        //         success: function(data) {
-                        //             if (data === true) {
-                        //                 ShowMessage("บันทึกข้อมูลเรียบร้อย!", "success");
-                        //                 statusChange(false);
-                        //             } else {
-                        //                 ShowMessage("บันทึกไม่สำเร็จ!", "danger");
-                        //             }
-                        //         }
-                        //     });
-                        // });
+                        $('#ok').click(function(event) {
+                            $.ajax({
+                                url: 'saveAll',
+                                type: 'POST',
+                                contentType: "application/json",
+                                dataType: "json",
+                                data: value,
+                                success: function(data) {
+                                    if (data === true) {
+                                        ShowMessage("บันทึกข้อมูลเรียบร้อย!", "success");
+                                        statusChange(false);
+                                    } else {
+                                        ShowMessage("บันทึกไม่สำเร็จ!", "danger");
+                                    }
+                                }
+                            });
+                        });
                     });
                 }
             });
