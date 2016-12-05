@@ -17,7 +17,6 @@
                     <div class="p15 pt5 mt15">
                         <div class="row">
                             <div class="col-md-12">
-
                                 <!-- Start -->
                                 <div class="admin-form">
                                     <div class="form-group">
@@ -69,7 +68,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <input type="hidden" id="validecolortrn">
+                                <input type="hidden" id="validecolortrn" value="true">
                             </div>
                         </div>
                     </div>
@@ -82,7 +81,243 @@
 <!-- end: .row -->
 <script type="text/javascript">
     $(document).ready(function() {
+        //ฟังก์ชั่น สถานะ Insert หรือ Edit
+        function statusChange(disabled) {
+            if (disabled === false) {
+                status = 'insert';
+                $('#colorcode').val('');
+                $('#colordesc').val('');
+                $('#colorgroup').val('');
+                $('#block').val(false);
+                $('#tablesetcolor').jqxGrid('clear');
+            } else {
+                status = 'update';
+            }
+            $('#colorcode').jqxInput({
+                disabled: disabled
+            });
+            $("#deleteBtn").jqxButton({
+                disabled: !disabled
+            });
+        }
+        //ฟังก์ชั่น Get Data COLORTRAN
+        function getColortran(colorcod) {
+            $.ajax({
+                async: false,
+                method: 'GET',
+                dataType: 'json',
+                url: "sqltext",
+                data: {
+                    sql: "SELECT * FROM COLORTRAN WHERE COLORCOD = '" + colorcod + "' ORDER BY COLORCOD, MODELCOD"
+                },
+                success: function(data) {
+                    sourceColortrn.localdata = data;
+                    $('#tablesetcolor').jqxGrid('updatebounddata');
+                }
+            });
+        }
+        //ฟังก์ชั่นเช็ค validate COLORTRAN
+        function validateColortran() {
+            $("#tablesetcolor").jqxGrid('hidevalidationpopups');
+            var rows = $("#tablesetcolor").jqxGrid('getdisplayrows');
+            var modelcod = '',
+                baabcod = '',
+                nullModelcode = 0,
+                nullBaabcode = 0,
+                validateModelcode = 0,
+                validateBaabcode = 0,
+                duplicateModelcode = 0,
+                duplicateBaabcode = 0,
+                result = true;
+            //Check validate
+            for (var i = 0; i < rows.length; i++) {
+                var row = rows[i];
+                if ((row.MODELCOD === undefined) || (row.MODELCOD === '')) {
+                    nullModelcode++; 
+                } else {
+                    $.ajax({
+                        async: false,
+                        url: "duplicateCheck",
+                        type: 'get',
+                        data: {
+                            table: 'SETMODEL',
+                            field: 'MODELCOD',
+                            value: row.MODELCOD
+                        },
+                        success: function(data) {
+                            if (data === true) {
+                                validateModelcode++;
+                            }
+                        }
+                    });
+
+                    if (validateModelcode === 0) {
+                        if (modelcod === '') {
+                            modelcod = row.MODELCOD;
+                        } else {
+                            if (modelcod === row.MODELCOD) {
+                                duplicateModelcode++;
+                            } else {
+                                modelcod = row.MODELCOD;
+                            }
+                        }
+                    }
+                }
+                if ((row.BAABCOD === undefined) || (row.BAABCOD === '')) {
+                    nullBaabcode++; 
+                } else {
+                    $.ajax({
+                        async: false,
+                        url: "duplicateCheck",
+                        type: 'get',
+                        data: {
+                            table: 'SETBAAB',
+                            field: 'BAABCOD',
+                            value: row.BAABCOD
+                        },
+                        success: function(data) {
+                            if (data === true) {
+                                validateBaabcode++;
+                            }
+                        }
+                    });
+
+                    if (validateBaabcode === 0) {
+                        if (baabcod === '') {
+                            baabcod = row.BAABCOD;
+                        } else {
+                            if (baabcod === row.BAABCOD) {
+                                duplicateBaabcode++;
+                            } else {
+                                baabcod = row.BAABCOD;
+                            }
+                        }
+                    }
+                }
+                if (nullModelcode !== 0) {
+                    $("#tablesetcolor").jqxGrid('showvalidationpopup', i, "MODELCOD", "กรุณาเลือกรหัสรุ่น");
+                    result = false;
+                };
+                if (nullBaabcode !== 0) {
+                    $("#tablesetcolor").jqxGrid('showvalidationpopup', i, "BAABCOD", "กรุณาเลือกรหัสแบบ");
+                    result = false;
+                };
+                if (validateModelcode !== 0) {
+                    $("#tablesetcolor").jqxGrid('showvalidationpopup', i, "MODELCOD", "ไม่พบรหัสรุ่น");
+                    result = false;
+                };
+                if (validateBaabcode !== 0) {
+                    $("#tablesetcolor").jqxGrid('showvalidationpopup', i, "BAABCOD", "ไม่พบรหัสแบบ");
+                    result = false;
+                };
+                if (duplicateModelcode !== 0) {
+                    $("#tablesetcolor").jqxGrid('showvalidationpopup', i, "MODELCOD", "ไม่สามารถเลือกรหัสรุ่นซ้ำกันได้");
+                    result = false;
+                };
+                if (duplicateBaabcode !== 0) {
+                    $("#tablesetcolor").jqxGrid('showvalidationpopup', i, "BAABCOD", "ไม่สามารถเลือกรหัสแบบซ้ำกันได้");
+                    result = false;
+                };
+            }
+            return result;
+        }
+        //Default status Insert
         var status = 'insert';
+        //ข้อมูลรุ่น ทั้งหมด
+        var sourceSetmodel = {
+            async: false,
+            datatype: "json",
+            datafields: [{
+                name: 'MODELCOD',
+                type: 'string'
+            }, {
+                name: 'MODELDESC',
+                type: 'string'
+            }],
+            url: "sqltext",
+            data: {
+                sql: "SELECT * FROM SETMODEL ORDER BY MODELCOD"
+            }
+        };
+        var dataAdtSetmodel = new $.jqx.dataAdapter(sourceSetmodel);
+        //ข้อมูลแบบ ทั้งหมด
+        var sourceSetbaab = {
+            async: false,
+            datatype: "json",
+            datafields: [{
+                name: 'BAABCOD',
+                type: 'string'
+            }, {
+                name: 'BAABDESC',
+                type: 'string'
+            }],
+            url: "sqltext",
+            data: {
+                sql: "SELECT * FROM SETBAAB ORDER BY BAABCOD"
+            }
+        };
+        var dataAdtSetbaab = new $.jqx.dataAdapter(sourceSetbaab);
+        //เงื่อนไข validate SETCOLOR
+        var rules = [{
+            input: '#colorcode',
+            message: 'กรุณาระบุรหัสสี!',
+            action: 'keyup, blur',
+            rule: 'required'
+        }, {
+            input: '#colorcode',
+            message: 'ระบุรหัสสีซ้ำ!',
+            action: 'keyup, blur',
+            rule: function(input, commit) {
+                var colorcode = $('#colorcode').val();
+                if (colorcode !== '') {
+                    $.ajax({
+                        url: "duplicateCheck",
+                        type: 'get',
+                        data: {
+                            table: 'SETCOLOR',
+                            field: 'COLORCOD',
+                            value: colorcode
+                        },
+                        success: function(data) {
+                            if (data === true) {
+                                commit(true);
+                            } else commit(false);
+                        },
+                        error: function() {
+                            commit(false);
+                        }
+                    });
+                }
+            }
+        }];
+        //DataSource COLORTRAN
+        var dataColortrn = [];
+        var sourceColortrn = {
+            datatype: "json",
+            datafields: [{
+                name: 'IDNO',
+                type: 'integer'
+            }, {
+                name: 'MODELCOD',
+                type: 'string'
+            }, {
+                name: 'BAABCOD',
+                type: 'string'
+
+            }],
+            addrow: function(rowid, rowdata, position, commit) {
+                commit(true);
+            },
+            deleterow: function(rowid, commit) {
+                commit(true);
+            },
+            updaterow: function(rowid, newdata, commit) {
+                commit(true);
+            },
+            id: 'id',
+            localdata: dataColortrn
+        };
+        var dataAdtColortrn = new $.jqx.dataAdapter(sourceColortrn);
         $('.admin-panels').adminpanel({
             grid: '.admin-grid',
             callback: function() {
@@ -128,134 +363,14 @@
                 $("#block").find('span')[1].innerHTML = 'ใช้งานปกติ';
             }
         });
-        //ข้อมูลรุ่น ทั้งหมด
-        var sourceSetmodel = {
-            async: false,
-            datatype: "json",
-            datafields: [{
-                name: 'MODELCOD',
-                type: 'string'
-            }, {
-                name: 'MODELDESC',
-                type: 'string'
-            }],
-            url: "sqltext",
-            data: {
-                sql: "SELECT * FROM SETMODEL ORDER BY MODELCOD"
-            }
-        };
-        var dataAdtSetmodel = new $.jqx.dataAdapter(sourceSetmodel);
-        //ข้อมูลแบบ ทั้งหมด
-        var sourceSetbaab = {
-            async: false,
-            datatype: "json",
-            datafields: [{
-                name: 'BAABCOD',
-                type: 'string'
-            }, {
-                name: 'BAABDESC',
-                type: 'string'
-            }],
-            url: "sqltext",
-            data: {
-                sql: "SELECT * FROM SETBAAB ORDER BY BAABCOD"
-            }
-        };
-        var dataAdtSetbaab = new $.jqx.dataAdapter(sourceSetbaab);
-        //Validate Grid
-        function createGridValidate(cell, value) {
-            $("#validecolortrn").val("true");
-            if (cell.column === "MODELCOD") {
-                var rows = $("#tablesetcolor").jqxGrid('getdisplayrows');
-                if ((value !== undefined) && (value !== '')) {
-                    var x1 = 0;
-                    for (var i = 0; i < rows.length; i++) {
-                        var row = rows[i];
-                        if ((i !== cell.row) && (row.MODELCOD === value)) {
-                            x1++;
-                        };
-                    }
-                    if (x1 !== 0) {
-                        return {
-                            result: false,
-                            message: "ไม่สามารถเลือกรหัสรุ่นซ้ำกันได้"
-                        };
-                    };
-                    if (x1 !== 0) {
-                        $("#validecolortrn").val("false");
-                    };
-                } else {
-                    $("#validecolortrn").val("false");
-                    return {
-                        result: false,
-                        message: "กรุณาเลือกรหัสรุ่น"
-                    };
-                }
-            } else if (cell.column === "BAABCOD") {
-                var rows = $("#tablesetcolor").jqxGrid('getdisplayrows');
-                if ((value !== undefined) && (value !== '')) {
-                    var x1 = 0;
-                    for (var i = 0; i < rows.length; i++) {
-                        var row = rows[i];
-                        if ((i !== cell.row) && (row.BAABCOD === value)) {
-                            x1++;
-                        };
-                    }
-                    if (x1 !== 0) {
-                        return {
-                            result: false,
-                            message: "ไม่สามารถเลือกรหัสแบบซ้ำกันได้"
-                        };
-                    };
-                    if (x1 !== 0) {
-                        $("#validecolortrn").val("false");
-                    };
-                } else {
-                    $("#validecolortrn").val("false");
-                    return {
-                        result: false,
-                        message: "กรุณาเลือกรหัสแบบ"
-                    };
-                }
-            }
-            return true;
-        }
-
-        var dataColortrn = [];
-        var sourceColortrn = {
-            datatype: "json",
-            datafields: [{
-                name: 'IDNO',
-                type: 'integer'
-            }, {
-                name: 'MODELCOD',
-                type: 'string'
-            }, {
-                name: 'BAABCOD',
-                type: 'string'
-
-            }],
-            addrow: function(rowid, rowdata, position, commit) {
-                commit(true);
-            },
-            deleterow: function(rowid, commit) {
-                commit(true);
-            },
-            updaterow: function(rowid, newdata, commit) {
-                commit(true);
-            },
-            id: 'id',
-            localdata: dataColortrn
-        };
-
-        var dataAdtColortrn = new $.jqx.dataAdapter(sourceColortrn);
         $("#tablesetcolor").jqxGrid({
             width: '100%',
             height: 250,
             source: dataAdtColortrn,
             editable: true,
             altrows: true,
-            filterable: true,
+            sortable: false,
+            filterable: false,
             columnsresize: true,
             selectionmode: 'singlerow',
             editmode: 'selectedcell',
@@ -290,16 +405,15 @@
                 text: 'IDNO',
                 datafield: 'IDNO',
                 width: 80,
-                hidden: false
+                hidden: true
             }, {
                 text: 'รหัสรุ่น',
                 datafield: 'MODELCOD',
                 width: 200,
                 align: 'center',
                 cellsalign: 'left',
-                validation: createGridValidate,
                 columntype: 'combobox',
-                createeditor: function(row, column, editor) {
+                createeditor: function (row, value, editor) {
                     editor.jqxComboBox({
                         source: dataAdtSetmodel,
                         displayMember: 'MODELCOD',
@@ -317,6 +431,9 @@
                             }
                         }
                     });
+                    editor.on('close', function (event) {
+                        $("#tablesetcolor").jqxGrid('hidevalidationpopups');
+                    });
                 }
             }, {
                 text: 'รหัสแบบ',
@@ -324,9 +441,8 @@
                 width: 200,
                 align: 'center',
                 cellsalign: 'left',
-                validation: createGridValidate,
                 columntype: 'combobox',
-                createeditor: function(row, column, editor) {
+                createeditor: function (row, value, editor) {
                     editor.jqxComboBox({
                         source: dataAdtSetbaab,
                         displayMember: 'BAABCOD',
@@ -344,6 +460,9 @@
                             }
                         }
                     });
+                    editor.on('close', function (event) {
+                        $("#tablesetcolor").jqxGrid('hidevalidationpopups');
+                    });
                 }
             }],
             showtoolbar: true,
@@ -351,36 +470,32 @@
                 var container = $("<div style='margin: 5px;'></div>");
                 toolbar.append(container);
                 container.append('<button type="button" id="addrow1"><span class="fa fa-plus"></span> เพิ่มรายการ</button> <button type="button" id="deleterow"><span class="fa fa-minus"></span> ลบรายการ</button>');
-
-                // create new row.
-                $("#addrow1").off().on('click', function() {
-                    if ($("#colorcode").val() !== '') {
-                        var rows = $("#tablesetcolor").jqxGrid('getdisplayrows');
-                        var x1 = 0;
-                        for (var i = 0; i < rows.length; i++) {
-                            var row = rows[i];
-                            if ((row.MODELCOD === undefined) || (row.BAABCOD === undefined) || (row.MODELCOD === '') || (row.BAABCOD === '')) {
-                                x1++;
-                            };
-                        }
-                        if (x1 === 0) {
-                            var datarow = {
-                                IDNO: 0,
-                                MODELCOD: '',
-                                BAABCOD: ''
-                            };
-                            var commit = $("#tablesetcolor").jqxGrid('addrow', null, datarow);
-                        }
-                    };
+                //Add row
+                $("#addrow1").on('click', function() {
+                    if (validateColortran() === true) {
+                        var datarow = {
+                            IDNO: 0,
+                            MODELCOD: '',
+                            BAABCOD: ''
+                        };
+                        var commit = $("#tablesetcolor").jqxGrid('addrow', null, datarow);
+                        if (commit) {
+                            var recodecount = $("#tablesetcolor").jqxGrid('getdatainformation').rowscount;
+                            $("#tablesetcolor").jqxGrid('selectrow', recodecount-1);
+                            $('#tablesetcolor').jqxGrid('begincelledit', recodecount-1, 'MODELCOD');
+                        };
+                    }
                 });
 
                 //Delete row
-                $("#deleterow").click(function() {
+                $("#deleterow").on('click', function() {
                     var selectedrowindex = $("#tablesetcolor").jqxGrid('getselectedrowindex');
+                    console.log(selectedrowindex);
                     var rowscount = $("#tablesetcolor").jqxGrid('getdatainformation').rowscount;
                     if (selectedrowindex >= 0 && selectedrowindex < rowscount) {
                         var id = $("#tablesetcolor").jqxGrid('getrowid', selectedrowindex);
                         var commit = $("#tablesetcolor").jqxGrid('deleterow', id);
+                        //$("#validecolortrn").val("true");
                     }
                     return false;
                 });
@@ -415,58 +530,6 @@
             template: "danger",
             width: 90
         });
-
-        function statusChange(disabled) {
-            if (disabled === false) {
-                status = 'insert';
-                $('#colorcode').val('');
-                $('#colordesc').val('');
-                $('#colorgroup').val('');
-                $('#block').val(false);
-            } else {
-                status = 'update';
-            }
-            $('#colorcode').jqxInput({
-                disabled: disabled
-            });
-            $("#deleteBtn").jqxButton({
-                disabled: !disabled
-            });
-        }
-
-        var rules = [{
-            input: '#colorcode',
-            message: 'กรุณาระบุรหัสสี!',
-            action: 'keyup, blur',
-            rule: 'required'
-        }, {
-            input: '#colorcode',
-            message: 'ระบุรหัสสีซ้ำ!',
-            action: 'keyup, blur',
-            rule: function(input, commit) {
-                var colorcode = $('#colorcode').val();
-                if (colorcode !== '') {
-                    $.ajax({
-                        url: "duplicateCheck",
-                        type: 'get',
-                        data: {
-                            table: 'SETCOLOR',
-                            field: 'COLORCOD',
-                            value: colorcode
-                        },
-                        success: function(data) {
-                            if (data === true) {
-                                commit(true);
-                            } else commit(false);
-                        },
-                        error: function() {
-                            commit(false);
-                        }
-                    });
-                }
-            }
-        }];
-
         $('#fmSetcolor').jqxValidator({
             hintType: 'label',
             animationDuration: 0,
@@ -480,7 +543,7 @@
         //บันทึก
         $('#saveBtn').off().on('click', function() {
             $('#fmSetcolor').jqxValidator('validate', function(result) {
-                if ((result) && ($("#validecolortrn").val() === "true")) {
+                if ((result) && (validateColortran() === true)) {
                     $.when($.confirmdlg('ต้องการบันทึกข้อมูล?', 'info')).then(function() {
                         var valueBlock = '';
                         if ($("#block").val() === true) {
@@ -564,6 +627,7 @@
                         } else {
                             $('#block').val(true);
                         }
+                        getColortran(data[0].COLORCOD);
                     }
                 });
             });
@@ -573,6 +637,10 @@
             $.when($.confirmdlg('ต้องการลบข้อมูล?', 'warning')).then(function() {
                 $('#ok').click(function(event) {
                     var valueJSON = [{
+                        table: 'COLORTRAN',
+                        field: 'COLORCOD',
+                        key: $('#colorcode').val(),
+                    }, {
                         table: 'SETCOLOR',
                         field: 'COLORCOD',
                         key: $('#colorcode').val(),
