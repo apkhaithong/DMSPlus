@@ -133,7 +133,7 @@
             for (var i = 0; i < rows.length; i++) {
                 var row = rows[i];
                 if ((row.MODELCOD === undefined) || (row.MODELCOD === '')) {
-                    nullModelcode++; 
+                    nullModelcode++;
                 } else {
                     $.ajax({
                         async: false,
@@ -164,7 +164,7 @@
                     }
                 }
                 if ((row.BAABCOD === undefined) || (row.BAABCOD === '')) {
-                    nullBaabcode++; 
+                    nullBaabcode++;
                 } else {
                     $.ajax({
                         async: false,
@@ -413,7 +413,7 @@
                 align: 'center',
                 cellsalign: 'left',
                 columntype: 'combobox',
-                createeditor: function (row, value, editor) {
+                createeditor: function(row, value, editor) {
                     editor.jqxComboBox({
                         source: dataAdtSetmodel,
                         displayMember: 'MODELCOD',
@@ -431,7 +431,7 @@
                             }
                         }
                     });
-                    editor.on('close', function (event) {
+                    editor.on('close', function(event) {
                         $("#tablesetcolor").jqxGrid('hidevalidationpopups');
                     });
                 }
@@ -442,7 +442,7 @@
                 align: 'center',
                 cellsalign: 'left',
                 columntype: 'combobox',
-                createeditor: function (row, value, editor) {
+                createeditor: function(row, value, editor) {
                     editor.jqxComboBox({
                         source: dataAdtSetbaab,
                         displayMember: 'BAABCOD',
@@ -460,7 +460,7 @@
                             }
                         }
                     });
-                    editor.on('close', function (event) {
+                    editor.on('close', function(event) {
                         $("#tablesetcolor").jqxGrid('hidevalidationpopups');
                     });
                 }
@@ -480,9 +480,14 @@
                         };
                         var commit = $("#tablesetcolor").jqxGrid('addrow', null, datarow);
                         if (commit) {
-                            var recodecount = $("#tablesetcolor").jqxGrid('getdatainformation').rowscount;
-                            $("#tablesetcolor").jqxGrid('selectrow', recodecount-1);
-                            $('#tablesetcolor').jqxGrid('begincelledit', recodecount-1, 'MODELCOD');
+                            setTimeout(
+                                function() {
+                                    var recodecount = $("#tablesetcolor").jqxGrid('getdatainformation').rowscount;
+                                    $("#tablesetcolor").jqxGrid('selectrow', recodecount - 1);
+                                    $('#tablesetcolor').jqxGrid('begincelledit', recodecount - 1, 'MODELCOD');
+                                },
+                                200
+                            );
                         };
                     }
                 });

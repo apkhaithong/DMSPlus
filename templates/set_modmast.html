@@ -1,0 +1,751 @@
+﻿<div class="row" id="spy2">
+    <!-- Chart with filter Widget -->
+    <div class="col-md-12 admin-grid">
+        <div class="panel" id="p2">
+            <div class="panel-heading">
+                <span class="panel-icon"><span class="glyphicons glyphicons-imac"></span></span>
+                <span class="panel-title">กำหนดชุดแต่ง</span>
+                <span class="panel-controls">
+                    <a href="#" class="panel-control-loader"></a>
+                    <a href="#" class="panel-control-remove"></a>
+                    <a href="#" class="panel-control-collapse"></a>
+                    <a href="#" class="panel-control-fullscreen"></a>
+                </span>
+            </div>
+            <div class="panel-body">
+                <form class="form-horizontal" id="fmModmast">
+                    <div class="p15 pt5 mt15">
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="admin-form">
+                                    <div class="form-group">
+                                        <label class="col-md-4 control-label" for="modno">เลขที่ชุดแต่ง</label>
+                                        <div class="col-md-8">
+                                            <div class="bs-component">
+                                                <input type="text" id="modno" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="admin-form">
+                                    <div class="form-group">
+                                        <label class="col-md-4 control-label" for="moddt">วันที่จัดชุด</label>
+                                        <div class="col-md-8">
+                                            <div class="bs-component">
+                                                <div id="moddt"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="admin-form">
+                                    <div class="form-group">
+                                        <label class="col-md-4 control-label" for="modelcode">รหัสรุ่นสินค้า</label>
+                                        <div class="col-md-8">
+                                            <div class="bs-component">
+                                                <div id="modelcode" class="input-button">
+                                                    <input type="text" id="v-modelcode" />
+                                                    <div id="searchModelcode"><img alt="search" width="20" height="20" src="/images/search_lg.png" /></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="admin-form">
+                                    <div class="form-group">
+                                        <label class="col-md-4 control-label" for="sumoptprc">ราคา</label>
+                                        <div class="col-md-8">
+                                            <div class="bs-component">
+                                                <div id='sumoptprc'></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-8">
+                                <div class="admin-form">
+                                    <div class="form-group">
+                                        <label class="col-md-2 control-label" for="memo1">หมายเหตุ</label>
+                                        <div class="col-md-10">
+                                            <div class="bs-component">
+                                                <textarea id="memo1"></textarea>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="admin-form">
+                                    <div class="form-group">
+                                        <div class="col-md-12">
+                                            <div id="tableModtran"></div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-md-4 control-label"></label>
+                                        <div class="col-md-8">
+                                            <div class="bs-component">
+                                                <button type="button" id="newBtn"><span class="fa fa-refresh"></span> เริ่มใหม่</button>
+                                                <button type="button" id="saveBtn"><span class="fa fa-floppy-o"></span> บันทึก</button>
+                                                <button type="button" id="searchBtn"><span class="fa fa-search"></span> ค้นหา</button>
+                                                <button type="button" id="deleteBtn"><span class="fa fa-trash-o"></span> ลบ</button>
+                                                <input type="hidden" id="sumqty" value="">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <!-- end: .col-md-12.admin-grid -->
+</div>
+<!-- end: .row -->
+<script type="text/javascript">
+    $(document).ready(function() {
+        //ฟังก์ชั่น สถานะ Insert หรือ Edit
+        function statusChange(disabled) {
+            if (disabled === false) {
+                status = 'insert';
+                $('#modno').val('');
+                $('#moddt').jqxDateTimeInput('setDate', new Date());
+                $('#modelcode').val('');
+                $('#sumoptprc').val(0);
+                $('#tableModtran').jqxGrid('clear');
+            } else {
+                status = 'update';
+            }
+            $('#modno').jqxInput({
+                disabled: disabled
+            });
+            $("#deleteBtn").jqxButton({
+                disabled: !disabled
+            });
+        }
+        //ฟังก์ชั่น Get Data MODTRAN
+        function getColortran(modno) {
+            $.ajax({
+                async: false,
+                method: 'GET',
+                dataType: 'json',
+                url: "sqltext",
+                data: {
+                    sql: "SELECT * FROM MODTRAN WHERE MODNO = '" + modno + "' ORDER BY MODNO, OPTCODE"
+                },
+                success: function(data) {
+                    sourceModtran.localdata = data;
+                    $('#tableModtran').jqxGrid('updatebounddata');
+                }
+            });
+        }
+        //ฟังก์ชั่นเช็ค validate MODTRAN
+        function validateModtran(value, index) {
+            $("#tableModtran").jqxGrid('hidevalidationpopups');
+            var rows = $("#tableModtran").jqxGrid('getdisplayrows');
+            var nullOptcode = 0,
+                validateOptcode = 0,
+                duplicateOptcode = 0,
+                result = true;
+            //Check validate
+            for (var i = 0; i < rows.length; i++) {
+                var row = rows[i];
+                if ((row.OPTCODE === undefined) || (row.OPTCODE === '')) {
+                    nullOptcode++;
+                } else {
+                    $.ajax({
+                        async: false,
+                        url: "duplicateCheck",
+                        type: 'get',
+                        data: {
+                            table: 'OPTMAST',
+                            field: 'OPTCODE',
+                            value: row.OPTCODE
+                        },
+                        success: function(data) {
+                            if (data === true) {
+                                validateOptcode++;
+                            }
+                        }
+                    });
+
+                    if (validateOptcode === 0) {
+                        for (var j = 0; j < rows.length; j++) {
+                            var row2 = rows[j];
+                            if ((row2.OPTCODE === row.OPTCODE) && (j !== i)) {
+                                duplicateOptcode++;
+                                $("#tableModtran").jqxGrid('showvalidationpopup', j, "OPTCODE", "ไม่สามารถเลือกรหัสอุปกรณ์ซ้ำกันได้");
+                                result = false;
+                            }
+                        }
+                    }
+                }
+                if (nullOptcode !== 0) {
+                    $("#tableModtran").jqxGrid('showvalidationpopup', i, "OPTCODE", "กรุณาเลือกรหัสอุปกรณ์");
+                    result = false;
+                };
+                if (validateOptcode !== 0) {
+                    $("#tableModtran").jqxGrid('showvalidationpopup', i, "OPTCODE", "ไม่พบรหัสอุปกรณ์");
+                    result = false;
+                };
+            }
+            return result;
+        }
+        //Default status Insert
+        var status = 'insert';
+        //ข้อมูลอุปกรณ์ ทั้งหมด
+        var sourceOptmast = {
+            async: false,
+            datatype: "json",
+            datafields: [{
+                name: 'OPTCODE',
+                type: 'string'
+            }, {
+                name: 'OPTNMTH',
+                type: 'string'
+            }],
+            url: "sqltext",
+            data: {
+                sql: "SELECT OPTCODE, OPTCODE||' : '||OPTNMTH AS OPTNMTH, OPTPRC FROM OPTMAST ORDER BY OPTCODE"
+            }
+        };
+        var dataAdtOptmast = new $.jqx.dataAdapter(sourceOptmast);
+        //เงื่อนไข validate MODMAST
+        var rules = [{
+            input: '#modelcode',
+            message: 'กรุณาระบุรหัสรุ่น!',
+            action: 'keyup, blur, focusout',
+            rule: 'required'
+        }, {
+            input: '#modelcode',
+            message: 'ไม่พบรหัสรุ่นนี้!',
+            action: 'keyup, blur, focusout',
+            rule: function(input, commit) {
+                var modelcode = $('#modelcode').val();
+                if (modelcode !== '') {
+                    $.ajax({
+                        url: "duplicateCheck",
+                        type: 'get',
+                        data: {
+                            table: 'SETMODEL',
+                            field: 'MODELCOD',
+                            value: modelcode
+                        },
+                        success: function(data) {
+                            if (data === true) {
+                                commit(false);
+                            } else commit(true);
+                        },
+                        error: function() {
+                            commit(false);
+                        }
+                    });
+                }
+            }
+        }];
+        //DataSource MODTRAN
+        var dataModtran = [];
+        var sourceModtran = {
+            datatype: "json",
+            datafields: [{
+                name: 'IDNO',
+                type: 'integer'
+            }, {
+                name: 'MODNO',
+                type: 'string'
+
+            }, {
+                name: 'OPTCODE',
+                type: 'string'
+            }, {
+                name: 'OPTNMTH',
+                value: 'OPTCODE',
+                values: {
+                    source: dataAdtOptmast.records,
+                    value: 'OPTCODE',
+                    name: 'OPTNMTH'
+                }
+            }, {
+                name: 'OPTNAME',
+                type: 'string'
+
+            }, {
+                name: 'QTY',
+                type: 'float'
+
+            }, {
+                name: 'FLAG',
+                type: 'string'
+
+            }, {
+                name: 'USERID',
+                type: 'string'
+
+            }, {
+                name: 'INPUTDT',
+                type: 'date'
+
+            }, {
+                name: 'OPTPRC',
+                type: 'float'
+
+            }],
+            addrow: function(rowid, rowdata, position, commit) {
+                commit(true);
+            },
+            deleterow: function(rowid, commit) {
+                commit(true);
+            },
+            updaterow: function(rowid, newdata, commit) {
+                commit(true);
+            },
+            id: 'id',
+            localdata: dataModtran
+        };
+        var dataAdtModtran = new $.jqx.dataAdapter(sourceModtran);
+        $('.admin-panels').adminpanel({
+            grid: '.admin-grid',
+            callback: function() {
+                bootbox.confirm('<h3>A Custom Callback!</h3>', function() {});
+            },
+            onFinish: function() {
+                $('.admin-panels').addClass('animated fadeIn').removeClass('fade-onload');
+                demoHighCharts.init();
+            },
+            onSave: function() {
+                $(window).trigger('resize');
+            }
+        });
+        $("#modno").jqxInput({
+            placeHolder: "Running Code",
+            height: 28,
+            width: '100%',
+            maxLength: 12
+        });
+        $("#modno").prop("readonly", true);
+        $("#moddt").jqxDateTimeInput({
+            height: 28,
+            width: '100%',
+            culture: 'en-US'
+        });
+        $("#modelcode").jqxInput({
+            placeHolder: "Enter a model code",
+            height: 28,
+            width: '100%',
+            maxLength: 20
+        });
+        $("#sumoptprc").jqxNumberInput({
+            height: 28,
+            width: '100%',
+            spinButtons: false,
+            spinButtonsStep: 0,
+            readOnly: true
+        });
+        $("#memo1").jqxInput({
+            height: 60,
+            width: '100%'
+        });
+        $("#tableModtran").jqxGrid({
+            width: '100%',
+            height: 500,
+            source: dataAdtModtran,
+            editable: true,
+            altrows: true,
+            sortable: false,
+            filterable: false,
+            columnsresize: true,
+            selectionmode: 'singlerow',
+            editmode: 'selectedcell',
+            showstatusbar: true,
+            statusbarheight: 35,
+            showaggregates: true,
+            columns: [{
+                text: '#',
+                sortable: false,
+                filterable: false,
+                editable: false,
+                groupable: false,
+                draggable: false,
+                resizable: false,
+                align: 'center',
+                cellsalign: 'center',
+                datafield: '',
+                columntype: 'number',
+                width: 15,
+                cellsrenderer: function(row, column, value) {
+                    return "<div style='margin:4px; text-align:center;'>" + (value + 1) + "</div>";
+                },
+                aggregates: ['count'],
+                aggregatesrenderer: function(aggregates, column, element) {
+                    var renderstring = "";
+                    $.each(aggregates, function(key, value) {
+                        renderstring += '<div style="position: relative; margin: 4px; overflow: hidden; font-weight: bold;">' + value + '</div>';
+                    });
+                    return renderstring;
+                }
+            }, {
+                text: 'IDNO',
+                datafield: 'IDNO',
+                hidden: true
+            }, {
+                text: 'MODNO',
+                datafield: 'MODNO',
+                hidden: true
+            }, {
+                text: 'รหัสอุปกรณ์',
+                datafield: 'OPTCODE',
+                width: 450,
+                align: 'center',
+                cellsalign: 'left',
+                columntype: 'dropdownlist',
+                displayfield: 'OPTNMTH',
+                createeditor: function(row, value, editor) {
+                    editor.jqxDropDownList({
+                        source: dataAdtOptmast,
+                        displayMember: 'OPTNMTH',
+                        valueMember: 'OPTCODE',
+                        placeHolder: "เลือกรหัสอุปกรณ์ :",
+                        dropDownHeight: 223,
+                        filterable: true,
+                        filterHeight: 30,
+                        filterPlaceHolder: "ค้นหา...",
+                        searchMode: 'containsignorecase',
+                        dropDownWidth: 450
+                    });
+                    editor.on('close', function(event) {
+                        $("#tableModtran").jqxGrid('hidevalidationpopups');
+                    });
+                },
+                cellvaluechanging: function(row, datafield, columntype, oldvalue, newvalue) {
+                    if ((newvalue.value != oldvalue) && (newvalue.value != undefined)) {
+                        $.ajax({
+                            async: false,
+                            method: 'GET',
+                            dataType: 'json',
+                            url: "sqltext",
+                            data: {
+                                sql: "SELECT OPTNMTH, OPTPRC FROM OPTMAST WHERE OPTCODE = '" + newvalue.value + "' "
+                            },
+                            success: function(data) {
+                                $("#tableModtran").jqxGrid('setcellvalue', row, "OPTNAME", data[0].OPTNMTH);
+                                $("#tableModtran").jqxGrid('setcellvalue', row, "OPTPRC", data[0].OPTPRC);
+                            }
+                        });
+                    };
+                }
+            }, {
+                text: 'ชื่ออุปกรณ์',
+                datafield: 'OPTNAME',
+                hidden: true
+            }, {
+                text: 'จำนวน',
+                datafield: 'QTY',
+                width: 80,
+                align: 'center',
+                cellsalign: 'right',
+                cellsformat: 'd2',
+                columntype: 'numberinput',
+                createeditor: function(row, value, editor) {
+                    editor.jqxNumberInput({
+                        decimalDigits: 2,
+                        digits: 12,
+                        spinButtons: false,
+                        spinButtonsStep: 0,
+                        inputMode: 'simple'
+                    });
+                },
+                aggregates: ['sum'],
+                aggregatesrenderer: function(aggregates) {
+                    var renderstring = "";
+                    $.each(aggregates, function(key, value) {
+                        renderstring += '<div style="position: relative; margin: 4px; overflow: hidden; font-weight: bold;">' + value + '</div>';
+                        $("#sumqty").val(value);
+                    });
+                    return renderstring;
+                }
+            }, {
+                text: 'FLAG',
+                datafield: 'FLAG',
+                hidden: true
+            }, {
+                text: 'USERID',
+                datafield: 'USERID',
+                hidden: true
+            }, {
+                text: 'INPUTDT',
+                datafield: 'INPUTDT',
+                hidden: true
+            }, {
+                text: 'ราคา',
+                datafield: 'OPTPRC',
+                width: 100,
+                align: 'center',
+                cellsalign: 'right',
+                cellsformat: 'd2',
+                columntype: 'numberinput',
+                createeditor: function(row, value, editor) {
+                    editor.jqxNumberInput({
+                        decimalDigits: 2,
+                        digits: 12,
+                        spinButtons: false,
+                        spinButtonsStep: 0,
+                        inputMode: 'simple'
+                    });
+                },
+                aggregates: ['sum'],
+                aggregatesrenderer: function(aggregates) {
+                    var renderstring = "";
+                    $.each(aggregates, function(key, value) {
+                        renderstring += '<div style="position: relative; margin: 4px; overflow: hidden; font-weight: bold;">' + value + '</div>';
+                        $("#sumoptprc").val(value);
+                    });
+                    return renderstring;
+                }
+            }],
+            showtoolbar: true,
+            rendertoolbar: function(toolbar) {
+                var container = $("<div style='margin: 5px;'></div>");
+                toolbar.append(container);
+                container.append('<button type="button" id="addrow1"><span class="fa fa-plus"></span> เพิ่มรายการ</button> <button type="button" id="deleterow"><span class="fa fa-minus"></span> ลบรายการ</button>');
+                //Add row
+                $("#addrow1").on('click', function() {
+                    var recodecount = $("#tableModtran").jqxGrid('getdatainformation').rowscount;
+                    if (validateModtran() === true) {
+                        var datarow = {
+                            IDNO: 0,
+                            OPTCODE: '',
+                            OPTNMTH: '',
+                            QTY: 0,
+                            FLAG: 'A',
+                            USERID: $.session.get('username'),
+                            INPUTDT: '',
+                            OPTPRC: 0,
+                        };
+                        var commit = $("#tableModtran").jqxGrid('addrow', null, datarow);
+                        if (commit) {
+                            setTimeout(
+                                function() {
+                                    $("#tableModtran").jqxGrid('selectrow', recodecount);
+                                    $('#tableModtran').jqxGrid('begincelledit', recodecount, 'OPTCODE');
+                                },
+                                200
+                            );
+                        };
+                    }
+                });
+
+                //Delete row
+                $("#deleterow").on('click', function() {
+                    var selectedrowindex = $("#tableModtran").jqxGrid('getselectedrowindex');
+                    var rowscount = $("#tableModtran").jqxGrid('getdatainformation').rowscount;
+                    if (selectedrowindex >= 0 && selectedrowindex < rowscount) {
+                        var id = $("#tableModtran").jqxGrid('getrowid', selectedrowindex);
+                        var commit = $("#tableModtran").jqxGrid('deleterow', id);
+                    }
+                    return false;
+                });
+
+                $("#addrow1").jqxButton({
+                    width: 100,
+                    height: 25,
+                    template: "success"
+                });
+                $("#deleterow").jqxButton({
+                    width: 100,
+                    height: 25,
+                    template: "danger",
+                });
+            }
+        });
+
+        $("#newBtn").jqxButton({
+            template: "info",
+            width: 90
+        });
+        $("#saveBtn").jqxButton({
+            template: "primary",
+            width: 90
+        });
+        $("#searchBtn").jqxButton({
+            template: "success",
+            width: 90
+        });
+        $("#deleteBtn").jqxButton({
+            disabled: true,
+            template: "danger",
+            width: 90
+        });
+        $('#fmModmast').jqxValidator({
+            hintType: 'label',
+            animationDuration: 0,
+            closeOnClick: false,
+            rules: rules
+        });
+        //เริ่มใหม่
+        $('#newBtn').off().on('click', function() {
+            loadHTML("set_modmast");
+        });
+        //บันทึก
+        $('#saveBtn').off().on('click', function() {
+            $('#fmModmast').jqxValidator('validate', function(result) {
+                if ((result) && (validateModtran() === true)) {
+                    $.when($.confirmdlg('ต้องการบันทึกข้อมูล?', 'info')).then(function() {
+                        var valueBlock = '';
+                        if ($("#block").val() === true) {
+                            valueBlock = 'Y';
+                        } else {
+                            valueBlock = 'N';
+                        }
+                        $("#tableModtran").jqxGrid('refreshdata');
+                        var rowscount = $("#tableModtran").jqxGrid('getdatainformation').rowscount;
+                        var docdate = $("#moddt").jqxDateTimeInput('getDate');
+                        var currentCulture = Globalize.cultures['en-US'];
+                        var localizationObject = currentCulture.calendar;
+                        var moddt = $.jqx.dataFormat.formatdate(docdate, "yyyy-MM-dd", localizationObject);
+                        var modtran = [];
+                        for (var i = 0; i < rowscount; i++) {
+                            var data = $("#tableModtran").jqxGrid('getrowdata', i);
+                            modtran.push({
+                                IDNO: data.IDNO,
+                                MODNO: data.MODNO,
+                                OPTCODE: data.OPTCODE,
+                                OPTNAME: data.OPTNAME,
+                                QTY: data.QTY,
+                                FLAG: data.FLAG,
+                                USERID: data.USERID,
+                                INPUTDT: data.INPUTDT,
+                                OPTPRC: data.OPTPRC
+                            });
+                        };
+                        var valueJSON = [{
+                            status: status,
+                            table: 'MODMAST',
+                            field: 'MODNO',
+                            key: $('#modno').val(),
+                            value: [{
+                                MODNO: $('#modno').val(),
+                                MODDT: moddt,
+                                MODELCOD: $('#modelcode').val(),
+                                SUMQTY: $('#sumqty').val(),
+                                FLAG: 'A',
+                                USERID: $.session.get('username'),
+                                MOMO1: $('#memo1').val()
+                            }]
+                        }, {
+                            table: 'MODTRAN',
+                            value: modtran
+                        }];
+                        // Convert Value To JSON String
+                        var value = JSON.stringify(valueJSON);
+                        console.log(value);
+                        $('#ok').click(function(event) {
+                            $.ajax({
+                                url: 'saveAll',
+                                type: 'POST',
+                                contentType: "application/json",
+                                dataType: "json",
+                                data: value,
+                                success: function(data) {
+                                    if (data === true) {
+                                        ShowMessage("บันทึกข้อมูลเรียบร้อย!", "success");
+                                        statusChange(false);
+                                    } else {
+                                        ShowMessage("บันทึกไม่สำเร็จ!", "danger");
+                                    }
+                                }
+                            });
+                        });
+                    });
+                }
+            });
+        });
+        //ค้นหา รุ่นสินค้า
+        $('#searchModelcode').off().on('click', function() {
+            //Show Dialog Search
+            searchAll('setmodel', 'modelcode');
+        });
+        //ค้นหา
+        $('#searchBtn').off().on('click', function() {
+            var rules2 = rules.slice();
+            rules2.splice(1, 1);
+            $('#fmModmast').jqxValidator('rules', rules2);
+            //Show Dialog Search
+            searchAll('setcolor', 'modno');
+            $('#okButton').on('click', function() {
+                statusChange(true);
+                $.ajax({
+                    async: false,
+                    method: 'GET',
+                    dataType: 'json',
+                    url: "sqltext",
+                    data: {
+                        sql: "SELECT * FROM MODMAST WHERE COLORCOD = '" + $('#modno').val() + "' "
+                    },
+                    success: function(data) {
+                        $('#moddt').val(data[0].moddt);
+                        $('#colorgroup').val(data[0].COLORGRP);
+                        if (data[0].BLOCK === 'N') {
+                            $('#block').val(false);
+                        } else {
+                            $('#block').val(true);
+                        }
+                        getColortran(data[0].COLORCOD);
+                    }
+                });
+            });
+        });
+        //ลบ
+        $('#deleteBtn').off().on('click', function() {
+            $.when($.confirmdlg('ต้องการลบข้อมูล?', 'warning')).then(function() {
+                $('#ok').click(function(event) {
+                    var valueJSON = [{
+                        table: 'MODTRAN',
+                        field: 'COLORCOD',
+                        key: $('#modno').val(),
+                    }, {
+                        table: 'MODMAST',
+                        field: 'COLORCOD',
+                        key: $('#modno').val(),
+                    }];
+                    // Convert Value To JSON String
+                    var value = JSON.stringify(valueJSON);
+                    $.ajax({
+                        async: false,
+                        method: 'POST',
+                        dataType: 'json',
+                        url: "delete",
+                        data: value,
+                        success: function(data) {
+                            if (data === true) {
+                                ShowMessage("ลบข้อมูลเรียบร้อย!", "success");
+                                statusChange(false);
+                            }
+                        },
+                        error: function(xhr, status, error) {
+                            ShowMessage("ลบข้อมูลไม่สำเร็จ! ", "danger");
+                        }
+                    });
+                });
+            });
+        });
+    });
+</script>
