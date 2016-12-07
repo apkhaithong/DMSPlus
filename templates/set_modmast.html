@@ -143,7 +143,7 @@
             });
         }
         //ฟังก์ชั่น Get Data MODTRAN
-        function getColortran(modno) {
+        function getModtran(modno) {
             $.ajax({
                 async: false,
                 method: 'GET',
@@ -177,7 +177,7 @@
                         url: "duplicateCheck",
                         type: 'get',
                         data: {
-                            table: 'OPTMAST',
+                            table: 'SETMOD',
                             field: 'OPTCODE',
                             value: row.OPTCODE
                         },
@@ -220,12 +220,12 @@
                 name: 'OPTCODE',
                 type: 'string'
             }, {
-                name: 'OPTNMTH',
+                name: 'OPTNAME',
                 type: 'string'
             }],
             url: "sqltext",
             data: {
-                sql: "SELECT OPTCODE, OPTCODE||' : '||OPTNMTH AS OPTNMTH, OPTPRC FROM OPTMAST ORDER BY OPTCODE"
+                sql: "SELECT OPTCODE, TRIM(OPTCODE)||' : '||TRIM(OPTNAME) AS OPTNAME, OPTPRC FROM SETMOD ORDER BY OPTCODE"
             }
         };
         var dataAdtOptmast = new $.jqx.dataAdapter(sourceOptmast);
@@ -277,12 +277,12 @@
                 name: 'OPTCODE',
                 type: 'string'
             }, {
-                name: 'OPTNMTH',
+                name: 'SETMOD',
                 value: 'OPTCODE',
                 values: {
                     source: dataAdtOptmast.records,
                     value: 'OPTCODE',
-                    name: 'OPTNMTH'
+                    name: 'OPTNAME'
                 }
             }, {
                 name: 'OPTNAME',
@@ -417,11 +417,11 @@
                 align: 'center',
                 cellsalign: 'left',
                 columntype: 'dropdownlist',
-                displayfield: 'OPTNMTH',
+                displayfield: 'SETMOD',
                 createeditor: function(row, value, editor) {
                     editor.jqxDropDownList({
                         source: dataAdtOptmast,
-                        displayMember: 'OPTNMTH',
+                        displayMember: 'OPTNAME',
                         valueMember: 'OPTCODE',
                         placeHolder: "เลือกรหัสอุปกรณ์ :",
                         dropDownHeight: 223,
@@ -443,11 +443,11 @@
                             dataType: 'json',
                             url: "sqltext",
                             data: {
-                                sql: "SELECT OPTNMTH, OPTPRC FROM OPTMAST WHERE OPTCODE = '" + newvalue.value + "' "
+                                sql: "SELECT OPTNAME, OPTPRC FROM SETMOD WHERE OPTCODE = '" + newvalue.value + "' "
                             },
-                            success: function(data) {
-                                $("#tableModtran").jqxGrid('setcellvalue', row, "OPTNAME", data[0].OPTNMTH);
-                                $("#tableModtran").jqxGrid('setcellvalue', row, "OPTPRC", data[0].OPTPRC);
+                            success: function(setmod) {
+                                $("#tableModtran").jqxGrid('setcellvalue', row, "OPTNAME", setmod[0].OPTNAME);
+                                $("#tableModtran").jqxGrid('setcellvalue', row, "OPTPRC", setmod[0].OPTPRC);
                             }
                         });
                     };
@@ -533,7 +533,7 @@
                         var datarow = {
                             IDNO: 0,
                             OPTCODE: '',
-                            OPTNMTH: '',
+                            OPTNAME: '',
                             QTY: 0,
                             FLAG: 'A',
                             USERID: $.session.get('username'),
@@ -609,18 +609,12 @@
             $('#fmModmast').jqxValidator('validate', function(result) {
                 if ((result) && (validateModtran() === true)) {
                     $.when($.confirmdlg('ต้องการบันทึกข้อมูล?', 'info')).then(function() {
-                        var valueBlock = '';
-                        if ($("#block").val() === true) {
-                            valueBlock = 'Y';
-                        } else {
-                            valueBlock = 'N';
-                        }
                         $("#tableModtran").jqxGrid('refreshdata');
                         var rowscount = $("#tableModtran").jqxGrid('getdatainformation').rowscount;
                         var docdate = $("#moddt").jqxDateTimeInput('getDate');
                         var currentCulture = Globalize.cultures['en-US'];
                         var localizationObject = currentCulture.calendar;
-                        var moddt = $.jqx.dataFormat.formatdate(docdate, "yyyy-MM-dd", localizationObject);
+                        var moddt = $.jqx.dataFormat.formatdate(docdate, "dd/MM/yyyy", localizationObject);
                         var modtran = [];
                         for (var i = 0; i < rowscount; i++) {
                             var data = $("#tableModtran").jqxGrid('getrowdata', i);
@@ -632,14 +626,13 @@
                                 QTY: data.QTY,
                                 FLAG: data.FLAG,
                                 USERID: data.USERID,
-                                INPUTDT: data.INPUTDT,
                                 OPTPRC: data.OPTPRC
                             });
                         };
                         var valueJSON = [{
                             status: status,
+                            locat: $.session.get('locatcd'),
                             table: 'MODMAST',
-                            field: 'MODNO',
                             key: $('#modno').val(),
                             value: [{
                                 MODNO: $('#modno').val(),
@@ -648,7 +641,8 @@
                                 SUMQTY: $('#sumqty').val(),
                                 FLAG: 'A',
                                 USERID: $.session.get('username'),
-                                MOMO1: $('#memo1').val()
+                                MOMO1: $('#memo1').val(),
+                                SUMOPTPRC: $('#sumoptprc').val()
                             }]
                         }, {
                             table: 'MODTRAN',
@@ -659,18 +653,37 @@
                         console.log(value);
                         $('#ok').click(function(event) {
                             $.ajax({
-                                url: 'saveAll',
+                                url: 'saveModmast',
                                 type: 'POST',
                                 contentType: "application/json",
                                 dataType: "json",
                                 data: value,
                                 success: function(data) {
-                                    if (data === true) {
-                                        ShowMessage("บันทึกข้อมูลเรียบร้อย!", "success");
-                                        statusChange(false);
-                                    } else {
-                                        ShowMessage("บันทึกไม่สำเร็จ!", "danger");
-                                    }
+                                    console.log(data);
+                                    // if (modno === 'NotSave') {
+                                    //     ShowMessage("บันทึกไม่สำเร็จ!", "danger");
+                                    // } else {
+                                    // ShowMessage("บันทึกข้อมูลเรียบร้อย!", "success");
+                                    // statusChange(true);
+                                    // $.ajax({
+                                    //     async: false,
+                                    //     method: 'GET',
+                                    //     dataType: 'json',
+                                    //     url: "sqltext",
+                                    //     data: {
+                                    //         sql: "SELECT * FROM MODMAST WHERE MODNO = '" + modno + "' "
+                                    //     },
+                                    //     success: function(data) {
+                                    //         $('#modno').val(data[0].MODNO);
+                                    //         $('#moddt').val(data[0].MODDT);
+                                    //         $('#modelcode').val(data[0].MODELCOD);
+                                    //         $('#sumqty').val(data[0].SUMQTY);
+                                    //         $('#memo1').val(data[0].MOMO1);
+                                    //         $('#sumoptprc').val(data[0].SUMOPTPRC);
+                                    //         getModtran(data[0].MODNO);
+                                    //     }
+                                    // });
+                                    // }
                                 }
                             });
                         });
@@ -698,17 +711,12 @@
                     dataType: 'json',
                     url: "sqltext",
                     data: {
-                        sql: "SELECT * FROM MODMAST WHERE COLORCOD = '" + $('#modno').val() + "' "
+                        sql: "SELECT * FROM MODMAST WHERE MODNO = '" + $('#modno').val() + "' "
                     },
                     success: function(data) {
                         $('#moddt').val(data[0].moddt);
                         $('#colorgroup').val(data[0].COLORGRP);
-                        if (data[0].BLOCK === 'N') {
-                            $('#block').val(false);
-                        } else {
-                            $('#block').val(true);
-                        }
-                        getColortran(data[0].COLORCOD);
+                        getModtran(data[0].MODNO);
                     }
                 });
             });
