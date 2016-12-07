@@ -116,6 +116,17 @@
         ];
         keyno = 'PAYCODE';
     }
+    else if (show === "modmast") {
+        datafields = [
+            { name: 'MODNO', type: 'string' },
+            { name: 'MODELCOD', type: 'string' },
+        ];
+        fields = [
+            { text: 'เลขที่ชุดแต่ง', datafield: 'MODNO', minwidth: 100,width: 250 },
+            { text: 'รหัสรุ่น', datafield: 'MODELCOD', minwidth: 200, width: 250 },
+        ];
+        keyno = 'MODNO';
+    }
     fields.unshift({
         text: 'ลำดับ',
         sortable: false,
@@ -144,7 +155,7 @@
     });
     $("#tbSearch").jqxGrid({
         width: width-40,
-        height: height-180,
+        height: height-220,
         sortable: true,
         columnsresize: true,
         altrows: true,
@@ -190,6 +201,10 @@
         else if (show === "paytyp") {
             sqltxt = "SELECT * FROM PAYTYP WHERE UPPER(PAYCODE||PAYDESC) LIKE '%"+param1+"%' ORDER BY PAYCODE";
         }
+        else if (show === "modmast") {
+            sqltxt = "SELECT * FROM MODMAST WHERE UPPER(MODNO||MODELCOD) LIKE '%"+param1+"%' ORDER BY MODNO";
+        }
+
 
         // Qurey Data
         $.ajax({
@@ -202,6 +217,8 @@
                 $('#tbSearch').jqxGrid('updatebounddata');
                 $('#tbSearch').jqxGrid('autoresizecolumns');
                 $('#tbSearch').jqxGrid('hideloadelement');
+                $("#tbSearch").jqxGrid('focus');
+                $("#tbSearch").jqxGrid('selectrow', 0);
             }
         });
     });
@@ -215,7 +232,7 @@
         $("#returnvalue").val(data);
     });
     // Click OK
-    $('#okButton').off().on('click', function() {
+    $('#okButton').off('click').on('click', function() {
         var id = '#'+returnid;
         $(id).val($("#returnvalue").val());
         $(id).triggerHandler('blur');

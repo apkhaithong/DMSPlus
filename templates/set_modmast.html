@@ -22,7 +22,7 @@
                                         <label class="col-md-4 control-label" for="modno">เลขที่ชุดแต่ง</label>
                                         <div class="col-md-8">
                                             <div class="bs-component">
-                                                <input type="text" id="modno" />
+                                                <input type="text" id="modno" style="color:red; font-weight: bold;" />
                                             </div>
                                         </div>
                                     </div>
@@ -135,11 +135,29 @@
             } else {
                 status = 'update';
             }
-            $('#modno').jqxInput({
-                disabled: disabled
-            });
+            $("#modno").prop("readonly", disabled);
             $("#deleteBtn").jqxButton({
                 disabled: !disabled
+            });
+        }
+        function getModmast(modno) {
+            $.ajax({
+                async: false,
+                method: 'GET',
+                dataType: 'json',
+                url: "sqltext",
+                data: {
+                    sql: "SELECT * FROM MODMAST WHERE MODNO = '" + modno + "' "
+                },
+                success: function(data) {
+                    $('#modno').val(data[0].MODNO);
+                    $('#moddt').val(data[0].MODDT);
+                    $('#modelcode').val(data[0].MODELCOD);
+                    $('#sumqty').val(data[0].SUMQTY);
+                    $('#memo1').val(data[0].MOMO1);
+                    $('#sumoptprc').val(data[0].SUMOPTPRC);
+                    getModtran(data[0].MODNO);
+                }
             });
         }
         //ฟังก์ชั่น Get Data MODTRAN
@@ -150,7 +168,7 @@
                 dataType: 'json',
                 url: "sqltext",
                 data: {
-                    sql: "SELECT * FROM MODTRAN WHERE MODNO = '" + modno + "' ORDER BY MODNO, OPTCODE"
+                    sql: "SELECT A.IDNO, A.MODNO, A.OPTCODE, A.OPTNAME, TRIM(B.OPTCODE)||' : '||TRIM(B.OPTNAME) AS SETMOD, A.QTY, A.FLAG, A.USERID, A.INPUTDT, A.OPTPRC FROM MODTRAN A, SETMOD B WHERE A.OPTCODE = B.OPTCODE AND A.MODNO = '" + modno + "' ORDER BY A.MODNO, A.OPTCODE"
                 },
                 success: function(data) {
                     sourceModtran.localdata = data;
@@ -366,7 +384,7 @@
         });
         $("#tableModtran").jqxGrid({
             width: '100%',
-            height: 500,
+            height: 400,
             source: dataAdtModtran,
             editable: true,
             altrows: true,
@@ -660,30 +678,13 @@
                                 data: value,
                                 success: function(data) {
                                     console.log(data);
-                                    // if (modno === 'NotSave') {
-                                    //     ShowMessage("บันทึกไม่สำเร็จ!", "danger");
-                                    // } else {
-                                    // ShowMessage("บันทึกข้อมูลเรียบร้อย!", "success");
-                                    // statusChange(true);
-                                    // $.ajax({
-                                    //     async: false,
-                                    //     method: 'GET',
-                                    //     dataType: 'json',
-                                    //     url: "sqltext",
-                                    //     data: {
-                                    //         sql: "SELECT * FROM MODMAST WHERE MODNO = '" + modno + "' "
-                                    //     },
-                                    //     success: function(data) {
-                                    //         $('#modno').val(data[0].MODNO);
-                                    //         $('#moddt').val(data[0].MODDT);
-                                    //         $('#modelcode').val(data[0].MODELCOD);
-                                    //         $('#sumqty').val(data[0].SUMQTY);
-                                    //         $('#memo1').val(data[0].MOMO1);
-                                    //         $('#sumoptprc').val(data[0].SUMOPTPRC);
-                                    //         getModtran(data[0].MODNO);
-                                    //     }
-                                    // });
-                                    // }
+                                    if (data[0].save === true) {
+                                        ShowMessage("บันทึกข้อมูลเรียบร้อย!", "success");
+                                        statusChange(true);
+                                        getModmast(data[0].modno);  
+                                    } else {
+                                        ShowMessage("บันทึกไม่สำเร็จ!", "danger");
+                                    }
                                 }
                             });
                         });
@@ -697,28 +698,16 @@
             searchAll('setmodel', 'modelcode');
         });
         //ค้นหา
-        $('#searchBtn').off().on('click', function() {
+        $('#searchBtn').off().on('click', function(event) {
+            event.preventDefault();
             var rules2 = rules.slice();
             rules2.splice(1, 1);
             $('#fmModmast').jqxValidator('rules', rules2);
             //Show Dialog Search
-            searchAll('setcolor', 'modno');
+            searchAll('modmast', 'modno');
             $('#okButton').on('click', function() {
                 statusChange(true);
-                $.ajax({
-                    async: false,
-                    method: 'GET',
-                    dataType: 'json',
-                    url: "sqltext",
-                    data: {
-                        sql: "SELECT * FROM MODMAST WHERE MODNO = '" + $('#modno').val() + "' "
-                    },
-                    success: function(data) {
-                        $('#moddt').val(data[0].moddt);
-                        $('#colorgroup').val(data[0].COLORGRP);
-                        getModtran(data[0].MODNO);
-                    }
-                });
+                getModmast($('#modno').val());
             });
         });
         //ลบ
