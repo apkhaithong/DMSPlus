@@ -140,6 +140,7 @@
                 disabled: !disabled
             });
         }
+
         function getModmast(modno) {
             $.ajax({
                 async: false,
@@ -228,6 +229,21 @@
             }
             return result;
         }
+        //เช็คสิทธิการใช้งาน
+        // var chkright = [];
+        // $.ajax({
+        //     url: "checkright",
+        //     type: 'get',
+        //     data: {
+        //         menucode: 'SET110',
+        //         userid: $.session.get('username')
+        //     },
+        //     success: function(data) {
+        //         chkright = jQuery.parseJSON(data);
+        //         console.log(chkright);
+        //     }
+        // });
+
         //Default status Insert
         var status = 'insert';
         //ข้อมูลอุปกรณ์ ทั้งหมด
@@ -669,7 +685,7 @@
                         // Convert Value To JSON String
                         var value = JSON.stringify(valueJSON);
                         console.log(value);
-                        $('#ok').click(function(event) {
+                        $('#ok').on('click', function(event) {
                             $.ajax({
                                 url: 'saveModmast',
                                 type: 'POST',
@@ -681,7 +697,7 @@
                                     if (data[0].save === true) {
                                         ShowMessage("บันทึกข้อมูลเรียบร้อย!", "success");
                                         statusChange(true);
-                                        getModmast(data[0].modno);  
+                                        getModmast(data[0].modno);
                                     } else {
                                         ShowMessage("บันทึกไม่สำเร็จ!", "danger");
                                     }
@@ -698,14 +714,15 @@
             searchAll('setmodel', 'modelcode');
         });
         //ค้นหา
-        $('#searchBtn').off().on('click', function(event) {
-            event.preventDefault();
+        $('#searchBtn').off().on('click', function() {
             var rules2 = rules.slice();
             rules2.splice(1, 1);
             $('#fmModmast').jqxValidator('rules', rules2);
             //Show Dialog Search
             searchAll('modmast', 'modno');
-            $('#okButton').on('click', function() {
+            $('#okButton').on('click', function(event) {
+                event.preventDefault();
+                // alert('test');
                 statusChange(true);
                 getModmast($('#modno').val());
             });
@@ -713,14 +730,14 @@
         //ลบ
         $('#deleteBtn').off().on('click', function() {
             $.when($.confirmdlg('ต้องการลบข้อมูล?', 'warning')).then(function() {
-                $('#ok').click(function(event) {
+                $('#ok').on('click', function(event) {
                     var valueJSON = [{
                         table: 'MODTRAN',
-                        field: 'COLORCOD',
+                        field: 'MODNO',
                         key: $('#modno').val(),
                     }, {
                         table: 'MODMAST',
-                        field: 'COLORCOD',
+                        field: 'MODNO',
                         key: $('#modno').val(),
                     }];
                     // Convert Value To JSON String
