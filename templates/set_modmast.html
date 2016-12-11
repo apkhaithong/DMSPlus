@@ -123,6 +123,66 @@
 <!-- end: .row -->
 <script type="text/javascript">
     $(document).ready(function() {
+        //Default status Insert
+        var status = 'insert';
+        //เช็คสิทธิการใช้งาน
+        var chkright = [];
+        var value = JSON.stringify([{
+            menucode: 'SET110',
+            userid: $.session.get('username')
+        }]);
+        $.ajax({
+            async: false,
+            url: "checkright",
+            contentType: "application/json",
+            dataType: 'json',
+            type: 'POST',
+            data: value,
+            success: function(data) {
+                chkright = data[0];
+                if (chkright.M_ACCESS === 'Y') {
+                    chkright.M_ACCESS = true
+                } else {
+                    chkright.M_ACCESS = false
+                }
+                if (chkright.M_DELETE === 'Y') {
+                    chkright.M_DELETE = true
+                } else {
+                    chkright.M_DELETE = false
+                }
+                if (chkright.M_EDIT === 'Y') {
+                    chkright.M_EDIT = true
+                } else {
+                    chkright.M_EDIT = false
+                }
+                if (chkright.M_INSERT === 'Y') {
+                    chkright.M_INSERT = true
+                } else {
+                    chkright.M_INSERT = false
+                }
+            }
+        });
+        //เช็ค Running เอกสาร
+        var chkrun = true;
+        var value = JSON.stringify([{
+            doc: 'R_MODMAST',
+            locat: $.session.get('locatcd')
+        }]);
+        $.ajax({
+            async: false,
+            url: "checkRundoc",
+            contentType: "application/json",
+            dataType: 'json',
+            type: 'POST',
+            data: value,
+            success: function(data) {
+                if (data[0].RUNNING === 'Y') {
+                    chkrun = true
+                } else {
+                    chkrun = false
+                }
+            }
+        });
         //ฟังก์ชั่น สถานะ Insert หรือ Edit
         function statusChange(disabled) {
             if (disabled === false) {
@@ -134,10 +194,13 @@
                 $('#tableModtran').jqxGrid('clear');
             } else {
                 status = 'update';
+                $("#saveBtn").jqxButton({
+                    disabled: !chkright.M_EDIT
+                });
             }
             $("#modno").prop("readonly", disabled);
             $("#deleteBtn").jqxButton({
-                disabled: !disabled
+                disabled: !chkright.M_DELETE
             });
         }
 
@@ -229,23 +292,6 @@
             }
             return result;
         }
-        //เช็คสิทธิการใช้งาน
-        // var chkright = [];
-        // $.ajax({
-        //     url: "checkright",
-        //     type: 'get',
-        //     data: {
-        //         menucode: 'SET110',
-        //         userid: $.session.get('username')
-        //     },
-        //     success: function(data) {
-        //         chkright = jQuery.parseJSON(data);
-        //         console.log(chkright);
-        //     }
-        // });
-
-        //Default status Insert
-        var status = 'insert';
         //ข้อมูลอุปกรณ์ ทั้งหมด
         var sourceOptmast = {
             async: false,
@@ -296,6 +342,40 @@
                 }
             }
         }];
+        if (chkrun === false) {
+            rules.push({
+                input: '#modno',
+                message: 'กรุณาระบุเลขที่ชุดแต่ง!',
+                action: 'keyup, blur, focusout',
+                rule: 'required'
+            }, {
+                input: '#modno',
+                message: 'ระบุเลขที่ชุดแต่ง!',
+                action: 'keyup, blur',
+                rule: function(input, commit) {
+                    var modno = $('#modno').val();
+                    if (modno !== '') {
+                        $.ajax({
+                            url: "duplicateCheck",
+                            type: 'get',
+                            data: {
+                                table: 'MODMAST',
+                                field: 'MODNO',
+                                value: modno
+                            },
+                            success: function(data) {
+                                if (data === true) {
+                                    commit(true);
+                                } else commit(false);
+                            },
+                            error: function() {
+                                commit(false);
+                            }
+                        });
+                    }
+                }
+            });
+        }
         //DataSource MODTRAN
         var dataModtran = [];
         var sourceModtran = {
@@ -370,26 +450,35 @@
             }
         });
         $("#modno").jqxInput({
-            placeHolder: "Running Code",
-            height: 28,
+            height: 25,
             width: '100%',
             maxLength: 12
         });
-        $("#modno").prop("readonly", true);
+        if (chkrun === true) {
+            $("#modno").jqxInput({
+                placeHolder: "Running Code"
+            });
+        } else {
+            $("#modno").jqxInput({
+                placeHolder: "Enter a document no."
+            });
+        }
+        $("#modno").prop("readonly", chkrun);
         $("#moddt").jqxDateTimeInput({
-            height: 28,
+            height: 25,
             width: '100%',
             culture: 'en-US'
         });
         $("#modelcode").jqxInput({
             placeHolder: "Enter a model code",
-            height: 28,
+            height: 25,
             width: '100%',
             maxLength: 20
         });
         $("#sumoptprc").jqxNumberInput({
-            height: 28,
+            height: 25,
             width: '100%',
+            symbol: '฿',
             spinButtons: false,
             spinButtonsStep: 0,
             readOnly: true
@@ -617,7 +706,8 @@
         });
         $("#saveBtn").jqxButton({
             template: "primary",
-            width: 90
+            width: 90,
+            disabled: !chkright.M_INSERT
         });
         $("#searchBtn").jqxButton({
             template: "success",
@@ -684,7 +774,6 @@
                         }];
                         // Convert Value To JSON String
                         var value = JSON.stringify(valueJSON);
-                        console.log(value);
                         $('#ok').on('click', function(event) {
                             $.ajax({
                                 url: 'saveModmast',
@@ -722,44 +811,46 @@
             searchAll('modmast', 'modno');
             $('#okButton').on('click', function(event) {
                 event.preventDefault();
-                // alert('test');
+                $('#fmModmast').jqxValidator('hide');
                 statusChange(true);
                 getModmast($('#modno').val());
             });
         });
         //ลบ
         $('#deleteBtn').off().on('click', function() {
-            $.when($.confirmdlg('ต้องการลบข้อมูล?', 'warning')).then(function() {
-                $('#ok').on('click', function(event) {
-                    var valueJSON = [{
-                        table: 'MODTRAN',
-                        field: 'MODNO',
-                        key: $('#modno').val(),
-                    }, {
-                        table: 'MODMAST',
-                        field: 'MODNO',
-                        key: $('#modno').val(),
-                    }];
-                    // Convert Value To JSON String
-                    var value = JSON.stringify(valueJSON);
-                    $.ajax({
-                        async: false,
-                        method: 'POST',
-                        dataType: 'json',
-                        url: "delete",
-                        data: value,
-                        success: function(data) {
-                            if (data === true) {
-                                ShowMessage("ลบข้อมูลเรียบร้อย!", "success");
-                                statusChange(false);
+            if ($('#modno').val() !== '') {
+                $.when($.confirmdlg('ต้องการลบข้อมูล?', 'warning')).then(function() {
+                    $('#ok').on('click', function(event) {
+                        var valueJSON = [{
+                            table: 'MODTRAN',
+                            field: 'MODNO',
+                            key: $('#modno').val(),
+                        }, {
+                            table: 'MODMAST',
+                            field: 'MODNO',
+                            key: $('#modno').val(),
+                        }];
+                        // Convert Value To JSON String
+                        var value = JSON.stringify(valueJSON);
+                        $.ajax({
+                            async: false,
+                            method: 'POST',
+                            dataType: 'json',
+                            url: "delete",
+                            data: value,
+                            success: function(data) {
+                                if (data === true) {
+                                    ShowMessage("ลบข้อมูลเรียบร้อย!", "success");
+                                    statusChange(false);
+                                }
+                            },
+                            error: function(xhr, status, error) {
+                                ShowMessage("ลบข้อมูลไม่สำเร็จ! ", "danger");
                             }
-                        },
-                        error: function(xhr, status, error) {
-                            ShowMessage("ลบข้อมูลไม่สำเร็จ! ", "danger");
-                        }
+                        });
                     });
                 });
-            });
+            }
         });
     });
 </script>

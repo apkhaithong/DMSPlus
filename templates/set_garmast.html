@@ -1,0 +1,658 @@
+﻿<div class="row" id="spy2">
+    <!-- Chart with filter Widget -->
+    <div class="col-md-12 admin-grid">
+        <div class="panel" id="p2">
+            <div class="panel-heading">
+                <span class="panel-icon"><span class="glyphicons glyphicons-imac"></span></span>
+                <span class="panel-title">กำหนดบริษัทประกันภัย</span>
+                <span class="panel-controls">
+                    <a href="#" class="panel-control-loader"></a>
+                    <a href="#" class="panel-control-remove"></a>
+                    <a href="#" class="panel-control-collapse"></a>
+                    <a href="#" class="panel-control-fullscreen"></a>
+                </span>
+            </div>
+            <div class="panel-body">
+                <form class="form-horizontal" id="fmGarmast">
+                    <div class="p15 pt5 mt15">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="admin-form">
+                                    <div class="form-group">
+                                        <label class="col-md-4 control-label" for="garcode">รหัสบริษัทประกัน</label>
+                                        <div class="col-md-8">
+                                            <div class="bs-component">
+                                                <input type="text" id="garcode" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-md-4 control-label" for="garname">ชื่อบริษัท</label>
+                                        <div class="col-md-8">
+                                            <div class="bs-component">
+                                                <input type="text" id="garname" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-md-4 control-label" for="building">ชื่ออาคาร</label>
+                                        <div class="col-md-8">
+                                            <div class="bs-component">
+                                                <input type="text" id="building" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-md-4 control-label" for="village">ชื่อหมู่บ้าน</label>
+                                        <div class="col-md-8">
+                                            <div class="bs-component">
+                                                <input type="text" id="village" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="admin-form">
+                                    <div class="form-group">
+                                        <label class="col-md-6 control-label" for="room_no">ห้องเลขที่</label>
+                                        <div class="col-md-6">
+                                            <div class="bs-component">
+                                                <input type="text" id="room_no" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-2">
+                                <div class="admin-form">
+                                    <div class="form-group">
+                                        <label class="col-md-3 control-label" for="floor">ชั้นที่</label>
+                                        <div class="col-md-9">
+                                            <div class="bs-component">
+                                                <input type="text" id="floor" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="admin-form">
+                                    <div class="form-group">
+                                        <label class="col-md-6 control-label" for="garaddr1">เลขที่</label>
+                                        <div class="col-md-6">
+                                            <div class="bs-component">
+                                                <input type="text" id="garaddr1" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-2">
+                                <div class="admin-form">
+                                    <div class="form-group">
+                                        <label class="col-md-3 control-label" for="garaddr2">หมู่ที่</label>
+                                        <div class="col-md-9">
+                                            <div class="bs-component">
+                                                <input type="text" id="garaddr2" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="admin-form">
+                                    <div class="form-group">
+                                        <label class="col-md-6 control-label" for="soi">ตรอก/ซอย</label>
+                                        <div class="col-md-6">
+                                            <div class="bs-component">
+                                                <input type="text" id="soi" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-2">
+                                <div class="admin-form">
+                                    <div class="form-group">
+                                        <label class="col-md-3 control-label" for="road">ถนน</label>
+                                        <div class="col-md-9">
+                                            <div class="bs-component">
+                                                <input type="text" id="road" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="admin-form">
+                                    <div class="form-group">
+                                        <label class="col-md-4 control-label" for="garaddr3">ตำบล/แขวง</label>
+                                        <div class="col-md-8">
+                                            <div class="bs-component">
+                                                <input type="text" id="garaddr3" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-md-4 control-label" for="garaddr4">อำเภอ/เขต</label>
+                                        <div class="col-md-8">
+                                            <div class="bs-component">
+                                                <input type="text" id="garaddr4" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-md-4 control-label" for="garaddr5">จังหวัด</label>
+                                        <div class="col-md-8">
+                                            <div class="bs-component">
+                                                <input type="text" id="garaddr5" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="admin-form">
+                                    <div class="form-group">
+                                        <label class="col-md-6 control-label" for="zip">รหัสไปรษณีย์</label>
+                                        <div class="col-md-6">
+                                            <div class="bs-component">
+                                                <input type="text" id="zip" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-2">
+                                <div class="admin-form">
+                                    <div class="form-group">
+                                        <label class="col-md-3 control-label" for="gartelp">โทรศัพท์</label>
+                                        <div class="col-md-9">
+                                            <div class="bs-component">
+                                                <input type="text" id="gartelp" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="admin-form">
+                                    <div class="form-group">
+                                        <label class="col-md-4 control-label" for="taxid">เลขประจำตัวผู้เสียภาษี</label>
+                                        <div class="col-md-8">
+                                            <div class="bs-component">
+                                                <input type="text" id="taxid" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-md-4 control-label" for="acc_code">รหัสบัญชี</label>
+                                        <div class="col-md-8">
+                                            <div class="bs-component">
+                                                <div id="acc_code" class="input-button">
+                                                    <input type="text" id="v-acc_code" />
+                                                    <div id="searchAccmst"><img alt="search" width="20" height="20" src="/images/search_lg.png" /></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-md-4 control-label"></label>
+                                        <div class="col-md-8">
+                                            <div class="bs-component">
+                                                <button type="button" id="newBtn"><span class="fa fa-refresh"></span> เริ่มใหม่</button>
+                                                <button type="button" id="saveBtn"><span class="fa fa-floppy-o"></span> บันทึก</button>
+                                                <button type="button" id="searchBtn"><span class="fa fa-search"></span> ค้นหา</button>
+                                                <button type="button" id="deleteBtn"><span class="fa fa-trash-o"></span> ลบ</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <!-- end: .col-md-12.admin-grid -->
+</div>
+<!-- end: .row -->
+<script type="text/javascript">
+    $(document).ready(function() {
+        var status = 'insert';
+        //เช็คสิทธิการใช้งาน
+        var chkright = [];
+        var value = JSON.stringify([{
+            menucode: 'SET602',
+            userid: $.session.get('username')
+        }]);
+        $.ajax({
+            async: false,
+            url: "checkright",
+            contentType: "application/json",
+            dataType: 'json',
+            type: 'POST',
+            data: value,
+            success: function(data) {
+                chkright = data[0];
+                if (chkright.M_ACCESS === 'Y') {
+                    chkright.M_ACCESS = true
+                } else {
+                    chkright.M_ACCESS = false
+                }
+                if (chkright.M_DELETE === 'Y') {
+                    chkright.M_DELETE = true
+                } else {
+                    chkright.M_DELETE = false
+                }
+                if (chkright.M_EDIT === 'Y') {
+                    chkright.M_EDIT = true
+                } else {
+                    chkright.M_EDIT = false
+                }
+                if (chkright.M_INSERT === 'Y') {
+                    chkright.M_INSERT = true
+                } else {
+                    chkright.M_INSERT = false
+                }
+            }
+        });
+        //ฟังก์ชั่น สถานะ Insert หรือ Edit
+        function statusChange(disabled) {
+            if (disabled === false) {
+                status = 'insert';
+                $('#garcode').val('');
+                $('#garname').val('');
+                $('#building').val('');
+                $('#village').val('');
+                $('#room_no').val('');
+                $('#floor').val('');
+                $('#garaddr1').val('');
+                $('#garaddr2').val('');
+                $('#soi').val('');
+                $('#road').val('');
+                $('#garaddr3').val('');
+                $('#garaddr4').val('');
+                $('#garaddr5').val('');
+                $('#zip').val('');
+                $('#gartelp').val('');
+                $('#taxid').val('');
+                $('#acc_code').val('');
+            } else {
+                status = 'update';
+                $("#saveBtn").jqxButton({
+                    disabled: !chkright.M_EDIT
+                });
+            }
+            $('#garcode').jqxInput({
+                disabled: disabled
+            });
+            $("#deleteBtn").jqxButton({
+                disabled: !chkright.M_DELETE
+            });
+        }
+        //เงื่อนไข validate
+        var rules = [{
+            input: '#garcode',
+            message: 'กรุณาระบุรหัสบริษัทประกัน!',
+            action: 'keyup, blur',
+            rule: 'required'
+        }, {
+            input: '#garcode',
+            message: 'ระบุรหัสบริษัทประกันซ้ำ!',
+            action: 'keyup, blur',
+            rule: function(input, commit) {
+                var garcode = $('#garcode').val();
+                if (garcode !== '') {
+                    $.ajax({
+                        url: "duplicateCheck",
+                        type: 'get',
+                        data: {
+                            table: 'GARMAST',
+                            field: 'GARCODE',
+                            value: garcode
+                        },
+                        success: function(data) {
+                            if (data === true) {
+                                commit(true);
+                            } else commit(false);
+                        },
+                        error: function() {
+                            commit(false);
+                        }
+                    });
+                }
+            }
+        }, {
+            input: '#acc_code',
+            message: 'ไม่พบรหัสบัญชีนี้!',
+            action: 'keyup, blur, focusout',
+            rule: function(input, commit) {
+                var acc_code = $('#acc_code').val();
+                if (acc_code !== '') {
+                    $.ajax({
+                        url: "duplicateCheck",
+                        type: 'get',
+                        data: {
+                            table: 'ACCMST',
+                            field: 'ACCMSTCOD',
+                            value: acc_code
+                        },
+                        success: function(data) {
+                            if (data === true) {
+                                commit(false);
+                            } else commit(true);
+                        },
+                        error: function() {
+                            commit(false);
+                        }
+                    });
+                }
+            }
+        }];
+
+        $('.admin-panels').adminpanel({
+            grid: '.admin-grid',
+            callback: function() {
+                bootbox.confirm('<h3>A Custom Callback!</h3>', function() {});
+            },
+            onFinish: function() {
+                $('.admin-panels').addClass('animated fadeIn').removeClass('fade-onload');
+                demoHighCharts.init();
+            },
+            onSave: function() {
+                $(window).trigger('resize');
+            }
+        });
+
+        $("#garcode").jqxInput({
+            placeHolder: "Enter a insurer code",
+            height: 25,
+            width: '100%',
+            maxLength: 8
+        });
+        $("#garname").jqxInput({
+            placeHolder: "Enter a insurer description",
+            height: 25,
+            width: '100%',
+            maxLength: 60
+        });
+        $("#building").jqxInput({
+            placeHolder: "Enter a building",
+            height: 25,
+            width: '100%',
+            maxLength: 60
+        });
+        $("#village").jqxInput({
+            placeHolder: "Enter a village",
+            height: 25,
+            width: '100%',
+            maxLength: 60
+        });
+        $("#room_no").jqxInput({
+            placeHolder: "Enter a room no.",
+            height: 25,
+            width: '100%',
+            maxLength: 60
+        });
+        $("#floor").jqxInput({
+            placeHolder: "Enter a floor",
+            height: 25,
+            width: '100%',
+            maxLength: 60
+        });
+        $("#garaddr1").jqxInput({
+            placeHolder: "Enter a address",
+            height: 25,
+            width: '100%',
+            maxLength: 60
+        });
+        $("#garaddr2").jqxInput({
+            placeHolder: "Enter a address",
+            height: 25,
+            width: '100%',
+            maxLength: 60
+        });
+        $("#soi").jqxInput({
+            placeHolder: "Enter a soi",
+            height: 25,
+            width: '100%',
+            maxLength: 60
+        });
+        $("#road").jqxInput({
+            placeHolder: "Enter a road",
+            height: 25,
+            width: '100%',
+            maxLength: 60
+        });
+        $("#garaddr3").jqxInput({
+            placeHolder: "Enter a sub district",
+            height: 25,
+            width: '100%',
+            maxLength: 60
+        });
+        $("#garaddr4").jqxInput({
+            placeHolder: "Enter a district",
+            height: 25,
+            width: '100%',
+            maxLength: 60
+        });
+        $("#garaddr5").jqxInput({
+            placeHolder: "Enter a province",
+            height: 25,
+            width: '100%',
+            maxLength: 60
+        });
+        $("#zip").jqxInput({
+            placeHolder: "Enter a province",
+            height: 25,
+            width: '100%',
+            maxLength: 10
+        });
+        $("#gartelp").jqxInput({
+            placeHolder: "Enter a telephone",
+            height: 25,
+            width: '100%',
+            maxLength: 12
+        });
+        $("#taxid").jqxInput({
+            placeHolder: "Enter a tax id",
+            height: 25,
+            width: '100%',
+            maxLength: 20
+        });
+        $("#acc_code").jqxInput({
+            placeHolder: "Enter a accounting code",
+            height: 25,
+            width: '100%',
+            maxLength: 12
+        });
+
+        // Tool button
+        $("#newBtn").jqxButton({
+            template: "info",
+            width: 90
+        });
+        $("#saveBtn").jqxButton({
+            template: "primary",
+            width: 90,
+            disabled: !chkright.M_INSERT
+        });
+        $("#searchBtn").jqxButton({
+            template: "success",
+            width: 90
+        });
+        $("#deleteBtn").jqxButton({
+            disabled: true,
+            template: "danger",
+            width: 90
+        });
+
+        $('#fmGarmast').jqxValidator({
+            hintType: 'label',
+            animationDuration: 0,
+            closeOnClick: false,
+            rules: rules
+        });
+        //เริ่มใหม่
+        $('#newBtn').off().on('click', function() {
+            loadHTML("set_garmast");
+        });
+        //บันทึก
+        $('#saveBtn').off().on('click', function() {
+            $('#fmGarmast').jqxValidator('validate', function(result) {
+                if (result) {
+                    $.when($.confirmdlg('ต้องการบันทึกข้อมูล?', 'info')).then(function() {
+                        var valueJSON = [{
+                            status: status,
+                            table: 'GARMAST',
+                            field: 'GARCODE',
+                            key: $('#garcode').val(),
+                            value: [{
+                                GARCODE: $('#garcode').val(),
+                                GARNAME: $('#garname').val(),
+                                BUILLDING: $('#building').val(),
+                                VILLAGE: $('#village').val(),
+                                ROOM_NO: $('#room_no').val(),
+                                FLOOR: $('#floor').val(),
+                                GARADDR1: $('#garaddr1').val(),
+                                GARADDR2: $('#garaddr2').val(),
+                                SOI: $('#soi').val(),
+                                ROAD: $('#road').val(),
+                                GARADDR3: $('#garaddr3').val(),
+                                GARADDR4: $('#garaddr4').val(),
+                                GARADDR5: $('#garaddr5').val(),
+                                ZIP: $('#zip').val(),
+                                GARTELP: $('#gartelp').val(),
+                                TAXID: $('#taxid').val(),
+                                ACC_CODE: $('#acc_code').val(),
+                                BROKER: 'N'
+                            }]
+                        }];
+                        // Convert Value To JSON String
+                        var value = JSON.stringify(valueJSON);
+                        $('#ok').click(function(event) {
+                            $.ajax({
+                                url: 'saveOne',
+                                type: 'POST',
+                                contentType: "application/json",
+                                dataType: "json",
+                                data: value,
+                                success: function(data) {
+                                    if (data === true) {
+                                        ShowMessage("บันทึกข้อมูลเรียบร้อย!", "success");
+                                        statusChange(false);
+                                    } else {
+                                        ShowMessage("บันทึกไม่สำเร็จ!", "danger");
+                                    }
+                                }
+                            });
+                        });
+                    });
+                }
+            });
+        });
+        //ค้นหา
+        $('#searchBtn').off().on('click', function() {
+            var rules2 = rules.slice();
+            rules2.splice(1, 1);
+            $('#fmGarmast').jqxValidator('rules', rules2);
+            //Show Dialog Search
+            searchAll('garmast', 'garcode');
+            $('#okButton').on('click', function() {
+                statusChange(true);
+                $('#fmGarmast').jqxValidator('hide');
+                $.ajax({
+                    async: false,
+                    method: 'GET',
+                    dataType: 'json',
+                    url: "sqltext",
+                    data: {
+                        sql: "SELECT * FROM GARMAST WHERE GARCODE = '" + $('#garcode').val() + "' "
+                    },
+                    success: function(data) {
+                        $('#garname').val(data[0].GARNAME);
+                        $('#building').val(data[0].BUILLDING);
+                        $('#village').val(data[0].VILLAGE);
+                        $('#room_no').val(data[0].ROOM_NO);
+                        $('#floor').val(data[0].FLOOR);
+                        $('#garaddr1').val(data[0].GARADDR1);
+                        $('#garaddr2').val(data[0].GARADDR2);
+                        $('#soi').val(data[0].SOI);
+                        $('#road').val(data[0].ROAD);
+                        $('#garaddr3').val(data[0].GARADDR3);
+                        $('#garaddr4').val(data[0].GARADDR4);
+                        $('#garaddr5').val(data[0].GARADDR5);
+                        $('#zip').val(data[0].ZIP);
+                        $('#gartelp').val(data[0].GARTELP);
+                        $('#taxid').val(data[0].TAXID);
+                        $('#acc_code').val(data[0].ACC_CODE);
+                    }
+                });
+            });
+        });
+        //ค้นหา รหัสบัญชี
+        $('#searchAccmst').off().on('click', function() {
+            //Show Dialog Search
+            searchAll('accmst', 'acc_code');
+        });
+        //ลบ
+        $('#deleteBtn').off().on('click', function() {
+            $.when($.confirmdlg('ต้องการลบข้อมูล?', 'warning')).then(function() {
+                $('#ok').click(function(event) {
+                    var valueJSON = [{
+                        table: 'GARMAST',
+                        field: 'GARCODE',
+                        key: $('#garcode').val(),
+                    }];
+                    // Convert Value To JSON String
+                    var value = JSON.stringify(valueJSON);
+                    $.ajax({
+                        async: false,
+                        method: 'POST',
+                        dataType: 'json',
+                        url: "delete",
+                        data: value,
+                        success: function(data) {
+                            if (data === true) {
+                                ShowMessage("ลบข้อมูลเรียบร้อย!", "success");
+                                statusChange(false);
+                            }
+                        },
+                        error: function(xhr, status, error) {
+                            ShowMessage("ลบข้อมูลไม่สำเร็จ! ", "danger");
+                        }
+                    });
+                });
+            });
+        });
+    });
+</script>

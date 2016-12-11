@@ -1,0 +1,436 @@
+﻿<div class="row" id="spy2">
+    <!-- Chart with filter Widget -->
+    <div class="col-md-12 admin-grid">
+        <div class="panel" id="p2">
+            <div class="panel-heading">
+                <span class="panel-icon"><span class="glyphicons glyphicons-imac"></span></span>
+                <span class="panel-title">กำหนดบริษัทเจ้าหนี้</span>
+                <span class="panel-controls">
+                    <a href="#" class="panel-control-loader"></a>
+                    <a href="#" class="panel-control-remove"></a>
+                    <a href="#" class="panel-control-collapse"></a>
+                    <a href="#" class="panel-control-fullscreen"></a>
+                </span>
+            </div>
+            <div class="panel-body">
+                <form class="form-horizontal" id="fmApmast">
+                    <div class="p15 pt5 mt15">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <!-- Start -->
+                                <div class="admin-form">
+                                    <div class="form-group">
+                                        <label class="col-md-4 control-label" for="apcode">รหัสเจ้าหนี้</label>
+                                        <div class="col-md-8">
+                                            <div class="bs-component">
+                                                <input type="text" id="apcode" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-md-4 control-label" for="apname">ชื่อเจ้าหนี้</label>
+                                        <div class="col-md-8">
+                                            <div class="bs-component">
+                                                <input type="text" id="apname" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-md-4 control-label" for="apaddr1">ที่อยู่</label>
+                                        <div class="col-md-8">
+                                            <div class="bs-component">
+                                                <input type="text" id="apaddr1" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-md-4 control-label" for="apaddr2"></label>
+                                        <div class="col-md-8">
+                                            <div class="bs-component">
+                                                <input type="text" id="apaddr2" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-md-4 control-label" for="aptelp">โทรศัพท์</label>
+                                        <div class="col-md-8">
+                                            <div class="bs-component">
+                                                <input type="text" id="aptelp" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-md-4 control-label" for="credtm">เครดิต</label>
+                                        <div class="col-md-8">
+                                            <div class="bs-component">
+                                                <div id='credtm'></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-md-4 control-label" for="taxid">เลขประจำตัวผู้เสียภาษี</label>
+                                        <div class="col-md-8">
+                                            <div class="bs-component">
+                                                <input type="text" id="taxid" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-md-4 control-label" for="acc_code">รหัสบัญชี</label>
+                                        <div class="col-md-8">
+                                            <div class="bs-component">
+                                                <div id="acc_code" class="input-button">
+                                                    <input type="text" id="v-acc_code" />
+                                                    <div id="searchAccmst"><img alt="search" width="20" height="20" src="/images/search_lg.png"
+                                                        /></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-md-4 control-label"></label>
+                                        <div class="col-md-8">
+                                            <div class="bs-component">
+                                                <button type="button" id="newBtn"><span class="fa fa-refresh"></span> เริ่มใหม่</button>
+                                                <button type="button" id="saveBtn"><span class="fa fa-floppy-o"></span> บันทึก</button>
+                                                <button type="button" id="searchBtn"><span class="fa fa-search"></span> ค้นหา</button>
+                                                <button type="button" id="deleteBtn"><span class="fa fa-trash-o"></span> ลบ</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <!-- end: .col-md-12.admin-grid -->
+</div>
+<!-- end: .row -->
+<script type="text/javascript">
+    $(document).ready(function() {
+        var status = 'insert';
+        //เช็คสิทธิการใช้งาน
+        var chkright = [];
+        var value = JSON.stringify([{ menucode: 'SET603', userid: $.session.get('username') }]);
+        $.ajax({
+            async: false,
+            url: "checkright",
+            contentType: "application/json",
+            dataType: 'json',
+            type: 'POST',
+            data: value,
+            success: function(data) {
+                chkright = data[0];
+                if (chkright.M_ACCESS === 'Y') {
+                    chkright.M_ACCESS = true
+                } else {
+                    chkright.M_ACCESS = false
+                }
+                if (chkright.M_DELETE === 'Y') {
+                    chkright.M_DELETE = true
+                } else {
+                    chkright.M_DELETE = false
+                }
+                if (chkright.M_EDIT === 'Y') {
+                    chkright.M_EDIT = true
+                } else {
+                    chkright.M_EDIT = false
+                }
+                if (chkright.M_INSERT === 'Y') {
+                    chkright.M_INSERT = true
+                } else {
+                    chkright.M_INSERT = false
+                }
+            }
+        });
+        //ฟังก์ชั่น สถานะ Insert หรือ Edit
+        function statusChange(disabled) {
+            if (disabled === false) {
+                status = 'insert';
+                $('#apcode').val('');
+                $('#apname').val('');
+                $('#apaddr1').val('');
+                $('#apaddr2').val('');
+                $('#aptelp').val('');
+                $('#taxid').val('');
+                $('#acc_code').val('');
+                $('#credtm').val(0);
+            } else {
+                status = 'update';
+                $("#saveBtn").jqxButton({disabled: !chkright.M_EDIT});
+            }
+            $('#apcode').jqxInput({ disabled: disabled });
+            $("#deleteBtn").jqxButton({ disabled: !chkright.M_DELETE});
+        }
+        //เงื่อนไข validate
+        var rules = [{
+            input: '#apcode',
+            message: 'กรุณาระบุรหัสเจ้าหนี้!',
+            action: 'keyup, blur',
+            rule: 'required'
+        }, {
+            input: '#apcode',
+            message: 'ระบุรหัสเจ้าหนี้ซ้ำ!',
+            action: 'keyup, blur',
+            rule: function(input, commit) {
+                var apcode = $('#apcode').val();
+                if (apcode !== '') {
+                    $.ajax({
+                        url: "duplicateCheck",
+                        type: 'get',
+                        data: {
+                            table: 'APMAST',
+                            field: 'APCODE',
+                            value: apcode
+                        },
+                        success: function(data) {
+                            if (data === true) {
+                                commit(true);
+                            } else commit(false);
+                        },
+                        error: function() {
+                            commit(false);
+                        }
+                    });
+                }
+            }
+        }, {
+            input: '#acc_code',
+            message: 'ไม่พบรหัสบัญชีนี้!',
+            action: 'keyup, blur, focusout',
+            rule: function(input, commit) {
+                var acc_code = $('#acc_code').val();
+                if (acc_code !== '') {
+                    $.ajax({
+                        url: "duplicateCheck",
+                        type: 'get',
+                        data: {
+                            table: 'ACCMST',
+                            field: 'ACCMSTCOD',
+                            value: acc_code
+                        },
+                        success: function(data) {
+                            if (data === true) {
+                                commit(false);
+                            } else commit(true);
+                        },
+                        error: function() {
+                            commit(false);
+                        }
+                    });
+                }
+            }
+        }];
+
+        $('.admin-panels').adminpanel({
+            grid: '.admin-grid',
+            callback: function() {
+                bootbox.confirm('<h3>A Custom Callback!</h3>', function() {});
+            },
+            onFinish: function() {
+                $('.admin-panels').addClass('animated fadeIn').removeClass('fade-onload');
+                demoHighCharts.init();
+            },
+            onSave: function() {
+                $(window).trigger('resize');
+            }
+        });
+
+        $("#apcode").jqxInput({
+            placeHolder: "Enter a creditor code",
+            height: 25,
+            width: '100%',
+            maxLength: 12
+        });
+        $("#apname").jqxInput({
+            placeHolder: "Enter a creditor description",
+            height: 25,
+            width: '100%',
+            maxLength: 60
+        });
+        $("#apaddr1").jqxInput({
+            placeHolder: "Enter a address",
+            height: 25,
+            width: '100%',
+            maxLength: 60
+        });
+        $("#apaddr2").jqxInput({
+            placeHolder: "Enter a address",
+            height: 25,
+            width: '100%',
+            maxLength: 60
+        });
+        $("#aptelp").jqxInput({
+            placeHolder: "Enter a telephone",
+            height: 25,
+            width: '100%',
+            maxLength: 20
+        });
+        $("#taxid").jqxInput({
+            placeHolder: "Enter a tax id",
+            height: 25,
+            width: '100%',
+            maxLength: 20
+        });
+        $("#acc_code").jqxInput({
+            placeHolder: "Enter a accounting code",
+            height: 25,
+            width: '100%',
+            maxLength: 12
+        });
+        $("#credtm").jqxNumberInput({ 
+            height: 25,
+            width: '100%',
+            symbol: '', 
+            spinButtons: true,
+            digits: 3,
+            decimalDigits: 0,
+            max: 999
+        });
+
+        // Tool button
+        $("#newBtn").jqxButton({
+            template: "info",
+            width: 90
+        });
+        $("#saveBtn").jqxButton({
+            template: "primary",
+            width: 90,
+            disabled: !chkright.M_INSERT
+        });
+        $("#searchBtn").jqxButton({
+            template: "success",
+            width: 90
+        });
+        $("#deleteBtn").jqxButton({
+            disabled: true,
+            template: "danger",
+            width: 90
+        });
+
+        $('#fmApmast').jqxValidator({
+            hintType: 'label',
+            animationDuration: 0,
+            closeOnClick: false,
+            rules: rules
+        });
+        //เริ่มใหม่
+        $('#newBtn').off().on('click', function() {
+            loadHTML("set_apmast");
+        });
+        //บันทึก
+        $('#saveBtn').off().on('click', function() {
+            $('#fmApmast').jqxValidator('validate', function(result) {
+                if (result) {
+                    $.when($.confirmdlg('ต้องการบันทึกข้อมูล?', 'info')).then(function() {
+                        var valueJSON = [{
+                            status: status,
+                            table: 'APMAST',
+                            field: 'APCODE',
+                            key: $('#apcode').val(),
+                            value: [{
+                                APCODE: $('#apcode').val(),
+                                APNAME: $('#apname').val(),
+                                APADDR1: $('#apaddr1').val(),
+                                APADDR2: $('#apaddr2').val(),
+                                APTELP: $('#aptelp').val(),
+                                TAXID: $('#taxid').val(),
+                                ACC_CODE: $('#acc_code').val(),
+                                CREDTM: $('#credtm').val()
+                            }]
+                        }];
+                        // Convert Value To JSON String
+                        var value = JSON.stringify(valueJSON);
+                        $('#ok').click(function(event) {
+                            $.ajax({
+                                url: 'saveOne',
+                                type: 'POST',
+                                contentType: "application/json",
+                                dataType: "json",
+                                data: value,
+                                success: function(data) {
+                                    if (data === true) {
+                                        ShowMessage("บันทึกข้อมูลเรียบร้อย!", "success");
+                                        statusChange(false);
+                                    } else {
+                                        ShowMessage("บันทึกไม่สำเร็จ!", "danger");
+                                    }
+                                }
+                            });
+                        });
+                    });
+                }
+            });
+        });
+        //ค้นหา
+        $('#searchBtn').off().on('click', function() {
+            var rules2 = rules.slice();
+            rules2.splice(1, 1);
+            $('#fmApmast').jqxValidator('rules', rules2);
+            //Show Dialog Search
+            searchAll('apmast', 'apcode');
+            $('#okButton').on('click', function() {
+                statusChange(true);
+                $('#fmApmast').jqxValidator('hide');
+                $.ajax({
+                    async: false,
+                    method: 'GET',
+                    dataType: 'json',
+                    url: "sqltext",
+                    data: {
+                        sql: "SELECT APCODE, APNAME, APNMEN, APADDR1, APADDR2, APTELP, APEMAIL, APCONTACT, ACC_CODE, CREDTM, APGRP, CREDAMT, CREDDISC, IDREG, TAXID, IDCARD, APTYPCOD, APTAX, APFLAG, USERID, INPDATE, VATRATE, APADDREN1, APADDREN2, APADDR3, APADDR4, APADDR5, STAT, BUILLDING, VILLAGE, ROOM_NO, FLOOR, SOI, ROAD, ZIP, TELP, BANKCOD, BOOKNO, FAX, BEGINNING, HOFFICER, LOCATLIST, DISCT, CONTACT FROM APMAST WHERE APCODE = '" + $('#apcode').val() + "' "
+                    },
+                    success: function(data) {
+                        $('#apname').val(data[0].APNAME);
+                        $('#apaddr1').val(data[0].APADDR1);
+                        $('#apaddr2').val(data[0].APADDR2);
+                        $('#aptelp').val(data[0].APTELP);
+                        $('#taxid').val(data[0].TAXID);
+                        $('#acc_code').val(data[0].ACC_CODE);
+                        $('#credtm').val(data[0].CREDTM);
+                    }
+                });
+            });
+        });
+        //ค้นหา รหัสบัญชี
+        $('#searchAccmst').off().on('click', function() {
+            //Show Dialog Search
+            searchAll('accmst', 'acc_code');
+        });
+        //ลบ
+        $('#deleteBtn').off().on('click', function() {
+            $.when($.confirmdlg('ต้องการลบข้อมูล?', 'warning')).then(function() {
+                $('#ok').click(function(event) {
+                    var valueJSON = [{
+                        table: 'APMAST',
+                        field: 'APCODE',
+                        key: $('#apcode').val(),
+                    }];
+                    // Convert Value To JSON String
+                    var value = JSON.stringify(valueJSON);
+                    $.ajax({
+                        async: false,
+                        method: 'POST',
+                        dataType: 'json',
+                        url: "delete",
+                        data: value,
+                        success: function(data) {
+                            if (data === true) {
+                                ShowMessage("ลบข้อมูลเรียบร้อย!", "success");
+                                statusChange(false);
+                            }
+                        },
+                        error: function(xhr, status, error) {
+                            ShowMessage("ลบข้อมูลไม่สำเร็จ! ", "danger");
+                        }
+                    });
+                });
+            });
+        });
+    });
+</script>

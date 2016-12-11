@@ -16,28 +16,28 @@
                 <form class="form-horizontal" id="fmSettype">
                     <div class="p15 pt5 mt15">
                         <div class="row">
-                            <div class="col-md-12">
+                            <div class="col-md-6">
                                 <!-- Start -->
                                 <div class="admin-form">
                                     <div class="form-group">
-                                        <label class="col-md-3 control-label" for="typecode">รหัสยี่ห้อ</label>
-                                        <div class="col-md-9">
+                                        <label class="col-md-4 control-label" for="typecode">รหัสยี่ห้อ</label>
+                                        <div class="col-md-8">
                                             <div class="bs-component">
                                                 <input type="text" id="typecode" class="input" />
                                             </div>
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        <label class="col-md-3 control-label" for="typename">รายละเอียดยี่ห้อ</label>
-                                        <div class="col-md-9">
+                                        <label class="col-md-4 control-label" for="typename">รายละเอียดยี่ห้อ</label>
+                                        <div class="col-md-8">
                                             <div class="bs-component">
                                                 <input type="text" id="typename" class="input" />
                                             </div>
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        <label class="col-md-3 control-label"></label>
-                                        <div class="col-md-9">
+                                        <label class="col-md-4 control-label"></label>
+                                        <div class="col-md-8">
                                             <div class="bs-component">
                                                 <button type="button" id="newBtn"><span class="fa fa-refresh"></span> เริ่มใหม่</button>
                                                 <button type="button" id="saveBtn"><span class="fa fa-floppy-o"></span> บันทึก</button>
@@ -47,6 +47,8 @@
                                         </div>
                                     </div>
                                 </div>
+                            </div>
+                            <div class="col-md-6">
                             </div>
                         </div>
                     </div>
@@ -60,50 +62,41 @@
 <script type="text/javascript">
     $(document).ready(function() {
         var status = 'insert';
-        $('.admin-panels').adminpanel({
-            grid: '.admin-grid',
-            callback: function() {
-                bootbox.confirm('<h3>A Custom Callback!</h3>', function() {});
-            },
-            onFinish: function() {
-                $('.admin-panels').addClass('animated fadeIn').removeClass('fade-onload');
-                demoHighCharts.init();
-            },
-            onSave: function() {
-                $(window).trigger('resize');
+        //เช็คสิทธิการใช้งาน
+        var chkright = [];
+        var value = JSON.stringify([{ menucode: 'SET101', userid: $.session.get('username') }]);
+        $.ajax({
+            async: false,
+            url: "checkright",
+            contentType: "application/json",
+            dataType: 'json',
+            type: 'POST',
+            data: value,
+            success: function(data) {
+                chkright = data[0];
+                if (chkright.M_ACCESS === 'Y') {
+                    chkright.M_ACCESS = true
+                } else {
+                    chkright.M_ACCESS = false
+                }
+                if (chkright.M_DELETE === 'Y') {
+                    chkright.M_DELETE = true
+                } else {
+                    chkright.M_DELETE = false
+                }
+                if (chkright.M_EDIT === 'Y') {
+                    chkright.M_EDIT = true
+                } else {
+                    chkright.M_EDIT = false
+                }
+                if (chkright.M_INSERT === 'Y') {
+                    chkright.M_INSERT = true
+                } else {
+                    chkright.M_INSERT = false
+                }
             }
         });
-
-        $("#typecode").jqxInput({
-            placeHolder: "Enter a brand code",
-            height: 25,
-            width: 300,
-            maxLength: 20
-        });
-        $("#typename").jqxInput({
-            placeHolder: "Enter a brand description",
-            height: 25,
-            width: 300,
-            maxLength: 20
-        });
-        $("#newBtn").jqxButton({
-            template: "info",
-            width: 90
-        });
-        $("#saveBtn").jqxButton({
-            template: "primary",
-            width: 90
-        });
-        $("#searchBtn").jqxButton({
-            template: "success",
-            width: 90
-        });
-        $("#deleteBtn").jqxButton({
-            disabled: true,
-            template: "danger",
-            width: 90
-        });
-
+        //ฟังก์ชั่น สถานะ Insert หรือ Edit
         function statusChange(disabled) {
             if (disabled === false) {
                 status = 'insert';
@@ -111,13 +104,10 @@
                 $('#typename').val('');
             } else {
                 status = 'update';
+                $("#saveBtn").jqxButton({disabled: !chkright.M_EDIT});
             }
-            $('#typecode').jqxInput({
-                disabled: disabled
-            });
-            $("#deleteBtn").jqxButton({
-                disabled: !disabled
-            });
+            $('#typecode').jqxInput({ disabled: disabled });
+            $("#deleteBtn").jqxButton({ disabled: !chkright.M_DELETE});
         }
         var rules = [{
             input: '#typecode',
@@ -151,6 +141,51 @@
                 }
             }
         }];
+
+        $('.admin-panels').adminpanel({
+            grid: '.admin-grid',
+            callback: function() {
+                bootbox.confirm('<h3>A Custom Callback!</h3>', function() {});
+            },
+            onFinish: function() {
+                $('.admin-panels').addClass('animated fadeIn').removeClass('fade-onload');
+                demoHighCharts.init();
+            },
+            onSave: function() {
+                $(window).trigger('resize');
+            }
+        });
+
+        $("#typecode").jqxInput({
+            placeHolder: "Enter a brand code",
+            height: 25,
+            width: '100%',
+            maxLength: 20
+        });
+        $("#typename").jqxInput({
+            placeHolder: "Enter a brand description",
+            height: 25,
+            width: '100%',
+            maxLength: 20
+        });
+        $("#newBtn").jqxButton({
+            template: "info",
+            width: 90
+        });
+        $("#saveBtn").jqxButton({
+            template: "primary",
+            width: 90,
+            disabled: !chkright.M_INSERT
+        });
+        $("#searchBtn").jqxButton({
+            template: "success",
+            width: 90
+        });
+        $("#deleteBtn").jqxButton({
+            disabled: true,
+            template: "danger",
+            width: 90
+        });
 
         $('#fmSettype').jqxValidator({
             hintType: 'label',
@@ -210,6 +245,7 @@
             searchAll('settype', 'typecode');
             $('#okButton').on('click', function() {
                 statusChange(true);
+                $('#fmSettype').jqxValidator('hide');
                 $.ajax({
                     async: false,
                     method: 'GET',

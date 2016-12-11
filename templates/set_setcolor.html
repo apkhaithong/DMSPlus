@@ -16,49 +16,66 @@
                 <form class="form-horizontal" id="fmSetcolor">
                     <div class="p15 pt5 mt15">
                         <div class="row">
-                            <div class="col-md-12">
+                            <div class="col-md-6">
                                 <!-- Start -->
                                 <div class="admin-form">
                                     <div class="form-group">
-                                        <label class="col-md-3 control-label" for="colorcode">รหัสสีสินค้า</label>
-                                        <div class="col-md-9">
+                                        <label class="col-md-4 control-label" for="colorcode">รหัสสีสินค้า</label>
+                                        <div class="col-md-8">
                                             <div class="bs-component">
                                                 <input type="text" id="colorcode" />
                                             </div>
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        <label class="col-md-3 control-label" for="colordesc">รายละเอียดสีสินค้า</label>
-                                        <div class="col-md-9">
+                                        <label class="col-md-4 control-label" for="colordesc">รายละเอียดสีสินค้า</label>
+                                        <div class="col-md-8">
                                             <div class="bs-component">
                                                 <input type="text" id="colordesc" />
                                             </div>
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        <label class="col-md-3 control-label" for="colorgroup">สีตลาด</label>
-                                        <div class="col-md-9">
+                                        <label class="col-md-4 control-label" for="colorgroup">สีตลาด</label>
+                                        <div class="col-md-8">
                                             <div class="bs-component">
                                                 <input type="text" id="colorgroup" />
                                             </div>
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        <label class="col-md-3 control-label" for="colorflag">ระงับการใช้งาน</label>
-                                        <div class="col-md-9">
+                                        <label class="col-md-4 control-label" for="colorflag">ระงับการใช้งาน</label>
+                                        <div class="col-md-8">
                                             <div class="bs-component">
-                                                <div id='block' style='margin-left: 10px; float: left;'><span>ใช้งานปกติ</span></div>
+                                                <div id='block'><span>ใช้งานปกติ</span></div>
                                             </div>
                                         </div>
                                     </div>
+                                </div>
+                                <input type="hidden" id="validecolortrn" value="true">
+                            </div>
+                            <div class="col-md-6">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="admin-form">
                                     <div class="form-group">
                                         <div class="col-md-12">
-                                            <div id="tablesetcolor"></div>
+                                            <div class="bs-component">
+                                                <div id="tablesetcolor"></div>
+                                            </div>
                                         </div>
                                     </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="admin-form">
                                     <div class="form-group">
-                                        <label class="col-md-3 control-label"></label>
-                                        <div class="col-md-9">
+                                        <label class="col-md-4 control-label"></label>
+                                        <div class="col-md-8">
                                             <div class="bs-component">
                                                 <button type="button" id="newBtn"><span class="fa fa-refresh"></span> เริ่มใหม่</button>
                                                 <button type="button" id="saveBtn"><span class="fa fa-floppy-o"></span> บันทึก</button>
@@ -68,7 +85,8 @@
                                         </div>
                                     </div>
                                 </div>
-                                <input type="hidden" id="validecolortrn" value="true">
+                            </div>
+                            <div class="col-md-6">
                             </div>
                         </div>
                     </div>
@@ -81,6 +99,45 @@
 <!-- end: .row -->
 <script type="text/javascript">
     $(document).ready(function() {
+        //Default status Insert
+        var status = 'insert';
+        //เช็คสิทธิการใช้งาน
+        var chkright = [];
+        var value = JSON.stringify([{
+            menucode: 'SET104',
+            userid: $.session.get('username')
+        }]);
+        $.ajax({
+            async: false,
+            url: "checkright",
+            contentType: "application/json",
+            dataType: 'json',
+            type: 'POST',
+            data: value,
+            success: function(data) {
+                chkright = data[0];
+                if (chkright.M_ACCESS === 'Y') {
+                    chkright.M_ACCESS = true
+                } else {
+                    chkright.M_ACCESS = false
+                }
+                if (chkright.M_DELETE === 'Y') {
+                    chkright.M_DELETE = true
+                } else {
+                    chkright.M_DELETE = false
+                }
+                if (chkright.M_EDIT === 'Y') {
+                    chkright.M_EDIT = true
+                } else {
+                    chkright.M_EDIT = false
+                }
+                if (chkright.M_INSERT === 'Y') {
+                    chkright.M_INSERT = true
+                } else {
+                    chkright.M_INSERT = false
+                }
+            }
+        });
         //ฟังก์ชั่น สถานะ Insert หรือ Edit
         function statusChange(disabled) {
             if (disabled === false) {
@@ -92,12 +149,15 @@
                 $('#tablesetcolor').jqxGrid('clear');
             } else {
                 status = 'update';
+                $("#saveBtn").jqxButton({
+                    disabled: !chkright.M_EDIT
+                });
             }
             $('#colorcode').jqxInput({
                 disabled: disabled
             });
             $("#deleteBtn").jqxButton({
-                disabled: !disabled
+                disabled: !chkright.M_DELETE
             });
         }
         //ฟังก์ชั่น Get Data COLORTRAN
@@ -152,13 +212,12 @@
                     });
 
                     if (validateModelcode === 0) {
-                        if (modelcod === '') {
-                            modelcod = row.MODELCOD;
-                        } else {
-                            if (modelcod === row.MODELCOD) {
+                        for (var j = 0; j < rows.length; j++) {
+                            var row2 = rows[j];
+                            if ((row2.MODELCOD === row.MODELCOD) && (j !== i)) {
                                 duplicateModelcode++;
-                            } else {
-                                modelcod = row.MODELCOD;
+                                $("#tablesetcolor").jqxGrid('showvalidationpopup', j, "MODELCOD", "ไม่สามารถเลือกรหัสรุ่นซ้ำกันได้");
+                                result = false;
                             }
                         }
                     }
@@ -183,13 +242,12 @@
                     });
 
                     if (validateBaabcode === 0) {
-                        if (baabcod === '') {
-                            baabcod = row.BAABCOD;
-                        } else {
-                            if (baabcod === row.BAABCOD) {
+                        for (var j = 0; j < rows.length; j++) {
+                            var row2 = rows[j];
+                            if ((row2.BAABCOD === row.BAABCOD) && (j !== i)) {
                                 duplicateBaabcode++;
-                            } else {
-                                baabcod = row.BAABCOD;
+                                $("#tablesetcolor").jqxGrid('showvalidationpopup', j, "BAABCOD", "ไม่สามารถเลือกรหัสแบบซ้ำกันได้");
+                                result = false;
                             }
                         }
                     }
@@ -210,19 +268,9 @@
                     $("#tablesetcolor").jqxGrid('showvalidationpopup', i, "BAABCOD", "ไม่พบรหัสแบบ");
                     result = false;
                 };
-                if (duplicateModelcode !== 0) {
-                    $("#tablesetcolor").jqxGrid('showvalidationpopup', i, "MODELCOD", "ไม่สามารถเลือกรหัสรุ่นซ้ำกันได้");
-                    result = false;
-                };
-                if (duplicateBaabcode !== 0) {
-                    $("#tablesetcolor").jqxGrid('showvalidationpopup', i, "BAABCOD", "ไม่สามารถเลือกรหัสแบบซ้ำกันได้");
-                    result = false;
-                };
             }
             return result;
         }
-        //Default status Insert
-        var status = 'insert';
         //ข้อมูลรุ่น ทั้งหมด
         var sourceSetmodel = {
             async: false,
@@ -334,19 +382,19 @@
         $("#colorcode").jqxInput({
             placeHolder: "Enter a color code",
             height: 25,
-            width: 300,
+            width: '100%',
             maxLength: 20
         });
         $("#colordesc").jqxInput({
             placeHolder: "Enter a color description",
             height: 25,
-            width: 300,
+            width: '100%',
             maxLength: 20
         });
         $("#colorgroup").jqxInput({
             placeHolder: "Enter a marketing color",
             height: 25,
-            width: 300,
+            width: '100%',
             maxLength: 30
         });
         // states
@@ -495,7 +543,6 @@
                 //Delete row
                 $("#deleterow").on('click', function() {
                     var selectedrowindex = $("#tablesetcolor").jqxGrid('getselectedrowindex');
-                    console.log(selectedrowindex);
                     var rowscount = $("#tablesetcolor").jqxGrid('getdatainformation').rowscount;
                     if (selectedrowindex >= 0 && selectedrowindex < rowscount) {
                         var id = $("#tablesetcolor").jqxGrid('getrowid', selectedrowindex);
@@ -524,7 +571,8 @@
         });
         $("#saveBtn").jqxButton({
             template: "primary",
-            width: 90
+            width: 90,
+            disabled: !chkright.M_INSERT
         });
         $("#searchBtn").jqxButton({
             template: "success",
@@ -585,7 +633,6 @@
                         }];
                         // Convert Value To JSON String
                         var value = JSON.stringify(valueJSON);
-                        console.log(value);
                         $('#ok').click(function(event) {
                             $.ajax({
                                 url: 'saveAll',
@@ -616,6 +663,7 @@
             searchAll('setcolor', 'colorcode');
             $('#okButton').on('click', function() {
                 statusChange(true);
+                $('#fmSetcolor').jqxValidator('hide');
                 $.ajax({
                     async: false,
                     method: 'GET',

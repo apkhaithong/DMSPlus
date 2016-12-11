@@ -16,53 +16,52 @@
                 <form class="form-horizontal" id="fmSetbaab">
                     <div class="p15 pt5 mt15">
                         <div class="row">
-                            <div class="col-md-12">
-
+                            <div class="col-md-6">
                                 <!-- Start -->
                                 <div class="admin-form">
                                     <div class="form-group">
-                                        <label class="col-md-3 control-label" for="baabcode">รหัสแบบสินค้า</label>
-                                        <div class="col-md-9">
+                                        <label class="col-md-4 control-label" for="baabcode">รหัสแบบสินค้า</label>
+                                        <div class="col-md-8">
                                             <div class="bs-component">
                                                 <input type="text" id="baabcode" />
                                             </div>
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        <label class="col-md-3 control-label" for="baabdesc">รายละเอียดแบบสินค้า</label>
-                                        <div class="col-md-9">
+                                        <label class="col-md-4 control-label" for="baabdesc">รายละเอียดแบบสินค้า</label>
+                                        <div class="col-md-8">
                                             <div class="bs-component">
                                                 <input type="text" id="baabdesc" />
                                             </div>
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        <label class="col-md-3 control-label" for="baabgroup">กลุ่มแบบ</label>
-                                        <div class="col-md-9">
+                                        <label class="col-md-4 control-label" for="baabgroup">กลุ่มแบบ</label>
+                                        <div class="col-md-8">
                                             <div class="bs-component">
                                                 <input type="text" id="baabgroup" />
                                             </div>
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        <label class="col-md-3 control-label" for="ccinv">CC ในการรับเข้า</label>
-                                        <div class="col-md-9">
+                                        <label class="col-md-4 control-label" for="ccinv">CC ในการรับเข้า</label>
+                                        <div class="col-md-8">
                                             <div class="bs-component">
                                                 <div style='margin-top: 3px;' id='ccinv'></div>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        <label class="col-md-3 control-label" for="ccreg">CC ทางทะเบียน</label>
-                                        <div class="col-md-9">
+                                        <label class="col-md-4 control-label" for="ccreg">CC ทางทะเบียน</label>
+                                        <div class="col-md-8">
                                             <div class="bs-component">
                                                 <div style='margin-top: 3px;' id='ccreg'></div>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        <label class="col-md-3 control-label" for="modelcode">รหัสรุ่นสินค้า</label>
-                                        <div class="col-md-9">
+                                        <label class="col-md-4 control-label" for="modelcode">รหัสรุ่นสินค้า</label>
+                                        <div class="col-md-8">
                                             <div class="bs-component">
                                                 <div id="modelcode" class="input-button">
                                                     <input type="text" id="v-modelcode" />
@@ -72,8 +71,8 @@
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        <label class="col-md-3 control-label"></label>
-                                        <div class="col-md-9">
+                                        <label class="col-md-4 control-label"></label>
+                                        <div class="col-md-8">
                                             <div class="bs-component">
                                                 <button type="button" id="newBtn"><span class="fa fa-refresh"></span> เริ่มใหม่</button>
                                                 <button type="button" id="saveBtn"><span class="fa fa-floppy-o"></span> บันทึก</button>
@@ -83,6 +82,8 @@
                                         </div>
                                     </div>
                                 </div>
+                            </div>
+                            <div class="col-md-6">
                             </div>
                         </div>
                     </div>
@@ -95,67 +96,46 @@
 <!-- end: .row -->
 <script type="text/javascript">
     $(document).ready(function() {
+        //Default status Insert
         var status = 'insert';
-        $('.admin-panels').adminpanel({
-            grid: '.admin-grid',
-            callback: function() {
-                bootbox.confirm('<h3>A Custom Callback!</h3>', function() {});
-            },
-            onFinish: function() {
-                $('.admin-panels').addClass('animated fadeIn').removeClass('fade-onload');
-                demoHighCharts.init();
-            },
-            onSave: function() {
-                $(window).trigger('resize');
+        //เช็คสิทธิการใช้งาน
+        var chkright = [];
+        var value = JSON.stringify([{
+            menucode: 'SET106',
+            userid: $.session.get('username')
+        }]);
+        $.ajax({
+            async: false,
+            url: "checkright",
+            contentType: "application/json",
+            dataType: 'json',
+            type: 'POST',
+            data: value,
+            success: function(data) {
+                chkright = data[0];
+                if (chkright.M_ACCESS === 'Y') {
+                    chkright.M_ACCESS = true
+                } else {
+                    chkright.M_ACCESS = false
+                }
+                if (chkright.M_DELETE === 'Y') {
+                    chkright.M_DELETE = true
+                } else {
+                    chkright.M_DELETE = false
+                }
+                if (chkright.M_EDIT === 'Y') {
+                    chkright.M_EDIT = true
+                } else {
+                    chkright.M_EDIT = false
+                }
+                if (chkright.M_INSERT === 'Y') {
+                    chkright.M_INSERT = true
+                } else {
+                    chkright.M_INSERT = false
+                }
             }
         });
-
-        $("#baabcode").jqxInput({
-            placeHolder: "Enter a baab code",
-            height: 25,
-            width: 300,
-            maxLength: 20
-        });
-        $("#baabdesc").jqxInput({
-            placeHolder: "Enter a baab description",
-            height: 25,
-            width: 300,
-            maxLength: 20
-        });
-        $("#baabgroup").jqxInput({
-            placeHolder: "Enter a group baab",
-            height: 25,
-            width: 300,
-            maxLength: 30
-        });
-        $("#ccinv").jqxNumberInput({ width: '250px', height: '25px', symbol: '$', spinButtons: true });
-        $("#ccreg").jqxNumberInput({ width: '250px', height: '25px', symbol: '$', spinButtons: true });
-        
-        $("#modelcode").jqxInput({
-            placeHolder: "Enter a model code",
-            height: 25,
-            width: 300,
-            maxLength: 20
-        });
-
-        $("#newBtn").jqxButton({
-            template: "info",
-            width: 90
-        });
-        $("#saveBtn").jqxButton({
-            template: "primary",
-            width: 90
-        });
-        $("#searchBtn").jqxButton({
-            template: "success",
-            width: 90
-        });
-        $("#deleteBtn").jqxButton({
-            disabled: true,
-            template: "danger",
-            width: 90
-        });
-
+        //ฟังก์ชั่น สถานะ Insert หรือ Edit
         function statusChange(disabled) {
             if (disabled === false) {
                 status = 'insert';
@@ -239,6 +219,81 @@
                 }
             }
         }];
+        $('.admin-panels').adminpanel({
+            grid: '.admin-grid',
+            callback: function() {
+                bootbox.confirm('<h3>A Custom Callback!</h3>', function() {});
+            },
+            onFinish: function() {
+                $('.admin-panels').addClass('animated fadeIn').removeClass('fade-onload');
+                demoHighCharts.init();
+            },
+            onSave: function() {
+                $(window).trigger('resize');
+            }
+        });
+
+        $("#baabcode").jqxInput({
+            placeHolder: "Enter a baab code",
+            height: 25,
+            width: '100%',
+            maxLength: 20
+        });
+        $("#baabdesc").jqxInput({
+            placeHolder: "Enter a baab description",
+            height: 25,
+            width: '100%',
+            maxLength: 20
+        });
+        $("#baabgroup").jqxInput({
+            placeHolder: "Enter a group baab",
+            height: 25,
+            width: '100%',
+            maxLength: 30
+        });
+        $("#ccinv").jqxNumberInput({
+            height: 25,
+            width: '100%',
+            symbol: '',
+            spinButtons: true,
+            digits: 4,
+            decimalDigits: 0,
+            max: 9999
+        });
+        $("#ccreg").jqxNumberInput({
+            height: 25,
+            width: '100%',
+            symbol: '',
+            spinButtons: true,
+            digits: 4,
+            decimalDigits: 0,
+            max: 9999
+        });
+
+        $("#modelcode").jqxInput({
+            placeHolder: "Enter a model code",
+            height: 25,
+            width: '100%',
+            maxLength: 20
+        });
+
+        $("#newBtn").jqxButton({
+            template: "info",
+            width: 90
+        });
+        $("#saveBtn").jqxButton({
+            template: "primary",
+            width: 90
+        });
+        $("#searchBtn").jqxButton({
+            template: "success",
+            width: 90
+        });
+        $("#deleteBtn").jqxButton({
+            disabled: true,
+            template: "danger",
+            width: 90
+        });
 
         $('#fmSetbaab').jqxValidator({
             hintType: 'label',

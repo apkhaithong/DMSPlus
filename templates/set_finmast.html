@@ -1,0 +1,537 @@
+﻿<div class="row" id="spy2">
+    <!-- Chart with filter Widget -->
+    <div class="col-md-12 admin-grid">
+        <div class="panel" id="p2">
+            <div class="panel-heading">
+                <span class="panel-icon"><span class="glyphicons glyphicons-imac"></span></span>
+                <span class="panel-title">กำหนดบริษัทไฟแนนซ์</span>
+                <span class="panel-controls">
+                    <a href="#" class="panel-control-loader"></a>
+                    <a href="#" class="panel-control-remove"></a>
+                    <a href="#" class="panel-control-collapse"></a>
+                    <a href="#" class="panel-control-fullscreen"></a>
+                </span>
+            </div>
+            <div class="panel-body">
+                <form class="form-horizontal" id="fmFinmast">
+                    <div class="p15 pt5 mt15">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <!-- Start -->
+                                <div class="admin-form">
+                                    <div class="form-group">
+                                        <label class="col-md-4 control-label" for="fincode">รหัสบริษัท</label>
+                                        <div class="col-md-8">
+                                            <div class="bs-component">
+                                                <input type="text" id="fincode" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-md-4 control-label" for="finname">ชื่อบริษัท</label>
+                                        <div class="col-md-8">
+                                            <div class="bs-component">
+                                                <input type="text" id="finname" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-md-4 control-label" for="finaddr1">ที่อยู่</label>
+                                        <div class="col-md-8">
+                                            <div class="bs-component">
+                                                <input type="text" id="finaddr1" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-md-4 control-label" for="finaddr2"></label>
+                                        <div class="col-md-8">
+                                            <div class="bs-component">
+                                                <input type="text" id="finaddr2" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-md-4 control-label" for="finaddr3"></label>
+                                        <div class="col-md-8">
+                                            <div class="bs-component">
+                                                <input type="text" id="finaddr3" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-md-4 control-label" for="fintelp">โทรศัพท์</label>
+                                        <div class="col-md-8">
+                                            <div class="bs-component">
+                                                <input type="text" id="fintelp" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-md-4 control-label" for="taxid">เลขประจำตัวผู้เสียภาษี</label>
+                                        <div class="col-md-8">
+                                            <div class="bs-component">
+                                                <input type="text" id="taxid" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-md-4 control-label" for="acc_code">รหัสบัญชี</label>
+                                        <div class="col-md-8">
+                                            <div class="bs-component">
+                                                <div id="acc_code" class="input-button">
+                                                    <input type="text" id="v-acc_code" />
+                                                    <div id="searchAccmst"><img alt="search" width="20" height="20" src="/images/search_lg.png"
+                                                        /></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-md-4 control-label" for="acc_code1">ค่าคอมไฟแนนซ์</label>
+                                        <div class="col-md-8">
+                                            <div class="bs-component">
+                                                <div id="acc_code1" class="input-button">
+                                                    <input type="text" id="v-acc_code1" />
+                                                    <div id="searchAccmst1"><img alt="search" width="20" height="20" src="/images/search_lg.png"
+                                                        /></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-md-4 control-label" for="comrate">ค่านายหน้า-อัตรา</label>
+                                        <div class="col-md-8">
+                                            <div class="bs-component">
+                                                <div id='comrate'></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-md-4 control-label" for="block">ระงับการใช้งาน</label>
+                                        <div class="col-md-8">
+                                            <div class="bs-component">
+                                                <div id='block' style='margin-left: 10px; float: left;'><span>ใช้งานปกติ</span></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-md-4 control-label"></label>
+                                        <div class="col-md-8">
+                                            <div class="bs-component">
+                                                <button type="button" id="newBtn"><span class="fa fa-refresh"></span> เริ่มใหม่</button>
+                                                <button type="button" id="saveBtn"><span class="fa fa-floppy-o"></span> บันทึก</button>
+                                                <button type="button" id="searchBtn"><span class="fa fa-search"></span> ค้นหา</button>
+                                                <button type="button" id="deleteBtn"><span class="fa fa-trash-o"></span> ลบ</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <!-- end: .col-md-12.admin-grid -->
+</div>
+<!-- end: .row -->
+<script type="text/javascript">
+    $(document).ready(function() {
+        var status = 'insert';
+        //เช็คสิทธิการใช้งาน
+        var chkright = [];
+        var value = JSON.stringify([{ menucode: 'SET601', userid: $.session.get('username') }]);
+        $.ajax({
+            async: false,
+            url: "checkright",
+            contentType: "application/json",
+            dataType: 'json',
+            type: 'POST',
+            data: value,
+            success: function(data) {
+                chkright = data[0];
+                if (chkright.M_ACCESS === 'Y') {
+                    chkright.M_ACCESS = true
+                } else {
+                    chkright.M_ACCESS = false
+                }
+                if (chkright.M_DELETE === 'Y') {
+                    chkright.M_DELETE = true
+                } else {
+                    chkright.M_DELETE = false
+                }
+                if (chkright.M_EDIT === 'Y') {
+                    chkright.M_EDIT = true
+                } else {
+                    chkright.M_EDIT = false
+                }
+                if (chkright.M_INSERT === 'Y') {
+                    chkright.M_INSERT = true
+                } else {
+                    chkright.M_INSERT = false
+                }
+            }
+        });
+        //ฟังก์ชั่น สถานะ Insert หรือ Edit
+        function statusChange(disabled) {
+            if (disabled === false) {
+                status = 'insert';
+                $('#fincode').val('');
+                $('#finname').val('');
+                $('#finaddr1').val('');
+                $('#finaddr2').val('');
+                $('#finaddr3').val('');
+                $('#fintelp').val('');
+                $('#taxid').val('');
+                $('#acc_code').val('');
+                $('#acc_code1').val('');
+                $('#comrate').val(0);
+                $('#block').val(false);
+            } else {
+                status = 'update';
+                $("#saveBtn").jqxButton({disabled: !chkright.M_EDIT});
+            }
+            $('#fincode').jqxInput({ disabled: disabled });
+            $("#deleteBtn").jqxButton({ disabled: !chkright.M_DELETE});
+        }
+        //เงื่อนไข validate
+        var rules = [{
+            input: '#fincode',
+            message: 'กรุณาระบุรหัสบริษัท!',
+            action: 'keyup, blur',
+            rule: 'required'
+        }, {
+            input: '#fincode',
+            message: 'ระบุรหัสบริษัทซ้ำ!',
+            action: 'keyup, blur',
+            rule: function(input, commit) {
+                var fincode = $('#fincode').val();
+                if (fincode !== '') {
+                    $.ajax({
+                        url: "duplicateCheck",
+                        type: 'get',
+                        data: {
+                            table: 'FINMAST',
+                            field: 'FINCODE',
+                            value: fincode
+                        },
+                        success: function(data) {
+                            if (data === true) {
+                                commit(true);
+                            } else commit(false);
+                        },
+                        error: function() {
+                            commit(false);
+                        }
+                    });
+                }
+            }
+        }, {
+            input: '#acc_code',
+            message: 'ไม่พบรหัสบัญชีนี้!',
+            action: 'keyup, blur, focusout',
+            rule: function(input, commit) {
+                var acc_code = $('#acc_code').val();
+                if (acc_code !== '') {
+                    $.ajax({
+                        url: "duplicateCheck",
+                        type: 'get',
+                        data: {
+                            table: 'ACCMST',
+                            field: 'ACCMSTCOD',
+                            value: acc_code
+                        },
+                        success: function(data) {
+                            if (data === true) {
+                                commit(false);
+                            } else commit(true);
+                        },
+                        error: function() {
+                            commit(false);
+                        }
+                    });
+                }
+            }
+        }, {
+            input: '#acc_code1',
+            message: 'ไม่พบรหัสบัญชีนี้!',
+            action: 'keyup, blur, focusout',
+            rule: function(input, commit) {
+                var acc_code1 = $('#acc_code1').val();
+                if (acc_code1 !== '') {
+                    $.ajax({
+                        url: "duplicateCheck",
+                        type: 'get',
+                        data: {
+                            table: 'ACCMST',
+                            field: 'ACCMSTCOD',
+                            value: acc_code1
+                        },
+                        success: function(data) {
+                            if (data === true) {
+                                commit(false);
+                            } else commit(true);
+                        },
+                        error: function() {
+                            commit(false);
+                        }
+                    });
+                }
+            }
+        }];
+
+        $('.admin-panels').adminpanel({
+            grid: '.admin-grid',
+            callback: function() {
+                bootbox.confirm('<h3>A Custom Callback!</h3>', function() {});
+            },
+            onFinish: function() {
+                $('.admin-panels').addClass('animated fadeIn').removeClass('fade-onload');
+                demoHighCharts.init();
+            },
+            onSave: function() {
+                $(window).trigger('resize');
+            }
+        });
+
+        $("#fincode").jqxInput({
+            placeHolder: "Enter a finance code",
+            height: 25,
+            width: '100%',
+            maxLength: 8
+        });
+        $("#finname").jqxInput({
+            placeHolder: "Enter a finance description",
+            height: 25,
+            width: '100%',
+            maxLength: 60
+        });
+        $("#finaddr1").jqxInput({
+            placeHolder: "Enter a address",
+            height: 25,
+            width: '100%',
+            maxLength: 60
+        });
+        $("#finaddr2").jqxInput({
+            placeHolder: "Enter a address",
+            height: 25,
+            width: '100%',
+            maxLength: 60
+        });
+        $("#finaddr3").jqxInput({
+            placeHolder: "Enter a address",
+            height: 25,
+            width: '100%',
+            maxLength: 100
+        });
+        $("#fintelp").jqxInput({
+            placeHolder: "Enter a telephone",
+            height: 25,
+            width: '100%',
+            maxLength: 20
+        });
+        $("#taxid").jqxInput({
+            placeHolder: "Enter a tax id",
+            height: 25,
+            width: '100%',
+            maxLength: 20
+        });
+        $("#acc_code").jqxInput({
+            placeHolder: "Enter a accounting code",
+            height: 25,
+            width: '100%',
+            maxLength: 12
+        });
+        $("#acc_code1").jqxInput({
+            placeHolder: "Enter a accounting code",
+            height: 25,
+            width: '100%',
+            maxLength: 12
+        });
+        $("#comrate").jqxNumberInput({ 
+            height: 25,
+            width: '100%',
+            symbol: '%', 
+            spinButtons: true,
+            digits: 3,
+            max: 100
+        });
+        $("#block").jqxCheckBox({
+            width: 120,
+            height: 25,
+            checked: false
+        });
+        $("#block").on('change', function(event) {
+            var checked = event.args.checked;
+            if (checked) {
+                $("#block").find('span')[1].innerHTML = 'ระงับ';
+            } else {
+                $("#block").find('span')[1].innerHTML = 'ใช้งานปกติ';
+            }
+        });
+
+        // Tool button
+        $("#newBtn").jqxButton({
+            template: "info",
+            width: 90
+        });
+        $("#saveBtn").jqxButton({
+            template: "primary",
+            width: 90,
+            disabled: !chkright.M_INSERT
+        });
+        $("#searchBtn").jqxButton({
+            template: "success",
+            width: 90
+        });
+        $("#deleteBtn").jqxButton({
+            disabled: true,
+            template: "danger",
+            width: 90
+        });
+
+        $('#fmFinmast').jqxValidator({
+            hintType: 'label',
+            animationDuration: 0,
+            closeOnClick: false,
+            rules: rules
+        });
+        //เริ่มใหม่
+        $('#newBtn').off().on('click', function() {
+            loadHTML("set_finmast");
+        });
+        //บันทึก
+        $('#saveBtn').off().on('click', function() {
+            $('#fmFinmast').jqxValidator('validate', function(result) {
+                if (result) {
+                    $.when($.confirmdlg('ต้องการบันทึกข้อมูล?', 'info')).then(function() {
+                        var valueBlock = '';
+                        if ($("#block").val() === true) {
+                            valueBlock = 'Y';
+                        } else {
+                            valueBlock = 'N';
+                        }
+                        var valueJSON = [{
+                            status: status,
+                            table: 'FINMAST',
+                            field: 'FINCODE',
+                            key: $('#fincode').val(),
+                            value: [{
+                                FINCODE: $('#fincode').val(),
+                                FINNAME: $('#finname').val(),
+                                FINADDR1: $('#finaddr1').val(),
+                                FINADDR2: $('#finaddr2').val(),
+                                FINADDR3: $('#finaddr3').val(),
+                                FINTELP: $('#fintelp').val(),
+                                TAXID: $('#taxid').val(),
+                                ACC_CODE: $('#acc_code').val(),
+                                ACC_CODE1: $('#acc_code1').val(),
+                                COMRATE: $('#comrate').val(),
+                                BLOCK: valueBlock
+                            }]
+                        }];
+                        // Convert Value To JSON String
+                        var value = JSON.stringify(valueJSON);
+                        $('#ok').click(function(event) {
+                            $.ajax({
+                                url: 'saveOne',
+                                type: 'POST',
+                                contentType: "application/json",
+                                dataType: "json",
+                                data: value,
+                                success: function(data) {
+                                    if (data === true) {
+                                        ShowMessage("บันทึกข้อมูลเรียบร้อย!", "success");
+                                        statusChange(false);
+                                    } else {
+                                        ShowMessage("บันทึกไม่สำเร็จ!", "danger");
+                                    }
+                                }
+                            });
+                        });
+                    });
+                }
+            });
+        });
+        //ค้นหา
+        $('#searchBtn').off().on('click', function() {
+            var rules2 = rules.slice();
+            rules2.splice(1, 1);
+            $('#fmFinmast').jqxValidator('rules', rules2);
+            //Show Dialog Search
+            searchAll('finmast', 'fincode');
+            $('#okButton').on('click', function() {
+                statusChange(true);
+                $('#fmFinmast').jqxValidator('hide');
+                $.ajax({
+                    async: false,
+                    method: 'GET',
+                    dataType: 'json',
+                    url: "sqltext",
+                    data: {
+                        sql: "SELECT * FROM FINMAST WHERE FINCODE = '" + $('#fincode').val() + "' "
+                    },
+                    success: function(data) {
+                        $('#finname').val(data[0].FINNAME);
+                        $('#finaddr1').val(data[0].FINADDR1);
+                        $('#finaddr2').val(data[0].FINADDR2);
+                        $('#finaddr3').val(data[0].FINADDR3);
+                        $('#fintelp').val(data[0].FINTELP);
+                        $('#taxid').val(data[0].TAXID);
+                        $('#acc_code').val(data[0].ACC_CODE);
+                        $('#acc_code1').val(data[0].ACC_CODE1);
+                        $('#comrate').val(data[0].COMRATE);
+                        if (data[0].BLOCK === 'N') {
+                            $('#block').val(false);
+                        } else {
+                            $('#block').val(true);
+                        }
+                    }
+                });
+            });
+        });
+        //ค้นหา รหัสบัญชี
+        $('#searchAccmst').off().on('click', function() {
+            //Show Dialog Search
+            searchAll('accmst', 'acc_code');
+        });
+        $('#searchAccmst1').off().on('click', function() {
+            //Show Dialog Search
+            searchAll('accmst', 'acc_code1');
+        });
+        //ลบ
+        $('#deleteBtn').off().on('click', function() {
+            $.when($.confirmdlg('ต้องการลบข้อมูล?', 'warning')).then(function() {
+                $('#ok').click(function(event) {
+                    var valueJSON = [{
+                        table: 'FINMAST',
+                        field: 'FINCODE',
+                        key: $('#fincode').val(),
+                    }];
+                    // Convert Value To JSON String
+                    var value = JSON.stringify(valueJSON);
+                    $.ajax({
+                        async: false,
+                        method: 'POST',
+                        dataType: 'json',
+                        url: "delete",
+                        data: value,
+                        success: function(data) {
+                            if (data === true) {
+                                ShowMessage("ลบข้อมูลเรียบร้อย!", "success");
+                                statusChange(false);
+                            }
+                        },
+                        error: function(xhr, status, error) {
+                            ShowMessage("ลบข้อมูลไม่สำเร็จ! ", "danger");
+                        }
+                    });
+                });
+            });
+        });
+    });
+</script>

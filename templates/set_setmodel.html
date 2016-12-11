@@ -16,53 +16,52 @@
                 <form class="form-horizontal" id="fmSetmodel">
                     <div class="p15 pt5 mt15">
                         <div class="row">
-                            <div class="col-md-12">
-
+                            <div class="col-md-6">
                                 <!-- Start -->
                                 <div class="admin-form">
                                     <div class="form-group">
-                                        <label class="col-md-3 control-label" for="modelcode">รหัสรุ่นสินค้า</label>
-                                        <div class="col-md-9">
+                                        <label class="col-md-4 control-label" for="modelcode">รหัสรุ่นสินค้า</label>
+                                        <div class="col-md-8">
                                             <div class="bs-component">
                                                 <input type="text" id="modelcode" />
                                             </div>
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        <label class="col-md-3 control-label" for="modeldesc">รายละเอียดรุ่นสินค้า</label>
-                                        <div class="col-md-9">
+                                        <label class="col-md-4 control-label" for="modeldesc">รายละเอียดรุ่นสินค้า</label>
+                                        <div class="col-md-8">
                                             <div class="bs-component">
                                                 <input type="text" id="modeldesc" />
                                             </div>
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        <label class="col-md-3 control-label" for="prefix">Prefix เลขถัง/เลขเครื่อง</label>
-                                        <div class="col-md-9">
+                                        <label class="col-md-4 control-label" for="prefix">Prefix เลขถัง/เลขเครื่อง</label>
+                                        <div class="col-md-8">
                                             <div class="bs-component">
                                                 <input type="text" id="prefix" />
                                             </div>
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        <label class="col-md-3 control-label" for="cost">ราคาทุน</label>
-                                        <div class="col-md-9">
+                                        <label class="col-md-4 control-label" for="cost">ราคาทุน</label>
+                                        <div class="col-md-8">
                                             <div class="bs-component">
                                                 <div style='margin-top: 3px;' id='cost'></div>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        <label class="col-md-3 control-label" for="price">ราคาขาย</label>
-                                        <div class="col-md-9">
+                                        <label class="col-md-4 control-label" for="price">ราคาขาย</label>
+                                        <div class="col-md-8">
                                             <div class="bs-component">
                                                 <div style='margin-top: 3px;' id='price'></div>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        <label class="col-md-3 control-label" for="typecode">รหัสยี่ห้อ</label>
-                                        <div class="col-md-9">
+                                        <label class="col-md-4 control-label" for="typecode">รหัสยี่ห้อ</label>
+                                        <div class="col-md-8">
                                             <div class="bs-component">
                                                 <div id="typecode" class="input-button">
                                                     <input type="text" id="v-typecode" />
@@ -72,8 +71,8 @@
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        <label class="col-md-3 control-label"></label>
-                                        <div class="col-md-9">
+                                        <label class="col-md-4 control-label"></label>
+                                        <div class="col-md-8">
                                             <div class="bs-component">
                                                 <button type="button" id="newBtn"><span class="fa fa-refresh"></span> เริ่มใหม่</button>
                                                 <button type="button" id="saveBtn"><span class="fa fa-floppy-o"></span> บันทึก</button>
@@ -83,7 +82,8 @@
                                         </div>
                                     </div>
                                 </div>
-
+                            </div>
+                            <div class="col-md-6">
                             </div>
                         </div>
                     </div>
@@ -97,76 +97,44 @@
 <script type="text/javascript">
     $(document).ready(function() {
         var status = 'insert';
-        $('.admin-panels').adminpanel({
-            grid: '.admin-grid',
-            callback: function() {
-                bootbox.confirm('<h3>A Custom Callback!</h3>', function() {});
-            },
-            onFinish: function() {
-                $('.admin-panels').addClass('animated fadeIn').removeClass('fade-onload');
-                demoHighCharts.init();
-            },
-            onSave: function() {
-                $(window).trigger('resize');
+        //เช็คสิทธิการใช้งาน
+        var chkright = [];
+        var value = JSON.stringify([{
+            menucode: 'SET110',
+            userid: $.session.get('username')
+        }]);
+        $.ajax({
+            async: false,
+            url: "checkright",
+            contentType: "application/json",
+            dataType: 'json',
+            type: 'POST',
+            data: value,
+            success: function(data) {
+                chkright = data[0];
+                if (chkright.M_ACCESS === 'Y') {
+                    chkright.M_ACCESS = true
+                } else {
+                    chkright.M_ACCESS = false
+                }
+                if (chkright.M_DELETE === 'Y') {
+                    chkright.M_DELETE = true
+                } else {
+                    chkright.M_DELETE = false
+                }
+                if (chkright.M_EDIT === 'Y') {
+                    chkright.M_EDIT = true
+                } else {
+                    chkright.M_EDIT = false
+                }
+                if (chkright.M_INSERT === 'Y') {
+                    chkright.M_INSERT = true
+                } else {
+                    chkright.M_INSERT = false
+                }
             }
         });
-
-        $("#modelcode").jqxInput({
-            placeHolder: "Enter a model code",
-            height: 25,
-            width: 300,
-            maxLength: 20
-        });
-        $("#modeldesc").jqxInput({
-            placeHolder: "Enter a model description",
-            height: 25,
-            width: 300,
-            maxLength: 20
-        });
-        $("#prefix").jqxInput({
-            placeHolder: "Enter a prefix",
-            height: 25,
-            width: 300,
-            maxLength: 10
-        });
-        $("#cost").jqxNumberInput({
-            width: '250px',
-            height: '25px',
-            symbol: '$',
-            spinButtons: true
-        });
-        $("#price").jqxNumberInput({
-            width: '250px',
-            height: '25px',
-            symbol: '$',
-            spinButtons: true
-        });
-
-        $("#typecode").jqxInput({
-            placeHolder: "Enter a brand code",
-            height: 25,
-            width: 300,
-            maxLength: 20
-        });
-
-        $("#newBtn").jqxButton({
-            template: "info",
-            width: 90
-        });
-        $("#saveBtn").jqxButton({
-            template: "primary",
-            width: 90
-        });
-        $("#searchBtn").jqxButton({
-            template: "success",
-            width: 90
-        });
-        $("#deleteBtn").jqxButton({
-            disabled: true,
-            template: "danger",
-            width: 90
-        });
-
+        //ฟังก์ชั่น สถานะ Insert หรือ Edit
         function statusChange(disabled) {
             if (disabled === false) {
                 status = 'insert';
@@ -178,15 +146,17 @@
                 $('#typecode').val('');
             } else {
                 status = 'update';
+                $("#saveBtn").jqxButton({
+                    disabled: !chkright.M_EDIT
+                });
             }
             $('#modelcode').jqxInput({
                 disabled: disabled
             });
             $("#deleteBtn").jqxButton({
-                disabled: !disabled
+                disabled: !chkright.M_DELETE
             });
         }
-
         var rules = [{
             input: '#modelcode',
             message: 'กรุณาระบุรหัสรุ่น!',
@@ -250,6 +220,76 @@
                 }
             }
         }];
+        $('.admin-panels').adminpanel({
+            grid: '.admin-grid',
+            callback: function() {
+                bootbox.confirm('<h3>A Custom Callback!</h3>', function() {});
+            },
+            onFinish: function() {
+                $('.admin-panels').addClass('animated fadeIn').removeClass('fade-onload');
+                demoHighCharts.init();
+            },
+            onSave: function() {
+                $(window).trigger('resize');
+            }
+        });
+
+        $("#modelcode").jqxInput({
+            placeHolder: "Enter a model code",
+            height: 25,
+            width: '100%',
+            maxLength: 20
+        });
+        $("#modeldesc").jqxInput({
+            placeHolder: "Enter a model description",
+            height: 25,
+            width: '100%',
+            maxLength: 20
+        });
+        $("#prefix").jqxInput({
+            placeHolder: "Enter a prefix",
+            height: 25,
+            width: '100%',
+            maxLength: 10
+        });
+        $("#cost").jqxNumberInput({
+            height: 25,
+            width: '100%',
+            symbol: '฿',
+            spinButtons: true
+        });
+        $("#price").jqxNumberInput({
+            height: 25,
+            width: '100%',
+            symbol: '฿',
+            spinButtons: true
+        });
+
+        $("#typecode").jqxInput({
+            placeHolder: "Enter a brand code",
+            height: 25,
+            width: '100%',
+            maxLength: 20
+        });
+
+        $("#newBtn").jqxButton({
+            template: "info",
+            width: 90
+        });
+        $("#saveBtn").jqxButton({
+            template: "primary",
+            width: 90,
+            disabled: !chkright.M_INSERT
+        });
+        $("#searchBtn").jqxButton({
+            template: "success",
+            width: 90
+        });
+        $("#deleteBtn").jqxButton({
+            disabled: true,
+            template: "danger",
+            width: 90
+        });
 
         $('#fmSetmodel').jqxValidator({
             hintType: 'label',
@@ -313,6 +353,7 @@
             searchAll('setmodel', 'modelcode');
             $('#okButton').on('click', function() {
                 statusChange(true);
+                $('#fmSetmodel').jqxValidator('hide');
                 $.ajax({
                     async: false,
                     method: 'GET',
