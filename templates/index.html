@@ -527,8 +527,32 @@
             });
 
             //ระบบสต๊อกสินค้า
+            $("#STK001").click(function() {
+                loadHTML("stk_receiveddms");
+            });
+            $("#STK002").click(function() {
+                loadHTML("stk_receivestk");
+            });
+            $("#STK003").click(function() {
+                loadHTML("stk_receiveopt");
+            });
+            $("#STK004").click(function() {
+                loadHTML("stk_receivemod");
+            });
+            $("#STK005").click(function() {
+                loadHTML("stk_adjuststk");
+            });
             $("#STK006").click(function() {
-                loadHTML("stk_onhand");
+                loadHTML("stk_movestk");
+            });
+            $("#STK007").click(function() {
+                loadHTML("stk_movetoasset");
+            });
+            $("#STK008").click(function() {
+                loadHTML("stk_parkingstk");
+            });
+            $("#STK009").click(function() {
+                loadHTML("stk_onhandopt");
             });
             $("#STK010").click(function() {
                 loadHTML("stk_onhanddate");
@@ -539,10 +563,43 @@
 
             //ระบบการขายสินค้า
             $("#SAL001").click(function() {
-                loadHTML("sale_customer");
+                loadHTML("sale_prospect");
             });
             $("#SAL002").click(function() {
-                loadHTML("sale_prospect");
+                loadHTML("sale_customer");
+            });
+            $("#SAL003").click(function() {
+                loadHTML("sale_acard");
+            });
+            $("#SAL004").click(function() {
+                loadHTML("sale_arresv");
+            });
+            $("#SAL005").click(function() {
+                loadHTML("sale_matchstrno");
+            });
+            $("#SAL006").click(function() {
+                loadHTML("sale_arcred");
+            });
+            $("#SAL007").click(function() {
+                loadHTML("sale_armast");
+            });
+            $("#SAL008").click(function() {
+                loadHTML("sale_arfinc");
+            });
+            $("#SAL009").click(function() {
+                loadHTML("sale_ar_invoi");
+            });
+            $("#SAL010").click(function() {
+                loadHTML("sale_smcostfin");
+            });
+            $("#SAL011").click(function() {
+                loadHTML("sale_arcostsale");
+            });
+            $("#SAL012").click(function() {
+                loadHTML("sale_saleordercust");
+            });
+            $("#SAL013").click(function() {
+                loadHTML("sale_saleorder");
             });
 
             //รายงาน

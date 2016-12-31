@@ -407,6 +407,28 @@
             { text: 'ชื่อบริษัทเจ้าหนี้', datafield: 'APNAME', minwidth: 200, width: 250 },
         ];
         keyno = 'APCODE';
+    } else if (show === "officer") {
+        datafields = [
+            { name: 'CODE', type: 'string' },
+            { name: 'NAME', type: 'string' },
+        ];
+        fields = [
+            { text: 'รหัสพนักงาน', datafield: 'CODE', minwidth: 100, width: 250 },
+            { text: 'ชื่อ-นามสกุล', datafield: 'NAME', minwidth: 200, width: 250 },
+        ];
+        keyno = 'CODE';
+    } else if (show === "channelsend") {
+        datafields = [
+            { name: 'CSCODE', type: 'string' },
+            { name: 'CSDESC', type: 'string' },
+            { name: 'CSSTAT', type: 'string' },
+        ];
+        fields = [
+            { text: 'รหัสการนำส่งเอกสาร', datafield: 'CSCODE', minwidth: 100, width: 250 },
+            { text: 'คำอธิบายรายการ', datafield: 'CSDESC', minwidth: 200, width: 250 },
+            { text: 'เลือก', datafield: 'CSSTAT', minwidth: 100, width: 100 },
+        ];
+        keyno = 'CSCODE';
     }
 
     fields.unshift({
@@ -532,6 +554,10 @@
             sqltxt = "SELECT * FROM GARMAST WHERE UPPER(COALESCE(GARCODE,'')||COALESCE(GARNAME,'')) LIKE '%" + param1 + "%' ORDER BY GARCODE";
         } else if (show === "apmast") {
             sqltxt = "SELECT APCODE, APNAME FROM APMAST WHERE UPPER(COALESCE(APCODE,'')||COALESCE(APNAME,'')) LIKE '%" + param1 + "%' ORDER BY APCODE";
+        } else if (show === "officer") {
+            sqltxt = "SELECT * FROM OFFICER WHERE UPPER(COALESCE(CODE,'')||COALESCE(NAME,'')) LIKE '%" + param1 + "%' ORDER BY CODE";
+        } else if (show === "channelsend") {
+            sqltxt = "SELECT CSCODE, CSDESC, CASE CSSTAT WHEN 'Y' THEN 'ส่ง' ELSE '' END AS CSSTAT FROM CHANNELSEND WHERE UPPER(COALESCE(CSCODE,'')||COALESCE(CSDESC,'')) LIKE '%" + param1 + "%' ORDER BY CSCODE";
         }
 
         // Qurey Data
