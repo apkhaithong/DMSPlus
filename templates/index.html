@@ -22,6 +22,8 @@
     <link rel="stylesheet" type="text/css" href="js/jqwidgets/styles/jqx.bootstrap.css">
     <!-- Favicon -->
     <link rel="shortcut icon" href="css/assets/img/favicon.ico">
+    <!-- styles -->
+    <link rel='stylesheet' type='text/css' href='css/main.css'>
     <script type="text/javascript" src="js/base64.js"></script>
     <script type="text/javascript" src="js/json2.js"></script>
     <!-- jQuery -->
@@ -33,6 +35,7 @@
         if (($.session.get('username') === undefined) || ($.session.get('username') === '')) {
             window.location.href = '/';
         }
+        var condpay = [];
     </script>
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
@@ -312,6 +315,16 @@
             $.jqx.theme = "bootstrap";
             var width = $(window).width();
             var height = $(window).height();
+            $.ajax({
+                async: false,
+                url: "sqltext",
+                data: { sql: 'select LICEN_NO, COMP_NM, COMP_ADR1, COMP_ADR2, TELP, TAXID, TAXNAME, TAXADDR, OPERATE, VAT, RESVTX, EFFT_RATE, INT_RATE, DELAY_DAY, RETUR_DAY, DISC_FM, REGPAY, ADDINTR, FIXPRIC, CANSCR, CANPREV, CALREG, CALINT, FULLDUE, WORKDT, TYPECOD, GCODE, REGAR1, REGAR3, LOCKDT, CHQARRESV, CHQONHAND, SOCID, BOOKBANK, SOCCARD, WORKDAY, ZIP, PSMPAY, PCOM from condpay' },
+                type: 'GET',
+                dataType: 'json',
+                success: function(data) {
+                    condpay = data[0];
+                }
+            });
             $("#jqxLoader").jqxLoader({
                 width: 110,
                 height: 60,

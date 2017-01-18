@@ -429,6 +429,26 @@
             { text: 'เลือก', datafield: 'CSSTAT', minwidth: 100, width: 100 },
         ];
         keyno = 'CSCODE';
+    } else if (show === "setfollowupcall") {
+        datafields = [
+            { name: 'FUCCODE', type: 'string' },
+            { name: 'FUCDESC', type: 'string' },
+        ];
+        fields = [
+            { text: 'รหัส', datafield: 'FUCCODE', minwidth: 100, width: 250 },
+            { text: 'คำอธิบาย', datafield: 'FUCDESC', minwidth: 200, width: 250 },
+        ];
+        keyno = 'FUCCODE';
+    } else if (show === "setcompaint") {
+        datafields = [
+            { name: 'COPCODE', type: 'string' },
+            { name: 'COPDESC', type: 'string' },
+        ];
+        fields = [
+            { text: 'รหัส', datafield: 'COPCODE', minwidth: 100, width: 250 },
+            { text: 'คำอธิบาย', datafield: 'COPDESC', minwidth: 200, width: 250 },
+        ];
+        keyno = 'COPCODE';
     }
 
     fields.unshift({
@@ -545,7 +565,7 @@
         } else if (show === "setreson") {
             sqltxt = "SELECT * FROM SETRESON WHERE UPPER(RESONCD||RESNDES) LIKE '%" + param1 + "%' ORDER BY RESONCD";
         } else if (show === "modmast") {
-            sqltxt = "SELECT * FROM MODMAST WHERE UPPER(MODNO||MODELCOD) LIKE '%" + param1 + "%' ORDER BY MODNO";
+            sqltxt = "SELECT IDNO, MODNO, MODDT, MODELCOD, BAABCOD, SUMQTY, FLAG, USERID, INPUTDT, SUMOPTPRC FROM MODMAST WHERE UPPER(MODNO||MODELCOD) LIKE '%" + param1 + "%' ORDER BY MODNO";
         } else if (show === "finmast") {
             sqltxt = "SELECT * FROM FINMAST WHERE UPPER(COALESCE(FINCODE,'')||COALESCE(FINNAME,'')||COALESCE(ACC_CODE,'')||COALESCE(ACC_CODE1,'')) LIKE '%" + param1 + "%' ORDER BY FINCODE";
         } else if (show === "accmst") {
@@ -558,6 +578,10 @@
             sqltxt = "SELECT * FROM OFFICER WHERE UPPER(COALESCE(CODE,'')||COALESCE(NAME,'')) LIKE '%" + param1 + "%' ORDER BY CODE";
         } else if (show === "channelsend") {
             sqltxt = "SELECT CSCODE, CSDESC, CASE CSSTAT WHEN 'Y' THEN 'ส่ง' ELSE '' END AS CSSTAT FROM CHANNELSEND WHERE UPPER(COALESCE(CSCODE,'')||COALESCE(CSDESC,'')) LIKE '%" + param1 + "%' ORDER BY CSCODE";
+        } else if (show === "setfollowupcall") {
+            sqltxt = "SELECT * FROM SETFOLLOWUPCALL WHERE UPPER(COALESCE(FUCCODE,'')||COALESCE(FUCDESC,'')) LIKE '%" + param1 + "%' ORDER BY FUCCODE";
+        } else if (show === "setcompaint") {
+            sqltxt = "SELECT * FROM SETCOMPAINT WHERE UPPER(COALESCE(COPCODE,'')||COALESCE(COPDESC,'')) LIKE '%" + param1 + "%' ORDER BY COPCODE";
         }
 
         // Qurey Data

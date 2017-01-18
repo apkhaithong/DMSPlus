@@ -1,0 +1,294 @@
+﻿<div class="row" id="spy2">
+    <!-- Chart with filter Widget -->
+    <div class="col-md-12 admin-grid">
+        <div class="panel" id="p2">
+            <div class="panel-heading">
+                <span class="panel-icon"><span class="glyphicons glyphicons-imac"></span></span>
+                <span class="panel-title">กำหนดหัวข้อการโทรติดต่อ</span>
+                <span class="panel-controls">
+                    <a href="#" class="panel-control-loader"></a>
+                    <a href="#" class="panel-control-remove"></a>
+                    <a href="#" class="panel-control-collapse"></a>
+                    <a href="#" class="panel-control-fullscreen"></a>
+                </span>
+            </div>
+            <div class="panel-body">
+                <form class="form-horizontal" id="fmSetfollowupcall">
+                    <div class="p15 pt5 mt15">
+                        <div class="row">
+                            <div class="col-md-8">
+                                <!-- Start -->
+                                <div class="admin-form">
+                                    <div class="form-group">
+                                        <label class="col-md-4 control-label" for="fuccode">รหัส</label>
+                                        <div class="col-md-8">
+                                            <div class="bs-component">
+                                                <input type="text" id="fuccode" class="input" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-md-4 control-label" for="fucdesc">คำอธิบาย</label>
+                                        <div class="col-md-8">
+                                            <div class="bs-component">
+                                                <input type="text" id="fucdesc" class="input" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-md-4 control-label"></label>
+                                        <div class="col-md-8">
+                                            <div class="bs-component">
+                                                <button type="button" id="newBtn"><span class="fa fa-refresh"></span> เริ่มใหม่</button>
+                                                <button type="button" id="saveBtn"><span class="fa fa-floppy-o"></span> บันทึก</button>
+                                                <button type="button" id="searchBtn"><span class="fa fa-search"></span> ค้นหา</button>
+                                                <button type="button" id="deleteBtn"><span class="fa fa-trash-o"></span> ลบ</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <!-- end: .col-md-12.admin-grid -->
+</div>
+<!-- end: .row -->
+<script type="text/javascript">
+    $(document).ready(function() {
+        var status = 'insert';
+        //เช็คสิทธิการใช้งาน
+        var chkright = [];
+        var value = JSON.stringify([{ menucode: 'SET802', userid: $.session.get('username') }]);
+        $.ajax({
+            async: false,
+            url: "checkright",
+            contentType: "application/json",
+            dataType: 'json',
+            type: 'POST',
+            data: value,
+            success: function(data) {
+                chkright = data[0];
+                if (chkright.M_ACCESS === 'Y') {
+                    chkright.M_ACCESS = true
+                } else {
+                    chkright.M_ACCESS = false
+                }
+                if (chkright.M_DELETE === 'Y') {
+                    chkright.M_DELETE = true
+                } else {
+                    chkright.M_DELETE = false
+                }
+                if (chkright.M_EDIT === 'Y') {
+                    chkright.M_EDIT = true
+                } else {
+                    chkright.M_EDIT = false
+                }
+                if (chkright.M_INSERT === 'Y') {
+                    chkright.M_INSERT = true
+                } else {
+                    chkright.M_INSERT = false
+                }
+            }
+        });
+        //ฟังก์ชั่น สถานะ Insert หรือ Edit
+        function statusChange(disabled) {
+            if (disabled === false) {
+                status = 'insert';
+                $('#fuccode').val('');
+                $('#fucdesc').val('');
+            } else {
+                status = 'update';
+                $("#saveBtn").jqxButton({disabled: !chkright.M_EDIT});
+            }
+            $('#fuccode').jqxInput({ disabled: disabled });
+            $("#deleteBtn").jqxButton({ disabled: !chkright.M_DELETE});
+        }
+        var rules = [{
+            input: '#fuccode',
+            message: 'กรุณาระบุรหัส!',
+            action: 'keyup, blur',
+            rule: 'required'
+        }, {
+            input: '#fuccode',
+            message: 'ระบุรหัสซ้ำ!',
+            action: 'keyup, blur',
+            rule: function(input, commit) {
+                var fuccode = $('#fuccode').val();
+                if (fuccode !== '') {
+                    $.ajax({
+                        url: "duplicateCheck",
+                        type: 'get',
+                        data: {
+                            table: 'SETFOLLOWUPCALL',
+                            field: 'FUCCODE',
+                            value: fuccode
+                        },
+                        success: function(data) {
+                            if (data === true) {
+                                commit(true);
+                            } else commit(false);
+                        },
+                        error: function() {
+                            commit(false);
+                        }
+                    });
+                }
+            }
+        }];
+
+        $('.admin-panels').adminpanel({
+            grid: '.admin-grid',
+            callback: function() {
+                bootbox.confirm('<h3>A Custom Callback!</h3>', function() {});
+            },
+            onFinish: function() {
+                $('.admin-panels').addClass('animated fadeIn').removeClass('fade-onload');
+                demoHighCharts.init();
+            },
+            onSave: function() {
+                $(window).trigger('resize');
+            }
+        });
+
+        $("#fuccode").jqxInput({
+            placeHolder: "Enter a brand code",
+            height: 25,
+            width: '100%',
+            maxLength: 20
+        });
+        $("#fucdesc").jqxInput({
+            placeHolder: "Enter a brand description",
+            height: 25,
+            width: '100%',
+            maxLength: 20
+        });
+        $("#newBtn").jqxButton({
+            template: "info",
+            width: 90
+        });
+        $("#saveBtn").jqxButton({
+            template: "primary",
+            width: 90,
+            disabled: !chkright.M_INSERT
+        });
+        $("#searchBtn").jqxButton({
+            template: "success",
+            width: 90
+        });
+        $("#deleteBtn").jqxButton({
+            disabled: true,
+            template: "danger",
+            width: 90
+        });
+
+        $('#fmSetfollowupcall').jqxValidator({
+            hintType: 'label',
+            animationDuration: 0,
+            closeOnClick: false,
+            rules: rules
+        });
+        //เริ่มใหม่
+        $('#newBtn').off().on('click', function() {
+            loadHTML("set_setfollowupcall");
+        });
+        //บันทึก
+        $('#saveBtn').off().on('click', function() {
+            $('#fmSetfollowupcall').jqxValidator('validate', function(result) {
+                if (result) {
+                    $.when($.confirmdlg('ต้องการบันทึกข้อมูล?', 'info')).then(function() {
+                        var valueJSON = [{
+                            status: status,
+                            table: 'SETFOLLOWUPCALL',
+                            field: 'FUCCODE',
+                            key: $('#fuccode').val(),
+                            value: [{
+                                FUCCODE: $('#fuccode').val(),
+                                FUCDESC: $('#fucdesc').val()
+                            }]
+                        }];
+                        //valueJSON.push();
+                        // Convert Value To JSON String
+                        var value = JSON.stringify(valueJSON);
+                        $('#ok').click(function(event) {
+                            $.ajax({
+                                url: 'saveOne',
+                                type: 'POST',
+                                contentType: "application/json",
+                                dataType: "json",
+                                data: value,
+                                success: function(data) {
+                                    if (data === true) {
+                                        ShowMessage("บันทึกข้อมูลเรียบร้อย!", "success");
+                                        statusChange(false);
+                                    } else {
+                                        ShowMessage("บันทึกไม่สำเร็จ!", "danger");
+                                    }
+                                }
+                            });
+                        });
+                    });
+                }
+            });
+        });
+        //ค้นหา
+        $('#searchBtn').off().on('click', function() {
+            var rules2 = rules.slice();
+            rules2.splice(1, 1);
+            $('#fmSetfollowupcall').jqxValidator('rules', rules2);
+            //Show Dialog Search
+            searchAll('setfollowupcall', 'fuccode');
+            $('#okButton').on('click', function() {
+                statusChange(true);
+                $('#fmSetfollowupcall').jqxValidator('hide');
+                $.ajax({
+                    async: false,
+                    method: 'GET',
+                    dataType: 'json',
+                    url: "sqltext",
+                    data: {
+                        sql: "SELECT * FROM SETFOLLOWUPCALL WHERE FUCCODE = '" + $('#fuccode').val() + "' "
+                    },
+                    success: function(data) {
+                        $('#fucdesc').val(data[0].FUCDESC);
+                    }
+                });
+            });
+        });
+        //ลบ
+        $('#deleteBtn').off().on('click', function() {
+            $.when($.confirmdlg('ต้องการลบข้อมูล?', 'warning')).then(function() {
+                $('#ok').click(function(event) {
+                    var valueJSON = [{
+                        table: 'SETFOLLOWUPCALL',
+                        field: 'FUCCODE',
+                        key: $('#fuccode').val(),
+                    }];
+                    // Convert Value To JSON String
+                    var value = JSON.stringify(valueJSON);
+                    $.ajax({
+                        async: false,
+                        method: 'POST',
+                        dataType: 'json',
+                        url: "delete",
+                        data: value,
+                        success: function(data) {
+                            if (data === true) {
+                                ShowMessage("ลบข้อมูลเรียบร้อย!", "success");
+                                statusChange(false);
+                            }
+                        },
+                        error: function(xhr, status, error) {
+                            ShowMessage("ลบข้อมูลไม่สำเร็จ! ", "danger");
+                        }
+                    });
+                });
+            });
+        });
+    });
+</script>

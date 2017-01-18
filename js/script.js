@@ -1,5 +1,4 @@
 ﻿function createElements() {
-    var theme = 'ui-redmond';
     $('#confirmdlg').jqxWindow({
         maxHeight: 150,
         maxWidth: 280,
@@ -10,12 +9,11 @@
         resizable: false,
         isModal: true,
         modalOpacity: 0.3,
-        theme: theme,
         okButton: $('#ok'),
         cancelButton: $('#cancel'),
         initContent: function() {
-            $('#ok').jqxButton({ width: '65px', theme: theme, template: "success" });
-            $('#cancel').jqxButton({ width: '65px', theme: theme, template: "danger" });
+            $('#ok').jqxButton({ width: '65px', template: "success" });
+            $('#cancel').jqxButton({ width: '65px', template: "danger" });
             $('#ok').focus();
         }
     });
@@ -23,7 +21,6 @@
 }
 
 function createElementAlert() {
-    var theme = 'ui-redmond';
     $('#alertdlg').jqxWindow({
         maxHeight: 150,
         maxWidth: 280,
@@ -34,7 +31,6 @@ function createElementAlert() {
         resizable: false,
         isModal: true,
         modalOpacity: 0.3,
-        theme: theme,
         okButton: $('#okAlert'),
         initContent: function() {
             $('#okAlert').jqxButton({ width: '65px', template: "danger" });
@@ -98,3 +94,110 @@ $(document).ready(function() {
         createElementAlert();
     }
 });
+
+function checkRundoc(hd_docno) {
+    var value = JSON.stringify([{
+        doc: hd_docno,
+        locat: $.session.get('locatcd')
+    }]);
+    $.ajax({
+        async: false,
+        url: "checkRundoc",
+        contentType: "application/json",
+        dataType: 'json',
+        type: 'POST',
+        data: value,
+        success: function (data) {
+            if (data[0].RUNNING === 'Y') {
+                return true
+            } else {
+                return false
+            }
+        }
+    });
+};
+
+function checkRight(menucode) {
+    var chkright = [];
+    var value = JSON.stringify([{
+        menucode: menucode,
+        userid: $.session.get('username')
+    }]);
+    $.ajax({
+        async: false,
+        url: "checkright",
+        contentType: "application/json",
+        dataType: 'json',
+        type: 'POST',
+        data: value,
+        success: function (data) {
+            chkright = data[0];
+            if (chkright.M_ACCESS === 'Y') {
+                chkright.M_ACCESS = true
+            } else {
+                chkright.M_ACCESS = false
+            }
+            if (chkright.M_DELETE === 'Y') {
+                chkright.M_DELETE = true
+            } else {
+                chkright.M_DELETE = false
+            }
+            if (chkright.M_EDIT === 'Y') {
+                chkright.M_EDIT = true
+            } else {
+                chkright.M_EDIT = false
+            }
+            if (chkright.M_INSERT === 'Y') {
+                chkright.M_INSERT = true
+            } else {
+                chkright.M_INSERT = false
+            }
+        }
+    });
+    return chkright;
+};
+
+function getLocatName(locatcd) {
+    var locatnm = '';
+    $.ajax({
+        async: false,
+        url: "sqltext",
+        data: { sql: "SELECT LOCATNM FROM INVLOCAT WHERE LOCATCD = '"+locatcd+"' " },
+        type: 'GET',
+        dataType: 'json',
+        success: function(data) {
+            locatnm = data[0].LOCATNM;
+        }
+    });
+    return locatnm;
+};
+
+function getApName(apcode) {
+    var apname = '';
+    $.ajax({
+        async: false,
+        url: "sqltext",
+        data: { sql: "SELECT APNAME FROM APMAST WHERE APCODE = '"+apcode+"' " },
+        type: 'GET',
+        dataType: 'json',
+        success: function(data) {
+            apname = data[0].APNAME;
+        }
+    });
+    return apname;
+};
+
+function getOfficeName(offcode) {
+    var offfname = '';
+    $.ajax({
+        async: false,
+        url: "sqltext",
+        data: { sql: "SELECT NAME||'   '||SURNAME AS NAME FROM OFFICER WHERE CODE = '"+offcode+"' " },
+        type: 'GET',
+        dataType: 'json',
+        success: function(data) {
+            offfname = data[0].NAME;
+        }
+    });
+    return offfname;
+};
