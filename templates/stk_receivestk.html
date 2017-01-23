@@ -371,7 +371,7 @@
 
         //เช็ค Running เอกสาร
         var chkrun = checkRundoc('R_RECVCR');
-
+        
         //ฟังก์ชั่น สถานะ Insert หรือ Edit
         function statusChange(disabled) {
             if (disabled === false) {
@@ -388,16 +388,18 @@
                 $('#duedate').jqxDateTimeInput('setDate', new Date());
                 $('#memo1').val('');
                 $('#tableInvtran').jqxGrid('clear');
+                $('#searchInvlocat').show();
                 statusClear();
             } else {
                 status = 'update';
                 $("#saveBtn").jqxButton({
                     disabled: !chkright.M_EDIT
                 });
+                $('#searchInvlocat').hide();
             }
             $("#recvno").prop("readonly", disabled);
-            $("#locat").prop("readonly", disabled);
-            $("#strno").prop("readonly", disabled);
+            $("#locat").jqxInput({disabled: disabled});
+            $("#strno").jqxInput({disabled: disabled});
             $("#deleteBtn").jqxButton({
                 disabled: !chkright.M_DELETE
             });
@@ -424,6 +426,7 @@
             $('#crvat').val(0);
             $('#totcost').val(0);
             $('#stdprc').val(0);
+            $('#editrow').hide();
         }
 
         function getInvinvo(recvno) {
@@ -466,59 +469,6 @@
                     $('#tableInvtran').jqxGrid('updatebounddata');
                 }
             });
-        }
-        //ฟังก์ชั่นเช็ค validate INVTRAN
-        function validateInvtran(value, index) {
-            $("#tableInvtran").jqxGrid('hidevalidationpopups');
-            var rows = $("#tableInvtran").jqxGrid('getdisplayrows');
-            var nullOptcode = 0,
-                validateOptcode = 0,
-                duplicateOptcode = 0,
-                result = true;
-            //Check validate
-            for (var i = 0; i < rows.length; i++) {
-                var row = rows[i];
-                if ((row.OPTCODE === undefined) || (row.OPTCODE === '')) {
-                    nullOptcode++;
-                } else {
-                    $.ajax({
-                        async: false,
-                        url: "duplicateCheck",
-                        type: 'get',
-                        data: {
-                            table: 'SETMOD',
-                            field: 'OPTCODE',
-                            value: row.OPTCODE
-                        },
-                        success: function (data) {
-                            if (data === true) {
-                                validateOptcode++;
-                            }
-                        }
-                    });
-
-                    if (validateOptcode === 0) {
-                        for (var j = 0; j < rows.length; j++) {
-                            var row2 = rows[j];
-                            if ((row2.OPTCODE === row.OPTCODE) && (j !== i)) {
-                                duplicateOptcode++;
-                                $("#tableInvtran").jqxGrid('showvalidationpopup', j, "OPTCODE",
-                                    "ไม่สามารถเลือกรหัสอุปกรณ์ซ้ำกันได้");
-                                result = false;
-                            }
-                        }
-                    }
-                }
-                if (nullOptcode !== 0) {
-                    $("#tableInvtran").jqxGrid('showvalidationpopup', i, "OPTCODE", "กรุณาเลือกรหัสอุปกรณ์");
-                    result = false;
-                };
-                if (validateOptcode !== 0) {
-                    $("#tableInvtran").jqxGrid('showvalidationpopup', i, "OPTCODE", "ไม่พบรหัสอุปกรณ์");
-                    result = false;
-                };
-            }
-            return result;
         }
         var statData = [{
             value: "N",
@@ -775,14 +725,14 @@
             action: 'keyup, blur',
             rule: function (input, commit) {
                 var strno = $('#strno').val();
+                var recvno = $('#recvno').val();
                 if (strno !== '') {
                     $.ajax({
-                        url: "duplicateCheck",
+                        url: "duplicateStrno",
                         type: 'get',
                         data: {
-                            table: 'INVTRAN',
-                            field: 'STRNO',
-                            value: strno
+                            value1: strno,
+                            value2: recvno
                         },
                         success: function (data) {
                             if (data === true) {
@@ -904,6 +854,26 @@
             }, {
                 name: 'STDPRC',
                 type: 'float'
+
+            }, {
+                name: 'MANUYR',
+                type: 'string'
+
+            }, {
+                name: 'REGNO',
+                type: 'string'
+
+            }, {
+                name: 'KEYNO',
+                type: 'string'
+
+            }, {
+                name: 'MILERT',
+                type: 'float'
+
+            }, {
+                name: 'TAXNO',
+                type: 'string'
 
             }],
             addrow: function (rowid, rowdata, position, commit) {
@@ -1210,61 +1180,61 @@
             }, {
                 text: 'สถานที่เก็บ',
                 datafield: 'CRLOCAT',
-                width: 90,
+                width: 70,
                 align: 'center',
                 cellsalign: 'left',
             }, {
                 text: 'กลุ่มสินค้า',
                 datafield: 'GCODE',
-                width: 90,
+                width: 70,
                 align: 'center',
                 cellsalign: 'left',
             }, {
                 text: 'เลขตัวถัง',
                 datafield: 'STRNO',
-                width: 90,
+                width: 190,
                 align: 'center',
                 cellsalign: 'left',
             }, {
                 text: 'เลขเครื่องยนต์',
                 datafield: 'ENGNO',
-                width: 90,
+                width: 190,
                 align: 'center',
                 cellsalign: 'left',
             }, {
                 text: 'ยี่ห้อ',
                 datafield: 'TYPECOD',
-                width: 90,
+                width: 80,
                 align: 'center',
                 cellsalign: 'left',
             }, {
                 text: 'รุ่น',
                 datafield: 'MODELCOD',
-                width: 90,
+                width: 140,
                 align: 'center',
                 cellsalign: 'left',
             }, {
                 text: 'แบบ',
                 datafield: 'BAABCOD',
-                width: 90,
+                width: 140,
                 align: 'center',
                 cellsalign: 'left',
             }, {
                 text: 'สี',
                 datafield: 'COLORCOD',
-                width: 90,
+                width: 140,
                 align: 'center',
                 cellsalign: 'left',
             }, {
                 text: 'ขนาด',
                 datafield: 'CC',
-                width: 90,
+                width: 50,
                 align: 'center',
                 cellsalign: 'left',
             }, {
                 text: 'สถานะ',
                 datafield: 'STAT',
-                width: 90,
+                width: 50,
                 align: 'center',
                 cellsalign: 'left',
             }, {
@@ -1272,57 +1242,57 @@
                 datafield: 'CRCOST',
                 width: 90,
                 align: 'center',
-                cellsalign: 'left',
+                cellsalign: 'right',
             }, {
                 text: 'ส่วนลด',
                 datafield: 'DISCT',
                 width: 90,
                 align: 'center',
-                cellsalign: 'left',
+                cellsalign: 'right',
             }, {
                 text: 'ทุนสุทธิ',
                 datafield: 'NETCOST',
                 width: 90,
                 align: 'center',
-                cellsalign: 'left',
+                cellsalign: 'right',
             }, {
                 text: 'ภาษี',
                 datafield: 'CRVAT',
                 width: 90,
                 align: 'center',
-                cellsalign: 'left',
+                cellsalign: 'right',
             }, {
                 text: 'ทุนรวมภาษี',
                 datafield: 'TOTCOST',
                 width: 90,
                 align: 'center',
-                cellsalign: 'left',
+                cellsalign: 'right',
             }, {
                 text: 'ราคาขาย',
                 datafield: 'STDPRC',
                 width: 90,
                 align: 'center',
-                cellsalign: 'left',
+                cellsalign: 'right',
             }, {
                 text: 'ปีที่ผลิต',
                 datafield: 'MANUYR',
-                hidden: true
+                //hidden: true
             }, {
                 text: 'เลขทะเบียน',
                 datafield: 'REGNO',
-                hidden: true
+                //hidden: true
             }, {
                 text: 'เลขกุญแจ',
                 datafield: 'KEYNO',
-                hidden: true
+                //hidden: true
             }, {
                 text: 'เลขไมล์',
                 datafield: 'MILERT',
-                hidden: true
+                //hidden: true
             }, {
                 text: 'เลขที่ใบกำกับ',
                 datafield: 'TAXNO',
-                hidden: true
+                //hidden: true
             }],
             showtoolbar: true,
             rendertoolbar: function (toolbar) {
@@ -1371,54 +1341,53 @@
                                 var commit = $("#tableInvtran").jqxGrid('addrow', null, datarow);
                                 if (commit) {
                                     statusClear();
+                                    $('#tableInvtran').jqxGrid('clearselection');
                                 };
                             };
                         });
                     } else {
-                        //$('#fmInvtran').jqxValidator('validateInput', '#strno');
+                        ShowMessage("ระบุเลขตัวถังสินค้าซ้ำ!","danger");
                     }
                 });
 
                 //Update row
                 $("#editrow").on('click', function () {
                     var rows = $("#tableInvtran").jqxGrid('getdisplayrows');
-                    for (var i = 0; i < rows.length; i++) {
-                        var row = rows[i];
-                        if (row.STRNO === $("#strno").val()) {
-                            $('#fmInvtran').jqxValidator('validate', function (result) {
-                                if (result) {
-                                    var datarow = {
-                                        IDNO: 0,
-                                        CRLOCAT: $("#locat").val(),
-                                        GCODE: $("#groupcode").val(),
-                                        STRNO: $("#strno").val(),
-                                        ENGNO: $("#engno").val(),
-                                        TYPECOD: $("#typecode").val(),
-                                        MODELCOD: $("#modelcode").val(),
-                                        BAABCOD: $("#baabcode").val(),
-                                        COLORCOD: $("#colorcode").val(),
-                                        CC: $("#cc").val(),
-                                        STAT: $("#stat").val(),
-                                        CRCOST: $("#crcost").val(),
-                                        DISCT: $("#disct").val(),
-                                        NETCOST: $("#netcost").val(),
-                                        CRVAT: $("#crvat").val(),
-                                        TOTCOST: $("#totcost").val(),
-                                        STDPRC: $("#stdprc").val(),
-                                        MANUYR: $("#manuyr").val(),
-                                        REGNO: $("#regno").val(),
-                                        KEYNO: $("#keyno").val(),
-                                        MILERT: $("#milert").val(),
-                                        TAXNO: $("#taxno").val(),
-                                    };
-                                    var commit = $("#tableInvtran").jqxGrid('addrow', null, datarow);
-                                    if (commit) {
-                                        statusClear();
-                                    };
-                                };
-                            });
-                        }
-                    };
+                    var rowindex = $('#tableInvtran').jqxGrid('getselectedrowindex');
+                    $('#fmInvtran').jqxValidator('validate', function (result) {
+                        if (result) {
+                            var datarow = {
+                                IDNO: 0,
+                                CRLOCAT: $("#locat").val(),
+                                GCODE: $("#groupcode").val(),
+                                STRNO: $("#strno").val(),
+                                ENGNO: $("#engno").val(),
+                                TYPECOD: $("#typecode").val(),
+                                MODELCOD: $("#modelcode").val(),
+                                BAABCOD: $("#baabcode").val(),
+                                COLORCOD: $("#colorcode").val(),
+                                CC: $("#cc").val(),
+                                STAT: $("#stat").val(),
+                                CRCOST: $("#crcost").val(),
+                                DISCT: $("#disct").val(),
+                                NETCOST: $("#netcost").val(),
+                                CRVAT: $("#crvat").val(),
+                                TOTCOST: $("#totcost").val(),
+                                STDPRC: $("#stdprc").val(),
+                                MANUYR: $("#manuyr").val(),
+                                REGNO: $("#regno").val(),
+                                KEYNO: $("#keyno").val(),
+                                MILERT: $("#milert").val(),
+                                TAXNO: $("#taxno").val(),
+                            };
+                            var rowID = $('#tableInvtran').jqxGrid('getrowid', rowindex);
+                            var commit = $("#tableInvtran").jqxGrid('updaterow', rowID, datarow);
+                            if (commit) {
+                                statusClear();
+                                $('#tableInvtran').jqxGrid('clearselection');
+                            };
+                        };
+                    });
                 });
 
                 //Delete row
@@ -1442,12 +1411,65 @@
                     height: 25,
                     template: "primary"
                 });
+                $('#editrow').hide();
                 $("#deleterow").jqxButton({
                     width: 105,
                     height: 25,
                     template: "danger",
                 });
             }
+        });
+
+        $('#tableInvtran').on('rowselect', function (event) {
+            var args = event.args;
+            var rowBoundIndex = args.rowindex;
+            var rowData = args.row;
+            if (rowBoundIndex >= 0) {
+                $("#groupcode").val(rowData.GCODE);
+                $("#strno").val(rowData.STRNO);
+                $("#engno").val(rowData.ENGNO);
+                $("#typecode").val(rowData.TYPECOD);
+                $("#modelcode").val(rowData.MODELCOD);
+                $("#baabcode").val(rowData.BAABCOD);
+                $("#colorcode").val(rowData.COLORCOD);
+                $("#cc").val(rowData.CC);
+                $("#stat").val(rowData.STAT);
+                $("#crcost").val(rowData.CRCOST);
+                $("#disct").val(rowData.DISCT);
+                $("#netcost").val(rowData.NETCOST);
+                $("#crvat").val(rowData.CRVAT);
+                $("#totcost").val(rowData.TOTCOST);
+                $("#stdprc").val(rowData.STDPRC);
+                $("#manuyr").val(rowData.MANUYR);
+                $("#regno").val(rowData.REGNO);
+                $("#keyno").val(rowData.KEYNO);
+                $("#milert").val(rowData.MILERT);
+                $("#taxno").val(rowData.TAXNO);
+            }
+            $('#editrow').show();
+        });
+        //คำนวนจำนวนเงิน
+        $('#crcost').on('valueChanged', function (event) {
+            var value = parseFloat(event.args.value);
+            var disct = parseFloat($("#disct").val());
+            $("#netcost").val(value-disct);
+        });
+        $('#disct').on('valueChanged', function (event) {
+            var value = parseFloat(event.args.value);
+            var crcost = parseFloat($("#crcost").val());
+            $("#netcost").val(crcost-value);
+        });
+        $('#netcost').on('valueChanged', function (event) {
+            var value = parseFloat(event.args.value);
+            var vatrt = parseFloat($("#vatrt").val());
+            var crvat = ((value*vatrt)/100);
+            $("#crvat").val(crvat);
+        });
+        $('#crvat').on('valueChanged', function (event) {
+            var value = parseFloat(event.args.value);
+            var netcost = parseFloat($("#netcost").val());
+            var totcost = netcost+value;
+            $("#totcost").val(totcost);
         });
 
         $("#newBtn").jqxButton({
@@ -1495,56 +1517,98 @@
 
         //เริ่มใหม่
         $('#newBtn').off().on('click', function () {
-            loadHTML("set_modmast");
+            loadHTML("stk_receivestk");
         });
         //บันทึก
         $('#saveBtn').off().on('click', function () {
             $('#fmInvinvo').jqxValidator('validate', function (result) {
-                if ((result) && (validateInvtran() === true)) {
+                var rowscount = $("#tableInvtran").jqxGrid('getdatainformation').rowscount;
+                if ((result) && (rowscount > 0)) {
                     $.when($.confirmdlg('ต้องการบันทึกข้อมูล?', 'info')).then(function () {
                         $("#tableInvtran").jqxGrid('refreshdata');
-                        var rowscount = $("#tableInvtran").jqxGrid('getdatainformation')
-                            .rowscount;
+                        
                         var docdate = $("#recvdt").jqxDateTimeInput('getDate');
+                        var invdate = $("#invdt").jqxDateTimeInput('getDate');
+                        var due = $("#duedate").jqxDateTimeInput('getDate');
                         var currentCulture = Globalize.cultures['en-US'];
                         var localizationObject = currentCulture.calendar;
-                        var recvdt = $.jqx.dataFormat.formatdate(docdate, "dd/MM/yyyy",
-                            localizationObject);
-                        var modtran = [];
+                        var recvdt = $.jqx.dataFormat.formatdate(docdate, "dd/MM/yyyy",localizationObject);
+                        var invdt = $.jqx.dataFormat.formatdate(invdate, "dd/MM/yyyy",localizationObject);
+                        var duedt = $.jqx.dataFormat.formatdate(due, "dd/MM/yyyy",localizationObject);
+                        var invtran = [];
+                        var sumNet = 0,
+                            sumVat = 0,
+                            sumTot = 0;
+                        var valueApflag = '';
+                        if ($("#apflag").val() === true) {
+                            valueApflag = 'Y';
+                        } else {
+                            valueApflag = 'N';
+                        }
                         for (var i = 0; i < rowscount; i++) {
                             var data = $("#tableInvtran").jqxGrid('getrowdata', i);
-                            modtran.push({
+                            sumNet = sumNet+data.NETCOST;
+                            sumVat = sumVat+data.CRVAT;
+                            sumTot = sumTot+data.TOTCOST;
+                            invtran.push({
                                 IDNO: data.IDNO,
-                                RECVNO: data.RECVNO,
-                                OPTCODE: data.OPTCODE,
-                                OPTNAME: data.OPTNAME,
-                                QTY: data.QTY,
-                                FLAG: data.FLAG,
-                                USERID: data.USERID,
-                                OPTPRC: data.OPTPRC
+                                CRLOCAT: $("#locat").val(),
+                                GCODE: data.GCODE,
+                                STRNO: data.STRNO,
+                                ENGNO: data.ENGNO,
+                                TYPECOD: data.TYPECOD,
+                                MODELCOD: data.MODELCOD,
+                                BAABCOD: data.BAABCOD,
+                                COLORCOD: data.COLORCOD,
+                                CC: data.CC,
+                                STAT: data.STAT,
+                                CRCOST: data.CRCOST,
+                                DISCT: data.DISCT,
+                                NETCOST: data.NETCOST,
+                                CRVAT: data.CRVAT,
+                                TOTCOST: data.TOTCOST,
+                                STDPRC: data.STDPRC,
+                                MANUYR: data.MANUYR,
+                                REGNO: data.REGNO,
+                                KEYNO: data.KEYNO,
+                                MILERT: data.MILERT,
+                                TAXNO: data.TAXNO,
+                                USERID: $.session.get('username'),
                             });
                         };
                         var valueJSON = [{
                             status: status,
-                            locat: $.session.get('locatcd'),
-                            table: 'INVINVNO',
+                            locat: $('#locat').val(),
+                            table: 'INVINVO',
                             key: $('#recvno').val(),
                             value: [{
                                 RECVNO: $('#recvno').val(),
                                 RECVDT: recvdt,
-                                FLAG: 'A',
+                                LOCAT: $('#locat').val(),
+                                INVNO: $('#invno').val(),
+                                INVDT: invdt,
+                                RVCODE: $('#rvcode').val(),
+                                APCODE: $('#apcode').val(),
+                                VATRT: $('#vatrt').val(),
+                                NETCST: sumNet, 
+                                NETVAT: sumVat, 
+                                NETTOT: sumTot,
+                                DESCP: $('#memo1').val(),
+                                CREDTM: $('#credtm').val(),
+                                DUEDATE: duedt,
                                 USERID: $.session.get('username'),
-                                MOMO1: $('#memo1').val(),
+                                APFLAG: valueApflag,
                             }]
                         }, {
                             table: 'INVTRAN',
-                            value: modtran
+                            value: invtran
                         }];
                         // Convert Value To JSON String
                         var value = JSON.stringify(valueJSON);
+                        console.log(value);
                         $('#ok').on('click', function (event) {
                             $.ajax({
-                                url: 'saveModmast',
+                                url: 'saveInvinvo',
                                 type: 'POST',
                                 contentType: "application/json",
                                 dataType: "json",
@@ -1552,15 +1616,11 @@
                                 success: function (data) {
                                     console.log(data);
                                     if (data[0].save === true) {
-                                        ShowMessage(
-                                            "บันทึกข้อมูลเรียบร้อย!",
-                                            "success");
+                                        ShowMessage("บันทึกข้อมูลเรียบร้อย!","success");
                                         statusChange(true);
                                         getInvinvo(data[0].recvno);
                                     } else {
-                                        ShowMessage(
-                                            "บันทึกไม่สำเร็จ!",
-                                            "danger");
+                                        ShowMessage("บันทึกไม่สำเร็จ!","danger");
                                     }
                                 }
                             });
@@ -1606,11 +1666,13 @@
         });
         //ค้นหา
         $('#searchBtn').off().on('click', function () {
+            statusClear();
+            $('#tableInvtran').jqxGrid('clearselection');
             var rules2 = rules.slice();
             rules2.splice(1, 1);
             $('#fmInvinvo').jqxValidator('rules', rules2);
             //Show Dialog Search
-            searchAll('modmast', 'recvno');
+            searchAll('invinvo', 'recvno');
             $('#okButton').on('click', function (event) {
                 event.preventDefault();
                 $('#fmInvinvo').jqxValidator('hide');
@@ -1628,7 +1690,7 @@
                             field: 'RECVNO',
                             key: $('#recvno').val(),
                         }, {
-                            table: 'INVINVNO',
+                            table: 'INVINVO',
                             field: 'RECVNO',
                             key: $('#recvno').val(),
                         }];

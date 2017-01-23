@@ -449,6 +449,24 @@
             { text: 'คำอธิบาย', datafield: 'COPDESC', minwidth: 200, width: 250 },
         ];
         keyno = 'COPCODE';
+    } else if (show === "invinvo") {
+        datafields = [
+            { name: 'RECVNO', type: 'string' },
+            { name: 'INVNO', type: 'string' },
+            { name: 'APCODE', type: 'string' },
+            { name: 'APNAME', type: 'string' },
+            { name: 'STRNO', type: 'string' },
+            { name: 'ENGNO', type: 'string' },
+        ];
+        fields = [
+            { text: 'เลขใบรับสินค้า', datafield: 'RECVNO', minwidth: 100, width: 250 },
+            { text: 'เลขใบส่งสินค้า', datafield: 'INVNO', minwidth: 100, width: 250 },
+            { text: 'รหัสเจ้าหนี้', datafield: 'APCODE', minwidth: 100, width: 250 },
+            { text: 'ชื่อเจ้าหนี้', datafield: 'APNAME', minwidth: 250, width: 250 },
+            { text: 'เลขตัวถัง', datafield: 'STRNO', minwidth: 250, width: 250 },
+            { text: 'เลขเครื่องยนต์', datafield: 'ENGNO', minwidth: 250, width: 250 },
+        ];
+        keyno = 'RECVNO';
     }
 
     fields.unshift({
@@ -582,6 +600,8 @@
             sqltxt = "SELECT * FROM SETFOLLOWUPCALL WHERE UPPER(COALESCE(FUCCODE,'')||COALESCE(FUCDESC,'')) LIKE '%" + param1 + "%' ORDER BY FUCCODE";
         } else if (show === "setcompaint") {
             sqltxt = "SELECT * FROM SETCOMPAINT WHERE UPPER(COALESCE(COPCODE,'')||COALESCE(COPDESC,'')) LIKE '%" + param1 + "%' ORDER BY COPCODE";
+        } else if (show === "invinvo") {
+            sqltxt = "SELECT A.RECVNO, A.INVNO, A.APCODE, C.APNAME, B.STRNO, B.ENGNO FROM INVINVO A, INVTRAN B, APMAST C WHERE A.RECVNO = B.RECVNO AND A.APCODE = C.APCODE AND UPPER(COALESCE(A.RECVNO,'')||COALESCE(A.INVNO,'')||COALESCE(A.APCODE,'')||COALESCE(C.APNAME,'')||COALESCE(B.STRNO,'')||COALESCE(B.ENGNO,'')) LIKE '%" + param1 + "%' ORDER BY A.RECVNO";
         }
 
         // Qurey Data

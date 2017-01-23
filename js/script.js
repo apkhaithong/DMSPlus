@@ -96,6 +96,7 @@ $(document).ready(function() {
 });
 
 function checkRundoc(hd_docno) {
+    var result = false;
     var value = JSON.stringify([{
         doc: hd_docno,
         locat: $.session.get('locatcd')
@@ -109,12 +110,13 @@ function checkRundoc(hd_docno) {
         data: value,
         success: function (data) {
             if (data[0].RUNNING === 'Y') {
-                return true
+                result = true
             } else {
-                return false
+                result = false
             }
         }
     });
+    return result;
 };
 
 function checkRight(menucode) {

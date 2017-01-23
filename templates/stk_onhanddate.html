@@ -27,13 +27,10 @@
                             </form>
                         </div>
                         <div class="col-md-3">
-                            
                         </div>
                         <div class="col-md-3">
-                            
                         </div>
                         <div class="col-md-3">
-                            
                         </div>
                     </div>
                     <div class="row">
@@ -156,7 +153,6 @@
                         </div>
                     </div>
                 </div>
-
             </div>
         </div>
     </div>
@@ -164,17 +160,17 @@
 </div>
 <!-- end: .row -->
 <script type="text/javascript">
-    $(document).ready(function() {
+    $(document).ready(function () {
         $('.admin-panels').adminpanel({
             grid: '.admin-grid',
-            callback: function() {
-                bootbox.confirm('<h3>A Custom Callback!</h3>', function() {});
+            callback: function () {
+                bootbox.confirm('<h3>A Custom Callback!</h3>', function () {});
             },
-            onFinish: function() {
+            onFinish: function () {
                 $('.admin-panels').addClass('animated fadeIn').removeClass('fade-onload');
                 demoHighCharts.init();
             },
-            onSave: function() {
+            onSave: function () {
                 $(window).trigger('resize');
             }
         });
@@ -182,43 +178,106 @@
         $.jqx.theme = "bootstrap";
 
         var sourceInvlocat = {
-            async:false,
+            async: false,
             datatype: "json",
-            datafields: [
-                { name: 'LOCATCD' },
-                { name: 'LOCATNM' }
+            datafields: [{
+                    name: 'LOCATCD'
+                },
+                {
+                    name: 'LOCATNM'
+                }
             ],
             url: "invlocat"
         };
-        var sourceStatus = [
-            { text: "ทั้งหมด", value: '%' },
-            { text: "รถใหม่", value: 'N%' },
-            { text: "รถเก่า", value: 'O%' }
+        var sourceStatus = [{
+                text: "ทั้งหมด",
+                value: '%'
+            },
+            {
+                text: "รถใหม่",
+                value: 'N%'
+            },
+            {
+                text: "รถเก่า",
+                value: 'O%'
+            }
         ];
-        var sourceCurrent = [
-            { text: "ทั้งหมด", value: '1' },
-            { text: "ไม่รวมจอง", value: '2' },
-            { text: "เฉพาะจอง", value: '3' }
+        var sourceCurrent = [{
+                text: "ทั้งหมด",
+                value: '1'
+            },
+            {
+                text: "ไม่รวมจอง",
+                value: '2'
+            },
+            {
+                text: "เฉพาะจอง",
+                value: '3'
+            }
         ];
         var emptyStock = [];
         var sourceStock = {
             datatype: "json",
-            datafields: [
-                { name: 'LOCAT', type: 'string' },
-                { name: 'REFDTIN', type: 'date' },
-                { name: 'STRNO', type: 'string' },
-                { name: 'TYPECOD', type: 'string' },
-                { name: 'MODELCOD', type: 'string' },
-                { name: 'BAABCOD', type: 'string' },
-                { name: 'COLORCOD', type: 'string' },
-                { name: 'CRCOST', type: 'float' },
-                { name: 'DISCT', type: 'float' },
-                { name: 'NETCOST', type: 'float' },
-                { name: 'CRVAT', type: 'float' },
-                { name: 'TOTCOST', type: 'float' },
-                { name: 'NETTAXBUY', type: 'float' },
-                { name: 'VATTAXBUY', type: 'float' },
-                { name: 'TOTTAXBUY', type: 'float' }
+            datafields: [{
+                    name: 'LOCAT',
+                    type: 'string'
+                },
+                {
+                    name: 'REFDTIN',
+                    type: 'date'
+                },
+                {
+                    name: 'STRNO',
+                    type: 'string'
+                },
+                {
+                    name: 'TYPECOD',
+                    type: 'string'
+                },
+                {
+                    name: 'MODELCOD',
+                    type: 'string'
+                },
+                {
+                    name: 'BAABCOD',
+                    type: 'string'
+                },
+                {
+                    name: 'COLORCOD',
+                    type: 'string'
+                },
+                {
+                    name: 'CRCOST',
+                    type: 'float'
+                },
+                {
+                    name: 'DISCT',
+                    type: 'float'
+                },
+                {
+                    name: 'NETCOST',
+                    type: 'float'
+                },
+                {
+                    name: 'CRVAT',
+                    type: 'float'
+                },
+                {
+                    name: 'TOTCOST',
+                    type: 'float'
+                },
+                {
+                    name: 'NETTAXBUY',
+                    type: 'float'
+                },
+                {
+                    name: 'VATTAXBUY',
+                    type: 'float'
+                },
+                {
+                    name: 'TOTTAXBUY',
+                    type: 'float'
+                }
             ],
             localdata: emptyStock
         };
@@ -226,16 +285,58 @@
         var dataInvlocat = new $.jqx.dataAdapter(sourceInvlocat);
         var dataStock = new $.jqx.dataAdapter(sourceStock);
         // create jqxInput widget.
-        $("#atdate").jqxDateTimeInput({ height: 25, width: '100%', culture:'en-US' });
-        $('#locatcd').jqxInput({ height: 25, width: '100%' });
-        $('#groupcode').jqxInput({ height: 25, width: '100%' });
-        $('#typecode').jqxInput({ height: 25, width: '100%' });
-        $('#modelcode').jqxInput({ height: 25, width: '100%' });
-        $('#baabcode').jqxInput({ height: 25, width: '100%' });
-        $('#colorcode').jqxInput({ height: 25, width: '100%' });
-        $('#parkcode').jqxInput({ height: 25, width: '100%' });
-        $("#statuscode").jqxDropDownList({ height: 25, width: '100%', source: sourceStatus, displayMember: 'text', valueMember: 'value', dropDownHeight:80, selectedIndex: 0 });
-        $("#currentcode").jqxDropDownList({ height: 25, width: '100%', source: sourceCurrent, displayMember: 'text', valueMember: 'value', dropDownHeight:80, selectedIndex: 0 });
+        $("#atdate").jqxDateTimeInput({
+            height: 25,
+            width: '100%',
+            culture: 'en-US'
+        });
+        $('#locatcd').jqxInput({
+            height: 25,
+            width: '100%'
+        });
+        $('#locatcd').val($.session.get('locatcd'));
+        $('#groupcode').jqxInput({
+            height: 25,
+            width: '100%'
+        });
+        $('#typecode').jqxInput({
+            height: 25,
+            width: '100%'
+        });
+        $('#modelcode').jqxInput({
+            height: 25,
+            width: '100%'
+        });
+        $('#baabcode').jqxInput({
+            height: 25,
+            width: '100%'
+        });
+        $('#colorcode').jqxInput({
+            height: 25,
+            width: '100%'
+        });
+        $('#parkcode').jqxInput({
+            height: 25,
+            width: '100%'
+        });
+        $("#statuscode").jqxDropDownList({
+            height: 25,
+            width: '100%',
+            source: sourceStatus,
+            displayMember: 'text',
+            valueMember: 'value',
+            dropDownHeight: 80,
+            selectedIndex: 0
+        });
+        $("#currentcode").jqxDropDownList({
+            height: 25,
+            width: '100%',
+            source: sourceCurrent,
+            displayMember: 'text',
+            valueMember: 'value',
+            dropDownHeight: 80,
+            selectedIndex: 0
+        });
         // create jqxGrid widget.
         $("#gridStock").jqxGrid({
             width: '100%',
@@ -251,11 +352,20 @@
             pageable: false,
             pagesize: 20,
             pagermode: "simple",
-            columns: [
-                {
-                    text: 'ลำดับ', sortable: false, filterable: false, editable: false,
-                    groupable: false, draggable: false, resizable: false, align: 'center', cellsalign: 'center',
-                    datafield: '', columntype: 'number', width: 40, exportable: false,
+            columns: [{
+                    text: 'ลำดับ',
+                    sortable: false,
+                    filterable: false,
+                    editable: false,
+                    groupable: false,
+                    draggable: false,
+                    resizable: false,
+                    align: 'center',
+                    cellsalign: 'center',
+                    datafield: '',
+                    columntype: 'number',
+                    width: 40,
+                    exportable: false,
                     cellsrenderer: function (row, column, value) {
                         return "<div style='margin:4px;'>" + (value + 1) + "</div>";
                     },
@@ -263,94 +373,212 @@
                     aggregatesrenderer: function (aggregates) {
                         var renderstring = "";
                         $.each(aggregates, function (key, value) {
-                            renderstring += '<div style="position: relative; margin: 4px; overflow: hidden; font-weight: bold;">' + value + '</div>';
+                            renderstring +=
+                                '<div style="position: relative; margin: 4px; overflow: hidden; font-weight: bold;">' +
+                                value + '</div>';
                         });
                         return renderstring;
                     }
                 },
-                {text: 'วันที่เข้าสต็อก', datafield: 'REFDTIN', width: 90, align: 'center', columntype: 'datetimeinput', cellsformat: 'dd/MM/yyyy', filtertype: 'range'},
-                {text: 'สาขา', datafield: 'LOCAT', width: 60, align: 'center', filtertype: 'checkedlist'},
-                {text: 'เลขตัวถัง', datafield: 'STRNO', width: 160, align: 'center', filtertype: 'checkedlist'},
-                {text: 'ยี่ห้อ', datafield: 'TYPECOD', width: 80, align: 'center', filtertype: 'checkedlist'},
-                {text: 'รุ่น', datafield: 'MODELCOD', width: 150, align: 'center', filtertype: 'checkedlist'},
-                {text: 'แบบ', datafield: 'BAABCOD', width: 160, align: 'center', filtertype: 'checkedlist'},
-                {text: 'สี', datafield: 'COLORCOD', width: 150, align: 'center', filtertype: 'checkedlist'},
-                {text: 'มูลค่าทุน', datafield: 'CRCOST', width: 100, align: 'center', cellsalign: 'right', cellsformat: 'd2', filtertype: 'number',
+                {
+                    text: 'วันที่เข้าสต็อก',
+                    datafield: 'REFDTIN',
+                    width: 90,
+                    align: 'center',
+                    columntype: 'datetimeinput',
+                    cellsformat: 'dd/MM/yyyy',
+                    filtertype: 'range'
+                },
+                {
+                    text: 'สาขา',
+                    datafield: 'LOCAT',
+                    width: 60,
+                    align: 'center',
+                    filtertype: 'checkedlist'
+                },
+                {
+                    text: 'เลขตัวถัง',
+                    datafield: 'STRNO',
+                    width: 160,
+                    align: 'center',
+                    filtertype: 'checkedlist'
+                },
+                {
+                    text: 'ยี่ห้อ',
+                    datafield: 'TYPECOD',
+                    width: 80,
+                    align: 'center',
+                    filtertype: 'checkedlist'
+                },
+                {
+                    text: 'รุ่น',
+                    datafield: 'MODELCOD',
+                    width: 150,
+                    align: 'center',
+                    filtertype: 'checkedlist'
+                },
+                {
+                    text: 'แบบ',
+                    datafield: 'BAABCOD',
+                    width: 160,
+                    align: 'center',
+                    filtertype: 'checkedlist'
+                },
+                {
+                    text: 'สี',
+                    datafield: 'COLORCOD',
+                    width: 150,
+                    align: 'center',
+                    filtertype: 'checkedlist'
+                },
+                {
+                    text: 'มูลค่าทุน',
+                    datafield: 'CRCOST',
+                    width: 100,
+                    align: 'center',
+                    cellsalign: 'right',
+                    cellsformat: 'd2',
+                    filtertype: 'number',
                     aggregates: ['sum'],
                     aggregatesrenderer: function (aggregates) {
                         var renderstring = "";
                         $.each(aggregates, function (key, value) {
-                            renderstring += '<div style="position: relative; margin: 4px; overflow: hidden; font-weight: bold;">' + value + '</div>';
+                            renderstring +=
+                                '<div style="position: relative; margin: 4px; overflow: hidden; font-weight: bold;">' +
+                                value + '</div>';
                         });
                         return renderstring;
                     }
                 },
-                {text: 'ส่วนลด', datafield: 'DISCT', width: 80, align: 'center', cellsalign: 'right', cellsformat: 'd2', filtertype: 'number',
+                {
+                    text: 'ส่วนลด',
+                    datafield: 'DISCT',
+                    width: 80,
+                    align: 'center',
+                    cellsalign: 'right',
+                    cellsformat: 'd2',
+                    filtertype: 'number',
                     aggregates: ['sum'],
                     aggregatesrenderer: function (aggregates) {
                         var renderstring = "";
                         $.each(aggregates, function (key, value) {
-                            renderstring += '<div style="position: relative; margin: 4px; overflow: hidden; font-weight: bold;">' + value + '</div>';
+                            renderstring +=
+                                '<div style="position: relative; margin: 4px; overflow: hidden; font-weight: bold;">' +
+                                value + '</div>';
                         });
                         return renderstring;
                     }
                 },
-                {text: 'ทุนสุทธิ', datafield: 'NETCOST', width: 100, align: 'center', cellsalign: 'right', cellsformat: 'd2', filtertype: 'number',
+                {
+                    text: 'ทุนสุทธิ',
+                    datafield: 'NETCOST',
+                    width: 100,
+                    align: 'center',
+                    cellsalign: 'right',
+                    cellsformat: 'd2',
+                    filtertype: 'number',
                     aggregates: ['sum'],
                     aggregatesrenderer: function (aggregates) {
                         var renderstring = "";
                         $.each(aggregates, function (key, value) {
-                            renderstring += '<div style="position: relative; margin: 4px; overflow: hidden; font-weight: bold;">' + value + '</div>';
+                            renderstring +=
+                                '<div style="position: relative; margin: 4px; overflow: hidden; font-weight: bold;">' +
+                                value + '</div>';
                         });
                         return renderstring;
                     }
                 },
-                {text: 'ภาษี', datafield: 'CRVAT', width: 100, align: 'center', cellsalign: 'right', cellsformat: 'd2', filtertype: 'number',
+                {
+                    text: 'ภาษี',
+                    datafield: 'CRVAT',
+                    width: 100,
+                    align: 'center',
+                    cellsalign: 'right',
+                    cellsformat: 'd2',
+                    filtertype: 'number',
                     aggregates: ['sum'],
                     aggregatesrenderer: function (aggregates) {
                         var renderstring = "";
                         $.each(aggregates, function (key, value) {
-                            renderstring += '<div style="position: relative; margin: 4px; overflow: hidden; font-weight: bold;">' + value + '</div>';
+                            renderstring +=
+                                '<div style="position: relative; margin: 4px; overflow: hidden; font-weight: bold;">' +
+                                value + '</div>';
                         });
                         return renderstring;
                     }
                 },
-                {text: 'ทุนรวมภาษี', datafield: 'TOTCOST', width: 100, align: 'center', cellsalign: 'right', cellsformat: 'd2', filtertype: 'number',
+                {
+                    text: 'ทุนรวมภาษี',
+                    datafield: 'TOTCOST',
+                    width: 100,
+                    align: 'center',
+                    cellsalign: 'right',
+                    cellsformat: 'd2',
+                    filtertype: 'number',
                     aggregates: ['sum'],
                     aggregatesrenderer: function (aggregates) {
                         var renderstring = "";
                         $.each(aggregates, function (key, value) {
-                            renderstring += '<div style="position: relative; margin: 4px; overflow: hidden; font-weight: bold;">' + value + '</div>';
+                            renderstring +=
+                                '<div style="position: relative; margin: 4px; overflow: hidden; font-weight: bold;">' +
+                                value + '</div>';
                         });
                         return renderstring;
                     }
                 },
-                {text: 'มูลค่าลดหนี้ซื้อ', datafield: 'NETTAXBUY', width: 100, align: 'center', cellsalign: 'right', cellsformat: 'd2', filtertype: 'number',
+                {
+                    text: 'มูลค่าลดหนี้ซื้อ',
+                    datafield: 'NETTAXBUY',
+                    width: 100,
+                    align: 'center',
+                    cellsalign: 'right',
+                    cellsformat: 'd2',
+                    filtertype: 'number',
                     aggregates: ['sum'],
                     aggregatesrenderer: function (aggregates) {
                         var renderstring = "";
                         $.each(aggregates, function (key, value) {
-                            renderstring += '<div style="position: relative; margin: 4px; overflow: hidden; font-weight: bold;">' + value + '</div>';
+                            renderstring +=
+                                '<div style="position: relative; margin: 4px; overflow: hidden; font-weight: bold;">' +
+                                value + '</div>';
                         });
                         return renderstring;
                     }
                 },
-                {text: 'ภาษีลดหนี้ซื้อ', datafield: 'VATTAXBUY', width: 100, align: 'center', cellsalign: 'right', cellsformat: 'd2', filtertype: 'number',
+                {
+                    text: 'ภาษีลดหนี้ซื้อ',
+                    datafield: 'VATTAXBUY',
+                    width: 100,
+                    align: 'center',
+                    cellsalign: 'right',
+                    cellsformat: 'd2',
+                    filtertype: 'number',
                     aggregates: ['sum'],
                     aggregatesrenderer: function (aggregates) {
                         var renderstring = "";
                         $.each(aggregates, function (key, value) {
-                            renderstring += '<div style="position: relative; margin: 4px; overflow: hidden; font-weight: bold;">' + value + '</div>';
+                            renderstring +=
+                                '<div style="position: relative; margin: 4px; overflow: hidden; font-weight: bold;">' +
+                                value + '</div>';
                         });
                         return renderstring;
                     }
                 },
-                {text: 'ยอดรวมลดหนี้ซื้อ', datafield: 'TOTTAXBUY', width: 100, align: 'center', cellsalign: 'right', cellsformat: 'd2', filtertype: 'number',
+                {
+                    text: 'ยอดรวมลดหนี้ซื้อ',
+                    datafield: 'TOTTAXBUY',
+                    width: 100,
+                    align: 'center',
+                    cellsalign: 'right',
+                    cellsformat: 'd2',
+                    filtertype: 'number',
                     aggregates: ['sum'],
                     aggregatesrenderer: function (aggregates) {
                         var renderstring = "";
                         $.each(aggregates, function (key, value) {
-                            renderstring += '<div style="position: relative; margin: 4px; overflow: hidden; font-weight: bold;">' + value + '</div>';
+                            renderstring +=
+                                '<div style="position: relative; margin: 4px; overflow: hidden; font-weight: bold;">' +
+                                value + '</div>';
                         });
                         return renderstring;
                     }
@@ -358,12 +586,12 @@
             ]
         });
         // On Click
-        $("#btnQuery").off().on('click', function() {
+        $("#btnQuery").off().on('click', function () {
             $("#jqxLoader").jqxLoader('open');
             var atDate = $("#atdate").jqxDateTimeInput('getDate');
             var currentCulture = Globalize.cultures['en-US'];
             var localizationObject = currentCulture.calendar;
-            var xdate = $.jqx.dataFormat.formatdate(atDate, "yyyy-MM-dd",localizationObject );
+            var xdate = $.jqx.dataFormat.formatdate(atDate, "yyyy-MM-dd", localizationObject);
             var txtCurrent = "";
             if ($("#currentcode").val() === '1') {
                 txtCurrent = " AND (CURSTAT ='' OR CURSTAT='R' OR CURSTAT IS NULL ) ";
@@ -378,34 +606,45 @@
                 method: 'GET',
                 dataType: 'json',
                 url: "sqltext",
-                data: { sql: "SELECT * FROM VWSTKCARD WHERE REFDTIN <= '"+xdate+"' AND (REFDTOUT > '"+xdate+"' OR REFDTOUT IS  NULL) AND (TYPECOD LIKE '"+$("#typecode").val()+"%') AND (MODELCOD LIKE '"+$("#modelcode").val()+"%') AND (BAABCOD LIKE '"+$("#baabcode").val()+"%') AND (COLORCOD LIKE '"+$("#colorcode").val()+"%') AND (LOCAT LIKE '"+$("#locatcd").val()+"%') AND (LOCATPARK LIKE '"+$("#parkcode").val()+"%' OR LOCATPARK IS NULL) AND (GCODE LIKE '"+$("#groupcode").val()+"%') AND STAT LIKE '"+$("#statuscode").val()+"' "+txtCurrent },
+                data: {
+                    sql: "SELECT * FROM VWSTKCARD WHERE REFDTIN <= '" + xdate +
+                        "' AND (REFDTOUT > '" + xdate +
+                        "' OR REFDTOUT IS  NULL) AND (TYPECOD LIKE '" + $("#typecode").val() +
+                        "%') AND (MODELCOD LIKE '" + $("#modelcode").val() +
+                        "%') AND (BAABCOD LIKE '" + $("#baabcode").val() +
+                        "%') AND (COLORCOD LIKE '" + $("#colorcode").val() +
+                        "%') AND (LOCAT LIKE '" + $("#locatcd").val() +
+                        "%') AND (LOCATPARK LIKE '" + $("#parkcode").val() +
+                        "%' OR LOCATPARK IS NULL) AND (GCODE LIKE '" + $("#groupcode").val() +
+                        "%') AND STAT LIKE '" + $("#statuscode").val() + "' " + txtCurrent
+                },
                 success: function (data) {
                     sourceStock.localdata = data;
                     $("#gridStock").jqxGrid('updatebounddata');
-                   $("#jqxLoader").jqxLoader('close');
+                    $("#jqxLoader").jqxLoader('close');
                 }
             });
         });
         // Search
-        $("#searchInvlocat").off().on('click', function() {
+        $("#searchInvlocat").off().on('click', function () {
             searchAll('invlocat', 'locatcd');
         });
-        $("#searchSetgroup").off().on('click', function() {
+        $("#searchSetgroup").off().on('click', function () {
             searchAll('setgroup', 'groupcode');
         });
-        $("#searchSettype").off().on('click', function() {
+        $("#searchSettype").off().on('click', function () {
             searchAll('settype', 'typecode');
         });
-        $("#searchSetmodel").off().on('click', function() {
+        $("#searchSetmodel").off().on('click', function () {
             searchAll('setmodel', 'modelcode');
         });
-        $("#searchSetbaab").off().on('click', function() {
+        $("#searchSetbaab").off().on('click', function () {
             searchAll('setbaab', 'baabcode');
         });
-        $("#searchSetcolor").off().on('click', function() {
+        $("#searchSetcolor").off().on('click', function () {
             searchAll('setcolor', 'colorcode');
         });
-        $("#searchInvparking").off().on('click', function() {
+        $("#searchInvparking").off().on('click', function () {
             xlocat = $('#locatcd').val();
             if (xlocat === "") {
                 ShowMessage("กรุณาระบุรหัสสาขาก่อน!", "info");
