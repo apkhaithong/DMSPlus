@@ -42,7 +42,7 @@
                                                 <div class="col-sm-4">
                                                     <div id="cuscod" class="input-button">
                                                         <input type="text" id="v-cuscod" />
-                                                        <div id="searchApmast"><img alt="search" width="20" height="20" src="/images/search_lg.png"
+                                                        <div id="searchCustmast"><img alt="search" width="20" height="20" src="/images/search_lg.png"
                                                             /></div>
                                                     </div>
                                                 </div>
@@ -101,7 +101,7 @@
                                 <div class="row">
                                     <div class="col-md-6">
                                         <div class="form-group">
-                                            <label class="col-sm-4 control-label required" for="resvno">เลขที่ใบจอง</label>
+                                            <label class="col-sm-4 control-label" for="resvno">เลขที่ใบจอง</label>
                                             <div class="col-sm-8">
                                                 <div id="resvno" class="input-button">
                                                     <input type="text" id="v-resvno" />
@@ -112,7 +112,7 @@
                                     </div>
                                     <div class="col-md-6">
                                         <div class="form-group">
-                                            <label class="col-sm-4 control-label required" for="strno">เลขตัวถังสินค้า</label>
+                                            <label class="col-sm-4 control-label required" for="strno">เลขตัวถัง</label>
                                             <div class="col-sm-8">
                                                 <div id="strno" class="input-button">
                                                     <input type="text" id="v-strno" />
@@ -133,7 +133,7 @@
                                     </div>
                                     <div class="col-md-6">
                                         <div class="form-group">
-                                            <label class="col-sm-4 control-label" for="credtm">จำนวนวันเครดิต</label>
+                                            <label class="col-sm-4 control-label" for="credtm">วันเครดิต</label>
                                             <div class="col-sm-8">
                                                 <div id='credtm'></div>
                                             </div>
@@ -167,9 +167,7 @@
                                 </div>
                             </div>
                         </div>
-                    </form>
-                    <hr class="short alt">
-                    <form class="form-horizontal" id="fmInvtran">
+                        <hr class="short alt">
                         <div class="row">
                             <div class="col-md-4">
                                 <div class="form-group">
@@ -177,79 +175,13 @@
                                     <div class="col-sm-8">
                                         <div id='stdprc'></div>
                                     </div>
-                                </div>                              
-                                <div class="form-group">
-                                    <label class="col-sm-4 control-label" for="issueno">เลขที่ใบปล่อย</label>
-                                    <div class="col-sm-8">
-                                        <div class="bs-component">
-                                            <input type="text" id="issueno" />
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label class="col-sm-4 control-label required" for="taxno">เลขที่ใบกำกับ</label>
-                                    <div class="col-sm-8">
-                                        <div class="bs-component">
-                                            <input type="text" id="taxno" />
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label class="col-sm-4 control-label" for="acticod">กิจกรรมการขาย</label>
-                                    <div class="col-sm-8">
-                                        <div id="acticod" class="input-button">
-                                            <input type="text" id="v-acticod" />
-                                            <div id="searchSetacti"><img alt="search" width="20" height="20" src="/images/search_lg.png" /></div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label class="col-sm-4 control-label" for="paytyp">การชำระเงิน</label>
-                                    <div class="col-sm-8">
-                                        <div id="paytyp" class="input-button">
-                                            <input type="text" id="v-paytyp" />
-                                            <div id="searchPaytyp"><img alt="search" width="20" height="20" src="/images/search_lg.png" /></div>
-                                        </div>
-                                    </div>
-                                </div>
+                                </div>   
                             </div>
                             <div class="col-md-4">
                                 <div class="form-group">
                                     <label class="col-sm-4 control-label" for="disct">ส่วนลด</label>
                                     <div class="col-sm-8">
                                         <div id='disct'></div>
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label class="col-sm-4 control-label" for="issudt">วันที่ใบปล่อย</label>
-                                    <div class="col-sm-8">
-                                        <div class="bs-component">
-                                            <div id="issudt"></div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label class="col-sm-4 control-label" for="taxdt">วันที่ใบกำกับ</label>
-                                    <div class="col-sm-8">
-                                        <div class="bs-component">
-                                            <div id="taxdt"></div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label for="actidesc"></label>
-                                    <div class="col-sm-12">
-                                        <div class="bs-component">
-                                            <input type="text" id="actidesc" class="text-desc" readonly/>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label for="paydesc"></label>
-                                    <div class="col-sm-12">
-                                        <div class="bs-component">
-                                            <input type="text" id="paydesc" class="text-desc" readonly/>
-                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -260,24 +192,116 @@
                                         <div id='keyinprc'></div>
                                     </div>
                                 </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label class="col-sm-4 control-label" for="issueno">เลขที่ใบปล่อย</label>
+                                    <div class="col-sm-8">
+                                        <div class="bs-component">
+                                            <input type="text" id="issueno" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label class="col-sm-4 control-label" for="issudt">วันที่ใบปล่อย</label>
+                                    <div class="col-sm-8">
+                                        <div class="bs-component">
+                                            <div id="issudt"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
                                 <div class="form-group">
                                     <label class="col-sm-4 control-label" for="comint">ค่าคอมพนักงาน</label>
                                     <div class="col-sm-8">
                                         <div id='comint'></div>
                                     </div>
                                 </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label class="col-sm-4 control-label required" for="taxno">เลขที่ใบกำกับ</label>
+                                    <div class="col-sm-8">
+                                        <div class="bs-component">
+                                            <input type="text" class="text-desc" id="taxno" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label class="col-sm-4 control-label" for="taxdt">วันที่ใบกำกับ</label>
+                                    <div class="col-sm-8">
+                                        <div class="bs-component">
+                                            <div id="taxdt"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
                                 <div class="form-group">
                                     <label class="col-sm-4 control-label" for="comext">ค่าคอมภายนอก</label>
                                     <div class="col-sm-8">
                                         <div id='comext'></div>
                                     </div>
                                 </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-8">
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label" for="acticod">กิจกรรมการขาย</label>
+                                    <div class="col-sm-10">
+                                        <div class="row">
+                                            <div class="col-sm-4">
+                                                <div id="acticod" class="input-button">
+                                                    <input type="text" id="v-acticod" />
+                                                    <div id="searchSetacti"><img alt="search" width="20" height="20" src="/images/search_lg.png" /></div>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-8">
+                                                <input type="text" id="actidesc" class="text-desc" readonly/>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
                                 <div class="form-group">
                                     <label class="col-sm-4 control-label" for="othpay">ค่าใช้จ่ายอื่นๆ</label>
                                     <div class="col-sm-8">
                                         <div id='othpay'></div>
                                     </div>
                                 </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-8">
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label" for="paytyp">การชำระเงิน</label>
+                                    <div class="col-sm-10">
+                                        <div class="row">
+                                            <div class="col-sm-4">
+                                                <div id="paytyp" class="input-button">
+                                                    <input type="text" id="v-paytyp" />
+                                                    <div id="searchPaytyp"><img alt="search" width="20" height="20" src="/images/search_lg.png" /></div>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-8">
+                                                <input type="text" id="paydesc" class="text-desc" readonly/>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
                                 <div class="form-group">
                                     <label class="col-sm-4 control-label" for="smpay">รับชำระแล้ว</label>
                                     <div class="col-sm-8">
@@ -292,7 +316,7 @@
                             <div class="admin-form">
                                 <div class="form-group">
                                     <div class="col-md-12">
-                                        <div id="tableInvtran"></div>
+                                        <div id="tableArresvtran"></div>
                                     </div>
                                 </div>
                                 <div class="form-group">
@@ -321,10 +345,10 @@
         //Default status Insert
         var status = 'insert';
         //เช็คสิทธิการใช้งาน
-        var chkright = checkRight('STK002');
+        var chkright = checkRight('SAL006');
 
         //เช็ค Running เอกสาร
-        var chkrun = checkRundoc('R_RECVCR');
+        var chkrun = checkRundoc('R_CASHNO');
         
         //ฟังก์ชั่น สถานะ Insert หรือ Edit
         function statusChange(disabled) {
@@ -340,9 +364,21 @@
                 $('#salcod').val($.session.get('officecode'));
                 $('#duedt').jqxDateTimeInput('setDate', new Date());
                 $('#memo1').val('');
-                $('#tableInvtran').jqxGrid('clear');
+                $('#stdprc').val(0);
+                $('#disct').val(0);
+                $('#keyinprc').val(0);
+                $('#issueno').val('');
+                $('#issudt').jqxDateTimeInput('setDate', new Date());
+                $('#comint').val(0);
+                $('#taxno').val('');
+                $('#taxdt').jqxDateTimeInput('setDate', new Date());
+                $('#comext').val(0);
+                $('#acticod').val('');
+                $('#othpay').val(0);
+                $('#paytyp').val('');
+                $('#smpay').val(0);
+                $('#tableArresvtran').jqxGrid('clear');
                 $('#searchInvlocat').show();
-                statusClear();
             } else {
                 status = 'update';
                 $("#saveBtn").jqxButton({
@@ -352,66 +388,52 @@
             }
             $("#contno").prop("readonly", disabled);
             $("#locat").jqxInput({disabled: disabled});
-            $("#strno").jqxInput({disabled: disabled});
             $("#deleteBtn").jqxButton({
                 disabled: !chkright.M_DELETE
             });
         }
 
-        function statusClear() {
-            $('#issueno').val('');
-            $('#strno').val('');
-            $('#taxno').val('');
-            $('#keyinprc').val(0);
-            $('#disct').val(0);
-            $('#comint').val(0);
-            $('#comext').val(0);
-            $('#othpay').val(0);
-            $('#stdprc').val(0);
-            $('#editrow').hide();
-        }
-
-        function getInvinvo(contno) {
+        function getArcred(contno) {
             $.ajax({
                 async: false,
                 method: 'GET',
                 dataType: 'json',
                 url: "sqltext",
                 data: {
-                    sql: "SELECT * FROM INVINVO WHERE RECVNO = '" + contno + "' "
+                    sql: "SELECT * FROM ARCRED WHERE CONTNO = '" + contno + "' "
                 },
                 success: function (data) {
-                    $('#contno').val(data[0].RECVNO);
-                    $('#sdate').val(data[0].RECVDT);
+                    $('#contno').val(data[0].CONTNO);
+                    $('#sdate').val(data[0].SDATE);
                     $('#locat').val(data[0].LOCAT);
-                    $('#resvno').val(data[0].INVNO);
-                    $('#cuscod').val(data[0].APCODE);
+                    $('#resvno').val(data[0].RESVNO);
+                    $('#cuscod').val(data[0].CUSCOD);
                     $('#vatrt').val(data[0].VATRT);
                     $('#credtm').val(data[0].CREDTM);
-                    $('#salcod').val(data[0].RVCODE);
-                    $('#duedt').val(data[0].DUEDATE);
-                    $('#memo1').val(data[0].MOMO1);
-                    getInvtran(data[0].RECVNO);
+                    $('#salcod').val(data[0].SALCOD);
+                    $('#duedt').val(data[0].DUEDT);
+                    $('#memo1').val(data[0].MEMO1);
+                    getArresvtran(data[0].CONTNO);
                 }
             });
         }
-        //ฟังก์ชั่น Get Data INVTRAN
-        function getInvtran(contno) {
+        //ฟังก์ชั่น Get Data ARRESVTRAN
+        function getArresvtran(contno) {
             $.ajax({
                 async: false,
                 method: 'GET',
                 dataType: 'json',
                 url: "sqltext",
                 data: {
-                    sql: "SELECT IDNO, RECVNO, RECVDT, TYPERV, CRLOCAT, GCODE, TYPECOD, MODELCOD, BAABCOD, COLORCOD, CC, STAT, STRNO, ENGNO, REGNO, KEYNO, REFNO, MILERT, KEYINPRC, DISCT, COMINT, COMEXT, OTHPAY, TADDCOST, FLAG, STDPRC, PRICE, CRDTXNO, CRDAMT, ISSUENO, INPUTDT, USERID, FLAGDEL, RVBILLSL, BILLSLNO, TAXNO, TAXDT, RVBILLSLDATE, RVBILLSALNO, LOCATPARK, POSTGL, APCODE, OPENDT, PONO, OPTCODE FROM INVTRAN WHERE RECVNO ='" + contno + "' ORDER BY RECVNO, STRNO"
+                    sql: "SELECT IDNO, ID_NO, RESVNO, RESVDT, LOCAT, OPTCODE, OPTNAME, QTY, FLAG, FLSTAT, INSTALL, JOBNO, USERID, INPUTDT, OPTPRC, OPTTYP, INSTALQTY, OPTMASTCOD, UCODE, NETPRC, NETVATPRC, TOTPRC, MU, MAINCOD, QTYBL, QTYJOB, TYPEJOB FROM ARRESVTRAN WHERE CONTNO ='" + contno + "' ORDER BY CONTNO, IDNO"
                 },
                 success: function (data) {
                     sourceInvtran.localdata = data;
-                    $('#tableInvtran').jqxGrid('updatebounddata');
+                    $('#tableArresvtran').jqxGrid('updatebounddata');
                 }
             });
         }
-        //เงื่อนไข validate INVINVNO
+        //เงื่อนไข validate INVRESVNO
         var rules = [{
             input: '#locat',
             message: 'กรุณาระบุรหัสสาขา!',
@@ -445,9 +467,104 @@
             }
         }, {
             input: '#resvno',
-            message: 'กรุณาระบุเลขที่ใบส่ง!',
+            message: 'ไม่พบเลขที่ใบจองนี้!',
             action: 'keyup, blur, focusout',
-            rule: 'required'
+            rule: function (input, commit) {
+                var resvno = $('#resvno').val();
+                var locatresv = $('#locat').val();
+                var chqarresv = condpay.CHQARRESV;
+                if ((resvno !== '') && (chqarresv === 'Y')) {
+                    var result = [];
+                    $.ajax({
+                        async: false,
+                        method: 'GET',
+                        dataType: 'json',
+                        url: "sqltext",
+                        data: {
+                            sql: "SELECT RESVNO, FLAG, SDATE, RESVDT, SMPAY, RESPAY FROM ARRESV WHERE RESVNO ='" + resvno + "' AND LOCAT = '"+locatresv+"' "
+                        },
+                        success: function (data) {
+                            if (data.length > 0) {
+                                result = true;
+                            } else { 
+                                result = false;
+                            }
+                        },
+                        error: function () {
+                            result = false;
+                        }
+                    });
+                    return result;
+                }
+            }
+        }, {
+            input: '#resvno',
+            message: 'ใบจองนี้รับรถไปแล้ว!',
+            action: 'keyup, blur, focusout',
+            rule: function (input, commit) {
+                var resvno = $('#resvno').val();
+                var locatresv = $('#locat').val();
+                var chqarresv = condpay.CHQARRESV;
+                if ((resvno !== '') && (chqarresv === 'Y')) {
+                    var result = [];
+                    $.ajax({
+                        async: false,
+                        method: 'GET',
+                        dataType: 'json',
+                        url: "sqltext",
+                        data: {
+                            sql: "SELECT RESVNO, FLAG, SDATE, RESVDT, SMPAY, RESPAY FROM ARRESV WHERE RESVNO ='" + resvno + "' AND LOCAT = '"+locatresv+"' "
+                        },
+                        success: function (data) {
+                            if (data.length > 0) {
+                                if ((data[0].SDATE === '') || (data[0].SDATE === null)) {
+                                    result = true;
+                                } else { 
+                                    result = false;
+                                }
+                            }
+                        },
+                        error: function () {
+                            result = false;
+                        }
+                    });
+                    return result;
+                }
+            }
+        }, {
+            input: '#resvno',
+            message: 'ชำระเงินจองยังไม่ครบ!',
+            action: 'keyup, blur, focusout',
+            rule: function (input, commit) {
+                var resvno = $('#resvno').val();
+                var locatresv = $('#locat').val();
+                var chqarresv = condpay.CHQARRESV;
+                if ((resvno !== '') && (chqarresv === 'Y')) {
+                    var result = [];
+                    $.ajax({
+                        async: false,
+                        method: 'GET',
+                        dataType: 'json',
+                        url: "sqltext",
+                        data: {
+                            sql: "SELECT RESVNO, FLAG, SDATE, RESVDT, SMPAY, RESPAY FROM ARRESV WHERE RESVNO ='" + resvno + "' AND LOCAT = '"+locatresv+"' "
+                        },
+                        success: function (data) {
+                            if (data.length > 0) {
+                                if (data[0].RESPAY > data[0].SMPAY) {
+                                    result = false;
+                                } else { 
+                                    result = true;
+                                }
+                            }
+                        },
+                        error: function () {
+                            result = false;
+                        }
+                    });
+                    return result;
+                }
+            }
         }, {
             input: '#cuscod',
             message: 'กรุณาระบุรหัสลูกค้า!',
@@ -464,8 +581,8 @@
                         url: "duplicateCheck",
                         type: 'get',
                         data: {
-                            table: 'APMAST',
-                            field: 'APCODE',
+                            table: 'CUSTMAST',
+                            field: 'CUSCOD',
                             value: cuscod
                         },
                         success: function (data) {
@@ -480,39 +597,7 @@
                 }
             }
         }];
-        //เงื่อนไข validate INVTRAN
-        rulesInvt =[{
-            input: '#strno',
-            message: 'กรุณาระบุเลขตัวถังสินค้า!',
-            action: 'keyup, blur, focusout',
-            rule: 'required'
-        }, {
-            input: '#strno',
-            message: 'ระบุเลขตัวถังสินค้าซ้ำ!',
-            action: 'keyup, blur',
-            rule: function (input, commit) {
-                var strno = $('#strno').val();
-                var contno = $('#contno').val();
-                if (strno !== '') {
-                    $.ajax({
-                        url: "duplicateStrno",
-                        type: 'get',
-                        data: {
-                            value1: strno,
-                            value2: contno
-                        },
-                        success: function (data) {
-                            if (data === true) {
-                                commit(true);
-                            } else commit(false);
-                        },
-                        error: function () {
-                            commit(false);
-                        }
-                    });
-                }
-            }
-        }];
+
         if (chkrun === false) {
             rules.push({
                 input: '#contno',
@@ -530,8 +615,8 @@
                             url: "duplicateCheck",
                             type: 'get',
                             data: {
-                                table: 'INVINVNO',
-                                field: 'RECVNO',
+                                table: 'INVRESVNO',
+                                field: 'CONTNO',
                                 value: contno
                             },
                             success: function (data) {
@@ -547,7 +632,7 @@
                 }
             });
         }
-        //DataSource INVTRAN
+        //DataSource ARRESVTRAN
         var dataInvtran = [];
         var sourceInvtran = {
             datatype: "json",
@@ -555,86 +640,29 @@
                 name: 'IDNO',
                 type: 'integer'
             }, {
-                name: 'CRLOCAT',
+                name: 'OPTCODE',
                 type: 'string'
 
             }, {
-                name: 'GCODE',
+                name: 'OPTNAME',
                 type: 'string'
 
             }, {
-                name: 'STRNO',
-                type: 'string'
-            }, {
-                name: 'ENGNO',
-                type: 'string'
-
-            }, {
-                name: 'TYPECOD',
-                type: 'string'
-
-            }, {
-                name: 'MODELCOD',
-                type: 'string'
-
-            }, {
-                name: 'BAABCOD',
-                type: 'string'
-
-            }, {
-                name: 'COLORCOD',
-                type: 'string'
-
-            }, {
-                name: 'CC',
+                name: 'QTY',
                 type: 'float'
-
             }, {
-                name: 'STAT',
+                name: 'OPTPRC',
+                type: 'float'
+            }, {
+                name: 'FLSTAT',
                 type: 'string'
 
             }, {
-                name: 'KEYINPRC',
-                type: 'float'
-
-            }, {
-                name: 'DISCT',
-                type: 'float'
-
-            }, {
-                name: 'COMINT',
-                type: 'float'
-
-            }, {
-                name: 'COMEXT',
-                type: 'float'
-
-            }, {
-                name: 'OTHPAY',
-                type: 'float'
-
-            }, {
-                name: 'STDPRC',
-                type: 'float'
-
-            }, {
-                name: 'ISSUENO',
+                name: 'INSTALL',
                 type: 'string'
 
             }, {
-                name: 'REGNO',
-                type: 'string'
-
-            }, {
-                name: 'KEYNO',
-                type: 'string'
-
-            }, {
-                name: 'MILERT',
-                type: 'float'
-
-            }, {
-                name: 'TAXNO',
+                name: 'JOBNO',
                 type: 'string'
 
             }],
@@ -853,7 +881,7 @@
             decimalDigits: 2,
             max: 9999999999
         });
-        $("#tableInvtran").jqxGrid({
+        $("#tableArresvtran").jqxGrid({
             width: '100%',
             height: 250,
             source: dataAdtInvtran,
@@ -899,227 +927,59 @@
                 datafield: 'IDNO',
                 hidden: true
             }, {
-                text: 'สถานที่เก็บ',
-                datafield: 'CRLOCAT',
-                width: 70,
+                text: 'รหัสอุปกรณ์',
+                datafield: 'OPTCODE',
+                width: 90,
                 align: 'center',
                 cellsalign: 'left',
             }, {
-                text: 'กลุ่มสินค้า',
-                datafield: 'GCODE',
-                width: 70,
+                text: 'ชื่ออุปกรณ์',
+                datafield: 'OPTNAME',
+                width: 250,
                 align: 'center',
                 cellsalign: 'left',
             }, {
-                text: 'เลขตัวถัง',
-                datafield: 'STRNO',
-                width: 190,
+                text: 'จำนวน',
+                datafield: 'QTY',
+                width: 90,
                 align: 'center',
-                cellsalign: 'left',
+                cellsalign: 'right',
             }, {
-                text: 'เลขเครื่องยนต์',
-                datafield: 'ENGNO',
-                width: 190,
+                text: 'ราคา',
+                datafield: 'OPTPRC',
+                width: 90,
                 align: 'center',
-                cellsalign: 'left',
-            }, {
-                text: 'ยี่ห้อ',
-                datafield: 'TYPECOD',
-                width: 80,
-                align: 'center',
-                cellsalign: 'left',
-            }, {
-                text: 'รุ่น',
-                datafield: 'MODELCOD',
-                width: 140,
-                align: 'center',
-                cellsalign: 'left',
-            }, {
-                text: 'แบบ',
-                datafield: 'BAABCOD',
-                width: 140,
-                align: 'center',
-                cellsalign: 'left',
-            }, {
-                text: 'สี',
-                datafield: 'COLORCOD',
-                width: 140,
-                align: 'center',
-                cellsalign: 'left',
-            }, {
-                text: 'ขนาด',
-                datafield: 'CC',
-                width: 50,
-                align: 'center',
-                cellsalign: 'left',
+                cellsalign: 'right',
             }, {
                 text: 'สถานะ',
-                datafield: 'STAT',
-                width: 50,
+                datafield: 'FLSTAT',
+                width: 90,
                 align: 'center',
                 cellsalign: 'left',
             }, {
-                text: 'ราคาทุนสินค้า',
-                datafield: 'KEYINPRC',
+                text: 'การติดตั้ง',
+                datafield: 'INSTALL',
                 width: 90,
                 align: 'center',
-                cellsalign: 'right',
+                cellsalign: 'left',
             }, {
-                text: 'ส่วนลด',
-                datafield: 'DISCT',
+                text: 'เลขที่ JOB',
+                datafield: 'JOBNO',
                 width: 90,
                 align: 'center',
-                cellsalign: 'right',
-            }, {
-                text: 'ทุนสุทธิ',
-                datafield: 'COMINT',
-                width: 90,
-                align: 'center',
-                cellsalign: 'right',
-            }, {
-                text: 'ภาษี',
-                datafield: 'COMEXT',
-                width: 90,
-                align: 'center',
-                cellsalign: 'right',
-            }, {
-                text: 'ทุนรวมภาษี',
-                datafield: 'OTHPAY',
-                width: 90,
-                align: 'center',
-                cellsalign: 'right',
-            }, {
-                text: 'ราคาขาย',
-                datafield: 'STDPRC',
-                width: 90,
-                align: 'center',
-                cellsalign: 'right',
-            }, {
-                text: 'ปีที่ผลิต',
-                datafield: 'ISSUENO',
-                //hidden: true
-            }, {
-                text: 'เลขทะเบียน',
-                datafield: 'REGNO',
-                //hidden: true
-            }, {
-                text: 'เลขกุญแจ',
-                datafield: 'KEYNO',
-                //hidden: true
-            }, {
-                text: 'เลขไมล์',
-                datafield: 'MILERT',
-                //hidden: true
-            }, {
-                text: 'เลขที่ใบกำกับ',
-                datafield: 'TAXNO',
-                //hidden: true
+                cellsalign: 'left',
             }],
             showtoolbar: true,
             rendertoolbar: function (toolbar) {
                 var container = $("<div style='margin: 5px;'></div>");
                 toolbar.append(container);
                 container.append(
-                    '<button type="button" id="addrow1"><span class="fa fa-plus"></span> เพิ่มเลขถัง</button> <button type="button" id="editrow"><span class="fa fa-pencil"></span> แก้ไขเลขถัง</button> <button type="button" id="deleterow"><span class="fa fa-minus"></span> ลบเลขถัง</button>'
+                    '<h4><span class="fa fa-list-alt"></span> รายการของแถม </h4>'
                 );
-                //Add row
-                $("#addrow1").on('click', function () {
-                    var rows = $("#tableInvtran").jqxGrid('getdisplayrows');
-                    var duplicateStrno = 0;
-                    for (var i = 0; i < rows.length; i++) {
-                        var row = rows[i];
-                        if (row.STRNO === $("#strno").val()) {
-                            duplicateStrno++;
-                        }
-                    };
-                    if (duplicateStrno === 0){
-                        $('#fmInvtran').jqxValidator('validate', function (result) {
-                            if (result) {
-                                var datarow = {
-                                    IDNO: 0,
-                                    CRLOCAT: $("#locat").val(),
-                                    STRNO: $("#strno").val(),
-                                    KEYINPRC: $("#keyinprc").val(),
-                                    DISCT: $("#disct").val(),
-                                    COMINT: $("#comint").val(),
-                                    COMEXT: $("#comext").val(),
-                                    OTHPAY: $("#othpay").val(),
-                                    STDPRC: $("#stdprc").val(),
-                                    ISSUENO: $("#issueno").val(),
-                                    TAXNO: $("#taxno").val(),
-                                };
-                                var commit = $("#tableInvtran").jqxGrid('addrow', null, datarow);
-                                if (commit) {
-                                    statusClear();
-                                    $('#tableInvtran').jqxGrid('clearselection');
-                                };
-                            };
-                        });
-                    } else {
-                        ShowMessage("ระบุเลขตัวถังสินค้าซ้ำ!","danger");
-                    }
-                });
-
-                //Update row
-                $("#editrow").on('click', function () {
-                    var rows = $("#tableInvtran").jqxGrid('getdisplayrows');
-                    var rowindex = $('#tableInvtran').jqxGrid('getselectedrowindex');
-                    $('#fmInvtran').jqxValidator('validate', function (result) {
-                        if (result) {
-                            var datarow = {
-                                IDNO: 0,
-                                CRLOCAT: $("#locat").val(),
-                                STRNO: $("#strno").val(),
-                                KEYINPRC: $("#keyinprc").val(),
-                                DISCT: $("#disct").val(),
-                                COMINT: $("#comint").val(),
-                                COMEXT: $("#comext").val(),
-                                OTHPAY: $("#othpay").val(),
-                                STDPRC: $("#stdprc").val(),
-                                ISSUENO: $("#issueno").val(),
-                                TAXNO: $("#taxno").val(),
-                            };
-                            var rowID = $('#tableInvtran').jqxGrid('getrowid', rowindex);
-                            var commit = $("#tableInvtran").jqxGrid('updaterow', rowID, datarow);
-                            if (commit) {
-                                statusClear();
-                                $('#tableInvtran').jqxGrid('clearselection');
-                            };
-                        };
-                    });
-                });
-
-                //Delete row
-                $("#deleterow").on('click', function () {
-                    var selectedrowindex = $("#tableInvtran").jqxGrid('getselectedrowindex');
-                    var rowscount = $("#tableInvtran").jqxGrid('getdatainformation').rowscount;
-                    if (selectedrowindex >= 0 && selectedrowindex < rowscount) {
-                        var id = $("#tableInvtran").jqxGrid('getrowid', selectedrowindex);
-                        var commit = $("#tableInvtran").jqxGrid('deleterow', id);
-                    }
-                    return false;
-                });
-
-                $("#addrow1").jqxButton({
-                    width: 105,
-                    height: 25,
-                    template: "success"
-                });
-                $("#editrow").jqxButton({
-                    width: 105,
-                    height: 25,
-                    template: "primary"
-                });
-                $('#editrow').hide();
-                $("#deleterow").jqxButton({
-                    width: 105,
-                    height: 25,
-                    template: "danger",
-                });
             }
         });
 
-        $('#tableInvtran').on('rowselect', function (event) {
+        $('#tableArresvtran').on('rowselect', function (event) {
             var args = event.args;
             var rowBoundIndex = args.rowindex;
             var rowData = args.row;
@@ -1190,18 +1050,13 @@
             closeOnClick: false,
             rules: rules
         });
-        $('#fmInvtran').jqxValidator({
-            hintType: 'label',
-            animationDuration: 0,
-            closeOnClick: false,
-            rules: rulesInvt
-        });
+
         //แสดงคำอธิบาย
         $('#v-locat').off().on('blur', function () {
             $('#locatnm').val(getLocatName($('#locat').val()));
         });
         $('#v-cuscod').off().on('blur', function () {
-            $('#custname').val(getApName($('#cuscod').val()));
+            $('#custname').val(getCustname($('#cuscod').val()));
         });
         $('#salcod').off().on('blur', function () {
             $('#officename').val(getOfficeName($('#salcod').val()));
@@ -1216,10 +1071,10 @@
         //บันทึก
         $('#saveBtn').off().on('click', function () {
             $('#fmArcred').jqxValidator('validate', function (result) {
-                var rowscount = $("#tableInvtran").jqxGrid('getdatainformation').rowscount;
+                var rowscount = $("#tableArresvtran").jqxGrid('getdatainformation').rowscount;
                 if ((result) && (rowscount > 0)) {
                     $.when($.confirmdlg('ต้องการบันทึกข้อมูล?', 'info')).then(function () {
-                        $("#tableInvtran").jqxGrid('refreshdata');
+                        $("#tableArresvtran").jqxGrid('refreshdata');
                         
                         var docdate = $("#sdate").jqxDateTimeInput('getDate');
                         var due = $("#duedt").jqxDateTimeInput('getDate');
@@ -1233,7 +1088,7 @@
                             sumTot = 0;
                         var valueApflag = '';
                         for (var i = 0; i < rowscount; i++) {
-                            var data = $("#tableInvtran").jqxGrid('getrowdata', i);
+                            var data = $("#tableArresvtran").jqxGrid('getrowdata', i);
                             sumNet = sumNet+data.COMINT;
                             sumVat = sumVat+data.COMEXT;
                             sumTot = sumTot+data.OTHPAY;
@@ -1266,27 +1121,27 @@
                         var valueJSON = [{
                             status: status,
                             locat: $('#locat').val(),
-                            table: 'INVINVO',
+                            table: 'ARCRED',
                             key: $('#contno').val(),
                             value: [{
-                                RECVNO: $('#contno').val(),
-                                RECVDT: sdate,
+                                CONTNO: $('#contno').val(),
+                                SDATE: sdate,
                                 LOCAT: $('#locat').val(),
-                                INVNO: $('#resvno').val(),
-                                RVCODE: $('#salcod').val(),
-                                APCODE: $('#cuscod').val(),
+                                RESVNO: $('#resvno').val(),
+                                SALCOD: $('#salcod').val(),
+                                CUSCOD: $('#cuscod').val(),
                                 VATRT: $('#vatrt').val(),
                                 NETCST: sumNet, 
                                 NETVAT: sumVat, 
                                 NETTOT: sumTot,
                                 DESCP: $('#memo1').val(),
                                 CREDTM: $('#credtm').val(),
-                                DUEDATE: duedt,
+                                DUEDT: duedt,
                                 USERID: $.session.get('username'),
                                 APFLAG: valueApflag,
                             }]
                         }, {
-                            table: 'INVTRAN',
+                            table: 'ARRESVTRAN',
                             value: invtran
                         }];
                         // Convert Value To JSON String
@@ -1304,7 +1159,7 @@
                                     if (data[0].save === true) {
                                         ShowMessage("บันทึกข้อมูลเรียบร้อย!","success");
                                         statusChange(true);
-                                        getInvinvo(data[0].contno);
+                                        getArcred(data[0].contno);
                                     } else {
                                         ShowMessage("บันทึกไม่สำเร็จ!","danger");
                                     }
@@ -1317,18 +1172,15 @@
         });
         //ค้นหาสาขา
         $('#searchInvlocat').off().on('click', function () {
-            $('#fmInvtran').jqxValidator('hideHint', '#locat');
             searchAll('invlocat', 'v-locat');
         });
         //ค้นหาเจ้าหนี้
-        $('#searchApmast').off().on('click', function () {
-            $('#fmInvtran').jqxValidator('hideHint', '#cuscod');
-            searchAll('apmast', 'v-cuscod');
+        $('#searchCustmast').off().on('click', function () {
+            searchAll('custmast', 'v-cuscod');
         });
         //ค้นหา
         $('#searchBtn').off().on('click', function () {
-            statusClear();
-            $('#tableInvtran').jqxGrid('clearselection');
+            $('#tableArresvtran').jqxGrid('clearselection');
             var rules2 = rules.slice();
             rules2.splice(1, 1);
             $('#fmArcred').jqxValidator('rules', rules2);
@@ -1338,7 +1190,7 @@
                 event.preventDefault();
                 $('#fmArcred').jqxValidator('hide');
                 statusChange(true);
-                getInvinvo($('#contno').val());
+                getArcred($('#contno').val());
             });
         });
         //ลบ
@@ -1347,12 +1199,12 @@
                 $.when($.confirmdlg('ต้องการลบข้อมูล?', 'warning')).then(function () {
                     $('#ok').on('click', function (event) {
                         var valueJSON = [{
-                            table: 'INVTRAN',
-                            field: 'RECVNO',
+                            table: 'ARRESVTRAN',
+                            field: 'CONTNO',
                             key: $('#contno').val(),
                         }, {
-                            table: 'INVINVO',
-                            field: 'RECVNO',
+                            table: 'ARCRED',
+                            field: 'CONTNO',
                             key: $('#contno').val(),
                         }];
                         // Convert Value To JSON String

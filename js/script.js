@@ -203,3 +203,18 @@ function getOfficeName(offcode) {
     });
     return offfname;
 };
+
+function getCustname(cuscod) {
+    var custname = '';
+    $.ajax({
+        async: false,
+        url: "sqltext",
+        data: { sql: "SELECT TRIM(SNAM)||TRIM(NAME1)||'   '||TRIM(NAME2) AS NAME FROM CUSTMAST WHERE CUSCOD = '"+cuscod+"' " },
+        type: 'GET',
+        dataType: 'json',
+        success: function(data) {
+            custname = data[0].NAME;
+        }
+    });
+    return custname;
+};
