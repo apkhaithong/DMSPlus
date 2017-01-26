@@ -517,6 +517,26 @@
             { text: 'สี', datafield: 'COLORCOD', minwidth: 100, width: 250 },
         ];
         keyno = 'STRNO';
+    } else if (show === "arcred") {
+        datafields = [
+            { name: 'CONTNO', type: 'string' },
+            { name: 'RESVNO', type: 'string' },
+            { name: 'NAME1', type: 'string' },
+            { name: 'NAME2', type: 'string' },
+            { name: 'STRNO', type: 'string' },
+            { name: 'REGNO', type: 'string' },
+            { name: 'FLAG', type: 'string' },
+        ];
+        fields = [
+            { text: 'เลขสัญญา', datafield: 'CONTNO', minwidth: 100, width: 100 },
+            { text: 'เลขที่ใบจอง', datafield: 'RESVNO', minwidth: 100, width: 100 },
+            { text: 'ชื่อ', datafield: 'NAME1', minwidth: 100, width: 100 },
+            { text: 'นามสกุล', datafield: 'NAME2', minwidth: 100, width: 100 },
+            { text: 'เลขตัวถัง', datafield: 'STRNO', minwidth: 100, width: 200 },
+            { text: 'เลขทะเบียน', datafield: 'REGNO', minwidth: 100, width: 100 },
+            { text: 'สถานะ', datafield: 'FLAG', minwidth: 100, width: 100 },
+        ];
+        keyno = 'CONTNO';
     }
 
     fields.unshift({
@@ -658,6 +678,8 @@
             sqltxt = "SELECT A.RESPAY,A.SMPAY,A.FLAG,A.IDNO,A.RESVNO,A.RESVDT,B.CUSCOD,B.NAME1,B.NAME2,A.SDATE,A.LOCAT,A.STRNO,A.CHQMAS FROM ARRESV A,CUSTMAST B WHERE A.CUSCOD=B.CUSCOD AND UPPER(COALESCE(A.RESVNO,'')||COALESCE(B.NAME1,'')||COALESCE(B.NAME2,'')||COALESCE(A.STRNO,'')) LIKE '%" + param1 + "%' AND A.CANFLAG <> 'C' AND A.SMPAY<=A.RESPAY AND A.STRNO <> '' AND A.SDATE IS NULL ORDER BY A.RESVNO ";
         } else if (show === "strnoSale") {
             sqltxt = "SELECT A.IDNO,B.STRNO,A.ENGNO,A.REGNO,A.TYPECOD,A.MODELCOD,A.BAABCOD,A.COLORCOD,B.CURSTAT,B.REFDTIN,B.IDNO AS IDNO1, B.TADDCOST,B.CRCOST,B.DISCT,B.NETCOST,B.CRVAT,B.TOTCOST,B.STDPRC,B.REFNOIN FROM INVTRAN A,STKCARD B WHERE A.STRNO = B.STRNO AND B.FLAG = 'D' AND B.LOCAT = '"+$.session.get('paramSrch1')+"' AND UPPER(COALESCE(B.STRNO,'')||COALESCE(A.ENGNO,'')||COALESCE(A.REGNO,'')||COALESCE(A.TYPECOD,'')||COALESCE(A.MODELCOD,'')||COALESCE(A.BAABCOD,'')||COALESCE(A.COLORCOD,'')) LIKE '%" + param1 + "%' ORDER BY B.STRNO";
+        } else if (show === "arcred") {
+            sqltxt = "SELECT A.CONTNO, A.RESVNO, B.NAME1, B.NAME2, A.STRNO, C.REGNO, (CASE WHEN A.FLAG = 'C' THEN 'ยกเลิก' ELSE '' END) AS FLAG FROM ARCRED A, CUSTMAST B, INVTRAN C WHERE A.CUSCOD = B.CUSCOD AND A.STRNO = C.STRNO AND UPPER(COALESCE(A.CONTNO,'')||COALESCE(A.RESVNO,'')||COALESCE(B.NAME1,'')||COALESCE(B.NAME2,'')||COALESCE(A.STRNO,'')||COALESCE(C.REGNO,'')) LIKE '%" + param1 + "%' ORDER BY A.CONTNO";
         }
 
         // Qurey Data

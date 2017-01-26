@@ -353,6 +353,8 @@
             }
             $("#contno").prop("readonly", disabled);
             $("#locat").jqxInput({disabled: disabled});
+            $("#resvno").jqxInput({disabled: disabled});
+            $("#strno").jqxInput({disabled: disabled});
             $("#deleteBtn").jqxButton({
                 disabled: !chkright.M_DELETE
             });
@@ -365,7 +367,7 @@
                 dataType: 'json',
                 url: "sqltext",
                 data: {
-                    sql: "SELECT * FROM ARCRED WHERE CONTNO = '" + contno + "' "
+                    sql: "SELECT IDNO, CONTNO, SDATE, LOCAT, RESVNO, CUSCOD, STRNO, INCLVAT, VATRT, STDPRC, DISCT, KEYINPRC, NPRICE, VATPRC, PAYRES, SMPAY, TKANG, NKANG, VKANG, CREDIT, DUEDT, SALCOD, TSALE, ISSUENO, ISSUDT, COMEXT, COMINT, OTHPAY, TAXNO, TAXDT, USERID, INPUTDT, ADDRNO, REFNO, ACTICOD, PAYTYP, FLAG, ARREG1, ARREG3, PAYREG, PAYREG1, USERDEL, CANDT, FLREG, CREDAMT, SMCHQ, POSTGL, LOCSALE, FLCANCL FROM ARCRED WHERE CONTNO = '" + contno + "' "
                 },
                 success: function (data) {
                     $('#contno').val(data[0].CONTNO);
@@ -373,31 +375,30 @@
                     $('#locat').val(data[0].LOCAT);
                     $('#resvno').val(data[0].RESVNO);
                     $('#cuscod').val(data[0].CUSCOD);
+                    $('#strno').val(data[0].STRNO);
                     $('#vatrt').val(data[0].VATRT);
-                    $('#credtm').val(data[0].CREDTM);
-                    $('#salcod').val(data[0].SALCOD);
+                    $('#stdprc').val(data[0].STDPRC);
+                    $('#disct').val(data[0].DISCT);
+                    $('#keyinprc').val(data[0].KEYINPRC);
+                    $('#vatrt').val(data[0].VATRT);
+                    $('#credtm').val(data[0].CREDIT);
                     $('#duedt').val(data[0].DUEDT);
-                    $('#memo1').val(data[0].MEMO1);
-                    getArresvtran(data[0].CONTNO);
+                    $('#salcod').val(data[0].SALCOD);
+                    $('#issueno').val(data[0].ISSUENO);
+                    $('#issudt').val(data[0].ISSUDT);
+                    $('#comext').val(data[0].COMEXT);
+                    $('#comint').val(data[0].COMINT);
+                    $('#othpay').val(data[0].OTHPAY);
+                    $('#taxno').val(data[0].TAXNO);
+                    $('#taxdt').val(data[0].TAXDT);
+                    //$('#memo1').val(data[0].MEMO1);
+                    $('#acticod').val(data[0].ACTICOD);
+                    $('#paytyp').val(data[0].PAYTYP);
+                    $('#locsale').val(data[0].LOCSALE);
                 }
             });
         }
-        //ฟังก์ชั่น Get Data ARRESVTRAN
-        function getArresvtran(contno) {
-            $.ajax({
-                async: false,
-                method: 'GET',
-                dataType: 'json',
-                url: "sqltext",
-                data: {
-                    sql: "SELECT IDNO, ID_NO, RESVNO, RESVDT, LOCAT, OPTCODE, OPTNAME, QTY, FLAG, FLSTAT, INSTALL, JOBNO, USERID, INPUTDT, OPTPRC, OPTTYP, INSTALQTY, OPTMASTCOD, UCODE, NETPRC, NETVATPRC, TOTPRC, MU, MAINCOD, QTYBL, QTYJOB, TYPEJOB FROM ARRESVTRAN WHERE CONTNO ='" + contno + "' ORDER BY CONTNO, IDNO"
-                },
-                success: function (data) {
-                    sourceArresvtran.localdata = data;
-                    $('#tableArresvtran').jqxGrid('updatebounddata');
-                }
-            });
-        }
+
         //เงื่อนไข validate ARCRED
         var rules = [{
             input: '#locat',
@@ -765,6 +766,7 @@
                 }
             });
         }
+        //console.log(rules);
         var sourceSetacti = {
             async: false,
             datatype: "json",
@@ -973,7 +975,7 @@
             valueMember: "ACTICODE",
             height: 25,
             width: '100%',
-            dropDownHeight: 52,
+            autoDropDownHeight: true,
             placeHolder: "เลือก :"
         });
         $("#paytyp").jqxDropDownList({
@@ -982,7 +984,7 @@
             valueMember: "DUECODE",
             height: 25,
             width: '100%',
-            dropDownHeight: 52,
+            autoDropDownHeight: true,
             placeHolder: "เลือก :"
         });
         $("#keyinprc").jqxNumberInput({
@@ -1306,7 +1308,7 @@
                         console.log(value);
                         $('#ok').on('click', function (event) {
                             $.ajax({
-                                url: 'saveInvinvo',
+                                url: 'saveArcred',
                                 type: 'POST',
                                 contentType: "application/json",
                                 dataType: "json",
@@ -1346,13 +1348,16 @@
         });
         //ค้นหา
         $('#searchBtn').off().on('click', function () {
-            $('#tableArresvtran').jqxGrid('clearselection');
-            var rules2 = rules.slice();
-            rules2.splice(1, 1);
-            $('#fmArcred').jqxValidator('rules', rules2);
             //Show Dialog Search
-            searchAll('invinvo', 'contno');
+            searchAll('arcred', 'contno');
             $('#okButton').on('click', function (event) {
+                var rules2 = rules.slice();
+                if (chkrun === false) {
+                    rules2.splice(1, 1);
+                }
+                rules2.splice(4, 8);
+                //console.log(rules2);
+                $('#fmArcred').jqxValidator('rules', rules2);
                 event.preventDefault();
                 $('#fmArcred').jqxValidator('hide');
                 statusChange(true);
