@@ -905,7 +905,8 @@
 
         $('#locat').jqxInput({
             height: 25,
-            width: '100%'
+            width: '100%',
+            maxLength: 5
         });
         $('#locat').val($.session.get('locatcd'));
         $('#locatnm').jqxInput({
@@ -914,7 +915,8 @@
         });
         $('#apcode').jqxInput({
             height: 25,
-            width: '100%'
+            width: '100%',
+            maxLength: 8
         });
         $('#apname').jqxInput({
             height: 25,
@@ -922,7 +924,8 @@
         });
         $('#rvcode').jqxInput({
             height: 25,
-            width: '100%'
+            width: '100%',
+            maxLength: 8
         });
         $('#rvcode').val($.session.get('officecode'));
         $('#rvname').jqxInput({
@@ -931,7 +934,8 @@
         });
         $('#invno').jqxInput({
             height: 25,
-            width: '100%'
+            width: '100%',
+            maxLength: 12
         });
         $("#credtm").jqxNumberInput({
             height: 25,
@@ -940,6 +944,7 @@
             spinButtons: true,
             digits: 3,
             decimalDigits: 0,
+            min: 0,
             max: 999
         });
         $("#vatrt").jqxNumberInput({
@@ -949,6 +954,7 @@
             spinButtons: true,
             digits: 2,
             decimalDigits: 0,
+            min: 0,
             max: 99
         });
         $('#vatrt').val(condpay.VAT);
@@ -984,7 +990,8 @@
         });
         $("#memo1").jqxInput({
             height: 25,
-            width: '100%'
+            width: '100%',
+            maxLength: 1024
         });
         $("#apflag").jqxCheckBox({
             width: 120,
@@ -1001,29 +1008,35 @@
         });
         $('#groupcode').jqxInput({
             height: 25,
-            width: '100%'
+            width: '100%',
+            maxLength: 3
         });
         $('#groupcode').val(condpay.GCODE);
         $('#typecode').jqxInput({
             height: 25,
-            width: '100%'
+            width: '100%',
+            maxLength: 20
         });
         $('#typecode').val(condpay.TYPECOD);
         $('#modelcode').jqxInput({
             height: 25,
-            width: '100%'
+            width: '100%',
+            maxLength: 20
         });
         $('#baabcode').jqxInput({
             height: 25,
-            width: '100%'
+            width: '100%',
+            maxLength: 20
         });
         $('#colorcode').jqxInput({
             height: 25,
-            width: '100%'
+            width: '100%',
+            maxLength: 20
         });
         $('#manuyr').jqxInput({
             height: 25,
-            width: '100%'
+            width: '100%',
+            maxLength: 4
         });
         $("#stat").jqxDropDownList({
             selectedIndex: 0,
@@ -1052,6 +1065,7 @@
             spinButtons: true,
             digits: 4,
             decimalDigits: 0,
+            min: 0,
             max: 9999
         });
         $("#regno").jqxInput({
@@ -1071,6 +1085,7 @@
             spinButtons: true,
             digits: 10,
             decimalDigits: 0,
+            min: 0,
             max: 99999999
         });
         $("#taxno").jqxInput({
@@ -1085,6 +1100,7 @@
             spinButtons: true,
             digits: 10,
             decimalDigits: 2,
+            min: 0,
             max: 9999999999
         });
         $("#disct").jqxNumberInput({
@@ -1094,6 +1110,7 @@
             spinButtons: true,
             digits: 10,
             decimalDigits: 2,
+            min: 0,
             max: 9999999999
         });
         $("#netcost").jqxNumberInput({
@@ -1103,6 +1120,7 @@
             spinButtons: true,
             digits: 10,
             decimalDigits: 2,
+            min: 0,
             max: 9999999999
         });
         $("#crvat").jqxNumberInput({
@@ -1112,6 +1130,7 @@
             spinButtons: true,
             digits: 10,
             decimalDigits: 2,
+            min: 0,
             max: 9999999999
         });
         $("#totcost").jqxNumberInput({
@@ -1121,6 +1140,7 @@
             spinButtons: true,
             digits: 10,
             decimalDigits: 2,
+            min: 0,
             max: 9999999999
         });
         $("#stdprc").jqxNumberInput({
@@ -1130,6 +1150,7 @@
             spinButtons: true,
             digits: 10,
             decimalDigits: 2,
+            min: 0,
             max: 9999999999
         });
         $("#tableInvtran").jqxGrid({

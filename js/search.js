@@ -467,6 +467,56 @@
             { text: 'เลขเครื่องยนต์', datafield: 'ENGNO', minwidth: 250, width: 250 },
         ];
         keyno = 'RECVNO';
+    } else if (show === "custmast") {
+        datafields = [
+            { name: 'CUSCOD', type: 'string' },
+            { name: 'NAME1', type: 'string' },
+            { name: 'NAME2', type: 'string' },
+            { name: 'NOCARD', type: 'string' },
+            { name: 'GRADE', type: 'string' },
+        ];
+        fields = [
+            { text: 'รหัสลูกค้า', datafield: 'CUSCOD', minwidth: 100, width: 250 },
+            { text: 'ชื่อ', datafield: 'NAME1', minwidth: 250, width: 250 },
+            { text: 'นามสกุล', datafield: 'NAME2', minwidth: 250, width: 250 },
+            { text: 'เลขที่บัตร', datafield: 'NOCARD', minwidth: 250, width: 250 },
+            { text: 'เกรด', datafield: 'GRADE', minwidth: 100, width: 250 },
+        ];
+        keyno = 'CUSCOD';
+    } else if (show === "arresvSale") {
+        datafields = [
+            { name: 'RESVNO', type: 'string' },
+            { name: 'NAME1', type: 'string' },
+            { name: 'NAME2', type: 'string' },
+            { name: 'STRNO', type: 'string' },
+        ];
+        fields = [
+            { text: 'เลขที่ใบจอง', datafield: 'RESVNO', minwidth: 100, width: 250 },
+            { text: 'ชื่อ', datafield: 'NAME1', minwidth: 250, width: 250 },
+            { text: 'นามสกุล', datafield: 'NAME2', minwidth: 250, width: 250 },
+            { text: 'เลขตัวถัง', datafield: 'STRNO', minwidth: 250, width: 250 },
+        ];
+        keyno = 'RESVNO';
+    } else if (show === "strnoSale") {
+        datafields = [
+            { name: 'STRNO', type: 'string' },
+            { name: 'ENGNO', type: 'string' },
+            { name: 'REGNO', type: 'string' },
+            { name: 'TYPECOD', type: 'string' },
+            { name: 'MODELCOD', type: 'string' },
+            { name: 'BAABCOD', type: 'string' },
+            { name: 'COLORCOD', type: 'string' },
+        ];
+        fields = [
+            { text: 'เลขตัวถัง', datafield: 'STRNO', minwidth: 200, width: 250 },
+            { text: 'เลขเครื่องยนต์', datafield: 'ENGNO', minwidth: 150, width: 250 },
+            { text: 'เลขทะเบียน', datafield: 'REGNO', minwidth: 100, width: 250 },
+            { text: 'ยี่ห้อ', datafield: 'TYPECOD', minwidth: 100, width: 250 },
+            { text: 'รุ่น', datafield: 'MODELCOD', minwidth: 100, width: 250 },
+            { text: 'แบบ', datafield: 'BAABCOD', minwidth: 100, width: 250 },
+            { text: 'สี', datafield: 'COLORCOD', minwidth: 100, width: 250 },
+        ];
+        keyno = 'STRNO';
     }
 
     fields.unshift({
@@ -602,6 +652,12 @@
             sqltxt = "SELECT * FROM SETCOMPAINT WHERE UPPER(COALESCE(COPCODE,'')||COALESCE(COPDESC,'')) LIKE '%" + param1 + "%' ORDER BY COPCODE";
         } else if (show === "invinvo") {
             sqltxt = "SELECT A.RECVNO, A.INVNO, A.APCODE, C.APNAME, B.STRNO, B.ENGNO FROM INVINVO A, INVTRAN B, APMAST C WHERE A.RECVNO = B.RECVNO AND A.APCODE = C.APCODE AND UPPER(COALESCE(A.RECVNO,'')||COALESCE(A.INVNO,'')||COALESCE(A.APCODE,'')||COALESCE(C.APNAME,'')||COALESCE(B.STRNO,'')||COALESCE(B.ENGNO,'')) LIKE '%" + param1 + "%' ORDER BY A.RECVNO";
+        } else if (show === "custmast") {
+            sqltxt = "SELECT CUSCOD, SNAM, NAME1, NAME2, NOCARD, GRADE FROM CUSTMAST WHERE UPPER(COALESCE(CUSCOD,'')||COALESCE(NAME1,'')||COALESCE(NAME2,'')||COALESCE(NOCARD,'')||COALESCE(GRADE,'')) LIKE '%" + param1 + "%' ORDER BY NAME1,NAME2";
+        } else if (show === "arresvSale") {
+            sqltxt = "SELECT A.RESPAY,A.SMPAY,A.FLAG,A.IDNO,A.RESVNO,A.RESVDT,B.CUSCOD,B.NAME1,B.NAME2,A.SDATE,A.LOCAT,A.STRNO,A.CHQMAS FROM ARRESV A,CUSTMAST B WHERE A.CUSCOD=B.CUSCOD AND UPPER(COALESCE(A.RESVNO,'')||COALESCE(B.NAME1,'')||COALESCE(B.NAME2,'')||COALESCE(A.STRNO,'')) LIKE '%" + param1 + "%' AND A.CANFLAG <> 'C' AND A.SMPAY<=A.RESPAY AND A.STRNO <> '' AND A.SDATE IS NULL ORDER BY A.RESVNO ";
+        } else if (show === "strnoSale") {
+            sqltxt = "SELECT A.IDNO,B.STRNO,A.ENGNO,A.REGNO,A.TYPECOD,A.MODELCOD,A.BAABCOD,A.COLORCOD,B.CURSTAT,B.REFDTIN,B.IDNO AS IDNO1, B.TADDCOST,B.CRCOST,B.DISCT,B.NETCOST,B.CRVAT,B.TOTCOST,B.STDPRC,B.REFNOIN FROM INVTRAN A,STKCARD B WHERE A.STRNO = B.STRNO AND B.FLAG = 'D' AND B.LOCAT = '"+$.session.get('paramSrch1')+"' AND UPPER(COALESCE(B.STRNO,'')||COALESCE(A.ENGNO,'')||COALESCE(A.REGNO,'')||COALESCE(A.TYPECOD,'')||COALESCE(A.MODELCOD,'')||COALESCE(A.BAABCOD,'')||COALESCE(A.COLORCOD,'')) LIKE '%" + param1 + "%' ORDER BY B.STRNO";
         }
 
         // Qurey Data
@@ -642,6 +698,8 @@
     });
     $('#search').on('close', function(event) {
         $('#tbSearch').jqxGrid('clear');
+        $.session.set('paramSrch1', '');
+        $.session.set('paramSrch2', '');
         $("body").css("overflow", "");
     });
 }

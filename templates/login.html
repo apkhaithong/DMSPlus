@@ -201,6 +201,8 @@
                                 $.session.set('keydisc', data[0].KEYDISC);
                                 $.session.set('changelocat', data[0].CHGLOC);
                                 $.session.set('changedate', data[0].CHGDATE);
+                                $.session.set('paramSrch1', '');
+                                $.session.set('paramSrch2', '');
                                 window.location.href = 'index';
                             } else {
                                 $('input[type="text"],input[type="password"]').addClass("has-error-login");

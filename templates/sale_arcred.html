@@ -66,10 +66,22 @@
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        <label class="col-sm-2 control-label" for="memo1">หมายเหตุ</label>
+                                        <label class="col-sm-2 control-label" for="acticod">กิจกรรมการขาย</label>
                                         <div class="col-sm-10">
-                                            <div class="bs-component">
-                                                <textarea id="memo1"></textarea>
+                                            <div class="row">
+                                                <div class="col-sm-6">
+                                                    <div id='acticod'></div>
+                                                </div>
+                                                <div class="col-sm-6">
+                                                    <div class="form-group">
+                                                        <label class="col-sm-4 control-label" for="paytyp">การชำระเงิน</label>
+                                                        <div class="col-sm-8">
+                                                            <div class="bs-component">
+                                                                <div id='paytyp'></div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
@@ -116,7 +128,7 @@
                                             <div class="col-sm-8">
                                                 <div id="strno" class="input-button">
                                                     <input type="text" id="v-strno" />
-                                                    <div id="searchStrnostk"><img alt="search" width="20" height="20" src="/images/search_lg.png" /></div>
+                                                    <div id="searchStrno"><img alt="search" width="20" height="20" src="/images/search_lg.png" /></div>
                                                 </div>
                                             </div>
                                         </div>
@@ -167,6 +179,18 @@
                                 </div>
                             </div>
                         </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label class="col-sm-1 control-label" for="memo1">หมายเหตุ</label>
+                                    <div class="col-sm-11">
+                                        <div class="bs-component">
+                                            <textarea id="memo1"></textarea>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                         <hr class="short alt">
                         <div class="row">
                             <div class="col-md-4">
@@ -175,43 +199,23 @@
                                     <div class="col-sm-8">
                                         <div id='stdprc'></div>
                                     </div>
-                                </div>   
-                            </div>
-                            <div class="col-md-4">
+                                </div>  
                                 <div class="form-group">
                                     <label class="col-sm-4 control-label" for="disct">ส่วนลด</label>
                                     <div class="col-sm-8">
                                         <div id='disct'></div>
                                     </div>
-                                </div>
-                            </div>
-                            <div class="col-md-4">
+                                </div> 
                                 <div class="form-group">
                                     <label class="col-sm-4 control-label" for="keyinprc">ราคาขายจริง</label>
                                     <div class="col-sm-8">
                                         <div id='keyinprc'></div>
                                     </div>
                                 </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-4">
                                 <div class="form-group">
-                                    <label class="col-sm-4 control-label" for="issueno">เลขที่ใบปล่อย</label>
+                                    <label class="col-sm-4 control-label" for="smpay">รับชำระแล้ว</label>
                                     <div class="col-sm-8">
-                                        <div class="bs-component">
-                                            <input type="text" id="issueno" />
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <div class="form-group">
-                                    <label class="col-sm-4 control-label" for="issudt">วันที่ใบปล่อย</label>
-                                    <div class="col-sm-8">
-                                        <div class="bs-component">
-                                            <div id="issudt"></div>
-                                        </div>
+                                        <div id='smpay'></div>
                                     </div>
                                 </div>
                             </div>
@@ -222,10 +226,36 @@
                                         <div id='comint'></div>
                                     </div>
                                 </div>
+                                <div class="form-group">
+                                    <label class="col-sm-4 control-label" for="comext">ค่าคอมภายนอก</label>
+                                    <div class="col-sm-8">
+                                        <div id='comext'></div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-4 control-label" for="othpay">ค่าใช้จ่ายอื่นๆ</label>
+                                    <div class="col-sm-8">
+                                        <div id='othpay'></div>
+                                    </div>
+                                </div>
                             </div>
-                        </div>
-                        <div class="row">
                             <div class="col-md-4">
+                                <div class="form-group">
+                                    <label class="col-sm-4 control-label" for="issueno">เลขที่ใบปล่อย</label>
+                                    <div class="col-sm-8">
+                                        <div class="bs-component">
+                                            <input type="text" id="issueno" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-4 control-label" for="issudt">วันที่ใบปล่อย</label>
+                                    <div class="col-sm-8">
+                                        <div class="bs-component">
+                                            <div id="issudt"></div>
+                                        </div>
+                                    </div>
+                                </div>
                                 <div class="form-group">
                                     <label class="col-sm-4 control-label required" for="taxno">เลขที่ใบกำกับ</label>
                                     <div class="col-sm-8">
@@ -234,8 +264,6 @@
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="col-md-4">
                                 <div class="form-group">
                                     <label class="col-sm-4 control-label" for="taxdt">วันที่ใบกำกับ</label>
                                     <div class="col-sm-8">
@@ -245,72 +273,9 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-md-4">
-                                <div class="form-group">
-                                    <label class="col-sm-4 control-label" for="comext">ค่าคอมภายนอก</label>
-                                    <div class="col-sm-8">
-                                        <div id='comext'></div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-8">
-                                <div class="form-group">
-                                    <label class="col-sm-2 control-label" for="acticod">กิจกรรมการขาย</label>
-                                    <div class="col-sm-10">
-                                        <div class="row">
-                                            <div class="col-sm-4">
-                                                <div id="acticod" class="input-button">
-                                                    <input type="text" id="v-acticod" />
-                                                    <div id="searchSetacti"><img alt="search" width="20" height="20" src="/images/search_lg.png" /></div>
-                                                </div>
-                                            </div>
-                                            <div class="col-sm-8">
-                                                <input type="text" id="actidesc" class="text-desc" readonly/>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <div class="form-group">
-                                    <label class="col-sm-4 control-label" for="othpay">ค่าใช้จ่ายอื่นๆ</label>
-                                    <div class="col-sm-8">
-                                        <div id='othpay'></div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-8">
-                                <div class="form-group">
-                                    <label class="col-sm-2 control-label" for="paytyp">การชำระเงิน</label>
-                                    <div class="col-sm-10">
-                                        <div class="row">
-                                            <div class="col-sm-4">
-                                                <div id="paytyp" class="input-button">
-                                                    <input type="text" id="v-paytyp" />
-                                                    <div id="searchPaytyp"><img alt="search" width="20" height="20" src="/images/search_lg.png" /></div>
-                                                </div>
-                                            </div>
-                                            <div class="col-sm-8">
-                                                <input type="text" id="paydesc" class="text-desc" readonly/>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <div class="form-group">
-                                    <label class="col-sm-4 control-label" for="smpay">รับชำระแล้ว</label>
-                                    <div class="col-sm-8">
-                                        <div id='smpay'></div>
-                                    </div>
-                                </div>
-                            </div>
                         </div>
                     </form>
+                    <hr class="short alt">
                     <div class="row">
                         <div class="col-md-12">
                             <div class="admin-form">
@@ -428,12 +393,12 @@
                     sql: "SELECT IDNO, ID_NO, RESVNO, RESVDT, LOCAT, OPTCODE, OPTNAME, QTY, FLAG, FLSTAT, INSTALL, JOBNO, USERID, INPUTDT, OPTPRC, OPTTYP, INSTALQTY, OPTMASTCOD, UCODE, NETPRC, NETVATPRC, TOTPRC, MU, MAINCOD, QTYBL, QTYJOB, TYPEJOB FROM ARRESVTRAN WHERE CONTNO ='" + contno + "' ORDER BY CONTNO, IDNO"
                 },
                 success: function (data) {
-                    sourceInvtran.localdata = data;
+                    sourceArresvtran.localdata = data;
                     $('#tableArresvtran').jqxGrid('updatebounddata');
                 }
             });
         }
-        //เงื่อนไข validate INVRESVNO
+        //เงื่อนไข validate ARCRED
         var rules = [{
             input: '#locat',
             message: 'กรุณาระบุรหัสสาขา!',
@@ -463,106 +428,6 @@
                             commit(false);
                         }
                     });
-                }
-            }
-        }, {
-            input: '#resvno',
-            message: 'ไม่พบเลขที่ใบจองนี้!',
-            action: 'keyup, blur, focusout',
-            rule: function (input, commit) {
-                var resvno = $('#resvno').val();
-                var locatresv = $('#locat').val();
-                var chqarresv = condpay.CHQARRESV;
-                if ((resvno !== '') && (chqarresv === 'Y')) {
-                    var result = [];
-                    $.ajax({
-                        async: false,
-                        method: 'GET',
-                        dataType: 'json',
-                        url: "sqltext",
-                        data: {
-                            sql: "SELECT RESVNO, FLAG, SDATE, RESVDT, SMPAY, RESPAY FROM ARRESV WHERE RESVNO ='" + resvno + "' AND LOCAT = '"+locatresv+"' "
-                        },
-                        success: function (data) {
-                            if (data.length > 0) {
-                                result = true;
-                            } else { 
-                                result = false;
-                            }
-                        },
-                        error: function () {
-                            result = false;
-                        }
-                    });
-                    return result;
-                }
-            }
-        }, {
-            input: '#resvno',
-            message: 'ใบจองนี้รับรถไปแล้ว!',
-            action: 'keyup, blur, focusout',
-            rule: function (input, commit) {
-                var resvno = $('#resvno').val();
-                var locatresv = $('#locat').val();
-                var chqarresv = condpay.CHQARRESV;
-                if ((resvno !== '') && (chqarresv === 'Y')) {
-                    var result = [];
-                    $.ajax({
-                        async: false,
-                        method: 'GET',
-                        dataType: 'json',
-                        url: "sqltext",
-                        data: {
-                            sql: "SELECT RESVNO, FLAG, SDATE, RESVDT, SMPAY, RESPAY FROM ARRESV WHERE RESVNO ='" + resvno + "' AND LOCAT = '"+locatresv+"' "
-                        },
-                        success: function (data) {
-                            if (data.length > 0) {
-                                if ((data[0].SDATE === '') || (data[0].SDATE === null)) {
-                                    result = true;
-                                } else { 
-                                    result = false;
-                                }
-                            }
-                        },
-                        error: function () {
-                            result = false;
-                        }
-                    });
-                    return result;
-                }
-            }
-        }, {
-            input: '#resvno',
-            message: 'ชำระเงินจองยังไม่ครบ!',
-            action: 'keyup, blur, focusout',
-            rule: function (input, commit) {
-                var resvno = $('#resvno').val();
-                var locatresv = $('#locat').val();
-                var chqarresv = condpay.CHQARRESV;
-                if ((resvno !== '') && (chqarresv === 'Y')) {
-                    var result = [];
-                    $.ajax({
-                        async: false,
-                        method: 'GET',
-                        dataType: 'json',
-                        url: "sqltext",
-                        data: {
-                            sql: "SELECT RESVNO, FLAG, SDATE, RESVDT, SMPAY, RESPAY FROM ARRESV WHERE RESVNO ='" + resvno + "' AND LOCAT = '"+locatresv+"' "
-                        },
-                        success: function (data) {
-                            if (data.length > 0) {
-                                if (data[0].RESPAY > data[0].SMPAY) {
-                                    result = false;
-                                } else { 
-                                    result = true;
-                                }
-                            }
-                        },
-                        error: function () {
-                            result = false;
-                        }
-                    });
-                    return result;
                 }
             }
         }, {
@@ -596,17 +461,285 @@
                     });
                 }
             }
+        }, {
+            input: '#resvno',
+            message: 'ไม่พบเลขที่ใบจองนี้!',
+            action: 'keyup, blur, focusout',
+            rule: function (input, commit) {
+                var resvno = $('#resvno').val();
+                // var locatresv = $('#locat').val();
+                if (resvno !== '') {
+                    var result = [];
+                    $.ajax({
+                        async: false,
+                        method: 'GET',
+                        dataType: 'json',
+                        url: "sqltext",
+                        data: {
+                            sql: "SELECT RESVNO, FLAG, SDATE, RESVDT, SMPAY, RESPAY FROM ARRESV WHERE RESVNO ='" + resvno + "' "//AND LOCAT = '"+locatresv+"' "
+                        },
+                        success: function (data) {
+                            if (data.length > 0) {
+                                result = true;
+                            } else { 
+                                result = false;
+                            }
+                        },
+                        error: function () {
+                            result = false;
+                        }
+                    });
+                    return result;
+                }
+            }
+        }, {
+            input: '#resvno',
+            message: 'ใบจองนี้รับรถไปแล้ว!',
+            action: 'keyup, blur, focusout',
+            rule: function (input, commit) {
+                var resvno = $('#resvno').val();
+                //var locatresv = $('#locat').val();
+                if (resvno !== '') {
+                    var result = [];
+                    $.ajax({
+                        async: false,
+                        method: 'GET',
+                        dataType: 'json',
+                        url: "sqltext",
+                        data: {
+                            sql: "SELECT RESVNO, FLAG, SDATE, RESVDT, SMPAY, RESPAY FROM ARRESV WHERE RESVNO ='" + resvno + "' "//AND LOCAT = '"+locatresv+"' "
+                        },
+                        success: function (data) {
+                            if (data.length > 0) {
+                                if ((data[0].SDATE === '') || (data[0].SDATE === null)) {
+                                    result = true;
+                                } else { 
+                                    result = false;
+                                }
+                            }
+                        },
+                        error: function () {
+                            result = false;
+                        }
+                    });
+                    return result;
+                }
+            }
+        }, {
+            input: '#resvno',
+            message: 'ชำระเงินจองยังไม่ครบ!',
+            action: 'keyup, blur, focusout',
+            rule: function (input, commit) {
+                var resvno = $('#resvno').val();
+                //var locatresv = $('#locat').val();
+                if (resvno !== '') {
+                    var result = [];
+                    $.ajax({
+                        async: false,
+                        method: 'GET',
+                        dataType: 'json',
+                        url: "sqltext",
+                        data: {
+                            sql: "SELECT RESVNO, CUSCOD, SALEPRC, PRICE, DISCT, STRNO, SALCOD, FLAG, SDATE, RESVDT, SMPAY, RESPAY FROM ARRESV WHERE RESVNO ='" + resvno + "' "//AND LOCAT = '"+locatresv+"' "
+                        },
+                        success: function (data) {
+                            if (data.length > 0) {
+                                if (data[0].RESPAY > data[0].SMPAY) {
+                                    result = false;
+                                } else { 
+                                    result = true;
+                                }
+                            }
+                        },
+                        error: function () {
+                            result = false;
+                        }
+                    });
+                    return result;
+                }
+            }
+        }, {
+            input: '#resvno',
+            message: 'ใบจองนี้ยังไม่ Matching!',
+            action: 'keyup, blur, focusout',
+            rule: function (input, commit) {
+                var resvno = $('#resvno').val();
+                //var locatresv = $('#locat').val();
+                if (resvno !== '') {
+                    var result = [];
+                    $.ajax({
+                        async: false,
+                        method: 'GET',
+                        dataType: 'json',
+                        url: "sqltext",
+                        data: {
+                            sql: "SELECT RESVNO, (CASE WHEN STRNO = '' THEN 'NO' ELSE STRNO END) AS STRNO FROM ARRESV WHERE RESVNO ='" + resvno + "' "//AND LOCAT = '"+locatresv+"' "
+                        },
+                        success: function (data) {
+                            if (data.length > 0) {
+                                if (data[0].STRNO === 'NO') {
+                                    result = false;
+                                } else { 
+                                    result = true;
+                                }
+                            }
+                        },
+                        error: function () {
+                            result = false;
+                        }
+                    });
+                    return result;
+                }
+            }
+        }, {
+            input: '#strno',
+            message: 'กรุณาระบุเลขตัวถัง!',
+            action: 'keyup, blur, focusout',
+            rule: 'required'
+        }, {
+            input: '#strno',
+            message: 'ไม่พบเลขตัวถังนี้!',
+            action: 'keyup, blur, focusout',
+            rule: function (input, commit) {
+                var strno = $('#strno').val();
+                var resvno = $('#resvno').val();
+                var locatresv = $('#locat').val();
+                if (strno !== '') {
+                    var result = [];
+                    $.ajax({
+                        async: false,
+                        method: 'GET',
+                        dataType: 'json',
+                        url: "sqltext",
+                        data: {
+                            sql: "SELECT IDNO,STRNO,FLAG,CURSTAT,STDPRC FROM STKCARD WHERE STRNO ='"+strno+"' AND LOCAT ='"+locatresv+"' AND FLAG ='D' "
+                        },
+                        success: function (data) {
+                            if (data.length === 0) {
+                                result = false;
+                            } else { 
+                                result = true;
+                                if (resvno === '') {
+                                    $('#stdprc').val(data[0].STDPRC);
+                                }
+                            }
+                        },
+                        error: function () {
+                            result = false;
+                        }
+                    });
+                    return result;
+                }
+            }
+        }, {
+            input: '#strno',
+            message: 'เลขตัวถังนี้มีการจองแล้ว!',
+            action: 'keyup, blur, focusout',
+            rule: function (input, commit) {
+                var strno = $('#strno').val();
+                var resvno = $('#resvno').val();
+                var locatresv = $('#locat').val();
+                if (strno !== '') {
+                    var result = [];
+                    $.ajax({
+                        async: false,
+                        method: 'GET',
+                        dataType: 'json',
+                        url: "sqltext",
+                        data: {
+                            sql: "SELECT RESVNO FROM ARRESV WHERE STRNO = '"+strno+"' AND RESVNO <> '"+resvno+"' "
+                        },
+                        success: function (data) {
+                            if (data.length === 0) {
+                                result = true;
+                            } else { 
+                                result = false;
+                            }
+                        },
+                        error: function () {
+                            result = false;
+                        }
+                    });
+                    return result;
+                }
+            }
+        }, {
+            input: '#strno',
+            message: 'ขายก่อนวันที่รับเข้าไม่ได้!',
+            action: 'keyup, blur, focusout',
+            rule: function (input, commit) {
+                var strno = $('#strno').val();
+                var locatresv = $('#locat').val();
+                var sdate = $('#sdate').jqxDateTimeInput('getDate');
+                if (strno !== '') {
+                    var result = [];
+                    $.ajax({
+                        async: false,
+                        method: 'GET',
+                        dataType: 'json',
+                        url: "sqltext",
+                        data: {
+                            sql: "SELECT IDNO,STRNO,FLAG,CURSTAT,STDPRC,REFDTIN FROM STKCARD WHERE STRNO ='"+strno+"' AND LOCAT ='"+locatresv+"' AND FLAG ='D' "
+                        },
+                        success: function (data) {
+                            if (data.length > 0) {
+                                var refdtin = new Date(data[0].REFDTIN+" 00:00:00");
+                                if (refdtin > sdate) {
+                                    result = false;
+                                } else { 
+                                    result = true;
+                                }
+                            }
+                        },
+                        error: function () {
+                            result = false;
+                        }
+                    });
+                    return result;
+                }
+            }
+        }, {
+            input: '#locsale',
+            message: 'กรุณาระบุรหัสสาขา!',
+            action: 'keyup, blur, focusout',
+            rule: 'required'
+        }, {
+            input: '#locsale',
+            message: 'ไม่พบรหัสสาขานี้!',
+            action: 'keyup, blur, focusout',
+            rule: function (input, commit) {
+                var locsale = $('#locsale').val();
+                if (locsale !== '') {
+                    $.ajax({
+                        url: "duplicateCheck",
+                        type: 'get',
+                        data: {
+                            table: 'INVLOCAT',
+                            field: 'LOCATCD',
+                            value: locsale
+                        },
+                        success: function (data) {
+                            if (data === true) {
+                                commit(false);
+                            } else commit(true);
+                        },
+                        error: function () {
+                            commit(false);
+                        }
+                    });
+                }
+            }
         }];
 
         if (chkrun === false) {
             rules.push({
                 input: '#contno',
-                message: 'กรุณาระบุเลขที่ใบรับ!',
+                message: 'กรุณาระบุเลขที่สัญญา!',
                 action: 'keyup, blur, focusout',
                 rule: 'required'
             }, {
                 input: '#contno',
-                message: 'ระบุเลขที่ใบรับซ้ำ!',
+                message: 'ระบุเลขที่สัญญาซ้ำ!',
                 action: 'keyup, blur',
                 rule: function (input, commit) {
                     var contno = $('#contno').val();
@@ -615,7 +748,7 @@
                             url: "duplicateCheck",
                             type: 'get',
                             data: {
-                                table: 'INVRESVNO',
+                                table: 'ARCRED',
                                 field: 'CONTNO',
                                 value: contno
                             },
@@ -632,9 +765,42 @@
                 }
             });
         }
+        var sourceSetacti = {
+            async: false,
+            datatype: "json",
+            datafields: [{
+                name: 'ACTICODE',
+                type: 'string'
+            }, {
+                name: 'ACTIDESC',
+                type: 'string'
+            }],
+            url: "sqltext",
+            data: {
+                sql: "SELECT ACTICODE, TRIM(ACTICODE)||' : '||TRIM(ACTIDESC) AS ACTIDESC FROM SETACTI ORDER BY ACTICODE"
+            }
+        };
+        var sourcePaydue = {
+            async: false,
+            datatype: "json",
+            datafields: [{
+                name: 'DUECODE',
+                type: 'string'
+            }, {
+                name: 'DUEDESC',
+                type: 'string'
+            }],
+            url: "sqltext",
+            data: {
+                sql: "SELECT DUECODE, TRIM(DUECODE)||' : '||TRIM(DUEDESC) AS DUEDESC FROM PAYDUE ORDER BY DUECODE"
+            }
+        };
+        var dataAdtSetacti = new $.jqx.dataAdapter(sourceSetacti);
+        var dataAdtPaydue = new $.jqx.dataAdapter(sourcePaydue);
         //DataSource ARRESVTRAN
-        var dataInvtran = [];
-        var sourceInvtran = {
+        var dataArresvtran= [];
+        var sourceArresvtran = {
+            async: false,
             datatype: "json",
             datafields: [{
                 name: 'IDNO',
@@ -666,19 +832,10 @@
                 type: 'string'
 
             }],
-            addrow: function (rowid, rowdata, position, commit) {
-                commit(true);
-            },
-            deleterow: function (rowid, commit) {
-                commit(true);
-            },
-            updaterow: function (rowid, newdata, commit) {
-                commit(true);
-            },
             id: 'id',
-            localdata: dataInvtran
+            localdata: dataArresvtran
         };
-        var dataAdtInvtran = new $.jqx.dataAdapter(sourceInvtran);
+        var dataAdtArresvtran = new $.jqx.dataAdapter(sourceArresvtran);
         $('.admin-panels').adminpanel({
             grid: '.admin-grid',
             callback: function () {
@@ -695,7 +852,8 @@
 
         $('#locat').jqxInput({
             height: 25,
-            width: '100%'
+            width: '100%',
+            maxLength: 5
         });
         $('#locat').val($.session.get('locatcd'));
         $('#locatnm').jqxInput({
@@ -704,7 +862,8 @@
         });
         $('#cuscod').jqxInput({
             height: 25,
-            width: '100%'
+            width: '100%',
+            maxLength: 13
         });
         $('#custname').jqxInput({
             height: 25,
@@ -712,7 +871,8 @@
         });
         $('#salcod').jqxInput({
             height: 25,
-            width: '100%'
+            width: '100%',
+            maxLength: 8
         });
         $('#salcod').val($.session.get('officecode'));
         $('#officename').jqxInput({
@@ -721,7 +881,8 @@
         });
         $('#resvno').jqxInput({
             height: 25,
-            width: '100%'
+            width: '100%',
+            maxLength: 12
         });
         $("#credtm").jqxNumberInput({
             height: 25,
@@ -770,17 +931,20 @@
             culture: 'en-US'
         });
         $("#memo1").jqxInput({
-            height: 100,
-            width: '100%'
+            height: 50,
+            width: '100%',
+            maxLength: 1024
         });
         $('#locsale').jqxInput({
             height: 25,
-            width: '100%'
+            width: '100%',
+            maxLength: 5
         });
         $('#locsale').val($.session.get('locatcd'));
         $('#issueno').jqxInput({
             height: 25,
-            width: '100%'
+            width: '100%',
+            maxLength: 12
         });
         $("#issudt").jqxDateTimeInput({
             height: 25,
@@ -800,23 +964,26 @@
         $("#taxdt").jqxDateTimeInput({
             height: 25,
             width: '100%',
-            culture: 'en-US'
+            culture: 'en-US',
+            disabled: true
         });
-        $('#acticod').jqxInput({
+        $("#acticod").jqxDropDownList({
+            source: dataAdtSetacti,
+            displayMember: "ACTIDESC",
+            valueMember: "ACTICODE",
             height: 25,
-            width: '100%'
+            width: '100%',
+            dropDownHeight: 52,
+            placeHolder: "เลือก :"
         });
-        $('#actidesc').jqxInput({
+        $("#paytyp").jqxDropDownList({
+            source: dataAdtPaydue,
+            displayMember: "DUEDESC",
+            valueMember: "DUECODE",
             height: 25,
-            width: '100%'
-        });
-        $('#paytyp').jqxInput({
-            height: 25,
-            width: '100%'
-        });
-        $('#paydesc').jqxInput({
-            height: 25,
-            width: '100%'
+            width: '100%',
+            dropDownHeight: 52,
+            placeHolder: "เลือก :"
         });
         $("#keyinprc").jqxNumberInput({
             height: 25,
@@ -825,6 +992,7 @@
             spinButtons: true,
             digits: 10,
             decimalDigits: 2,
+            min: 0,
             max: 9999999999
         });
         $("#disct").jqxNumberInput({
@@ -834,6 +1002,7 @@
             spinButtons: true,
             digits: 10,
             decimalDigits: 2,
+            min: 0,
             max: 9999999999
         });
         $("#comint").jqxNumberInput({
@@ -843,6 +1012,7 @@
             spinButtons: true,
             digits: 10,
             decimalDigits: 2,
+            min: 0,
             max: 9999999999
         });
         $("#comext").jqxNumberInput({
@@ -852,6 +1022,7 @@
             spinButtons: true,
             digits: 10,
             decimalDigits: 2,
+            min: 0,
             max: 9999999999
         });
         $("#othpay").jqxNumberInput({
@@ -861,6 +1032,7 @@
             spinButtons: true,
             digits: 10,
             decimalDigits: 2,
+            min: 0,
             max: 9999999999
         });
         $("#stdprc").jqxNumberInput({
@@ -870,6 +1042,7 @@
             spinButtons: true,
             digits: 10,
             decimalDigits: 2,
+            min: 0,
             max: 9999999999
         });
         $("#smpay").jqxNumberInput({
@@ -879,12 +1052,13 @@
             spinButtons: true,
             digits: 10,
             decimalDigits: 2,
-            max: 9999999999
+            max: 9999999999,
+            disabled: true
         });
         $("#tableArresvtran").jqxGrid({
             width: '100%',
-            height: 250,
-            source: dataAdtInvtran,
+            height: 300,
+            source: dataAdtArresvtran,
             editable: false,
             altrows: true,
             sortable: false,
@@ -950,6 +1124,7 @@
                 width: 90,
                 align: 'center',
                 cellsalign: 'right',
+                cellsformat: 'd2',
             }, {
                 text: 'สถานะ',
                 datafield: 'FLSTAT',
@@ -965,7 +1140,7 @@
             }, {
                 text: 'เลขที่ JOB',
                 datafield: 'JOBNO',
-                width: 90,
+                width: 110,
                 align: 'center',
                 cellsalign: 'left',
             }],
@@ -979,51 +1154,61 @@
             }
         });
 
-        $('#tableArresvtran').on('rowselect', function (event) {
-            var args = event.args;
-            var rowBoundIndex = args.rowindex;
-            var rowData = args.row;
-            if (rowBoundIndex >= 0) {
-                $("#strno").val(rowData.STRNO);
-                $("#keyinprc").val(rowData.KEYINPRC);
-                $("#disct").val(rowData.DISCT);
-                $("#comint").val(rowData.COMINT);
-                $("#comext").val(rowData.COMEXT);
-                $("#othpay").val(rowData.OTHPAY);
-                $("#stdprc").val(rowData.STDPRC);
-                $("#issueno").val(rowData.ISSUENO);
-                $("#taxno").val(rowData.TAXNO);
-            }
-            $('#editrow').show();
-        });
         //คำนวนจำนวนเงิน
-        $('#keyinprc').on('valueChanged', function (event) {
+        $('#stdprc').on('valueChanged', function (event) {
             var value = parseFloat(event.args.value);
             var disct = parseFloat($("#disct").val());
-            $("#comint").val(value-disct);
+            $("#keyinprc").val(value-disct);
         });
         $('#disct').on('valueChanged', function (event) {
             var value = parseFloat(event.args.value);
-            var keyinprc = parseFloat($("#keyinprc").val());
-            $("#comint").val(keyinprc-value);
-        });
-        $('#comint').on('valueChanged', function (event) {
-            var value = parseFloat(event.args.value);
-            var vatrt = parseFloat($("#vatrt").val());
-            var comext = ((value*vatrt)/100);
-            $("#comext").val(comext);
-        });
-        $('#comext').on('valueChanged', function (event) {
-            var value = parseFloat(event.args.value);
-            var comint = parseFloat($("#comint").val());
-            var othpay = comint+value;
-            $("#othpay").val(othpay);
+            var stdprc = parseFloat($("#stdprc").val());
+            $("#keyinprc").val(stdprc-value);
         });
         $('#credtm').on('valueChanged', function (event) {
             var value = parseFloat(event.args.value);
             var sdate = $("#sdate").jqxDateTimeInput('getDate');
             sdate.setDate(sdate.getDate() + value);
             $('#duedt').jqxDateTimeInput('setDate', sdate);
+        });
+        $('#resvno').on('change', function (event) {
+            var value = event.args.value;
+            $.ajax({
+                async: false,
+                method: 'GET',
+                dataType: 'json',
+                url: "sqltext",
+                data: {
+                    sql: "SELECT RESVNO, CUSCOD, SALEPRC, PRICE, DISCT, STRNO, SALCOD, FLAG, SDATE, RESVDT, SMPAY, RESPAY FROM ARRESV WHERE RESVNO ='" + value + "' "
+                },
+                success: function (data) {
+                    if (data.length > 0) {
+                        if (data[0].RESPAY <= data[0].SMPAY) {
+                            $('#cuscod').val(data[0].CUSCOD);
+                            $('#keyinprc').val(data[0].SALEPRC);
+                            $('#stdprc').val(data[0].PRICE);
+                            $('#disct').val(data[0].DISCT);
+                            $('#salcod').val(data[0].SALCOD);
+                            $('#strno').val(data[0].STRNO);
+                            $('#v-cuscod').trigger('blur');
+                            $('#strno').jqxInput('focus'); 
+                        }
+                    }
+                }
+            });
+            $.ajax({
+                async: false,
+                method: 'GET',
+                dataType: 'json',
+                url: "sqltext",
+                data: {
+                    sql: "SELECT ID_NO, RESVNO, RESVDT, LOCAT, OPTCODE, OPTNAME, QTY, FLAG, (CASE WHEN FLSTAT = 'Y' THEN 'แถม' ELSE 'ขาย' END) AS FLSTAT, (CASE WHEN INSTALL = 'Y' THEN 'ติดตั้งแล้ว' ELSE '' END) AS INSTALL, JOBNO, USERID, INPUTDT, OPTPRC, OPTTYP, INSTALQTY FROM ARRESVTRAN WHERE RESVNO = '" + value + "'"
+                },
+                success: function (data) {
+                    sourceArresvtran.localdata = data;
+                    $('#tableArresvtran').jqxGrid('updatebounddata');
+                }
+            });
         });
 
         $("#newBtn").jqxButton({
@@ -1066,58 +1251,21 @@
 
         //เริ่มใหม่
         $('#newBtn').off().on('click', function () {
-            loadHTML("stk_receivestk");
+            loadHTML("sale_arcred");
         });
         //บันทึก
         $('#saveBtn').off().on('click', function () {
             $('#fmArcred').jqxValidator('validate', function (result) {
-                var rowscount = $("#tableArresvtran").jqxGrid('getdatainformation').rowscount;
-                if ((result) && (rowscount > 0)) {
+                if (result) {
                     $.when($.confirmdlg('ต้องการบันทึกข้อมูล?', 'info')).then(function () {
-                        $("#tableArresvtran").jqxGrid('refreshdata');
-                        
                         var docdate = $("#sdate").jqxDateTimeInput('getDate');
                         var due = $("#duedt").jqxDateTimeInput('getDate');
+                        var issudate = $("#issudt").jqxDateTimeInput('getDate');
                         var currentCulture = Globalize.cultures['en-US'];
                         var localizationObject = currentCulture.calendar;
                         var sdate = $.jqx.dataFormat.formatdate(docdate, "dd/MM/yyyy",localizationObject);
                         var duedt = $.jqx.dataFormat.formatdate(due, "dd/MM/yyyy",localizationObject);
-                        var invtran = [];
-                        var sumNet = 0,
-                            sumVat = 0,
-                            sumTot = 0;
-                        var valueApflag = '';
-                        for (var i = 0; i < rowscount; i++) {
-                            var data = $("#tableArresvtran").jqxGrid('getrowdata', i);
-                            sumNet = sumNet+data.COMINT;
-                            sumVat = sumVat+data.COMEXT;
-                            sumTot = sumTot+data.OTHPAY;
-                            invtran.push({
-                                IDNO: data.IDNO,
-                                CRLOCAT: $("#locat").val(),
-                                GCODE: data.GCODE,
-                                STRNO: data.STRNO,
-                                ENGNO: data.ENGNO,
-                                TYPECOD: data.TYPECOD,
-                                MODELCOD: data.MODELCOD,
-                                BAABCOD: data.BAABCOD,
-                                COLORCOD: data.COLORCOD,
-                                CC: data.CC,
-                                STAT: data.STAT,
-                                KEYINPRC: data.KEYINPRC,
-                                DISCT: data.DISCT,
-                                COMINT: data.COMINT,
-                                COMEXT: data.COMEXT,
-                                OTHPAY: data.OTHPAY,
-                                STDPRC: data.STDPRC,
-                                ISSUENO: data.ISSUENO,
-                                REGNO: data.REGNO,
-                                KEYNO: data.KEYNO,
-                                MILERT: data.MILERT,
-                                TAXNO: data.TAXNO,
-                                USERID: $.session.get('username'),
-                            });
-                        };
+                        var issudt = $.jqx.dataFormat.formatdate(issudate, "dd/MM/yyyy",localizationObject);
                         var valueJSON = [{
                             status: status,
                             locat: $('#locat').val(),
@@ -1128,21 +1276,30 @@
                                 SDATE: sdate,
                                 LOCAT: $('#locat').val(),
                                 RESVNO: $('#resvno').val(),
-                                SALCOD: $('#salcod').val(),
                                 CUSCOD: $('#cuscod').val(),
+                                STRNO: $('#strno').val(),
                                 VATRT: $('#vatrt').val(),
-                                NETCST: sumNet, 
-                                NETVAT: sumVat, 
-                                NETTOT: sumTot,
-                                DESCP: $('#memo1').val(),
-                                CREDTM: $('#credtm').val(),
+                                STDPRC: $('#stdprc').val(),
+                                DISCT: $('#disct').val(),
+                                KEYINPRC: $('#keyinprc').val(),
+                                VATRT: $('#vatrt').val(),
+                                RESPAY: 0,
+                                CREDIT: $('#credtm').val(),
                                 DUEDT: duedt,
+                                SALCOD: $('#salcod').val(),
+                                ISSUENO: $('#issueno').val(),
+                                ISSUDT: issudt,
+                                COMEXT: $('#comext').val(), 
+                                COMINT: $('#comint').val(), 
+                                OTHPAY: $('#othpay').val(),
+                                TAXNO: '',
+                                TAXDT: sdate,
+                                MEMO1: $('#memo1').val(),
                                 USERID: $.session.get('username'),
-                                APFLAG: valueApflag,
+                                ACTICOD: $('#acticod').val(), 
+                                PAYTYP: $('#paytyp').val(),
+                                LOCSALE: $('#locsale').val(),
                             }]
-                        }, {
-                            table: 'ARRESVTRAN',
-                            value: invtran
                         }];
                         // Convert Value To JSON String
                         var value = JSON.stringify(valueJSON);
@@ -1174,9 +1331,18 @@
         $('#searchInvlocat').off().on('click', function () {
             searchAll('invlocat', 'v-locat');
         });
-        //ค้นหาเจ้าหนี้
+        //ค้นหาลูกค้า
         $('#searchCustmast').off().on('click', function () {
             searchAll('custmast', 'v-cuscod');
+        });
+        //ค้นหาใบจอง
+        $('#searchArresv').off().on('click', function () {
+            searchAll('arresvSale', 'resvno');
+        });
+        //ค้นหาเลขตัวถัง
+        $('#searchStrno').off().on('click', function () {
+            $.session.set('paramSrch1', $('#locat').val());
+            searchAll('strnoSale', 'strno');
         });
         //ค้นหา
         $('#searchBtn').off().on('click', function () {

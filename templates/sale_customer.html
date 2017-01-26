@@ -11,22 +11,1236 @@
                     <a href="#" class="panel-control-fullscreen"></a>
                 </span>
             </div>
-            <div class="panel-body">
-                <div class="p15 pt5 mt15">
+            <form class="form-horizontal" id="fmCustomer">
+                <div class="panel-body">
                     <div class="row">
-                        <div class="col-md-3">
-   
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label class="col-md-4 control-label" for="custcode">รหัสลูกค้า</label>
+                                <div class="col-md-8">
+                                    <div class="bs-component">
+                                        <input type="text" id="custcode" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label class="col-md-4 control-label" for="grade">กลุ่มอาชีพ</label>
+                                <div class="col-md-8">
+                                    <div class="bs-component">
+                                        <div id="grade" class="input-button">
+                                            <input type="text" id="v-grade" />
+                                            <div id="searchGrade"><img alt="search" width="20" height="20" src="/images/search_lg.png" /></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label class="col-md-4 control-label" for="group1">กลุ่ม</label>
+                                <div class="col-md-8">
+                                    <div class="bs-component">
+                                        <div id="group1" class="input-button">
+                                            <input type="text" id="v-group1" />
+                                            <div id="searchGroup1"><img alt="search" width="20" height="20" src="/images/search_lg.png" /></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-8">
+                            <div class="form-group">
+                                <label class="col-md-2 control-label" for="sname">ชื่อ</label>
+                                <div class="col-md-3">
+                                    <div class="bs-component">
+                                        <input type="text" id="sname" />
+                                    </div>
+                                </div>
+                                <div class="col-md-7">
+                                    <div class="bs-component">
+                                        <input type="text" id="fname" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label class="col-md-4 control-label" for="lname">นามสกุล</label>
+                                <div class="col-md-8">
+                                    <div class="bs-component">
+                                        <input type="text" id="lname" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label class="col-md-4 control-label" for="nickname">ชื่อเล่น</label>
+                                <div class="col-md-8">
+                                    <div class="bs-component">
+                                        <input type="text" id="nickname" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label class="col-md-4 control-label" for="birthday">วัน/เดือน/ปีเกิด</label>
+                                <div class="col-md-8">
+                                    <div class="bs-component">
+                                        <input type="text" id="birthday" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label class="col-md-4 control-label" for="age">อายุ</label>
+                                <div class="col-md-8">
+                                    <div class="bs-component">
+                                        <input type="text" id="age" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label class="col-md-4 control-label" for="nation">สัญชาติ/เชื้อชาติ</label>
+                                <div class="col-md-8">
+                                    <div class="bs-component">
+                                        <input type="text" id="nation" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label class="col-md-4 control-label" for="occup">อาชีพ</label>
+                                <div class="col-md-8">
+                                    <div class="bs-component">
+                                        <input type="text" id="occup" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label class="col-md-4 control-label" for="income">รายได้/เดือน</label>
+                                <div class="col-md-8">
+                                    <div class="bs-component">
+                                        <input type="text" id="income" />
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
+                <div class="panel-body">
+                    <div class="p15 pt5 mt15">
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label class="col-md-4 control-label" for="idcard">ประเภทบัตร</label>
+                                    <div class="col-md-8">
+                                        <div class="bs-component">
+                                            <div id="idcard"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label class="col-md-4 control-label" for="nocard">บัตรเลขที่</label>
+                                    <div class="col-md-8">
+                                        <div class="bs-component">
+                                            <input type="text" id="nocard" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label class="col-md-4 control-label" for="issudt">วันที่ออกบัตร</label>
+                                    <div class="col-md-8">
+                                        <div class="bs-component">
+                                            <input type="text" id="issudt" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label class="col-md-4 control-label" for="expdt">บัตรหมดอายุ</label>
+                                    <div class="col-md-8">
+                                        <div class="bs-component">
+                                            <input type="text" id="expdt" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label class="col-md-4 control-label" for="issuby">ออกบัตรโดย</label>
+                                    <div class="col-md-8">
+                                        <div class="bs-component">
+                                            <input type="text" id="issuby" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label class="col-md-4 control-label" for="bossnm">หัวหน้างาน</label>
+                                    <div class="col-md-8">
+                                        <div class="bs-component">
+                                            <input type="text" id="bossnm" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label class="col-md-4 control-label" for="acc_code">รหัสบัญชี</label>
+                                    <div class="col-md-8">
+                                        <div class="bs-component">
+                                            <div id="acc_code" class="input-button">
+                                                <input type="text" id="v-acc_code" />
+                                                <div id="searchAcc_code"><img alt="search" width="20" height="20" src="/images/search_lg.png" /></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label class="col-md-4 control-label" for="offic">ที่ทำงาน</label>
+                                    <div class="col-md-8">
+                                        <div class="bs-component">
+                                            <input type="text" id="offic" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label class="col-md-4 control-label" for="addrno">ที่อยู่ส่งเอกสาร</label>
+                                    <div class="col-md-8">
+                                        <div class="bs-component">
+                                            <input type="text" id="addrno" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label class="col-md-4 control-label" for="telp">เบอร์บ้าน</label>
+                                    <div class="col-md-8">
+                                        <div class="bs-component">
+                                            <input type="text" id="telp" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label class="col-md-4 control-label" for="telp1">เบอร์ที่ทำงาน</label>
+                                    <div class="col-md-8">
+                                        <div class="bs-component">
+                                            <input type="text" id="telp1" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label class="col-md-4 control-label" for="telp2">เบอร์มือถือ 1</label>
+                                    <div class="col-md-8">
+                                        <div class="bs-component">
+                                            <input type="text" id="telp2" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label class="col-md-4 control-label" for="telp3">เบอร์มือถือ 2</label>
+                                    <div class="col-md-8">
+                                        <div class="bs-component">
+                                            <input type="text" id="telp3" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label class="col-md-4 control-label" for="email">Email</label>
+                                    <div class="col-md-8">
+                                        <div class="bs-component">
+                                            <input type="text" id="email" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label class="col-md-4 control-label" for="typ">สถานะ</label>
+                                    <div class="col-md-8">
+                                        <div id='typ1'><span>สำนักงานใหญ่</span></div>
+                                        <div id='typ2'><span>สาขา</span></div>
+                                        <div id='typ3'><span>ไม่มีสาขา</span></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <br/>
+                                <input type="text" id="texttyp2" />
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="col-md-4 control-label" for="memo1">หมายเหตุ</label>
+                                    <div class="col-md-8">
+                                        <div class="bs-component">
+                                            <textarea id="memo1"></textarea>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="panel-body">
+                    <div class="p15 pt5 mt15">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="admin-form">
+                                    <div class="form-group">
+                                        <div class="col-md-12">
+                                            <div class="bs-component">
+                                                <div id="tableCustaddr"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="panel-body">
+                    <div class="p15 pt5 mt15">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="admin-form">
+                                    <div class="form-group">
+                                        <div class="col-md-12">
+                                            <div class="bs-component">
+                                                <div id="tableCustaddrSend"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="panel-body">
+                    <div class="p15 pt5 mt15">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="admin-form">
+                                    <div class="form-group">
+                                        <label class="col-md-4 control-label" for="memo2">สิ่งที่ลูกค้าชอบ</label>
+                                        <div class="col-md-8">
+                                            <div class="bs-component">
+                                                <textarea id="memo2"></textarea>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="admin-form">
+                                    <div class="form-group">
+                                        <label class="col-md-4 control-label" for="memo3">สิ่งที่ลูกค้าไม่ชอบ</label>
+                                        <div class="col-md-8">
+                                            <div class="bs-component">
+                                                <textarea id="memo3"></textarea>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
         </div>
     </div>
     <!-- end: .col-md-12.admin-grid -->
 </div>
 <!-- end: .row -->
 <script type="text/javascript">
-    $(document).ready(function() {
+    $(document).ready(function () {
+        //Default status Insert
+        var status = 'insert';
+        //เช็คสิทธิการใช้งาน
+        var chkright = [];
+        var value = JSON.stringify([{
+            menucode: 'SAL002',
+            userid: $.session.get('username')
+        }]);
+        $.ajax({
+            async: false,
+            url: "checkright",
+            contentType: "application/json",
+            dataType: 'json',
+            type: 'POST',
+            data: value,
+            success: function (data) {
+                chkright = data[0];
+                if (chkright.M_ACCESS === 'Y') {
+                    chkright.M_ACCESS = true
+                } else {
+                    chkright.M_ACCESS = false
+                }
+                if (chkright.M_DELETE === 'Y') {
+                    chkright.M_DELETE = true
+                } else {
+                    chkright.M_DELETE = false
+                }
+                if (chkright.M_EDIT === 'Y') {
+                    chkright.M_EDIT = true
+                } else {
+                    chkright.M_EDIT = false
+                }
+                if (chkright.M_INSERT === 'Y') {
+                    chkright.M_INSERT = true
+                } else {
+                    chkright.M_INSERT = false
+                }
+            }
+        });
+        //ฟังก์ชั่น สถานะ Insert หรือ Edit
+        function statusChange(disabled) {
+            if (disabled === false) {
+                status = 'insert';
+                // $('#tableTable1').jqxGrid('clear');
+            } else {
+                status = 'update';
+                $("#saveBtn").jqxButton({
+                    disabled: !chkright.M_EDIT
+                });
+            }
+            // $('#colorcode').jqxInput({
+            //     disabled: disabled
+            // });
+            $("#deleteBtn").jqxButton({
+                disabled: !chkright.M_DELETE
+            });
+        }
+        //ฟังก์ชั่น Get Data CUSTADDR
+        function getTableCustaddr() {
+            $.ajax({
+                async: false,
+                method: 'GET',
+                dataType: 'json',
+                url: "sqltext",
+                data: {
+                    sql: "SELECT * FROM CUSTADDR "
+                },
+                success: function (data) {
+                    sourceTable1.localdata = data;
+                    $('#tableCustaddr').jqxGrid('updatebounddata');
+                }
+            });
+        }
+        ////////////////////////////
+        $("#custcode").jqxInput({
+            placeHolder: "Enter a code",
+            height: 25,
+            width: '100%',
+            maxLength: 12
+        });
+        $("#grade").jqxInput({
+            placeHolder: "Enter a grade",
+            height: 25,
+            width: '100%',
+            maxLength: 12
+        });
+        $("#group1").jqxInput({
+            placeHolder: "Enter a group",
+            height: 25,
+            width: '100%',
+            maxLength: 12
+        });
+
+        //////// for sname ////
+        var dataSname = [{
+            "sname": "1",
+            "desc": "นาย"
+        }, {
+            "sname": "2",
+            "desc": "นางสาว"
+        }, {
+            "sname": "3",
+            "desc": "นาง"
+        }, {
+            "sname": "4",
+            "desc": "บริษัท"
+        }];
+        // prepare the data
+        var sourceSname = {
+            datafields: [{
+                name: 'sname'
+            }, {
+                name: 'desc'
+            }],
+            localdata: dataSname
+        };
+        var dataAdtSname = new $.jqx.dataAdapter(sourceSname);
+        $("#sname").jqxInput({
+            source: dataAdtSname,
+            placeHolder: "Enter a sname",
+            displayMember: "desc",
+            valueMember: "desc",
+            height: 25,
+            width: '100%',
+            maxLength: 12
+        });
+        $("#fname").jqxInput({
+            placeHolder: "Enter a name",
+            height: 25,
+            width: '100%',
+            maxLength: 12
+        });
+        $("#lname").jqxInput({
+            placeHolder: "Enter a last name",
+            height: 25,
+            width: '100%',
+            maxLength: 12
+        });
+        $("#nickname").jqxInput({
+            placeHolder: "Enter a nickname",
+            height: 25,
+            width: '100%',
+            maxLength: 12
+        });
+        $("#birthday").jqxDateTimeInput({
+            height: 25,
+            width: '100%',
+            culture: 'en-US'
+        });
+        $("#age").jqxInput({
+            placeHolder: "Enter a age",
+            height: 25,
+            width: '100%',
+            maxLength: 12
+        });
+        $("#nation").jqxInput({
+            placeHolder: "Enter a nation",
+            height: 25,
+            width: '100%',
+            maxLength: 12
+        });
+        $("#occup").jqxInput({
+            placeHolder: "Enter a occup",
+            height: 25,
+            width: '100%',
+            maxLength: 12
+        });
+        $("#income").jqxInput({
+            placeHolder: "Enter a income",
+            height: 25,
+            width: '100%',
+            maxLength: 12
+        });
+        var sourceIdcard = [
+                    "บัตรประจำตัวประชาชน",
+                    "บัตรประจำตัวผู้เสียภาษี",
+                    "บัตรประจำตัวข้าราชการ"];
+        $("#idcard").jqxComboBox({ source: sourceIdcard, selectedIndex: 0, width: '100%', height: '25px'});
+        $("#nocard").jqxInput({
+            placeHolder: "Enter a nocard",
+            height: 25,
+            width: '100%',
+            maxLength: 12
+        });
+        $("#issudt").jqxDateTimeInput({
+            height: 25,
+            width: '100%',
+            culture: 'en-US'
+        });
+        $("#expdt").jqxDateTimeInput({
+            height: 25,
+            width: '100%',
+            culture: 'en-US'
+        });
+        $("#issuby").jqxInput({
+            placeHolder: "Enter a issue by",
+            height: 25,
+            width: '100%',
+            maxLength: 12
+        });
+        $("#bossnm").jqxInput({
+            placeHolder: "Enter a name of boss",
+            height: 25,
+            width: '100%',
+            maxLength: 12
+        });
+        $("#acc_code").jqxInput({
+            placeHolder: "Enter a account",
+            height: 25,
+            width: '100%',
+            maxLength: 12
+        });
+        $("#offic").jqxInput({
+            placeHolder: "Enter a office",
+            height: 25,
+            width: '100%',
+            maxLength: 12
+        });
+        $("#addrno").jqxInput({
+            placeHolder: "Enter a addrno",
+            height: 25,
+            width: '100%',
+            maxLength: 12
+        });
+        $("#telp").jqxInput({
+            placeHolder: "Enter a telp",
+            height: 25,
+            width: '100%',
+            maxLength: 12
+        });
+        $("#telp1").jqxInput({
+            placeHolder: "Enter a telp",
+            height: 25,
+            width: '100%',
+            maxLength: 12
+        });
+        $("#telp2").jqxInput({
+            placeHolder: "Enter a telp",
+            height: 25,
+            width: '100%',
+            maxLength: 12
+        });
+        $("#telp3").jqxInput({
+            placeHolder: "Enter a telp",
+            height: 25,
+            width: '100%',
+            maxLength: 12
+        });
+        $("#email").jqxInput({
+            placeHolder: "Enter a email",
+            height: 25,
+            width: '100%',
+            maxLength: 12
+        });
+        $("#memo1").jqxInput({
+            height: 60,
+            width: '100%'
+        });
+        $("#memo2").jqxInput({
+            height: 60,
+            width: '100%'
+        });
+        $("#memo3").jqxInput({
+            height: 60,
+            width: '100%'
+        });
+        $("#typ1").jqxRadioButton({
+            width: 250,
+            height: 25,
+            checked: true
+        });
+        $("#typ2").jqxRadioButton({
+            width: 250,
+            height: 25
+        });
+        $("#typ3").jqxRadioButton({
+            width: 250,
+            height: 25
+        });
+        $("#texttyp2").jqxInput({
+            placeHolder: " ",
+            height: 25,
+            width: '50%',
+            maxLength: 5,
+            disabled: true
+        });
+
+        $("#typ2").on('change', function (event) {
+            var checked = event.args.checked;
+            // console.log(checked);
+            if (checked === true) {
+                $("#texttyp2").jqxInput({
+                    disabled: false,
+                    placeHolder: " "
+                });
+            } else $("#texttyp2").jqxInput({
+                disabled: true,
+                placeHolder: " "
+            });
+        });
+
+        /////////////////////////////////////
+        //ค้นหา เกรด
+        $('#searchGrade').off().on('click', function () {
+            //Show Dialog Search
+            searchAll('setgrade', 'grade');
+        });
+        //ค้นหา กลุ่มลูกหนี้
+        $('#searchGroup1').off().on('click', function () {
+            //Show Dialog Search
+            searchAll('argroup', 'group1');
+        });
+        //ค้นหา รหัสบัญชี
+        $('#searchAcc_code').off().on('click', function () {
+            //Show Dialog Search
+            searchAll('accmst', 'acc_code');
+        });
+
+        /////////////////////////////////////
+
+        //ฟังก์ชั่นเช็ค validate CUSTADDR
+        function validateTableCustaddr() {
+            $("#tableCustaddr").jqxGrid('hidevalidationpopups');
+            var rows = $("#tableCustaddr").jqxGrid('getdisplayrows');
+            var addrno = 0,
+                nullADDRNO = 0,
+                validateADDRNO = 0,
+                duplicateADDRNO = 0,
+                result = true;
+            //Check validate
+            for (var i = 0; i < rows.length; i++) {
+                var row = rows[i];
+                // console.log(row.ADDRNO);
+                if ((row.ADDRNO === undefined) || (row.ADDRNO === '')) {
+                    nullADDRNO++;
+                } else {
+                    $.ajax({
+                        async: false,
+                        url: "duplicateCheck",
+                        type: 'get',
+                        data: {
+                            table: 'CUSTADDR',
+                            field: 'ADDRNO',
+                            value: row.ADDRNO
+                        },
+                        success: function (data) {
+                            if (data === true) {
+                                validateADDRNO++;
+                            }
+                        }
+                    });
+
+                    if (validateADDRNO === 0) {
+                        for (var j = 0; j < rows.length; j++) {
+                            var row2 = rows[j];
+                            if ((row2.ADDRNO === row.ADDRNO) && (j !== i)) {
+                                duplicateADDRNO++;
+                                $("#tableCustaddr").jqxGrid('showvalidationpopup', j, "ADDRNO",
+                                    "ไม่สามารถเลือกซ้ำกันได้");
+                                result = false;
+                            }
+                        }
+                    }
+                }
+
+                if (nullADDRNO !== 0) {
+                    $("#tableCustaddr").jqxGrid('showvalidationpopup', i, "ADDRNO", "กรุณาเลือกรหัส");
+                    result = false;
+                };
+
+            }
+            return result;
+        }
+
+        var sourceAddrno = [{
+            text: "1: ตามทะเบียนบ้าน",
+            value: '1'
+        }, {
+            text: "2: ตามบัตรประชาชน",
+            value: '2'
+        }, {
+            text: "3: ที่อยู่ที่ทำงาน",
+            value: '3'
+        }, {
+            text: "4: ที่อยู่ที่ติดต่อได้",
+            value: '4'
+        }];
+        var adapterAddrno = new $.jqx.dataAdapter(sourceAddrno);
+
+        var sourcesettype = {
+            async: false,
+            datatype: "json",
+            datafields: [{
+                    name: 'AUMPCOD',
+                    type: 'string'
+                },
+                {
+                    name: 'AUMPDESC',
+                    type: 'string'
+                }
+            ],
+            url: "../master/settype"
+        };
+        var adapterSettype = new $.jqx.dataAdapter(sourcesettype);
+
+        var rules = [];
+        //DataSource CUSTADDR
+        var dataCustaddr = [];
+        var sourceCustaddr = {
+            datatype: "json",
+            datafields: [{
+                name: 'IDNO',
+                type: 'integer'
+            }, {
+                name: 'ADDRNO',
+                type: 'integer'
+            }, {
+                name: 'ADDR1',
+                type: 'string'
+            }, {
+                name: 'ADDR2',
+                type: 'string'
+            }, {
+                name: 'TUMB',
+                type: 'string'
+            }, {
+                name: 'AUMPCOD',
+                type: 'string'
+            }, {
+                name: 'PROVCOD',
+                type: 'string'
+            }, {
+                name: 'ZIP',
+                type: 'string'
+            }, {
+                name: 'TELP',
+                type: 'string'
+            }],
+            addrow: function (rowid, rowdata, position, commit) {
+                commit(true);
+            },
+            deleterow: function (rowid, commit) {
+                commit(true);
+            },
+            updaterow: function (rowid, newdata, commit) {
+                commit(true);
+            },
+            id: 'id',
+            localdata: dataCustaddr
+        };
+        var dataAdtCustaddr = new $.jqx.dataAdapter(sourceCustaddr);
+        $('.admin-panels').adminpanel({
+            grid: '.admin-grid',
+            callback: function () {
+                bootbox.confirm('<h3>A Custom Callback!</h3>', function () {});
+            },
+            onFinish: function () {
+                $('.admin-panels').addClass('animated fadeIn').removeClass('fade-onload');
+                demoHighCharts.init();
+            },
+            onSave: function () {
+                $(window).trigger('resize');
+            }
+        });
+
+        //validate in grid 
+        var chkADDRNO = function (cell, value) {
+            if(cell.column === "ADDRNO") {
+                var rows = $("#tableCustaddr").jqxGrid('getdisplayrows');
+                var typechk = '';
+                var x1 = 0;
+                //console.log(value.value);
+                if(value.value !== undefined){
+                    for (var i = 0; i < rows.length; i++) {
+                        var row = rows[i];
+                        if ((i !== cell.row) && (row.ADDRNO === value.value)) {
+                            x1++;
+                        };
+                    }
+                    if (x1 !== 0) {
+                        return { result: false, message: "ไม่สามารถเลือกรหัสซ้ำกันได้" };
+                    }; 
+                } else {
+                    $("#tableCustaddr").val("false");
+                    return { result: false, message: "กรุณาเลือกรหัส" };
+                }
+            }
+
+            return true;
+        }
+
+        $("#tableCustaddr").jqxGrid({
+            width: '100%',
+            height: 250,
+            source: dataAdtCustaddr,
+            editable: true,
+            altrows: true,
+            sortable: false,
+            filterable: false,
+            columnsresize: true,
+            selectionmode: 'singlerow',
+            editmode: 'selectedcell',
+            showstatusbar: true,
+            statusbarheight: 35,
+            showaggregates: true,
+            columns: [{
+                text: '#',
+                sortable: false,
+                filterable: false,
+                editable: false,
+                groupable: false,
+                draggable: false,
+                resizable: false,
+                align: 'center',
+                cellsalign: 'center',
+                datafield: '',
+                columntype: 'number',
+                width: 15,
+                cellsrenderer: function (row, column, value) {
+                    return "<div style='margin:4px; text-align:center;'>" + (value + 1) +
+                        "</div>";
+                },
+                aggregates: ['count'],
+                aggregatesrenderer: function (aggregates, column, element) {
+                    var renderstring = "";
+                    $.each(aggregates, function (key, value) {
+                        renderstring +=
+                            '<div style="position: relative; margin: 4px; overflow: hidden; font-weight: bold;">' +
+                            value + '</div>';
+                    });
+                    return renderstring;
+                }
+            }, {
+                text: 'IDNO',
+                datafield: 'IDNO',
+                width: 80,
+                hidden: true
+            }, {
+                text: 'ลำดับที่อยู่',
+                datafield: 'ADDRNO',
+                width: 150,
+                align: 'center',
+                displayfield: 'text',
+                columntype: 'combobox',
+                validation: chkADDRNO,
+                createeditor: function (row, value, editor) {
+                    editor.jqxComboBox({
+                        source: adapterAddrno,
+                        displayMember: 'text',
+                        valueMember: 'ADDRNO',
+                        searchMode: 'containsignorecase',
+                        placeHolder: "เลือก :"
+                    });
+                }
+            }, {
+                text: 'บ้านเลขที่',
+                datafield: 'ADDR1',
+                width: 200,
+                align: 'center',
+                cellsalign: 'left'
+            }, {
+                text: 'ถนน',
+                datafield: 'ADDR2',
+                width: 150,
+                align: 'center',
+                cellsalign: 'left'
+            }, {
+                text: 'ตำบล',
+                datafield: 'TUMB',
+                width: 150,
+                align: 'center',
+                cellsalign: 'left'
+            }, {
+                text: 'อำเภอ',
+                width: 150,
+                align: 'center',
+                cellsalign: 'left',
+                columntype: 'combobox',
+                datafield: 'AUMPCOD',
+                createeditor: function (row, column, editor) {
+                    editor.jqxComboBox({
+                        source: adapterSettype,
+                        displayMember: 'AUMPDESC',
+                        valueMember: 'AUMPCOD',
+                        dropDownHeight: 203,
+                        dropDownWidth: 380,
+                        selectionMode: "dropDownList",
+                        searchMode: 'containsignorecase',
+                        selectedIndex: 0
+                    });
+
+                }
+            }, {
+                text: 'จังหวัด',
+                width: 150,
+                align: 'center',
+                cellsalign: 'left',
+                columntype: 'combobox',
+                datafield: 'PROVCOD',
+                createeditor: function (row, column, editor) {
+                    editor.jqxComboBox({
+                        source: adapterSettype,
+                        displayMember: 'PROVDESC',
+                        valueMember: 'PROVCOD',
+                        dropDownHeight: 203,
+                        dropDownWidth: 380,
+                        selectionMode: "dropDownList",
+                        searchMode: 'containsignorecase',
+                        selectedIndex: 0
+                    });
+
+                }
+            }, {
+                text: 'รหัสไปรษณ๊ย์',
+                datafield: 'ZIP',
+                width: 100,
+                align: 'center',
+                cellsalign: 'left'
+            }, {
+                text: 'เบอร์โทรศัพท์',
+                datafield: 'TELP',
+                width: 150,
+                align: 'center',
+                cellsalign: 'left'
+            }],
+            showtoolbar: true,
+            rendertoolbar: function (toolbar) {
+                var container = $("<div style='margin: 5px;'></div>");
+                toolbar.append(container);
+                container.append(
+                    '<button type="button" id="addrow1"><span class="fa fa-plus"></span> เพิ่มรายการ</button> <button type="button" id="deleterow"><span class="fa fa-minus"></span> ลบรายการ</button>'
+                );
+                //Add row
+                $("#addrow1").on('click', function () {
+                    if (validateTableCustaddr() === true) {
+                        var datarow = {
+                            IDNO: 0,
+                            ADDRNO: 0
+                        };
+                        var commit = $("#tableCustaddr").jqxGrid('addrow', null, datarow);
+                        if (commit) {
+                            setTimeout(
+                                function () {
+                                    var recodecount = $("#tableCustaddr").jqxGrid(
+                                        'getdatainformation').rowscount;
+                                    $("#tableCustaddr").jqxGrid('selectrow',
+                                        recodecount -
+                                        1);
+                                    $('#tableCustaddr').jqxGrid('begincelledit',
+                                        recodecount - 1, 'ADDRNO');
+                                },
+                                200
+                            );
+                        };
+                    }
+                });
+
+                //Delete row
+                $("#deleterow").on('click', function () {
+                    var selectedrowindex = $("#tableCustaddr").jqxGrid(
+                        'getselectedrowindex');
+                    var rowscount = $("#tableCustaddr").jqxGrid('getdatainformation').rowscount;
+                    if (selectedrowindex >= 0 && selectedrowindex < rowscount) {
+                        var id = $("#tableCustaddr").jqxGrid('getrowid', selectedrowindex);
+                        var commit = $("#tableCustaddr").jqxGrid('deleterow', id);
+                        //$("#validecolortrn").val("true");
+                    }
+                    return false;
+                });
+
+                $("#addrow1").jqxButton({
+                    width: 100,
+                    height: 25,
+                    template: "success"
+                });
+                $("#deleterow").jqxButton({
+                    width: 100,
+                    height: 25,
+                    template: "danger",
+                });
+            }
+        });
+
+
+        //cust channel send
+        var dataCustSend = [];
+        // prepare the data
+        var data = new Array();
+        data.push({
+            "IDNO": "#",
+            "CSCODE": "001",
+            "CSDESC": "ส่งจดหมาย",
+            "CSSTAT": true
+        });
+        data.push({
+            "IDNO": "#",
+            "CSCODE": "002",
+            "CSDESC": "ส่ง SMS",
+            "CSSTAT": false
+        });
+        data.push({
+            "IDNO": "#",
+            "CSCODE": "003",
+            "CSDESC": "ส่ง E-mail",
+            "CSSTAT": false
+        });
+        data.push({
+            "IDNO": "#",
+            "CSCODE": "004",
+            "CSDESC": "ส่ง D-mail",
+            "CSSTAT": false
+        });
+        data.push({
+            "IDNO": "#",
+            "CSCODE": "005",
+            "CSDESC": "โทรเบอร์บ้าน",
+            "CSSTAT": true
+        });
+        data.push({
+            "IDNO": "#",
+            "CSCODE": "006",
+            "CSDESC": "โทรมือถือ",
+            "CSSTAT": true
+        });
+        data.push({
+            "IDNO": "#",
+            "CSCODE": "007",
+            "CSDESC": "โทรที่ทำงาน",
+            "CSSTAT": false
+        });
+        var sourceCustaddrSend = {
+            localdata: data,
+            datatype: "array",
+            updaterow: function (rowid, rowdata, commit) {
+                // synchronize with the server - send update command
+                // call commit with parameter true if the synchronization with the server is successful 
+                // and with parameter false if the synchronization failder.
+                commit(true);
+            },
+            datafields: [{
+                    name: 'IDNO',
+                    type: 'string'
+                },
+                {
+                    name: 'CSCODE',
+                    type: 'string'
+                },
+                {
+                    name: 'CSDESC',
+                    type: 'string'
+                },
+                {
+                    name: 'CSSTAT',
+                    type: 'bool'
+                }
+            ]
+        };
+        var dataAdtCustaddrSend = new $.jqx.dataAdapter(sourceCustaddrSend);
+        $('.admin-panels').adminpanel({
+            grid: '.admin-grid',
+            callback: function () {
+                bootbox.confirm('<h3>A Custom Callback!</h3>', function () {});
+            },
+            onFinish: function () {
+                $('.admin-panels').addClass('animated fadeIn').removeClass('fade-onload');
+                demoHighCharts.init();
+            },
+            onSave: function () {
+                $(window).trigger('resize');
+            }
+        });
+
+        $("#tableCustaddrSend").jqxGrid({
+            width: '100%',
+            height: 250,
+            source: dataAdtCustaddrSend,
+            editable: true,
+            altrows: true,
+            sortable: false,
+            filterable: false,
+            columnsresize: true,
+            selectionmode: 'singlerow',
+            editmode: 'selectedcell',
+            showstatusbar: true,
+            statusbarheight: 35,
+            showaggregates: true,
+            columns: [{
+                text: '#',
+                sortable: false,
+                filterable: false,
+                editable: false,
+                groupable: false,
+                draggable: false,
+                resizable: false,
+                align: 'center',
+                cellsalign: 'center',
+                datafield: '',
+                columntype: 'number',
+                width: 15,
+                cellsrenderer: function (row, column, value) {
+                    return "<div style='margin:4px; text-align:center;'>" + (value + 1) +
+                        "</div>";
+                },
+                aggregates: ['count'],
+                aggregatesrenderer: function (aggregates, column, element) {
+                    var renderstring = "";
+                    $.each(aggregates, function (key, value) {
+                        renderstring +=
+                            '<div style="position: relative; margin: 4px; overflow: hidden; font-weight: bold;">' +
+                            value + '</div>';
+                    });
+                    return renderstring;
+                }
+            }, {
+                text: 'IDNO',
+                datafield: 'IDNO',
+                width: 80,
+                hidden: true
+            }, {
+                text: 'รหัสติดต่อ',
+                datafield: 'CSCODE',
+                width: 200,
+                align: 'center',
+                cellsalign: 'left'
+            }, {
+                text: 'คำอธิบาย',
+                datafield: 'CSDESC',
+                width: 200,
+                align: 'center',
+                cellsalign: 'left'
+            }, {
+                text: 'เลือก',
+                datafield: 'CSSTAT',
+                columntype: 'checkbox',
+                width: 67,
+                align: 'center'
+            }],
+            showtoolbar: true
+        });
 
     });
 </script>
