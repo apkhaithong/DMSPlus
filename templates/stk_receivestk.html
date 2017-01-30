@@ -349,6 +349,7 @@
                                             <button type="button" id="saveBtn"><span class="fa fa-floppy-o"></span> บันทึก</button>
                                             <button type="button" id="searchBtn"><span class="fa fa-search"></span> ค้นหา</button>
                                             <button type="button" id="deleteBtn"><span class="fa fa-trash-o"></span> ลบ</button>
+                                            <button type="button" id="printBtn"><span class="fa fa-print"></span> พิมพ์เอกสาร</button>
                                         </div>
                                     </div>
                                 </div>
@@ -403,6 +404,7 @@
             $("#deleteBtn").jqxButton({
                 disabled: !chkright.M_DELETE
             });
+            $("#printBtn").jqxButton({disabled: !disabled});
         }
 
         function statusClear() {
@@ -1517,6 +1519,11 @@
             template: "danger",
             width: 90
         });
+        $("#printBtn").jqxButton({
+            disabled: true,
+            template: "inverse",
+            width: 120
+        });
         $('#fmInvinvo').jqxValidator({
             hintType: 'label',
             animationDuration: 0,
@@ -1743,6 +1750,13 @@
                     });
                 });
             }
+        });
+        //พิมพ์
+        $('#printBtn').off().on('click', function () { 
+            var baseUrl = document.location.origin;
+            var reportname = 'fr_receivestk';
+            var vdocno = $('#recvno').val();
+            openReport('GET', baseUrl+'/report', {reportname: reportname, vdocno: vdocno});
         });
     });
 </script>

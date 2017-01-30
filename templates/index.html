@@ -292,6 +292,7 @@
 
         // Show Alert
         function ShowMessage(text, type) {
+            $(window).scrollTop(0);
             $('#alert-' + type + '-1-text').html(text);
             $('#alert-' + type + '-1').slideToggle('slow');
             setTimeout(

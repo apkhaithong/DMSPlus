@@ -104,7 +104,7 @@
                                 <label class="col-md-4 control-label" for="age">อายุ</label>
                                 <div class="col-md-8">
                                     <div class="bs-component">
-                                        <input type="text" id="age" />
+                                        <div id='age'></div>
                                     </div>
                                 </div>
                             </div>
@@ -133,10 +133,10 @@
                         </div>
                         <div class="col-md-4">
                             <div class="form-group">
-                                <label class="col-md-4 control-label" for="income">รายได้/เดือน</label>
+                                <label class="col-md-4 control-label" for="mrevenu">รายได้/เดือน</label>
                                 <div class="col-md-8">
                                     <div class="bs-component">
-                                        <input type="text" id="income" />
+                                        <input type="text" id="mrevenu" />
                                     </div>
                                 </div>
                             </div>
@@ -168,10 +168,10 @@
                             </div>
                             <div class="col-md-4">
                                 <div class="form-group">
-                                    <label class="col-md-4 control-label" for="issudt">วันที่ออกบัตร</label>
+                                    <label class="col-md-4 control-label" for="issuby">ออกบัตรโดย</label>
                                     <div class="col-md-8">
                                         <div class="bs-component">
-                                            <input type="text" id="issudt" />
+                                            <input type="text" id="issuby" />
                                         </div>
                                     </div>
                                 </div>
@@ -180,20 +180,20 @@
                         <div class="row">
                             <div class="col-md-4">
                                 <div class="form-group">
-                                    <label class="col-md-4 control-label" for="expdt">บัตรหมดอายุ</label>
+                                    <label class="col-md-4 control-label" for="issudt">วันที่ออกบัตร</label>
                                     <div class="col-md-8">
                                         <div class="bs-component">
-                                            <input type="text" id="expdt" />
+                                            <input type="text" id="issudt" />
                                         </div>
                                     </div>
                                 </div>
                             </div>
                             <div class="col-md-4">
                                 <div class="form-group">
-                                    <label class="col-md-4 control-label" for="issuby">ออกบัตรโดย</label>
+                                    <label class="col-md-4 control-label" for="expdt">วันบัตรหมดอายุ</label>
                                     <div class="col-md-8">
                                         <div class="bs-component">
-                                            <input type="text" id="issuby" />
+                                            <input type="text" id="expdt" />
                                         </div>
                                     </div>
                                 </div>
@@ -238,7 +238,7 @@
                                     <label class="col-md-4 control-label" for="addrno">ที่อยู่ส่งเอกสาร</label>
                                     <div class="col-md-8">
                                         <div class="bs-component">
-                                            <input type="text" id="addrno" />
+                                            <div id="addrno"></div>
                                         </div>
                                     </div>
                                 </div>
@@ -315,7 +315,7 @@
                             </div>
                             <div class="col-md-3">
                                 <br/>
-                                <input type="text" id="texttyp2" />
+                                <input type="text" id="loctno" />
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
@@ -392,6 +392,21 @@
                                 </div>
                             </div>
                         </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label class="col-md-4 control-label"></label>
+                                    <div class="col-md-8">
+                                        <div class="bs-component">
+                                            <button type="button" id="newBtn"><span class="fa fa-refresh"></span> เริ่มใหม่</button>
+                                            <button type="button" id="saveBtn"><span class="fa fa-floppy-o"></span> บันทึก</button>
+                                            <button type="button" id="searchBtn"><span class="fa fa-search"></span> ค้นหา</button>
+                                            <button type="button" id="deleteBtn"><span class="fa fa-trash-o"></span> ลบ</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </form>
@@ -406,6 +421,9 @@
         var status = 'insert';
         //เช็คสิทธิการใช้งาน
         var chkright = [];
+        //เช็ค Running เอกสาร
+        var chkrun = checkRundoc('R_CUSCOD');
+
         var value = JSON.stringify([{
             menucode: 'SAL002',
             userid: $.session.get('username')
@@ -441,37 +459,151 @@
                 }
             }
         });
+
         //ฟังก์ชั่น สถานะ Insert หรือ Edit
         function statusChange(disabled) {
             if (disabled === false) {
                 status = 'insert';
-                // $('#tableTable1').jqxGrid('clear');
+                $('#custcode').val('');
+                $('#loctno').val('');
+                $('#tableCustaddr').jqxGrid('clear');
+                statusClear();
             } else {
                 status = 'update';
                 $("#saveBtn").jqxButton({
                     disabled: !chkright.M_EDIT
                 });
             }
+            $("#custcode").prop("readonly", disabled);
             // $('#colorcode').jqxInput({
             //     disabled: disabled
             // });
+            $("#custcode").prop("readonly", disabled);
             $("#deleteBtn").jqxButton({
                 disabled: !chkright.M_DELETE
             });
         }
-        //ฟังก์ชั่น Get Data CUSTADDR
-        function getTableCustaddr() {
+
+        function statusClear() {
+            $('#custcode').val('');
+            $('#group1').val('');
+            $('#grade').val('');
+            $('#sname').val('');
+            $('#fname').val('');
+            $('#lname').val('');
+            $('#nickname').val('');
+            $('#birthday').jqxDateTimeInput('setDate', new Date());
+            $('#age').val(0);
+            $('#nation').val('');
+            $('#occup').val('');
+            $('#mrevenu').val(0);
+            $('#idcard').val('บัตรประจำตัวประชาชน');
+            $('#nocard').val('');
+            $('#issuby').val('');
+            $('#issudt').jqxDateTimeInput('setDate', new Date());
+            $('#expdt').jqxDateTimeInput('setDate', new Date());
+            $('#bossnm').val('');
+            $('#acc_code').val('');
+            $('#offic').val('');
+            $('#addrno').val(1);
+            $('#telp').val('');
+            $('#telp1').val('');
+            $('#telp2').val('');
+            $('#telp3').val('');
+            $('#email').val('');
+            $('#memo1').val('');
+            $('#memo2').val('');
+            $('#memo3').val('');
+            $('#loctyp').val('1');
+            $("#typ1").jqxRadioButton({ checked: true });
+            $('#loctno').val('');
+            $('#tableCustaddrSend').jqxGrid('updatebounddata');
+        }
+
+        // Get Data CUSTMAST
+        function getCustmast(custcode) {
             $.ajax({
                 async: false,
                 method: 'GET',
                 dataType: 'json',
                 url: "sqltext",
                 data: {
-                    sql: "SELECT * FROM CUSTADDR "
+                    sql: "SELECT * FROM CUSTMAST WHERE CUSCOD = '" + custcode + "' "
                 },
                 success: function (data) {
-                    sourceTable1.localdata = data;
+                    $('#custcode').val(data[0].CUSCOD);
+                    $('#group1').val(data[0].GROUP1);
+                    $('#grade').val(data[0].GRADE);
+                    $('#sname').val(data[0].SNAM);
+                    $('#fname').val(data[0].NAME1);
+                    $('#lname').val(data[0].NAME2);
+                    $('#nickname').val(data[0].NICKNM);
+                    $('#birthday').val(data[0].BIRTHDT);
+                    $('#age').val(data[0].AGE);
+                    $('#nation').val(data[0].NATION);
+                    $('#occup').val(data[0].OCCUP);
+                    $('#mrevenu').val(data[0].MREVENU);
+                    $('#idcard').val(data[0].IDCARD);
+                    $('#nocard').val(data[0].NOCARD);
+                    $('#issuby').val(data[0].ISSUBY);
+                    $('#issudt').val(data[0].ISSYDT);
+                    $('#expdt').val(data[0].EXPDT);
+                    $('#bossnm').val(data[0].BOSSNM);
+                    $('#acc_code').val(data[0].ACC_CODE);
+                    $('#offic').val(data[0].OFFIC);
+                    $('#addrno').val(data[0].ADDRNO);
+                    $('#telp').val(data[0].TELP);
+                    $('#telp1').val(data[0].TELP1);
+                    $('#telp2').val(data[0].TELP2);
+                    $('#telp3').val(data[0].TELP3);
+                    $('#email').val(data[0].EMAIL);
+                    $('#memo1').val(data[0].MEMO1);
+                    $('#memo2').val(data[0].CUSLIKE);
+                    $('#memo3').val(data[0].CUSNOLIKE);
+                    $('#loctyp').val(data[0].LOCTYP);
+                    if (data[0].LOCTYP == '1') {
+                        $("#typ1").jqxRadioButton({ checked: true });
+                    } else if (data[0].LOCTYP == '2') {
+                        $("#typ2").jqxRadioButton({ checked: true });
+                    } else {
+                        $("#typ3").jqxRadioButton({ checked: true });
+                    }
+                    $('#loctno').val(data[0].LOCTNO);
+
+                    getTableCustaddr(data[0].CUSCOD);
+                    getTableCustaddrSend(data[0].CUSCOD);
+                }
+            });
+        }
+        //ฟังก์ชั่น Get Data CUSTADDR
+        function getTableCustaddr(custcode) {
+            $.ajax({
+                async: false,
+                method: 'GET',
+                dataType: 'json',
+                url: "sqltext",
+                data: {
+                    sql: "SELECT IDNO, GENIDNO, ADDRNO, ADDR1, COALESCE(ADDR2,'') AS ADDR2, TUMB, AUMPCOD, PROVCOD, ZIP, TELP, MEMO1, USERID, PICT1, ADDDESC, (CASE WHEN ADDRNO =1 THEN '1: ตามทะเบียนบ้าน' WHEN ADDRNO =2 THEN '2: ตามบัตรประชาชน' WHEN ADDRNO =3 THEN '3: ที่อยู่ที่ทำงาน' WHEN ADDRNO =4 THEN '4: ที่อยู่ที่ติดต่อได้' ELSE '' END) AS TEXTADDRNO FROM CUSTADDR WHERE GENIDNO =(SELECT IDNO FROM CUSTMAST WHERE CUSCOD= '" +custcode + "') ORDER BY ADDRNO"
+                },
+                success: function (data) {
+                    sourceCustaddr.localdata = data;
                     $('#tableCustaddr').jqxGrid('updatebounddata');
+                }
+            });
+        }
+        //ฟังก์ชั่น Get Data CUSCHANNELSEND
+        function getTableCustaddrSend(custcode) {
+            $.ajax({
+                async: false,
+                method: 'GET',
+                dataType: 'json',
+                url: "sqltext",
+                data: {
+                    sql: "SELECT IDNO, CSCODE, CSDESC, (CASE WHEN CSSTAT='Y' THEN 'true' ELSE 'false' END) AS CSSTAT FROM CUSCHANNELSEND WHERE CUSCOD= '" +custcode + "'"
+                },
+                success: function (data) {
+                    sourceCustaddrSend.localdata = data;
+                    $('#tableCustaddrSend').jqxGrid('updatebounddata');
                 }
             });
         }
@@ -480,19 +612,30 @@
             placeHolder: "Enter a code",
             height: 25,
             width: '100%',
-            maxLength: 12
+            maxLength: 13
         });
+
+        if (chkrun === true) {
+            $("#custcode").jqxInput({
+                placeHolder: "Running Code"
+            });
+        } else {
+            $("#custcode").jqxInput({
+                placeHolder: "Enter a custcode."
+            });
+        }
+        $("#custcode").prop("readonly", chkrun);
         $("#grade").jqxInput({
             placeHolder: "Enter a grade",
             height: 25,
             width: '100%',
-            maxLength: 12
+            maxLength: 2
         });
         $("#group1").jqxInput({
             placeHolder: "Enter a group",
             height: 25,
             width: '100%',
-            maxLength: 12
+            maxLength: 5
         });
 
         //////// for sname ////
@@ -526,65 +669,80 @@
             valueMember: "desc",
             height: 25,
             width: '100%',
-            maxLength: 12
+            maxLength: 8
         });
         $("#fname").jqxInput({
             placeHolder: "Enter a name",
             height: 25,
             width: '100%',
-            maxLength: 12
+            maxLength: 50
         });
         $("#lname").jqxInput({
             placeHolder: "Enter a last name",
             height: 25,
             width: '100%',
-            maxLength: 12
+            maxLength: 50
         });
         $("#nickname").jqxInput({
             placeHolder: "Enter a nickname",
             height: 25,
             width: '100%',
-            maxLength: 12
+            maxLength: 50
         });
         $("#birthday").jqxDateTimeInput({
             height: 25,
             width: '100%',
             culture: 'en-US'
         });
-        $("#age").jqxInput({
-            placeHolder: "Enter a age",
+        $("#age").jqxNumberInput({
             height: 25,
             width: '100%',
-            maxLength: 12
+            symbol: '',
+            spinButtons: true,
+            digits: 3,
+            decimalDigits: 0,
+            min: 0,
+            max: 999
         });
         $("#nation").jqxInput({
             placeHolder: "Enter a nation",
             height: 25,
             width: '100%',
-            maxLength: 12
+            maxLength: 50
         });
         $("#occup").jqxInput({
             placeHolder: "Enter a occup",
             height: 25,
             width: '100%',
-            maxLength: 12
+            maxLength: 50
         });
-        $("#income").jqxInput({
-            placeHolder: "Enter a income",
+        $("#mrevenu").jqxNumberInput({
             height: 25,
             width: '100%',
-            maxLength: 12
+            symbol: '฿',
+            spinButtons: true,
+            digits: 10,
+            decimalDigits: 2,
+            min: 0,
+            max: 9999999999
         });
         var sourceIdcard = [
-                    "บัตรประจำตัวประชาชน",
-                    "บัตรประจำตัวผู้เสียภาษี",
-                    "บัตรประจำตัวข้าราชการ"];
-        $("#idcard").jqxComboBox({ source: sourceIdcard, selectedIndex: 0, width: '100%', height: '25px'});
+            "บัตรประจำตัวประชาชน",
+            "บัตรประจำตัวผู้เสียภาษี",
+            "บัตรประจำตัวข้าราชการ"
+        ];
+        $("#idcard").jqxComboBox({
+            source: sourceIdcard,
+            selectedIndex: 0,
+            dropDownHeight: 77,
+            width: '100%',
+            height: '25px'
+        });
         $("#nocard").jqxInput({
             placeHolder: "Enter a nocard",
             height: 25,
             width: '100%',
-            maxLength: 12
+            maxLength: 13
         });
         $("#issudt").jqxDateTimeInput({
             height: 25,
@@ -600,13 +758,13 @@
             placeHolder: "Enter a issue by",
             height: 25,
             width: '100%',
-            maxLength: 12
+            maxLength: 40
         });
         $("#bossnm").jqxInput({
             placeHolder: "Enter a name of boss",
             height: 25,
             width: '100%',
-            maxLength: 12
+            maxLength: 60
         });
         $("#acc_code").jqxInput({
             placeHolder: "Enter a account",
@@ -618,55 +776,63 @@
             placeHolder: "Enter a office",
             height: 25,
             width: '100%',
-            maxLength: 12
+            maxLength: 50
         });
-        $("#addrno").jqxInput({
-            placeHolder: "Enter a addrno",
+        $("#addrno").jqxNumberInput({
             height: 25,
             width: '100%',
-            maxLength: 12
+            symbol: '',
+            spinButtons: true,
+            digits: 1,
+            decimalDigits: 0,
+            min: 1,
+            max: 4
         });
+        $("#addrno").val(1);
         $("#telp").jqxInput({
             placeHolder: "Enter a telp",
             height: 25,
             width: '100%',
-            maxLength: 12
+            maxLength: 30
         });
         $("#telp1").jqxInput({
             placeHolder: "Enter a telp",
             height: 25,
             width: '100%',
-            maxLength: 12
+            maxLength: 60
         });
         $("#telp2").jqxInput({
             placeHolder: "Enter a telp",
             height: 25,
             width: '100%',
-            maxLength: 12
+            maxLength: 10
         });
         $("#telp3").jqxInput({
             placeHolder: "Enter a telp",
             height: 25,
             width: '100%',
-            maxLength: 12
+            maxLength: 10
         });
         $("#email").jqxInput({
             placeHolder: "Enter a email",
             height: 25,
             width: '100%',
-            maxLength: 12
+            maxLength: 60
         });
         $("#memo1").jqxInput({
             height: 60,
-            width: '100%'
+            width: '100%',
+            maxLength: 1024
         });
         $("#memo2").jqxInput({
             height: 60,
-            width: '100%'
+            width: '100%',
+            maxLength: 1024
         });
         $("#memo3").jqxInput({
             height: 60,
-            width: '100%'
+            width: '100%',
+            maxLength: 1024
         });
         $("#typ1").jqxRadioButton({
             width: 250,
@@ -681,7 +847,7 @@
             width: 250,
             height: 25
         });
-        $("#texttyp2").jqxInput({
+        $("#loctno").jqxInput({
             placeHolder: " ",
             height: 25,
             width: '50%',
@@ -693,15 +859,192 @@
             var checked = event.args.checked;
             // console.log(checked);
             if (checked === true) {
-                $("#texttyp2").jqxInput({
+                $("#loctno").jqxInput({
                     disabled: false,
                     placeHolder: " "
                 });
-            } else $("#texttyp2").jqxInput({
+            } else $("#loctno").jqxInput({
                 disabled: true,
                 placeHolder: " "
             });
         });
+
+        ///// ตรวจสอบอายุ /////
+        $('#birthday').on('change', function (event) {
+            var jsDate = event.args.date;
+            var data = $('#birthday').jqxDateTimeInput('getText');
+            var Birth = data.split('/');
+            var day = Birth[0];
+            var month = Birth[1];
+            var year = Birth[2];
+
+            var d = "";
+            var m = "";
+            var y = "";
+
+            var nowdt = new Date();
+            var nd = parseInt(nowdt.getDate());
+            var nm = parseInt(nowdt.getMonth());
+            var ny = parseInt(nowdt.getFullYear());
+
+            var ageYear = 0;
+            var ageMonth = 0;
+
+            var d = day;
+            var m = month;
+            var y = year;
+
+            if (d != "" && m != "" && y != "") {
+                s = new Date(y, parseInt(m) - 1, d);
+                d = parseInt(s.getDate());
+                m = parseInt(s.getMonth());
+                y = parseInt(s.getFullYear());
+
+                ageYear = ny - y;
+                if (nm > m) {
+                    ageMonth = nm - m;
+                } else if (nm == m) {
+                    if (nd >= d) {
+                        ageMonth = 0;
+                    } else {
+                        ageMonth = 11;
+                        ageYear = ageYear - 1;
+                    }
+                } else {
+                    ageMonth = m - nm;
+                    ageYear = ageYear - 1;
+                }
+                // age.value = ageYear + "ปี " + ageMonth + "เดือน";
+                // console.log(ageYear + "ปี " + ageMonth + "เดือน");
+                $('#age').val(ageYear);
+            } else {
+                age.value = "";
+            }
+
+        });
+
+        ///// เช็คเมื่อเปลี่ยนประเภทบัตร /////
+        $('#idcard').on('change', function (event) {
+            var args = event.args;
+            if (args) {
+                var index = args.index;
+                var item = args.item;
+                var label = item.label;
+                var value = item.value;
+                var type = args.type;
+                if (value === "บัตรประจำตัวประชาชน" || value === "บัตรประจำตัวผู้เสียภาษี") {
+                    $("#nocard").jqxInput({
+                        maxLength: 13
+                    });
+                    // $("#nocard").jqxMaskedInput({
+                    //                 mask: '#-####-#####-##-#'
+                    //             });
+                } else if (value === "บัตรประจำตัวข้าราชการ") {
+                    $("#nocard").jqxInput({
+                        maxLength: 20
+                    });
+                    //             $("#nocard").jqxMaskedInput({
+                    //                 mask: '####################'
+                    //             });
+                }
+            }
+            // $('#nocard').jqxInput('selectAll');
+        });
+        ///// เช็คเลขบัตรประชาชน /////
+        // $('#nocard').on('close', function () {
+        // type your code here. 
+        // var chkID = $('#nocard').val();
+        // var str = chkID.replace(/-/g, "");
+        // alert(checkID(str)+' / '+str);
+        // });
+
+        function checkID(id) {
+            if (id.length != 13) return false;
+            for (i = 0, sum = 0; i < 12; i++)
+                sum += parseFloat(id.charAt(i)) * (13 - i);
+            if ((11 - sum % 11) % 10 != parseFloat(id.charAt(12)))
+                return false;
+            return true;
+        }
+        //เงื่อนไข validate CUSTMAST
+        var rules = [{
+            input: '#sname',
+            message: 'กรุณาระบุคำนำหน้า!',
+            action: 'keyup, blur, focusout',
+            rule: 'required'
+        }, {
+            input: '#fname',
+            message: 'กรุณาระบุชื่อ!',
+            action: 'keyup, blur, focusout',
+            rule: 'required'
+        }, {
+            input: '#lname',
+            message: 'กรุณาระบุนามสกุล!',
+            action: 'keyup, blur, focusout',
+            rule: 'required'
+        }, {
+            input: '#nocard',
+            message: 'กรุณาระบุเลขที่บัตร!',
+            action: 'keyup, blur, focusout',
+            rule: 'required'
+        }, {
+            input: '#nocard',
+            message: 'กรุณาระบุเลขที่บัตรให้ถูกต้อง!',
+            action: 'keyup, blur, focusout',
+            rule: function (input, commit) {
+                var nocard = $('#nocard').val();
+                var idcard = $('#idcard').val();
+                // console.log(idcard);
+                if (nocard !== '') {
+                    var result = [];
+                    if (idcard === "บัตรประจำตัวประชาชน") {
+                        if (checkID(nocard)) {
+                            result = true;
+                        } else {
+                            result = false;
+                        }
+                    } else {
+                        result = true;
+                    }
+                }
+                return result;
+            }
+        }];
+
+        if (chkrun === false) {
+            rules.push({
+                input: '#custcode',
+                message: 'กรุณาหรัสลูกค้า!',
+                action: 'keyup, blur, focusout',
+                rule: 'required'
+            }, {
+                input: '#custcode',
+                message: 'ระบุรหัสลูกค้าซ้ำ!',
+                action: 'keyup, blur',
+                rule: function (input, commit) {
+                    var custcode = $('#custcode').val();
+                    if (custcode !== '') {
+                        $.ajax({
+                            url: "duplicateCheck",
+                            type: 'get',
+                            data: {
+                                table: 'CUSTMAST',
+                                field: 'CUSCOD',
+                                value: custcode
+                            },
+                            success: function (data) {
+                                if (data === true) {
+                                    commit(true);
+                                } else commit(false);
+                            },
+                            error: function () {
+                                commit(false);
+                            }
+                        });
+                    }
+                }
+            });
+        }
 
         /////////////////////////////////////
         //ค้นหา เกรด
@@ -791,23 +1134,40 @@
         }];
         var adapterAddrno = new $.jqx.dataAdapter(sourceAddrno);
 
-        var sourcesettype = {
+        var sourceaumpher = {
             async: false,
             datatype: "json",
             datafields: [{
-                    name: 'AUMPCOD',
-                    type: 'string'
-                },
-                {
-                    name: 'AUMPDESC',
-                    type: 'string'
-                }
-            ],
-            url: "../master/settype"
+                name: 'AUMPCOD',
+                type: 'string'
+            }, {
+                name: 'AUMPDES',
+                type: 'string'
+            }],
+            url: "sqltext",
+            data: {
+                sql: "SELECT AUMPCOD, TRIM(AUMPCOD)||' : '||TRIM(AUMPDES) AS AUMPDES FROM SETAUMP ORDER BY AUMPCOD"
+            }
         };
-        var adapterSettype = new $.jqx.dataAdapter(sourcesettype);
+        var adapterAump = new $.jqx.dataAdapter(sourceaumpher);
 
-        var rules = [];
+        var sourceprovince = {
+            async: false,
+            datatype: "json",
+            datafields: [{
+                name: 'PROVCOD',
+                type: 'string'
+            }, {
+                name: 'PROVDES',
+                type: 'string'
+            }],
+            url: "sqltext",
+            data: {
+                sql: "SELECT PROVCOD, TRIM(PROVCOD)||' : '||TRIM(PROVDES) AS PROVDES FROM SETPROV ORDER BY PROVCOD"
+            }
+        };
+        var adapterProv = new $.jqx.dataAdapter(sourceprovince);
+
         //DataSource CUSTADDR
         var dataCustaddr = [];
         var sourceCustaddr = {
@@ -818,6 +1178,9 @@
             }, {
                 name: 'ADDRNO',
                 type: 'integer'
+            }, {
+                name: 'TEXTADDRNO',
+                type: 'string'
             }, {
                 name: 'ADDR1',
                 type: 'string'
@@ -869,12 +1232,12 @@
 
         //validate in grid 
         var chkADDRNO = function (cell, value) {
-            if(cell.column === "ADDRNO") {
+            if (cell.column === "ADDRNO") {
                 var rows = $("#tableCustaddr").jqxGrid('getdisplayrows');
                 var typechk = '';
                 var x1 = 0;
                 //console.log(value.value);
-                if(value.value !== undefined){
+                if (value.value !== undefined) {
                     for (var i = 0; i < rows.length; i++) {
                         var row = rows[i];
                         if ((i !== cell.row) && (row.ADDRNO === value.value)) {
@@ -882,11 +1245,17 @@
                         };
                     }
                     if (x1 !== 0) {
-                        return { result: false, message: "ไม่สามารถเลือกรหัสซ้ำกันได้" };
-                    }; 
+                        return {
+                            result: false,
+                            message: "ไม่สามารถเลือกรหัสซ้ำกันได้"
+                        };
+                    };
                 } else {
                     $("#tableCustaddr").val("false");
-                    return { result: false, message: "กรุณาเลือกรหัส" };
+                    return {
+                        result: false,
+                        message: "กรุณาเลือกรหัส"
+                    };
                 }
             }
 
@@ -941,19 +1310,19 @@
                 hidden: true
             }, {
                 text: 'ลำดับที่อยู่',
-                datafield: 'ADDRNO',
+                datafield: 'TEXTADDRNO',
                 width: 150,
                 align: 'center',
-                displayfield: 'text',
                 columntype: 'combobox',
                 validation: chkADDRNO,
                 createeditor: function (row, value, editor) {
                     editor.jqxComboBox({
                         source: adapterAddrno,
                         displayMember: 'text',
-                        valueMember: 'ADDRNO',
+                        valueMember: 'TEXTADDRNO',
                         searchMode: 'containsignorecase',
-                        placeHolder: "เลือก :"
+                        placeHolder: "เลือก :",
+                        dropDownHeight: 104
                     });
                 }
             }, {
@@ -983,8 +1352,8 @@
                 datafield: 'AUMPCOD',
                 createeditor: function (row, column, editor) {
                     editor.jqxComboBox({
-                        source: adapterSettype,
-                        displayMember: 'AUMPDESC',
+                        source: adapterAump,
+                        displayMember: 'AUMPDES',
                         valueMember: 'AUMPCOD',
                         dropDownHeight: 203,
                         dropDownWidth: 380,
@@ -1003,8 +1372,8 @@
                 datafield: 'PROVCOD',
                 createeditor: function (row, column, editor) {
                     editor.jqxComboBox({
-                        source: adapterSettype,
-                        displayMember: 'PROVDESC',
+                        source: adapterProv,
+                        displayMember: 'PROVDES',
                         valueMember: 'PROVCOD',
                         dropDownHeight: 203,
                         dropDownWidth: 380,
@@ -1037,9 +1406,11 @@
                 //Add row
                 $("#addrow1").on('click', function () {
                     if (validateTableCustaddr() === true) {
+                        var rowscount = $("#tableCustaddr").jqxGrid('getdatainformation').rowscount;
                         var datarow = {
                             IDNO: 0,
-                            ADDRNO: 0
+                            ADDRNO: rowscount+1,
+                            TEXTADDRNO: rowscount+1
                         };
                         var commit = $("#tableCustaddr").jqxGrid('addrow', null, datarow);
                         if (commit) {
@@ -1051,7 +1422,7 @@
                                         recodecount -
                                         1);
                                     $('#tableCustaddr').jqxGrid('begincelledit',
-                                        recodecount - 1, 'ADDRNO');
+                                        recodecount - 1, 'TEXTADDRNO');
                                 },
                                 200
                             );
@@ -1091,43 +1462,43 @@
         // prepare the data
         var data = new Array();
         data.push({
-            "IDNO": "#",
+            "IDNO": "0",
             "CSCODE": "001",
             "CSDESC": "ส่งจดหมาย",
             "CSSTAT": true
         });
         data.push({
-            "IDNO": "#",
+            "IDNO": "0",
             "CSCODE": "002",
             "CSDESC": "ส่ง SMS",
             "CSSTAT": false
         });
         data.push({
-            "IDNO": "#",
+            "IDNO": "0",
             "CSCODE": "003",
             "CSDESC": "ส่ง E-mail",
             "CSSTAT": false
         });
         data.push({
-            "IDNO": "#",
+            "IDNO": "0",
             "CSCODE": "004",
             "CSDESC": "ส่ง D-mail",
             "CSSTAT": false
         });
         data.push({
-            "IDNO": "#",
+            "IDNO": "0",
             "CSCODE": "005",
             "CSDESC": "โทรเบอร์บ้าน",
             "CSSTAT": true
         });
         data.push({
-            "IDNO": "#",
+            "IDNO": "0",
             "CSCODE": "006",
             "CSDESC": "โทรมือถือ",
             "CSSTAT": true
         });
         data.push({
-            "IDNO": "#",
+            "IDNO": "0",
             "CSCODE": "007",
             "CSDESC": "โทรที่ทำงาน",
             "CSSTAT": false
@@ -1155,7 +1526,7 @@
                 },
                 {
                     name: 'CSSTAT',
-                    type: 'bool'
+                    type: 'string'
                 }
             ]
         };
@@ -1185,7 +1556,7 @@
             columnsresize: true,
             selectionmode: 'singlerow',
             editmode: 'selectedcell',
-            showstatusbar: true,
+            showstatusbar: false,
             statusbarheight: 35,
             showaggregates: true,
             columns: [{
@@ -1239,8 +1610,273 @@
                 width: 67,
                 align: 'center'
             }],
-            showtoolbar: true
+            showtoolbar: false
         });
+        $("#newBtn").jqxButton({
+            template: "info",
+            width: 90
+        });
+        $("#saveBtn").jqxButton({
+            template: "primary",
+            width: 90,
+            disabled: !chkright.M_INSERT
+        });
+        $("#searchBtn").jqxButton({
+            template: "success",
+            width: 90
+        });
+        $("#deleteBtn").jqxButton({
+            disabled: true,
+            template: "danger",
+            width: 90
+        });
+        $('#fmCustomer').jqxValidator({
+            hintType: 'label',
+            animationDuration: 0,
+            closeOnClick: false,
+            rules: rules
+        });
+        //เริ่มใหม่
+        $('#newBtn').off().on('click', function () {
+            loadHTML("sale_customer");
+        });
+        //บันทึก
+        $('#saveBtn').off().on('click', function () {
+            $('#fmCustomer').jqxValidator('validate', function (result) {
+                var rowscountCustaddr = $("#tableCustaddr").jqxGrid('getdatainformation').rowscount;
+                var rowscountCustSend = $("#tableCustaddrSend").jqxGrid('getdatainformation').rowscount;
+                if ((result)) {
+                    $.when($.confirmdlg('ต้องการบันทึกข้อมูล?', 'info')).then(function () {
+                        $("#tableCustaddr").jqxGrid('refreshdata');
+                        $("#tableCustaddrSend").jqxGrid('refreshdata');
 
+                        var birthdt = $("#birthday").jqxDateTimeInput('getDate');
+                        var issuedt = $("#issudt").jqxDateTimeInput('getDate');
+                        var expiredt = $("#expdt").jqxDateTimeInput('getDate');
+                        var currentCulture = Globalize.cultures['en-US'];
+                        var localizationObject = currentCulture.calendar;
+                        var birthday = $.jqx.dataFormat.formatdate(birthdt,"dd/MM/yyyy", localizationObject);
+                        var issudt = $.jqx.dataFormat.formatdate(issuedt, "dd/MM/yyyy",localizationObject);
+                        var expdt = $.jqx.dataFormat.formatdate(expiredt, "dd/MM/yyyy",localizationObject);
+
+                        var valueTyp = '';
+                        var locno = '';
+                        if ($("#typ1").val() === true) {
+                            valueTyp = '1';
+                            locno = '';
+                        } else if ($("#typ2").val() === true) {
+                            valueTyp = '2';
+                            locno = $('#loctno').val();
+                        } else if ($("#typ3").val() === true) {
+                            valueTyp = '3';
+                            locno = '';
+                        }
+
+                        var custaddr = [];
+                        for (var i = 0; i < rowscountCustaddr; i++) {
+                            var data = $("#tableCustaddr").jqxGrid('getrowdata', i);
+                            var addrno = '',
+                                addr1 = '',
+                                addr2 = '',
+                                tumb = '',
+                                aumpcod = '',
+                                provcod = '',
+                                zip = '',
+                                telp = '';
+                            if (data.ADDRNO === undefined) {
+                                addrno = '';
+                            } else {
+                                addrno = data.ADDRNO;
+                            }
+                            if (data.ADDR1 === undefined) {
+                                addr1 = '';
+                            } else {
+                                addr1 = data.ADDR1;
+                            }
+                            if (data.ADDR2 === undefined) {
+                                addr2 = '';
+                            } else {
+                                addr2 = data.ADDR2;
+                            }
+                            if (data.TUMB === undefined) {
+                                tumb = '';
+                            } else {
+                                tumb = data.TUMB;
+                            }
+                            if (data.AUMPCOD === undefined) {
+                                aumpcod = '';
+                            } else {
+                                aumpcod = data.AUMPCOD;
+                            }
+                            if (data.PROVCOD === undefined) {
+                                provcod = '';
+                            } else {
+                                provcod = data.PROVCOD;
+                            }
+                            if (data.ZIP === undefined) {
+                                zip = '';
+                            } else {
+                                zip = data.ZIP;
+                            }
+                            if (data.TELP === undefined) {
+                                telp = '';
+                            } else {
+                                telp = data.TELP;
+                            }
+                            custaddr.push({
+                                IDNO: data.IDNO,
+                                ADDRNO: addrno,
+                                ADDR1: addr1,
+                                ADDR2: addr2,
+                                TUMB: tumb,
+                                AUMPCOD: aumpcod,
+                                PROVCOD: provcod,
+                                ZIP: zip,
+                                TELP: telp,
+                            });
+                        };
+                        var custaddrsend = [];
+                        for (var i = 0; i < rowscountCustSend; i++) {
+                            var data = $("#tableCustaddrSend").jqxGrid('getrowdata', i);
+                            custaddrsend.push({
+                                IDNO: data.IDNO,
+                                CSCODE: data.CSCODE,
+                                CSDESC: data.CSDESC,
+                                CSSTAT: data.CSSTAT,
+                            });
+                        };
+                        var valueJSON = [{
+                            status: status,
+                            locat: $.session.get('locatcd'),
+                            table: 'CUSTMAST',
+                            key: $('#custcode').val(),
+                            value: [{
+                                CUSCOD: $('#custcode').val(),
+                                GROUP1: $('#group1').val(),
+                                GRADE: $('#grade').val(),
+                                SNAM: $('#sname').val(),
+                                NAME1: $('#fname').val(),
+                                NAME2: $('#lname').val(),
+                                NICKNM: $('#nickname').val(),
+                                BIRTHDT: birthday,
+                                AGE: $('#age').val(),
+                                NATION: $('#nation').val(),
+                                OCCUP: $('#occup').val(),
+                                MREVENU: $('#mrevenu').val(),
+                                IDCARD: $('#idcard').val(),
+                                NOCARD: $('#nocard').val(),
+                                ISSUBY: $('#issuby').val(),
+                                ISSUDT: issudt,
+                                EXPDT: expdt,
+                                BOSSNM: $('#bossnm').val(),
+                                ACC_CODE: $('#acc_code').val(),
+                                OFFIC: $('#offic').val(),
+                                ADDRNO: $('#addrno').val(),
+                                TELP: $('#telp').val(),
+                                TELP1: $('#telp1').val(),
+                                TELP2: $('#telp2').val(),
+                                TELP3: $('#telp3').val(),
+                                EMAIL: $('#email').val(),
+                                MEMO1: $('#memo1').val(),
+                                CUSLIKE: $('#memo2').val(),
+                                CUSNOLIKE: $('#memo3').val(),
+                                USERID: $.session.get('username'),
+                                LOCTYP: valueTyp,
+                                LOCTNO: locno,
+                            }]
+                        }, {
+                            table: 'CUSTADDR',
+                            value: custaddr
+                        }, {
+                            table: 'CUSCHANNELSEND',
+                            value: custaddrsend
+                        }];
+                        // Convert Value To JSON String
+                        var value = JSON.stringify(valueJSON);
+                        console.log(value);
+                        $('#ok').on('click', function (event) {
+                            $.ajax({
+                                url: 'saveCustmast',
+                                type: 'POST',
+                                contentType: "application/json",
+                                dataType: "json",
+                                data: value,
+                                success: function (data) {
+                                    console.log(data);
+                                    if (data[0].save === true) {
+                                        ShowMessage(
+                                            "บันทึกข้อมูลเรียบร้อย!",
+                                            "success");
+                                        statusChange(true);
+                                        getCustmast(data[0].cuscod);
+                                    } else {
+                                        ShowMessage(
+                                            "บันทึกไม่สำเร็จ!",
+                                            "danger");
+                                    }
+                                },
+                                error: function (xhr, status, error) {
+                                    ShowMessage("บันทึกไม่สำเร็จ! ", "danger");
+                                }
+                            });
+                        });
+                    });
+                }
+            });
+        });
+        //ค้นหา
+        $('#searchBtn').off().on('click', function () {
+            // statusClear();
+            // $('#tableCustaddr').jqxGrid('clearselection');
+            // $('#tableCustaddrSend').jqxGrid('clearselection');
+            var rules2 = rules.slice();
+            rules2.splice(1, 1);
+            $('#fmCustomer').jqxValidator('rules', rules2);
+            //Show Dialog Search
+            searchAll('custmast', 'custcode');
+            $('#okButton').on('click', function (event) {
+                event.preventDefault();
+                $('#fmCustomer').jqxValidator('hide');
+                statusChange(true);
+                getCustmast($('#custcode').val());
+            });
+        });
+        //ลบ
+        $('#deleteBtn').off().on('click', function () {
+            if ($('#custcode').val() !== '') {
+                $.when($.confirmdlg('ต้องการลบข้อมูล?', 'warning')).then(function () {
+                    $('#ok').on('click', function (event) {
+                        var valueJSON = [{
+                            table: 'CUSCHANNELSEND',
+                            field: 'CUSCOD',
+                            key: $('#custcode').val(),
+                        },{
+                            table: 'CUSTMAST',
+                            field: 'CUSCOD',
+                            key: $('#custcode').val(),
+                        }];
+                        // Convert Value To JSON String
+                        var value = JSON.stringify(valueJSON);
+                        $.ajax({
+                            async: false,
+                            method: 'POST',
+                            dataType: 'json',
+                            url: "delete",
+                            data: value,
+                            success: function (data) {
+                                if (data === true) {
+                                    ShowMessage("ลบข้อมูลเรียบร้อย!",
+                                        "success");
+                                    loadHTML("sale_customer");
+                                }
+                            },
+                            error: function (xhr, status, error) {
+                                ShowMessage("ลบข้อมูลไม่สำเร็จ! ", "danger");
+                            }
+                        });
+                    });
+                });
+            }
+        });
     });
 </script>

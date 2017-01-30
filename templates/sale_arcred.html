@@ -4,13 +4,14 @@
         <div class="panel" id="p2">
             <div class="panel-heading">
                 <span class="panel-icon"><span class="glyphicons glyphicons-shopping_cart"></span></span>
-                <span class="panel-title">บันทึกข้อมูลขายสินค้าเงินสด</span>
+                <span class="panel-title">บันทึกข้อมูลขายสินค้าเงินสด </span>
                 <span class="panel-controls">
                     <a href="#" class="panel-control-loader"></a>
                     <a href="#" class="panel-control-remove"></a>
                     <a href="#" class="panel-control-collapse"></a>
                     <a href="#" class="panel-control-fullscreen"></a>
                 </span>
+                <span id="textState" class="text-danger"> [ รายการนี้ยกเลิกแล้ว ]</span>
             </div>
             <div class="panel-body">
                 <div class="p15 pt5 mt15">
@@ -274,6 +275,8 @@
                                 </div>
                             </div>
                         </div>
+                        <input type="hidden" id="flag" />
+                        <input type="hidden" id="postgl" />
                     </form>
                     <hr class="short alt">
                     <div class="row">
@@ -324,6 +327,7 @@
                 $('#sdate').jqxDateTimeInput('setDate', new Date());
                 $('#resvno').val('');
                 $('#cuscod').val('');
+                $('#strno').val('');
                 $('#vatrt').val(condpay.VAT);
                 $('#credtm').val(0);
                 $('#salcod').val($.session.get('officecode'));
@@ -344,6 +348,9 @@
                 $('#smpay').val(0);
                 $('#tableArresvtran').jqxGrid('clear');
                 $('#searchInvlocat').show();
+                $('#flag').val('');
+                $('#postgl').val('');
+                $('#textState').hide();
             } else {
                 status = 'update';
                 $("#saveBtn").jqxButton({
@@ -395,6 +402,13 @@
                     $('#acticod').val(data[0].ACTICOD);
                     $('#paytyp').val(data[0].PAYTYP);
                     $('#locsale').val(data[0].LOCSALE);
+                    $('#flag').val(data[0].FLAG);
+                    $('#postgl').val(data[0].POSTGL);
+                    if (data[0].FLAG === 'C') {
+                        $('#textState').show();
+                    } else {
+                        $('#textState').hide();
+                    }
                 }
             });
         }
@@ -851,7 +865,7 @@
                 $(window).trigger('resize');
             }
         });
-
+        $('#textState').hide();
         $('#locat').jqxInput({
             height: 25,
             width: '100%',
@@ -1301,11 +1315,12 @@
                                 ACTICOD: $('#acticod').val(), 
                                 PAYTYP: $('#paytyp').val(),
                                 LOCSALE: $('#locsale').val(),
+                                FLAG: 'A',
                             }]
                         }];
                         // Convert Value To JSON String
                         var value = JSON.stringify(valueJSON);
-                        console.log(value);
+                        //console.log(value);
                         $('#ok').on('click', function (event) {
                             $.ajax({
                                 url: 'saveArcred',
@@ -1314,7 +1329,7 @@
                                 dataType: "json",
                                 data: value,
                                 success: function (data) {
-                                    console.log(data);
+                                    //console.log(data);
                                     if (data[0].save === true) {
                                         ShowMessage("บันทึกข้อมูลเรียบร้อย!","success");
                                         statusChange(true);
@@ -1322,6 +1337,9 @@
                                     } else {
                                         ShowMessage("บันทึกไม่สำเร็จ!","danger");
                                     }
+                                },
+                                error: function (xhr, status, error) {
+                                    ShowMessage("บันทึกไม่สำเร็จ! ", "danger");
                                 }
                             });
                         });
@@ -1367,38 +1385,46 @@
         //ลบ
         $('#deleteBtn').off().on('click', function () {
             if ($('#contno').val() !== '') {
-                $.when($.confirmdlg('ต้องการลบข้อมูล?', 'warning')).then(function () {
-                    $('#ok').on('click', function (event) {
-                        var valueJSON = [{
-                            table: 'ARRESVTRAN',
-                            field: 'CONTNO',
-                            key: $('#contno').val(),
-                        }, {
-                            table: 'ARCRED',
-                            field: 'CONTNO',
-                            key: $('#contno').val(),
-                        }];
-                        // Convert Value To JSON String
-                        var value = JSON.stringify(valueJSON);
-                        $.ajax({
-                            async: false,
-                            method: 'POST',
-                            dataType: 'json',
-                            url: "delete",
-                            data: value,
-                            success: function (data) {
-                                if (data === true) {
-                                    ShowMessage("ลบข้อมูลเรียบร้อย!",
-                                        "success");
-                                    statusChange(false);
+                if ($('#smpay').val() > 0) {
+                    ShowMessage("รับชำระเงินแล้ว ยกเลิกไม่ได้! ", "danger");
+                } else if ($('#flag').val() === 'C') {
+                    ShowMessage("รายการนี้อยู่ในสถานะยกเลิกแล้ว! ", "danger");
+                } else if ($('#postgl').val() === 'Y') {
+                    ShowMessage("รายการนี้บันทึก GL แล้ว ยกเลิกไม่ได้! ", "danger");
+                } else {
+                    $.when($.confirmdlg('ต้องการยกเลิกการขาย?', 'warning')).then(function () {
+                        $('#ok').on('click', function (event) {
+                            var valueJSON = [{
+                                table: 'ARCRED',
+                                field: 'CONTNO',
+                                key: $('#contno').val(),
+                                userid: $.session.get('username'),
+                                flag: 'C',
+                            }];
+                            // Convert Value To JSON String
+                            var value = JSON.stringify(valueJSON);
+                            $.ajax({
+                                async: false,
+                                method: 'POST',
+                                dataType: 'json',
+                                url: "cancelArcred",
+                                data: value,
+                                success: function (data) {
+                                    if (data[0].cancel === true) {
+                                        ShowMessage("ยกเลิกเรียบร้อย!","success");
+                                        $('#textState').show();
+                                        //statusChange(false);
+                                    } else {
+                                        ShowMessage("ยกเลิกไม่สำเร็จ! ", "danger");
+                                    }
+                                },
+                                error: function (xhr, status, error) {
+                                    ShowMessage("ยกเลิกไม่สำเร็จ! ", "danger");
                                 }
-                            },
-                            error: function (xhr, status, error) {
-                                ShowMessage("ลบข้อมูลไม่สำเร็จ! ", "danger");
-                            }
+                            });
                         });
                     });
-                });
+                }
             }
         });
     });
