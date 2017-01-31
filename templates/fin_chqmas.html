@@ -1,0 +1,1011 @@
+﻿<div class="row" id="spy2">
+    <!-- Chart with filter Widget -->
+    <div class="col-md-12 admin-grid">
+        <div class="panel" id="p2">
+            <div class="panel-heading">
+                <span class="panel-icon"><span class="glyphicons glyphicons-usd"></span></span>
+                <span class="panel-title">ระบบการรับชำระเงิน </span>
+                <span class="panel-controls">
+                    <a href="#" class="panel-control-loader"></a>
+                    <a href="#" class="panel-control-remove"></a>
+                    <a href="#" class="panel-control-collapse"></a>
+                    <a href="#" class="panel-control-fullscreen"></a>
+                </span>
+                <span id="textState" class="text-danger"> [ รายการนี้ยกเลิกแล้ว ]</span>
+            </div>
+            <div class="panel-body">
+                <div class="p15 pt5 mt15">
+                    <form class="form-horizontal" id="fmArcred">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="admin-form">
+                                    <div class="form-group">
+                                        <label class="col-sm-2 control-label required" for="locat">สาขาที่รับชำระ</label>
+                                        <div class="col-sm-10">
+                                            <div class="row">
+                                                <div class="col-sm-4">
+                                                    <div id="locat" class="input-button">
+                                                        <input type="text" id="v-locat" />
+                                                        <div id="searchInvlocat"><img alt="search" width="20" height="20" src="/images/search_lg.png"
+                                                            /></div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-8">
+                                                    <input type="text" id="locatnm" class="text-desc" readonly/>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-sm-2 control-label" for="acticod">ประเภทการขาย</label>
+                                        <div class="col-sm-10">
+                                            <div class="row">
+                                                <div class="col-sm-4">
+                                                    <div id='acticod'></div>
+                                                </div>
+                                                <div class="col-sm-8">
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-sm-2 control-label required" for="cuscod">เลขที่สัญญา</label>
+                                        <div class="col-sm-10">
+                                            <div class="row">
+                                                <div class="col-sm-4">
+                                                    <div id="cuscod" class="input-button">
+                                                        <input type="text" id="v-cuscod" />
+                                                        <div id="searchCustmast"><img alt="search" width="20" height="20" src="/images/search_lg.png"
+                                                            /></div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-8">
+                                                    <input type="text" id="custname" class="text-desc" readonly/>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-sm-2 control-label" for="arnet">ลูกหนี้คงเหลือ</label>
+                                        <div class="col-sm-10">
+                                            <div class="row">
+                                                <div class="col-sm-4">
+                                                    <div id='arnet'></div>
+                                                </div>
+                                                <div class="col-sm-8">
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label class="col-sm-4 control-label required" for="contno">เลขที่ใบรับเงิน</label>
+                                            <div class="col-sm-8">
+                                                <div class="bs-component">
+                                                    <input type="text" id="contno" style="color:#e9573f; font-weight: bold;" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label class="col-sm-4 control-label" for="sdate">วันที่รับชำระ</label>
+                                            <div class="col-sm-8">
+                                                <div class="bs-component">
+                                                    <div id="sdate"></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label class="col-sm-4 control-label" for="vatrt">อัตราภาษี</label>
+                                            <div class="col-sm-8">
+                                                <div id='vatrt'></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label class="col-sm-4 control-label" for="billno">เลขที่ใบเเสร็จ</label>
+                                            <div class="col-sm-8">
+                                                <div class="bs-component">
+                                                    <input type="text" id="billno" style="color:#e9573f; font-weight: bold;" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-9">
+                                <div class="form-group">
+                                    <label class="col-sm-1 control-label" for="memo1">หมายเหตุ</label>
+                                    <div class="col-sm-11">
+                                        <div class="bs-component">
+                                            <textarea id="memo1"></textarea>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+
+                            </div>
+                        </div>
+                        <hr class="short alt">
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label class="col-sm-4 control-label" for="stdprc">ราคาขาย</label>
+                                    <div class="col-sm-8">
+                                        <div id='stdprc'></div>
+                                    </div>
+                                </div>  
+                                <div class="form-group">
+                                    <label class="col-sm-4 control-label" for="disct">ส่วนลด</label>
+                                    <div class="col-sm-8">
+                                        <div id='disct'></div>
+                                    </div>
+                                </div> 
+                                <div class="form-group">
+                                    <label class="col-sm-4 control-label" for="keyinprc">ราคาขายจริง</label>
+                                    <div class="col-sm-8">
+                                        <div id='keyinprc'></div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-4 control-label" for="smpay">รับชำระแล้ว</label>
+                                    <div class="col-sm-8">
+                                        <div id='smpay'></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label class="col-sm-4 control-label" for="comint">ค่าคอมพนักงาน</label>
+                                    <div class="col-sm-8">
+                                        <div id='comint'></div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-4 control-label" for="comext">ค่าคอมภายนอก</label>
+                                    <div class="col-sm-8">
+                                        <div id='comext'></div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-4 control-label" for="othpay">ค่าใช้จ่ายอื่นๆ</label>
+                                    <div class="col-sm-8">
+                                        <div id='othpay'></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label class="col-sm-4 control-label" for="issueno">เลขที่ใบปล่อย</label>
+                                    <div class="col-sm-8">
+                                        <div class="bs-component">
+                                            <input type="text" id="issueno" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-4 control-label" for="issudt">วันที่ใบปล่อย</label>
+                                    <div class="col-sm-8">
+                                        <div class="bs-component">
+                                            <div id="issudt"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-4 control-label required" for="taxno">เลขที่ใบกำกับ</label>
+                                    <div class="col-sm-8">
+                                        <div class="bs-component">
+                                            <input type="text" class="text-desc" id="taxno" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-4 control-label" for="taxdt">วันที่ใบกำกับ</label>
+                                    <div class="col-sm-8">
+                                        <div class="bs-component">
+                                            <div id="taxdt"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <input type="hidden" id="flag" />
+                        <input type="hidden" id="postgl" />
+                    </form>
+                    <hr class="short alt">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="admin-form">
+                                <div class="form-group">
+                                    <div class="col-md-12">
+                                        <div id="tableArresvtran"></div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-md-4 control-label"></label>
+                                    <div class="col-md-8">
+                                        <div class="bs-component">
+                                            <button type="button" id="newBtn"><span class="fa fa-refresh"></span> เริ่มใหม่</button>
+                                            <button type="button" id="saveBtn"><span class="fa fa-floppy-o"></span> บันทึก</button>
+                                            <button type="button" id="searchBtn"><span class="fa fa-search"></span> ค้นหา</button>
+                                            <button type="button" id="deleteBtn"><span class="fa fa-trash-o"></span> ลบ</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- end: .col-md-12.admin-grid -->
+</div>
+<!-- end: .row -->
+<script type="text/javascript">
+    $(document).ready(function () {
+        //Default status Insert
+        var status = 'insert';
+        //เช็คสิทธิการใช้งาน
+        var chkright = checkRight('SAL006');
+
+        //เช็ค Running เอกสาร
+        var chkrun = checkRundoc('R_CASHNO');
+        
+        //ฟังก์ชั่น สถานะ Insert หรือ Edit
+        function statusChange(disabled) {
+            if (disabled === false) {
+                status = 'insert';
+                $('#contno').val('');
+                $('#locat').val($.session.get('locatcd'));
+                $('#sdate').jqxDateTimeInput('setDate', new Date());
+                $('#cuscod').val('');
+                $('#vatrt').val(condpay.VAT);
+                $('#memo1').val('');
+                $('#stdprc').val(0);
+                $('#disct').val(0);
+                $('#keyinprc').val(0);
+                $('#issueno').val('');
+                $('#issudt').jqxDateTimeInput('setDate', new Date());
+                $('#comint').val(0);
+                $('#taxno').val('');
+                $('#taxdt').jqxDateTimeInput('setDate', new Date());
+                $('#comext').val(0);
+                $('#acticod').val('');
+                $('#othpay').val(0);
+                $('#smpay').val(0);
+                $('#tableArresvtran').jqxGrid('clear');
+                $('#searchInvlocat').show();
+                $('#flag').val('');
+                $('#postgl').val('');
+                $('#textState').hide();
+            } else {
+                status = 'update';
+                $("#saveBtn").jqxButton({
+                    disabled: !chkright.M_EDIT
+                });
+                $('#searchInvlocat').hide();
+            }
+            $("#contno").prop("readonly", disabled);
+            $("#locat").jqxInput({disabled: disabled});
+            $("#deleteBtn").jqxButton({
+                disabled: !chkright.M_DELETE
+            });
+        }
+
+        function getArcred(contno) {
+            $.ajax({
+                async: false,
+                method: 'GET',
+                dataType: 'json',
+                url: "sqltext",
+                data: {
+                    sql: "SELECT IDNO, CONTNO, SDATE, LOCAT, RESVNO, CUSCOD, STRNO, INCLVAT, VATRT, STDPRC, DISCT, KEYINPRC, NPRICE, VATPRC, PAYRES, SMPAY, TKANG, NKANG, VKANG, CREDIT, DUEDT, SALCOD, TSALE, ISSUENO, ISSUDT, COMEXT, COMINT, OTHPAY, TAXNO, TAXDT, USERID, INPUTDT, ADDRNO, REFNO, ACTICOD, PAYTYP, FLAG, ARREG1, ARREG3, PAYREG, PAYREG1, USERDEL, CANDT, FLREG, CREDAMT, SMCHQ, POSTGL, LOCSALE, FLCANCL FROM ARCRED WHERE CONTNO = '" + contno + "' "
+                },
+                success: function (data) {
+                    $('#contno').val(data[0].CONTNO);
+                    $('#sdate').val(data[0].SDATE);
+                    $('#locat').val(data[0].LOCAT);
+                    $('#cuscod').val(data[0].CUSCOD);
+                    $('#vatrt').val(data[0].VATRT);
+                    $('#stdprc').val(data[0].STDPRC);
+                    $('#disct').val(data[0].DISCT);
+                    $('#keyinprc').val(data[0].KEYINPRC);
+                    $('#vatrt').val(data[0].VATRT);
+                    $('#issueno').val(data[0].ISSUENO);
+                    $('#issudt').val(data[0].ISSUDT);
+                    $('#comext').val(data[0].COMEXT);
+                    $('#comint').val(data[0].COMINT);
+                    $('#othpay').val(data[0].OTHPAY);
+                    $('#taxno').val(data[0].TAXNO);
+                    $('#taxdt').val(data[0].TAXDT);
+                    //$('#memo1').val(data[0].MEMO1);
+                    $('#acticod').val(data[0].ACTICOD);
+                    $('#flag').val(data[0].FLAG);
+                    $('#postgl').val(data[0].POSTGL);
+                    if (data[0].FLAG === 'C') {
+                        $('#textState').show();
+                    } else {
+                        $('#textState').hide();
+                    }
+                }
+            });
+        }
+
+        //เงื่อนไข validate ARCRED
+        var rules = [{
+            input: '#locat',
+            message: 'กรุณาระบุรหัสสาขา!',
+            action: 'keyup, blur, focusout',
+            rule: 'required'
+        }, {
+            input: '#locat',
+            message: 'ไม่พบรหัสสาขานี้!',
+            action: 'keyup, blur, focusout',
+            rule: function (input, commit) {
+                var locat = $('#locat').val();
+                if (locat !== '') {
+                    $.ajax({
+                        url: "duplicateCheck",
+                        type: 'get',
+                        data: {
+                            table: 'INVLOCAT',
+                            field: 'LOCATCD',
+                            value: locat
+                        },
+                        success: function (data) {
+                            if (data === true) {
+                                commit(false);
+                            } else commit(true);
+                        },
+                        error: function () {
+                            commit(false);
+                        }
+                    });
+                }
+            }
+        }, {
+            input: '#cuscod',
+            message: 'กรุณาระบุรหัสลูกค้า!',
+            action: 'keyup, blur, focusout',
+            rule: 'required'
+        }, {
+            input: '#cuscod',
+            message: 'ไม่พบรหัสลูกค้านี้!',
+            action: 'keyup, blur, focusout',
+            rule: function (input, commit) {
+                var cuscod = $('#cuscod').val();
+                if (cuscod !== '') {
+                    $.ajax({
+                        url: "duplicateCheck",
+                        type: 'get',
+                        data: {
+                            table: 'CUSTMAST',
+                            field: 'CUSCOD',
+                            value: cuscod
+                        },
+                        success: function (data) {
+                            if (data === true) {
+                                commit(false);
+                            } else commit(true);
+                        },
+                        error: function () {
+                            commit(false);
+                        }
+                    });
+                }
+            }
+        }];
+
+        if (chkrun === false) {
+            rules.push({
+                input: '#contno',
+                message: 'กรุณาระบุเลขที่สัญญา!',
+                action: 'keyup, blur, focusout',
+                rule: 'required'
+            }, {
+                input: '#contno',
+                message: 'ระบุเลขที่สัญญาซ้ำ!',
+                action: 'keyup, blur',
+                rule: function (input, commit) {
+                    var contno = $('#contno').val();
+                    if (contno !== '') {
+                        $.ajax({
+                            url: "duplicateCheck",
+                            type: 'get',
+                            data: {
+                                table: 'ARCRED',
+                                field: 'CONTNO',
+                                value: contno
+                            },
+                            success: function (data) {
+                                if (data === true) {
+                                    commit(true);
+                                } else commit(false);
+                            },
+                            error: function () {
+                                commit(false);
+                            }
+                        });
+                    }
+                }
+            });
+        }
+        //console.log(rules);
+        var sourceSetacti = {
+            async: false,
+            datatype: "json",
+            datafields: [{
+                name: 'ACTICODE',
+                type: 'string'
+            }, {
+                name: 'ACTIDESC',
+                type: 'string'
+            }],
+            url: "sqltext",
+            data: {
+                sql: "SELECT ACTICODE, TRIM(ACTICODE)||' : '||TRIM(ACTIDESC) AS ACTIDESC FROM SETACTI ORDER BY ACTICODE"
+            }
+        };
+        var sourcePaydue = {
+            async: false,
+            datatype: "json",
+            datafields: [{
+                name: 'DUECODE',
+                type: 'string'
+            }, {
+                name: 'DUEDESC',
+                type: 'string'
+            }],
+            url: "sqltext",
+            data: {
+                sql: "SELECT DUECODE, TRIM(DUECODE)||' : '||TRIM(DUEDESC) AS DUEDESC FROM PAYDUE ORDER BY DUECODE"
+            }
+        };
+        var dataAdtSetacti = new $.jqx.dataAdapter(sourceSetacti);
+        var dataAdtPaydue = new $.jqx.dataAdapter(sourcePaydue);
+        //DataSource ARRESVTRAN
+        var dataArresvtran= [];
+        var sourceArresvtran = {
+            async: false,
+            datatype: "json",
+            datafields: [{
+                name: 'IDNO',
+                type: 'integer'
+            }, {
+                name: 'OPTCODE',
+                type: 'string'
+
+            }, {
+                name: 'OPTNAME',
+                type: 'string'
+
+            }, {
+                name: 'QTY',
+                type: 'float'
+            }, {
+                name: 'OPTPRC',
+                type: 'float'
+            }, {
+                name: 'FLSTAT',
+                type: 'string'
+
+            }, {
+                name: 'INSTALL',
+                type: 'string'
+
+            }, {
+                name: 'JOBNO',
+                type: 'string'
+
+            }],
+            id: 'id',
+            localdata: dataArresvtran
+        };
+        var dataAdtArresvtran = new $.jqx.dataAdapter(sourceArresvtran);
+        $('.admin-panels').adminpanel({
+            grid: '.admin-grid',
+            callback: function () {
+                bootbox.confirm('<h3>A Custom Callback!</h3>', function () {});
+            },
+            onFinish: function () {
+                $('.admin-panels').addClass('animated fadeIn').removeClass('fade-onload');
+                demoHighCharts.init();
+            },
+            onSave: function () {
+                $(window).trigger('resize');
+            }
+        });
+        $('#textState').hide();
+        $('#locat').jqxInput({
+            height: 25,
+            width: '100%',
+            maxLength: 5
+        });
+        $('#locat').val($.session.get('locatcd'));
+        $('#locatnm').jqxInput({
+            height: 25,
+            width: '100%'
+        });
+        $('#cuscod').jqxInput({
+            height: 25,
+            width: '100%',
+            maxLength: 13
+        });
+        $('#custname').jqxInput({
+            height: 25,
+            width: '100%'
+        });
+        $("#vatrt").jqxNumberInput({
+            height: 25,
+            width: '100%',
+            symbol: '%',
+            spinButtons: true,
+            digits: 2,
+            decimalDigits: 0,
+            min: 0,
+            max: 99
+        });
+        $('#vatrt').val(condpay.VAT);
+        $("#contno").jqxInput({
+            height: 25,
+            width: '100%',
+            maxLength: 12
+        });
+        if (chkrun === true) {
+            $("#contno").jqxInput({
+                placeHolder: "Running Code"
+            });
+        } else {
+            $("#contno").jqxInput({
+                placeHolder: "Enter a document no."
+            });
+        }
+        $("#contno").prop("readonly", chkrun);
+        $("#sdate").jqxDateTimeInput({
+            height: 25,
+            width: '100%',
+            culture: 'en-US'
+        });
+        $("#billno").jqxInput({
+            height: 25,
+            width: '100%',
+            maxLength: 12
+        });
+        $("#arnet").jqxNumberInput({
+            height: 25,
+            width: '100%',
+            symbol: '฿',
+            spinButtons: true,
+            digits: 10,
+            decimalDigits: 2,
+            min: 0,
+            max: 9999999999
+        });
+        $("#memo1").jqxInput({
+            height: 50,
+            width: '100%',
+            maxLength: 1024
+        });
+        $('#issueno').jqxInput({
+            height: 25,
+            width: '100%',
+            maxLength: 12
+        });
+        $("#issudt").jqxDateTimeInput({
+            height: 25,
+            width: '100%',
+            culture: 'en-US'
+        });
+        $("#taxno").jqxInput({
+            height: 25,
+            width: '100%',
+            maxLength: 12
+        });
+        $("#taxdt").jqxDateTimeInput({
+            height: 25,
+            width: '100%',
+            culture: 'en-US',
+            disabled: true
+        });
+        $("#acticod").jqxDropDownList({
+            source: dataAdtSetacti,
+            displayMember: "ACTIDESC",
+            valueMember: "ACTICODE",
+            height: 25,
+            width: '100%',
+            autoDropDownHeight: true,
+            placeHolder: "เลือก :"
+        });
+        $("#keyinprc").jqxNumberInput({
+            height: 25,
+            width: '100%',
+            symbol: '฿',
+            spinButtons: true,
+            digits: 10,
+            decimalDigits: 2,
+            min: 0,
+            max: 9999999999
+        });
+        $("#disct").jqxNumberInput({
+            height: 25,
+            width: '100%',
+            symbol: '฿',
+            spinButtons: true,
+            digits: 10,
+            decimalDigits: 2,
+            min: 0,
+            max: 9999999999
+        });
+        $("#comint").jqxNumberInput({
+            height: 25,
+            width: '100%',
+            symbol: '฿',
+            spinButtons: true,
+            digits: 10,
+            decimalDigits: 2,
+            min: 0,
+            max: 9999999999
+        });
+        $("#comext").jqxNumberInput({
+            height: 25,
+            width: '100%',
+            symbol: '฿',
+            spinButtons: true,
+            digits: 10,
+            decimalDigits: 2,
+            min: 0,
+            max: 9999999999
+        });
+        $("#othpay").jqxNumberInput({
+            height: 25,
+            width: '100%',
+            symbol: '฿',
+            spinButtons: true,
+            digits: 10,
+            decimalDigits: 2,
+            min: 0,
+            max: 9999999999
+        });
+        $("#stdprc").jqxNumberInput({
+            height: 25,
+            width: '100%',
+            symbol: '฿',
+            spinButtons: true,
+            digits: 10,
+            decimalDigits: 2,
+            min: 0,
+            max: 9999999999
+        });
+        $("#smpay").jqxNumberInput({
+            height: 25,
+            width: '100%',
+            symbol: '฿',
+            spinButtons: true,
+            digits: 10,
+            decimalDigits: 2,
+            max: 9999999999,
+            disabled: true
+        });
+        $("#tableArresvtran").jqxGrid({
+            width: '100%',
+            height: 300,
+            source: dataAdtArresvtran,
+            editable: false,
+            altrows: true,
+            sortable: false,
+            filterable: false,
+            columnsresize: true,
+            selectionmode: 'singlerow',
+            editmode: 'selectedcell',
+            showstatusbar: true,
+            statusbarheight: 35,
+            showaggregates: true,
+            columns: [{
+                text: '#',
+                sortable: false,
+                filterable: false,
+                editable: false,
+                groupable: false,
+                draggable: false,
+                resizable: false,
+                align: 'center',
+                cellsalign: 'center',
+                datafield: '',
+                columntype: 'number',
+                width: 15,
+                cellsrenderer: function (row, column, value) {
+                    return "<div style='margin:4px; text-align:center;'>" + (value + 1) +
+                        "</div>";
+                },
+                aggregates: ['count'],
+                aggregatesrenderer: function (aggregates, column, element) {
+                    var renderstring = "";
+                    $.each(aggregates, function (key, value) {
+                        renderstring +=
+                            '<div style="position: relative; margin: 4px; overflow: hidden; font-weight: bold;">' +
+                            value + '</div>';
+                    });
+                    return renderstring;
+                }
+            }, {
+                text: 'IDNO',
+                datafield: 'IDNO',
+                hidden: true
+            }, {
+                text: 'รหัสอุปกรณ์',
+                datafield: 'OPTCODE',
+                width: 90,
+                align: 'center',
+                cellsalign: 'left',
+            }, {
+                text: 'ชื่ออุปกรณ์',
+                datafield: 'OPTNAME',
+                width: 250,
+                align: 'center',
+                cellsalign: 'left',
+            }, {
+                text: 'จำนวน',
+                datafield: 'QTY',
+                width: 90,
+                align: 'center',
+                cellsalign: 'right',
+            }, {
+                text: 'ราคา',
+                datafield: 'OPTPRC',
+                width: 90,
+                align: 'center',
+                cellsalign: 'right',
+                cellsformat: 'd2',
+            }, {
+                text: 'สถานะ',
+                datafield: 'FLSTAT',
+                width: 90,
+                align: 'center',
+                cellsalign: 'left',
+            }, {
+                text: 'การติดตั้ง',
+                datafield: 'INSTALL',
+                width: 90,
+                align: 'center',
+                cellsalign: 'left',
+            }, {
+                text: 'เลขที่ JOB',
+                datafield: 'JOBNO',
+                width: 110,
+                align: 'center',
+                cellsalign: 'left',
+            }],
+            showtoolbar: true,
+            rendertoolbar: function (toolbar) {
+                var container = $("<div style='margin: 5px;'></div>");
+                toolbar.append(container);
+                container.append(
+                    '<h4><span class="fa fa-list-alt"></span> รายการของแถม </h4>'
+                );
+            }
+        });
+
+        //คำนวนจำนวนเงิน
+        $('#stdprc').on('valueChanged', function (event) {
+            var value = parseFloat(event.args.value);
+            var disct = parseFloat($("#disct").val());
+            $("#keyinprc").val(value-disct);
+        });
+        $('#disct').on('valueChanged', function (event) {
+            var value = parseFloat(event.args.value);
+            var stdprc = parseFloat($("#stdprc").val());
+            $("#keyinprc").val(stdprc-value);
+        });
+
+        $("#newBtn").jqxButton({
+            template: "info",
+            width: 90
+        });
+        $("#saveBtn").jqxButton({
+            template: "primary",
+            width: 90,
+            disabled: !chkright.M_INSERT
+        });
+        $("#searchBtn").jqxButton({
+            template: "success",
+            width: 90
+        });
+        $("#deleteBtn").jqxButton({
+            disabled: true,
+            template: "danger",
+            width: 90
+        });
+        $('#fmArcred').jqxValidator({
+            hintType: 'label',
+            animationDuration: 0,
+            closeOnClick: false,
+            rules: rules
+        });
+
+        //แสดงคำอธิบาย
+        $('#v-locat').off().on('blur', function () {
+            $('#locatnm').val(getLocatName($('#locat').val()));
+        });
+        $('#v-cuscod').off().on('blur', function () {
+            $('#custname').val(getCustname($('#cuscod').val()));
+        });
+        $('#v-locat').trigger('blur');
+
+        //เริ่มใหม่
+        $('#newBtn').off().on('click', function () {
+            loadHTML("sale_arcred");
+        });
+        //บันทึก
+        $('#saveBtn').off().on('click', function () {
+            $('#fmArcred').jqxValidator('validate', function (result) {
+                if (result) {
+                    $.when($.confirmdlg('ต้องการบันทึกข้อมูล?', 'info')).then(function () {
+                        var docdate = $("#sdate").jqxDateTimeInput('getDate');
+                        var issudate = $("#issudt").jqxDateTimeInput('getDate');
+                        var currentCulture = Globalize.cultures['en-US'];
+                        var localizationObject = currentCulture.calendar;
+                        var sdate = $.jqx.dataFormat.formatdate(docdate, "dd/MM/yyyy",localizationObject);
+                        var issudt = $.jqx.dataFormat.formatdate(issudate, "dd/MM/yyyy",localizationObject);
+                        var valueJSON = [{
+                            status: status,
+                            locat: $('#locat').val(),
+                            table: 'ARCRED',
+                            key: $('#contno').val(),
+                            value: [{
+                                CONTNO: $('#contno').val(),
+                                SDATE: sdate,
+                                LOCAT: $('#locat').val(),
+                                CUSCOD: $('#cuscod').val(),
+                                VATRT: $('#vatrt').val(),
+                                STDPRC: $('#stdprc').val(),
+                                DISCT: $('#disct').val(),
+                                KEYINPRC: $('#keyinprc').val(),
+                                VATRT: $('#vatrt').val(),
+                                RESPAY: 0,
+                                ISSUENO: $('#issueno').val(),
+                                ISSUDT: issudt,
+                                COMEXT: $('#comext').val(), 
+                                COMINT: $('#comint').val(), 
+                                OTHPAY: $('#othpay').val(),
+                                TAXNO: '',
+                                TAXDT: sdate,
+                                MEMO1: $('#memo1').val(),
+                                USERID: $.session.get('username'),
+                                ACTICOD: $('#acticod').val(), 
+                                FLAG: 'A',
+                            }]
+                        }];
+                        // Convert Value To JSON String
+                        var value = JSON.stringify(valueJSON);
+                        //console.log(value);
+                        $('#ok').on('click', function (event) {
+                            $.ajax({
+                                url: 'saveArcred',
+                                type: 'POST',
+                                contentType: "application/json",
+                                dataType: "json",
+                                data: value,
+                                success: function (data) {
+                                    //console.log(data);
+                                    if (data[0].save === true) {
+                                        ShowMessage("บันทึกข้อมูลเรียบร้อย!","success");
+                                        statusChange(true);
+                                        getArcred(data[0].contno);
+                                    } else {
+                                        ShowMessage("บันทึกไม่สำเร็จ!","danger");
+                                    }
+                                },
+                                error: function (xhr, status, error) {
+                                    ShowMessage("บันทึกไม่สำเร็จ! ", "danger");
+                                }
+                            });
+                        });
+                    });
+                }
+            });
+        });
+        //ค้นหาสาขา
+        $('#searchInvlocat').off().on('click', function () {
+            searchAll('invlocat', 'v-locat');
+        });
+        //ค้นหาลูกค้า
+        $('#searchCustmast').off().on('click', function () {
+            searchAll('custmast', 'v-cuscod');
+        });
+        //ค้นหา
+        $('#searchBtn').off().on('click', function () {
+            //Show Dialog Search
+            searchAll('arcred', 'contno');
+            $('#okButton').on('click', function (event) {
+                var rules2 = rules.slice();
+                if (chkrun === false) {
+                    rules2.splice(1, 1);
+                }
+                rules2.splice(4, 8);
+                //console.log(rules2);
+                $('#fmArcred').jqxValidator('rules', rules2);
+                event.preventDefault();
+                $('#fmArcred').jqxValidator('hide');
+                statusChange(true);
+                getArcred($('#contno').val());
+            });
+        });
+        //ลบ
+        $('#deleteBtn').off().on('click', function () {
+            if ($('#contno').val() !== '') {
+                if ($('#smpay').val() > 0) {
+                    ShowMessage("รับชำระเงินแล้ว ยกเลิกไม่ได้! ", "danger");
+                } else if ($('#flag').val() === 'C') {
+                    ShowMessage("รายการนี้อยู่ในสถานะยกเลิกแล้ว! ", "danger");
+                } else if ($('#postgl').val() === 'Y') {
+                    ShowMessage("รายการนี้บันทึก GL แล้ว ยกเลิกไม่ได้! ", "danger");
+                } else {
+                    $.when($.confirmdlg('ต้องการยกเลิกการขาย?', 'warning')).then(function () {
+                        $('#ok').on('click', function (event) {
+                            var valueJSON = [{
+                                table: 'ARCRED',
+                                field: 'CONTNO',
+                                key: $('#contno').val(),
+                                userid: $.session.get('username'),
+                                flag: 'C',
+                            }];
+                            // Convert Value To JSON String
+                            var value = JSON.stringify(valueJSON);
+                            $.ajax({
+                                async: false,
+                                method: 'POST',
+                                dataType: 'json',
+                                url: "cancelArcred",
+                                data: value,
+                                success: function (data) {
+                                    if (data[0].cancel === true) {
+                                        ShowMessage("ยกเลิกเรียบร้อย!","success");
+                                        $('#textState').show();
+                                        //statusChange(false);
+                                    } else {
+                                        ShowMessage("ยกเลิกไม่สำเร็จ! ", "danger");
+                                    }
+                                },
+                                error: function (xhr, status, error) {
+                                    ShowMessage("ยกเลิกไม่สำเร็จ! ", "danger");
+                                }
+                            });
+                        });
+                    });
+                }
+            }
+        });
+    });
+</script>
