@@ -20,6 +20,19 @@
                             <div class="col-md-6">
                                 <div class="admin-form">
                                     <div class="form-group">
+                                        <label class="col-sm-2 control-label" for="tsale">ประเภทการขาย</label>
+                                        <div class="col-sm-10">
+                                            <div class="row">
+                                                <div class="col-sm-4">
+                                                    <div id='tsale'></div>
+                                                </div>
+                                                <div class="col-sm-8">
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
                                         <label class="col-sm-2 control-label required" for="locat">สาขาที่รับชำระ</label>
                                         <div class="col-sm-10">
                                             <div class="row">
@@ -37,26 +50,13 @@
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        <label class="col-sm-2 control-label" for="acticod">ประเภทการขาย</label>
+                                        <label class="col-sm-2 control-label required" for="contno">เลขที่สัญญา</label>
                                         <div class="col-sm-10">
                                             <div class="row">
                                                 <div class="col-sm-4">
-                                                    <div id='acticod'></div>
-                                                </div>
-                                                <div class="col-sm-8">
-
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="col-sm-2 control-label required" for="cuscod">เลขที่สัญญา</label>
-                                        <div class="col-sm-10">
-                                            <div class="row">
-                                                <div class="col-sm-4">
-                                                    <div id="cuscod" class="input-button">
-                                                        <input type="text" id="v-cuscod" />
-                                                        <div id="searchCustmast"><img alt="search" width="20" height="20" src="/images/search_lg.png"
+                                                    <div id="contno" class="input-button">
+                                                        <input type="text" id="v-contno" />
+                                                        <div id="searchContno"><img alt="search" width="20" height="20" src="/images/search_lg.png"
                                                             /></div>
                                                     </div>
                                                 </div>
@@ -71,7 +71,7 @@
                                         <div class="col-sm-10">
                                             <div class="row">
                                                 <div class="col-sm-4">
-                                                    <div id='arnet'></div>
+                                                    <input type="text" id="arnet" class="text-desc" readonly/>
                                                 </div>
                                                 <div class="col-sm-8">
 
@@ -85,10 +85,10 @@
                                 <div class="row">
                                     <div class="col-md-6">
                                         <div class="form-group">
-                                            <label class="col-sm-4 control-label required" for="contno">เลขที่ใบรับเงิน</label>
+                                            <label class="col-sm-4 control-label required" for="tmbill">เลขที่ใบรับเงิน</label>
                                             <div class="col-sm-8">
                                                 <div class="bs-component">
-                                                    <input type="text" id="contno" style="color:#e9573f; font-weight: bold;" />
+                                                    <input type="text" id="tmbill" style="color:#e9573f; font-weight: bold;" />
                                                 </div>
                                             </div>
                                         </div>
@@ -100,10 +100,10 @@
                                 <div class="row">
                                     <div class="col-md-6">
                                         <div class="form-group">
-                                            <label class="col-sm-4 control-label" for="sdate">วันที่รับชำระ</label>
+                                            <label class="col-sm-4 control-label" for="tmbildt">วันที่รับชำระ</label>
                                             <div class="col-sm-8">
                                                 <div class="bs-component">
-                                                    <div id="sdate"></div>
+                                                    <div id="tmbildt"></div>
                                                 </div>
                                             </div>
                                         </div>
@@ -157,101 +157,22 @@
 
                             </div>
                         </div>
-                        <hr class="short alt">
-                        <div class="row">
-                            <div class="col-md-4">
-                                <div class="form-group">
-                                    <label class="col-sm-4 control-label" for="stdprc">ราคาขาย</label>
-                                    <div class="col-sm-8">
-                                        <div id='stdprc'></div>
-                                    </div>
-                                </div>  
-                                <div class="form-group">
-                                    <label class="col-sm-4 control-label" for="disct">ส่วนลด</label>
-                                    <div class="col-sm-8">
-                                        <div id='disct'></div>
-                                    </div>
-                                </div> 
-                                <div class="form-group">
-                                    <label class="col-sm-4 control-label" for="keyinprc">ราคาขายจริง</label>
-                                    <div class="col-sm-8">
-                                        <div id='keyinprc'></div>
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label class="col-sm-4 control-label" for="smpay">รับชำระแล้ว</label>
-                                    <div class="col-sm-8">
-                                        <div id='smpay'></div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <div class="form-group">
-                                    <label class="col-sm-4 control-label" for="comint">ค่าคอมพนักงาน</label>
-                                    <div class="col-sm-8">
-                                        <div id='comint'></div>
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label class="col-sm-4 control-label" for="comext">ค่าคอมภายนอก</label>
-                                    <div class="col-sm-8">
-                                        <div id='comext'></div>
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label class="col-sm-4 control-label" for="othpay">ค่าใช้จ่ายอื่นๆ</label>
-                                    <div class="col-sm-8">
-                                        <div id='othpay'></div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <div class="form-group">
-                                    <label class="col-sm-4 control-label" for="issueno">เลขที่ใบปล่อย</label>
-                                    <div class="col-sm-8">
-                                        <div class="bs-component">
-                                            <input type="text" id="issueno" />
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label class="col-sm-4 control-label" for="issudt">วันที่ใบปล่อย</label>
-                                    <div class="col-sm-8">
-                                        <div class="bs-component">
-                                            <div id="issudt"></div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label class="col-sm-4 control-label required" for="taxno">เลขที่ใบกำกับ</label>
-                                    <div class="col-sm-8">
-                                        <div class="bs-component">
-                                            <input type="text" class="text-desc" id="taxno" />
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label class="col-sm-4 control-label" for="taxdt">วันที่ใบกำกับ</label>
-                                    <div class="col-sm-8">
-                                        <div class="bs-component">
-                                            <div id="taxdt"></div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <input type="hidden" id="flag" />
-                        <input type="hidden" id="postgl" />
                     </form>
-                    <hr class="short alt">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <h4><span class="fa fa-list-alt"></span> รายการรับชำระ </h4>
+                            <div id="tableChqtran"></div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <h4><span class="fa fa-credit-card"></span> รายการประเภทการชำระ </h4>
+                            <div id="tableChqtype"></div>
+                        </div>
+                    </div>
                     <div class="row">
                         <div class="col-md-12">
                             <div class="admin-form">
-                                <div class="form-group">
-                                    <div class="col-md-12">
-                                        <div id="tableArresvtran"></div>
-                                    </div>
-                                </div>
                                 <div class="form-group">
                                     <label class="col-md-4 control-label"></label>
                                     <div class="col-md-8">
@@ -278,37 +199,26 @@
         //Default status Insert
         var status = 'insert';
         //เช็คสิทธิการใช้งาน
-        var chkright = checkRight('SAL006');
+        var chkright = checkRight('FIN001');
 
         //เช็ค Running เอกสาร
-        var chkrun = checkRundoc('R_CASHNO');
+        var chkrun  = checkRundoc('R_TMPBILL');
+        var chkrun1 = checkRundoc('R_BILLNO');
         
         //ฟังก์ชั่น สถานะ Insert หรือ Edit
         function statusChange(disabled) {
             if (disabled === false) {
                 status = 'insert';
-                $('#contno').val('');
+                $('#tsale').val('C');
+                $('#tmbill').val('');
                 $('#locat').val($.session.get('locatcd'));
-                $('#sdate').jqxDateTimeInput('setDate', new Date());
-                $('#cuscod').val('');
+                $('#tmbildt').jqxDateTimeInput('setDate', new Date());
+                $('#contno').val('');
                 $('#vatrt').val(condpay.VAT);
+                $('#billno').val('');
                 $('#memo1').val('');
-                $('#stdprc').val(0);
-                $('#disct').val(0);
-                $('#keyinprc').val(0);
-                $('#issueno').val('');
-                $('#issudt').jqxDateTimeInput('setDate', new Date());
-                $('#comint').val(0);
-                $('#taxno').val('');
-                $('#taxdt').jqxDateTimeInput('setDate', new Date());
-                $('#comext').val(0);
-                $('#acticod').val('');
-                $('#othpay').val(0);
-                $('#smpay').val(0);
-                $('#tableArresvtran').jqxGrid('clear');
+                $('#tableChqtran').jqxGrid('clear');
                 $('#searchInvlocat').show();
-                $('#flag').val('');
-                $('#postgl').val('');
                 $('#textState').hide();
             } else {
                 status = 'update';
@@ -324,36 +234,21 @@
             });
         }
 
-        function getArcred(contno) {
+        function getChqmas(tmbill) {
             $.ajax({
                 async: false,
                 method: 'GET',
                 dataType: 'json',
                 url: "sqltext",
                 data: {
-                    sql: "SELECT IDNO, CONTNO, SDATE, LOCAT, RESVNO, CUSCOD, STRNO, INCLVAT, VATRT, STDPRC, DISCT, KEYINPRC, NPRICE, VATPRC, PAYRES, SMPAY, TKANG, NKANG, VKANG, CREDIT, DUEDT, SALCOD, TSALE, ISSUENO, ISSUDT, COMEXT, COMINT, OTHPAY, TAXNO, TAXDT, USERID, INPUTDT, ADDRNO, REFNO, ACTICOD, PAYTYP, FLAG, ARREG1, ARREG3, PAYREG, PAYREG1, USERDEL, CANDT, FLREG, CREDAMT, SMCHQ, POSTGL, LOCSALE, FLCANCL FROM ARCRED WHERE CONTNO = '" + contno + "' "
+                    sql: "SELECT IDNO, CONTNO, SDATE, LOCAT, RESVNO, CUSCOD, STRNO, INCLVAT, VATRT, STDPRC, DISCT, KEYINPRC, NPRICE, VATPRC, PAYRES, SMPAY, TKANG, NKANG, VKANG, CREDIT, DUEDT, SALCOD, TSALE, ISSUENO, ISSUDT, COMEXT, COMINT, OTHPAY, TAXNO, TAXDT, USERID, INPUTDT, ADDRNO, REFNO, ACTICOD, PAYTYP, FLAG, ARREG1, ARREG3, PAYREG, PAYREG1, USERDEL, CANDT, FLREG, CREDAMT, SMCHQ, POSTGL, LOCSALE, FLCANCL FROM ARCRED WHERE CONTNO = '" + tmbill + "' "
                 },
                 success: function (data) {
                     $('#contno').val(data[0].CONTNO);
-                    $('#sdate').val(data[0].SDATE);
+                    $('#tmbildt').val(data[0].SDATE);
                     $('#locat').val(data[0].LOCAT);
-                    $('#cuscod').val(data[0].CUSCOD);
+                    $('#contno').val(data[0].CUSCOD);
                     $('#vatrt').val(data[0].VATRT);
-                    $('#stdprc').val(data[0].STDPRC);
-                    $('#disct').val(data[0].DISCT);
-                    $('#keyinprc').val(data[0].KEYINPRC);
-                    $('#vatrt').val(data[0].VATRT);
-                    $('#issueno').val(data[0].ISSUENO);
-                    $('#issudt').val(data[0].ISSUDT);
-                    $('#comext').val(data[0].COMEXT);
-                    $('#comint').val(data[0].COMINT);
-                    $('#othpay').val(data[0].OTHPAY);
-                    $('#taxno').val(data[0].TAXNO);
-                    $('#taxdt').val(data[0].TAXDT);
-                    //$('#memo1').val(data[0].MEMO1);
-                    $('#acticod').val(data[0].ACTICOD);
-                    $('#flag').val(data[0].FLAG);
-                    $('#postgl').val(data[0].POSTGL);
                     if (data[0].FLAG === 'C') {
                         $('#textState').show();
                     } else {
@@ -361,6 +256,112 @@
                     }
                 }
             });
+        }
+
+        //ฟังก์ชั่นเช็ค validate CHQTRAN
+        function validateChqtran() {
+            $("#tableChqtran").jqxGrid('hidevalidationpopups');
+            var rows = $("#tableChqtran").jqxGrid('getdisplayrows');
+            var nullPayfor = 0,
+                validatePayfor = 0,
+                duplicatePayfor = 0,
+                result = true;
+            //Check validate
+            for (var i = 0; i < rows.length; i++) {
+                var row = rows[i];
+                if ((row.PAYFOR === undefined) || (row.PAYFOR === '')) {
+                    nullPayfor++;
+                } else {
+                    $.ajax({
+                        async: false,
+                        url: "duplicateCheck",
+                        type: 'get',
+                        data: {
+                            table: 'PAYFOR',
+                            field: 'FORCODE',
+                            value: row.PAYFOR
+                        },
+                        success: function(data) {
+                            if (data === true) {
+                                validatePayfor++;
+                            }
+                        }
+                    });
+
+                    if (validatePayfor === 0) {
+                        for (var j = 0; j < rows.length; j++) {
+                            var row2 = rows[j];
+                            if ((row2.PAYFOR === row.PAYFOR) && (j !== i)) {
+                                duplicatePayfor++;
+                                $("#tableChqtran").jqxGrid('showvalidationpopup', j, "PAYFOR", "ไม่สามารถเลือกรหัสซ้ำกันได้");
+                                result = false;
+                            }
+                        }
+                    }
+                }
+                if (nullPayfor !== 0) {
+                    $("#tableChqtran").jqxGrid('showvalidationpopup', i, "PAYFOR", "กรุณาเลือกรหัสการชำระ");
+                    result = false;
+                };
+                if (validatePayfor !== 0) {
+                    $("#tableChqtran").jqxGrid('showvalidationpopup', i, "PAYFOR", "ไม่พบรหัสการชำระนี้");
+                    result = false;
+                };
+            }
+            return result;
+        }
+
+        //ฟังก์ชั่นเช็ค validate CHQTYPE
+        function validateChqtype() {
+            $("#tableChqtype").jqxGrid('hidevalidationpopups');
+            var rows = $("#tableChqtype").jqxGrid('getdisplayrows');
+            var nullPaytyp = 0,
+                validatePaytyp = 0,
+                duplicatePaytyp = 0,
+                result = true;
+            //Check validate
+            for (var i = 0; i < rows.length; i++) {
+                var row = rows[i];
+                if ((row.PAYCODE === undefined) || (row.PAYCODE === '')) {
+                    nullPaytyp++;
+                } else {
+                    $.ajax({
+                        async: false,
+                        url: "duplicateCheck",
+                        type: 'get',
+                        data: {
+                            table: 'PAYTYP',
+                            field: 'PAYCODE',
+                            value: row.PAYCODE
+                        },
+                        success: function(data) {
+                            if (data === true) {
+                                validatePaytyp++;
+                            }
+                        }
+                    });
+
+                    if (validatePaytyp === 0) {
+                        for (var j = 0; j < rows.length; j++) {
+                            var row2 = rows[j];
+                            if ((row2.PAYCODE === row.PAYCODE) && (j !== i)) {
+                                duplicatePaytyp++;
+                                $("#tableChqtype").jqxGrid('showvalidationpopup', j, "PAYCODE", "ไม่สามารถเลือกรหัสซ้ำกันได้");
+                                result = false;
+                            }
+                        }
+                    }
+                }
+                if (nullPaytyp !== 0) {
+                    $("#tableChqtype").jqxGrid('showvalidationpopup', i, "PAYCODE", "กรุณาเลือกรหัสประเภทการชำระ");
+                    result = false;
+                };
+                if (validatePaytyp !== 0) {
+                    $("#tableChqtype").jqxGrid('showvalidationpopup', i, "PAYCODE", "ไม่พบรหัสประเภทการชำระนี้");
+                    result = false;
+                };
+            }
+            return result;
         }
 
         //เงื่อนไข validate ARCRED
@@ -396,24 +397,24 @@
                 }
             }
         }, {
-            input: '#cuscod',
-            message: 'กรุณาระบุรหัสลูกค้า!',
+            input: '#contno',
+            message: 'กรุณาระบุเลขที่สัญญา!',
             action: 'keyup, blur, focusout',
             rule: 'required'
         }, {
-            input: '#cuscod',
-            message: 'ไม่พบรหัสลูกค้านี้!',
+            input: '#contno',
+            message: 'ไม่พบเลขที่สัญญานี้!',
             action: 'keyup, blur, focusout',
             rule: function (input, commit) {
-                var cuscod = $('#cuscod').val();
-                if (cuscod !== '') {
+                var contno = $('#contno').val();
+                if (contno !== '') {
                     $.ajax({
                         url: "duplicateCheck",
                         type: 'get',
                         data: {
                             table: 'CUSTMAST',
                             field: 'CUSCOD',
-                            value: cuscod
+                            value: contno
                         },
                         success: function (data) {
                             if (data === true) {
@@ -430,24 +431,24 @@
 
         if (chkrun === false) {
             rules.push({
-                input: '#contno',
-                message: 'กรุณาระบุเลขที่สัญญา!',
+                input: '#tmbill',
+                message: 'กรุณาระบุเลขที่ใบรับเงิน!',
                 action: 'keyup, blur, focusout',
                 rule: 'required'
             }, {
-                input: '#contno',
-                message: 'ระบุเลขที่สัญญาซ้ำ!',
+                input: '#tmbill',
+                message: 'ระบุเลขที่ใบรับเงินซ้ำ!',
                 action: 'keyup, blur',
                 rule: function (input, commit) {
-                    var contno = $('#contno').val();
-                    if (contno !== '') {
+                    var tmbill = $('#tmbill').val();
+                    if (tmbill !== '') {
                         $.ajax({
                             url: "duplicateCheck",
                             type: 'get',
                             data: {
                                 table: 'ARCRED',
                                 field: 'CONTNO',
-                                value: contno
+                                value: tmbill
                             },
                             success: function (data) {
                                 if (data === true) {
@@ -462,78 +463,130 @@
                 }
             });
         }
-        //console.log(rules);
-        var sourceSetacti = {
+        //ข้อมูลประเภทการขาย
+        var sourceTsale = {
             async: false,
             datatype: "json",
             datafields: [{
-                name: 'ACTICODE',
+                name: 'TSALE',
                 type: 'string'
             }, {
-                name: 'ACTIDESC',
+                name: 'DESC',
                 type: 'string'
             }],
             url: "sqltext",
             data: {
-                sql: "SELECT ACTICODE, TRIM(ACTICODE)||' : '||TRIM(ACTIDESC) AS ACTIDESC FROM SETACTI ORDER BY ACTICODE"
+                sql: "SELECT TSALE, TRIM(TSALE)||' : '||TRIM(DESC) AS DESC FROM TSALE WHERE TSALE IN ('A','C','F','R','T','X') ORDER BY TSALE"
             }
         };
-        var sourcePaydue = {
+        var dataAdtTsale = new $.jqx.dataAdapter(sourceTsale);
+
+        //ข้อมูลรหัสการชำระ
+        var sourcePayfor = {
             async: false,
             datatype: "json",
             datafields: [{
-                name: 'DUECODE',
+                name: 'FORCODE',
                 type: 'string'
             }, {
-                name: 'DUEDESC',
+                name: 'FORDESC',
                 type: 'string'
             }],
             url: "sqltext",
             data: {
-                sql: "SELECT DUECODE, TRIM(DUECODE)||' : '||TRIM(DUEDESC) AS DUEDESC FROM PAYDUE ORDER BY DUECODE"
+                sql: "SELECT FORCODE, TRIM(FORCODE)||' : '||TRIM(FORDESC) AS FORDESC FROM PAYFOR ORDER BY FORCODE"
             }
         };
-        var dataAdtSetacti = new $.jqx.dataAdapter(sourceSetacti);
-        var dataAdtPaydue = new $.jqx.dataAdapter(sourcePaydue);
-        //DataSource ARRESVTRAN
-        var dataArresvtran= [];
-        var sourceArresvtran = {
+        var dataAdtPayfor = new $.jqx.dataAdapter(sourcePayfor);
+
+        //ข้อมูลรหัสประเภท
+        var sourcePaytyp = {
+            async: false,
+            datatype: "json",
+            datafields: [{
+                name: 'PAYCODE',
+                type: 'string'
+            }, {
+                name: 'PAYDESC',
+                type: 'string'
+            }],
+            url: "sqltext",
+            data: {
+                sql: "SELECT PAYCODE, TRIM(PAYCODE)||' : '||TRIM(PAYDESC) AS PAYDESC FROM PAYTYP ORDER BY PAYCODE"
+            }
+        };
+        var dataAdtPaytyp = new $.jqx.dataAdapter(sourcePaytyp);
+
+        //DataSource CHQTRAN
+        var dataChqtran= [];
+        var dataChqtype= [];
+        var sourceChqtran = {
             async: false,
             datatype: "json",
             datafields: [{
                 name: 'IDNO',
                 type: 'integer'
             }, {
-                name: 'OPTCODE',
+                name: 'PAYFOR',
                 type: 'string'
 
             }, {
-                name: 'OPTNAME',
-                type: 'string'
+                name: 'DATAPAYFOR',
+                value: 'FORCODE',
+                values: {
+                    source: dataAdtPayfor.records,
+                    value: 'FORCODE',
+                    name: 'FORDESC'
+                }
+            }, {
+                name: 'PAYAMT',
+                type: 'float'
 
             }, {
-                name: 'QTY',
+                name: 'DISCT',
                 type: 'float'
             }, {
-                name: 'OPTPRC',
+                name: 'NETPAY',
                 type: 'float'
-            }, {
-                name: 'FLSTAT',
-                type: 'string'
-
-            }, {
-                name: 'INSTALL',
-                type: 'string'
-
-            }, {
-                name: 'JOBNO',
-                type: 'string'
-
             }],
             id: 'id',
-            localdata: dataArresvtran
+            localdata: dataChqtran
         };
-        var dataAdtArresvtran = new $.jqx.dataAdapter(sourceArresvtran);
+        var sourceChqtype = {
+            async: false,
+            datatype: "json",
+            datafields: [{
+                name: 'IDNO',
+                type: 'integer'
+            }, {
+                name: 'PAYCODE',
+                type: 'string'
+
+            }, {
+                name: 'DATAPAYTYP',
+                value: 'PAYCODE',
+                values: {
+                    source: dataAdtPaytyp.records,
+                    value: 'PAYCODE',
+                    name: 'PAYDESC'
+                }
+            }, {
+                name: 'REFNO',
+                type: 'string'
+
+            }, {
+                name: 'NETAMT',
+                type: 'float'
+
+            }, {
+                name: 'AMOUNT',
+                type: 'float'
+            }],
+            id: 'id',
+            localdata: dataChqtype
+        };
+        var dataAdtChqtran = new $.jqx.dataAdapter(sourceChqtran);
+        var dataAdtChqtype = new $.jqx.dataAdapter(sourceChqtype);
         $('.admin-panels').adminpanel({
             grid: '.admin-grid',
             callback: function () {
@@ -558,7 +611,7 @@
             height: 25,
             width: '100%'
         });
-        $('#cuscod').jqxInput({
+        $('#tmbill').jqxInput({
             height: 25,
             width: '100%',
             maxLength: 13
@@ -584,16 +637,16 @@
             maxLength: 12
         });
         if (chkrun === true) {
-            $("#contno").jqxInput({
+            $("#tmbill").jqxInput({
                 placeHolder: "Running Code"
             });
         } else {
-            $("#contno").jqxInput({
+            $("#tmbill").jqxInput({
                 placeHolder: "Enter a document no."
             });
         }
-        $("#contno").prop("readonly", chkrun);
-        $("#sdate").jqxDateTimeInput({
+        $("#tmbill").prop("readonly", chkrun);
+        $("#tmbildt").jqxDateTimeInput({
             height: 25,
             width: '100%',
             culture: 'en-US'
@@ -603,126 +656,30 @@
             width: '100%',
             maxLength: 12
         });
-        $("#arnet").jqxNumberInput({
+        $("#arnet").jqxInput({
             height: 25,
-            width: '100%',
-            symbol: '฿',
-            spinButtons: true,
-            digits: 10,
-            decimalDigits: 2,
-            min: 0,
-            max: 9999999999
+            width: '100%'
         });
         $("#memo1").jqxInput({
             height: 50,
             width: '100%',
             maxLength: 1024
         });
-        $('#issueno').jqxInput({
-            height: 25,
-            width: '100%',
-            maxLength: 12
-        });
-        $("#issudt").jqxDateTimeInput({
-            height: 25,
-            width: '100%',
-            culture: 'en-US'
-        });
-        $("#taxno").jqxInput({
-            height: 25,
-            width: '100%',
-            maxLength: 12
-        });
-        $("#taxdt").jqxDateTimeInput({
-            height: 25,
-            width: '100%',
-            culture: 'en-US',
-            disabled: true
-        });
-        $("#acticod").jqxDropDownList({
-            source: dataAdtSetacti,
-            displayMember: "ACTIDESC",
-            valueMember: "ACTICODE",
+        $("#tsale").jqxDropDownList({
+            source: dataAdtTsale,
+            displayMember: "DESC",
+            valueMember: "TSALE",
+            selectedIndex: 1,
             height: 25,
             width: '100%',
             autoDropDownHeight: true,
             placeHolder: "เลือก :"
         });
-        $("#keyinprc").jqxNumberInput({
-            height: 25,
+        $("#tableChqtran").jqxGrid({
             width: '100%',
-            symbol: '฿',
-            spinButtons: true,
-            digits: 10,
-            decimalDigits: 2,
-            min: 0,
-            max: 9999999999
-        });
-        $("#disct").jqxNumberInput({
-            height: 25,
-            width: '100%',
-            symbol: '฿',
-            spinButtons: true,
-            digits: 10,
-            decimalDigits: 2,
-            min: 0,
-            max: 9999999999
-        });
-        $("#comint").jqxNumberInput({
-            height: 25,
-            width: '100%',
-            symbol: '฿',
-            spinButtons: true,
-            digits: 10,
-            decimalDigits: 2,
-            min: 0,
-            max: 9999999999
-        });
-        $("#comext").jqxNumberInput({
-            height: 25,
-            width: '100%',
-            symbol: '฿',
-            spinButtons: true,
-            digits: 10,
-            decimalDigits: 2,
-            min: 0,
-            max: 9999999999
-        });
-        $("#othpay").jqxNumberInput({
-            height: 25,
-            width: '100%',
-            symbol: '฿',
-            spinButtons: true,
-            digits: 10,
-            decimalDigits: 2,
-            min: 0,
-            max: 9999999999
-        });
-        $("#stdprc").jqxNumberInput({
-            height: 25,
-            width: '100%',
-            symbol: '฿',
-            spinButtons: true,
-            digits: 10,
-            decimalDigits: 2,
-            min: 0,
-            max: 9999999999
-        });
-        $("#smpay").jqxNumberInput({
-            height: 25,
-            width: '100%',
-            symbol: '฿',
-            spinButtons: true,
-            digits: 10,
-            decimalDigits: 2,
-            max: 9999999999,
-            disabled: true
-        });
-        $("#tableArresvtran").jqxGrid({
-            width: '100%',
-            height: 300,
-            source: dataAdtArresvtran,
-            editable: false,
+            height: 200,
+            source: dataAdtChqtran,
+            editable: true,
             altrows: true,
             sortable: false,
             filterable: false,
@@ -764,69 +721,356 @@
                 datafield: 'IDNO',
                 hidden: true
             }, {
-                text: 'รหัสอุปกรณ์',
-                datafield: 'OPTCODE',
-                width: 90,
+                text: 'ชำระค่า',
+                datafield: 'PAYFOR',
+                width: 350,
                 align: 'center',
                 cellsalign: 'left',
+                columntype: 'dropdownlist',
+                displayfield: 'DATAPAYFOR',
+                createeditor: function(row, value, editor) {
+                    editor.jqxDropDownList({
+                        source: dataAdtPayfor,
+                        displayMember: 'FORDESC',
+                        valueMember: 'FORCODE',
+                        placeHolder: "เลือกรหัสการรับชำระ :",
+                        dropDownHeight: 223,
+                        filterable: true,
+                        filterHeight: 30,
+                        filterPlaceHolder: "ค้นหา...",
+                        searchMode: 'containsignorecase',
+                        dropDownWidth: 450
+                    });
+                    editor.on('close', function(event) {
+                        $("#tableChqtran").jqxGrid('hidevalidationpopups');
+                    });
+                },
+                cellvaluechanging: function(row, datafield, columntype, oldvalue, newvalue) {
+                    if ((newvalue.value != oldvalue) && (newvalue.value != undefined)) {
+
+                    };
+                }
             }, {
-                text: 'ชื่ออุปกรณ์',
-                datafield: 'OPTNAME',
-                width: 250,
-                align: 'center',
-                cellsalign: 'left',
-            }, {
-                text: 'จำนวน',
-                datafield: 'QTY',
-                width: 90,
+                text: 'ยอดตัดลูกหนี้',
+                datafield: 'PAYAMT',
+                width: 110,
                 align: 'center',
                 cellsalign: 'right',
+                cellsformat: 'd2',
+                columntype: 'numberinput',
+                createeditor: function(row, value, editor) {
+                    editor.jqxNumberInput({
+                        decimalDigits: 2,
+                        digits: 12,
+                        spinButtons: false,
+                        spinButtonsStep: 0,
+                        inputMode: 'simple'
+                    });
+                },
+                aggregates: ['sum'],
+                aggregatesrenderer: function(aggregates) {
+                    var renderstring = "";
+                    $.each(aggregates, function(key, value) {
+                        renderstring += '<div style="position: relative; margin: 4px; overflow: hidden; font-weight: bold;">' + value + '</div>';
+                        $("#sumqty").val(value);
+                    });
+                    return renderstring;
+                }
             }, {
-                text: 'ราคา',
-                datafield: 'OPTPRC',
+                text: 'ส่วนสด',
+                datafield: 'DISCT',
                 width: 90,
                 align: 'center',
                 cellsalign: 'right',
                 cellsformat: 'd2',
+                columntype: 'numberinput',
+                createeditor: function(row, value, editor) {
+                    editor.jqxNumberInput({
+                        decimalDigits: 2,
+                        digits: 12,
+                        spinButtons: false,
+                        spinButtonsStep: 0,
+                        inputMode: 'simple'
+                    });
+                },
+                aggregates: ['sum'],
+                aggregatesrenderer: function(aggregates) {
+                    var renderstring = "";
+                    $.each(aggregates, function(key, value) {
+                        renderstring += '<div style="position: relative; margin: 4px; overflow: hidden; font-weight: bold;">' + value + '</div>';
+                        $("#sumqty").val(value);
+                    });
+                    return renderstring;
+                }
             }, {
-                text: 'สถานะ',
-                datafield: 'FLSTAT',
-                width: 90,
-                align: 'center',
-                cellsalign: 'left',
-            }, {
-                text: 'การติดตั้ง',
-                datafield: 'INSTALL',
-                width: 90,
-                align: 'center',
-                cellsalign: 'left',
-            }, {
-                text: 'เลขที่ JOB',
-                datafield: 'JOBNO',
+                text: 'รับสุทธิ',
+                datafield: 'NETPAY',
                 width: 110,
                 align: 'center',
-                cellsalign: 'left',
+                cellsalign: 'right',
+                cellsformat: 'd2',
+                columntype: 'numberinput',
+                createeditor: function(row, value, editor) {
+                    editor.jqxNumberInput({
+                        decimalDigits: 2,
+                        digits: 12,
+                        spinButtons: false,
+                        spinButtonsStep: 0,
+                        inputMode: 'simple'
+                    });
+                },
+                aggregates: ['sum'],
+                aggregatesrenderer: function(aggregates) {
+                    var renderstring = "";
+                    $.each(aggregates, function(key, value) {
+                        renderstring += '<div style="position: relative; margin: 4px; overflow: hidden; font-weight: bold;">' + value + '</div>';
+                        $("#sumqty").val(value);
+                    });
+                    return renderstring;
+                }
             }],
             showtoolbar: true,
             rendertoolbar: function (toolbar) {
                 var container = $("<div style='margin: 5px;'></div>");
                 toolbar.append(container);
                 container.append(
-                    '<h4><span class="fa fa-list-alt"></span> รายการของแถม </h4>'
+                    '<button type="button" id="addrow1"><span class="fa fa-plus"></span> เพิ่มรายการ</button> <button type="button" id="deleterow1"><span class="fa fa-minus"></span> ลบรายการ</button>'
                 );
+                //Add row
+                $("#addrow1").on('click', function() {
+                    var recodecount = $("#tableChqtran").jqxGrid('getdatainformation').rowscount;
+                    if (validateChqtran() === true) {
+                        var datarow = {
+                            IDNO: 0,
+                            PAYFOR: '',
+                            PAYAMT: 0,
+                            DISCT: 0,
+                            NETPAY: 0,
+                        };
+                        var commit = $("#tableChqtran").jqxGrid('addrow', null, datarow);
+                        if (commit) {
+                            setTimeout(
+                                function() {
+                                    $("#tableChqtran").jqxGrid('selectrow', recodecount);
+                                    $('#tableChqtran').jqxGrid('begincelledit', recodecount, 'OPTCODE');
+                                },
+                                200
+                            );
+                        };
+                    }
+                });
+
+                //Delete row
+                $("#deleterow1").on('click', function() {
+                    var selectedrowindex = $("#tableChqtran").jqxGrid('getselectedrowindex');
+                    var rowscount = $("#tableChqtran").jqxGrid('getdatainformation').rowscount;
+                    if (selectedrowindex >= 0 && selectedrowindex < rowscount) {
+                        var id = $("#tableChqtran").jqxGrid('getrowid', selectedrowindex);
+                        var commit = $("#tableChqtran").jqxGrid('deleterow', id);
+                    }
+                    return false;
+                });
+
+                $("#addrow1").jqxButton({
+                    width: 100,
+                    height: 25,
+                    template: "success"
+                });
+                $("#deleterow1").jqxButton({
+                    width: 100,
+                    height: 25,
+                    template: "danger",
+                });
             }
         });
 
-        //คำนวนจำนวนเงิน
-        $('#stdprc').on('valueChanged', function (event) {
-            var value = parseFloat(event.args.value);
-            var disct = parseFloat($("#disct").val());
-            $("#keyinprc").val(value-disct);
-        });
-        $('#disct').on('valueChanged', function (event) {
-            var value = parseFloat(event.args.value);
-            var stdprc = parseFloat($("#stdprc").val());
-            $("#keyinprc").val(stdprc-value);
+        $("#tableChqtype").jqxGrid({
+            width: '100%',
+            height: 200,
+            source: dataAdtChqtype,
+            editable: true,
+            altrows: true,
+            sortable: false,
+            filterable: false,
+            columnsresize: true,
+            selectionmode: 'singlerow',
+            editmode: 'selectedcell',
+            showstatusbar: true,
+            statusbarheight: 35,
+            showaggregates: true,
+            columns: [{
+                text: '#',
+                sortable: false,
+                filterable: false,
+                editable: false,
+                groupable: false,
+                draggable: false,
+                resizable: false,
+                align: 'center',
+                cellsalign: 'center',
+                datafield: '',
+                columntype: 'number',
+                width: 15,
+                cellsrenderer: function (row, column, value) {
+                    return "<div style='margin:4px; text-align:center;'>" + (value + 1) +
+                        "</div>";
+                },
+                aggregates: ['count'],
+                aggregatesrenderer: function (aggregates, column, element) {
+                    var renderstring = "";
+                    $.each(aggregates, function (key, value) {
+                        renderstring +=
+                            '<div style="position: relative; margin: 4px; overflow: hidden; font-weight: bold;">' +
+                            value + '</div>';
+                    });
+                    return renderstring;
+                }
+            }, {
+                text: 'IDNO',
+                datafield: 'IDNO',
+                hidden: true
+            }, {
+                text: 'ชำระโดย',
+                datafield: 'PAYCODE',
+                width: 350,
+                align: 'center',
+                cellsalign: 'left',
+                columntype: 'dropdownlist',
+                displayfield: 'DATAPAYTYP',
+                createeditor: function(row, value, editor) {
+                    editor.jqxDropDownList({
+                        source: dataAdtPaytyp,
+                        displayMember: 'PAYDESC',
+                        valueMember: 'PAYCODE',
+                        placeHolder: "เลือกรหัสการประเภทการชำระ :",
+                        dropDownHeight: 223,
+                        filterable: true,
+                        filterHeight: 30,
+                        filterPlaceHolder: "ค้นหา...",
+                        searchMode: 'containsignorecase',
+                        dropDownWidth: 450
+                    });
+                    editor.on('close', function(event) {
+                        $("#tableChqtype").jqxGrid('hidevalidationpopups');
+                    });
+                },
+                cellvaluechanging: function(row, datafield, columntype, oldvalue, newvalue) {
+                    if ((newvalue.value != oldvalue) && (newvalue.value != undefined)) {
+
+                    };
+                }
+            }, {
+                text: 'เลขที่อ้างอิง',
+                datafield: 'REFNO',
+                width: 150,
+                align: 'center',
+                cellsalign: 'left',
+            }, {
+                text: 'คงเหลือ',
+                datafield: 'NETAMT',
+                width: 110,
+                align: 'center',
+                cellsalign: 'right',
+                cellsformat: 'd2',
+                columntype: 'numberinput',
+                createeditor: function(row, value, editor) {
+                    editor.jqxNumberInput({
+                        decimalDigits: 2,
+                        digits: 12,
+                        spinButtons: false,
+                        spinButtonsStep: 0,
+                        inputMode: 'simple'
+                    });
+                },
+                aggregates: ['sum'],
+                aggregatesrenderer: function(aggregates) {
+                    var renderstring = "";
+                    $.each(aggregates, function(key, value) {
+                        renderstring += '<div style="position: relative; margin: 4px; overflow: hidden; font-weight: bold;">' + value + '</div>';
+                        $("#sumqty").val(value);
+                    });
+                    return renderstring;
+                }
+            }, {
+                text: 'จำนวนเงิน',
+                datafield: 'AMOUNT',
+                width: 110,
+                align: 'center',
+                cellsalign: 'right',
+                cellsformat: 'd2',
+                columntype: 'numberinput',
+                createeditor: function(row, value, editor) {
+                    editor.jqxNumberInput({
+                        decimalDigits: 2,
+                        digits: 12,
+                        spinButtons: false,
+                        spinButtonsStep: 0,
+                        inputMode: 'simple'
+                    });
+                },
+                aggregates: ['sum'],
+                aggregatesrenderer: function(aggregates) {
+                    var renderstring = "";
+                    $.each(aggregates, function(key, value) {
+                        renderstring += '<div style="position: relative; margin: 4px; overflow: hidden; font-weight: bold;">' + value + '</div>';
+                        $("#sumqty").val(value);
+                    });
+                    return renderstring;
+                }
+            }],
+            showtoolbar: true,
+            rendertoolbar: function (toolbar) {
+                var container = $("<div style='margin: 5px;'></div>");
+                toolbar.append(container);
+                container.append(
+                    '<button type="button" id="addrow2"><span class="fa fa-plus"></span> เพิ่มรายการ</button> <button type="button" id="deleterow2"><span class="fa fa-minus"></span> ลบรายการ</button>'
+                );
+                //Add row
+                $("#addrow2").on('click', function() {
+                    var recodecount = $("#tableChqtype").jqxGrid('getdatainformation').rowscount;
+                    if (validateChqtype() === true) {
+                        var datarow = {
+                            IDNO: 0,
+                            PAYCODE: '',
+                            REFNO: '',
+                            NETAMT: 0,
+                            AMOUNT: 0,
+                        };
+                        var commit = $("#tableChqtype").jqxGrid('addrow', null, datarow);
+                        if (commit) {
+                            setTimeout(
+                                function() {
+                                    $("#tableChqtype").jqxGrid('selectrow', recodecount);
+                                    $('#tableChqtype').jqxGrid('begincelledit', recodecount, 'OPTCODE');
+                                },
+                                200
+                            );
+                        };
+                    }
+                });
+
+                //Delete row
+                $("#deleterow2").on('click', function() {
+                    var selectedrowindex = $("#tableChqtype").jqxGrid('getselectedrowindex');
+                    var rowscount = $("#tableChqtype").jqxGrid('getdatainformation').rowscount;
+                    if (selectedrowindex >= 0 && selectedrowindex < rowscount) {
+                        var id = $("#tableChqtype").jqxGrid('getrowid', selectedrowindex);
+                        var commit = $("#tableChqtype").jqxGrid('deleterow', id);
+                    }
+                    return false;
+                });
+
+                $("#addrow2").jqxButton({
+                    width: 100,
+                    height: 25,
+                    template: "success"
+                });
+                $("#deleterow2").jqxButton({
+                    width: 100,
+                    height: 25,
+                    template: "danger",
+                });
+            }
         });
 
         $("#newBtn").jqxButton({
@@ -858,8 +1102,8 @@
         $('#v-locat').off().on('blur', function () {
             $('#locatnm').val(getLocatName($('#locat').val()));
         });
-        $('#v-cuscod').off().on('blur', function () {
-            $('#custname').val(getCustname($('#cuscod').val()));
+        $('#v-contno').off().on('blur', function () {
+            $('#custname').val(getCustname($('#contno').val()));
         });
         $('#v-locat').trigger('blur');
 
@@ -872,11 +1116,11 @@
             $('#fmArcred').jqxValidator('validate', function (result) {
                 if (result) {
                     $.when($.confirmdlg('ต้องการบันทึกข้อมูล?', 'info')).then(function () {
-                        var docdate = $("#sdate").jqxDateTimeInput('getDate');
+                        var docdate = $("#tmbildt").jqxDateTimeInput('getDate');
                         var issudate = $("#issudt").jqxDateTimeInput('getDate');
                         var currentCulture = Globalize.cultures['en-US'];
                         var localizationObject = currentCulture.calendar;
-                        var sdate = $.jqx.dataFormat.formatdate(docdate, "dd/MM/yyyy",localizationObject);
+                        var tmbildt = $.jqx.dataFormat.formatdate(docdate, "dd/MM/yyyy",localizationObject);
                         var issudt = $.jqx.dataFormat.formatdate(issudate, "dd/MM/yyyy",localizationObject);
                         var valueJSON = [{
                             status: status,
@@ -885,9 +1129,9 @@
                             key: $('#contno').val(),
                             value: [{
                                 CONTNO: $('#contno').val(),
-                                SDATE: sdate,
+                                SDATE: tmbildt,
                                 LOCAT: $('#locat').val(),
-                                CUSCOD: $('#cuscod').val(),
+                                CUSCOD: $('#contno').val(),
                                 VATRT: $('#vatrt').val(),
                                 STDPRC: $('#stdprc').val(),
                                 DISCT: $('#disct').val(),
@@ -900,10 +1144,10 @@
                                 COMINT: $('#comint').val(), 
                                 OTHPAY: $('#othpay').val(),
                                 TAXNO: '',
-                                TAXDT: sdate,
+                                TAXDT: tmbildt,
                                 MEMO1: $('#memo1').val(),
                                 USERID: $.session.get('username'),
-                                ACTICOD: $('#acticod').val(), 
+                                ACTICOD: $('#tsale').val(), 
                                 FLAG: 'A',
                             }]
                         }];
@@ -922,7 +1166,7 @@
                                     if (data[0].save === true) {
                                         ShowMessage("บันทึกข้อมูลเรียบร้อย!","success");
                                         statusChange(true);
-                                        getArcred(data[0].contno);
+                                        getChqmas(data[0].contno);
                                     } else {
                                         ShowMessage("บันทึกไม่สำเร็จ!","danger");
                                     }
@@ -941,8 +1185,8 @@
             searchAll('invlocat', 'v-locat');
         });
         //ค้นหาลูกค้า
-        $('#searchCustmast').off().on('click', function () {
-            searchAll('custmast', 'v-cuscod');
+        $('#searchContno').off().on('click', function () {
+            searchAll('custmast', 'v-contno');
         });
         //ค้นหา
         $('#searchBtn').off().on('click', function () {
@@ -959,7 +1203,7 @@
                 event.preventDefault();
                 $('#fmArcred').jqxValidator('hide');
                 statusChange(true);
-                getArcred($('#contno').val());
+                getChqmas($('#contno').val());
             });
         });
         //ลบ
