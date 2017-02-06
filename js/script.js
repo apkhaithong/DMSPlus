@@ -237,3 +237,18 @@ function getCustname(cuscod) {
     });
     return custname;
 };
+
+function getSaleCustname(contno) {
+    var custname = '';
+    $.ajax({
+        async: false,
+        url: "sqltext",
+        data: { sql: "SELECT TRIM(SNAME)||TRIM(NAME1)||'   '||TRIM(NAME2) AS NAME FROM VWSALE WHERE CONTNO = '"+contno+"' " },
+        type: 'GET',
+        dataType: 'json',
+        success: function(data) {
+            custname = data[0].NAME;
+        }
+    });
+    return custname;
+};

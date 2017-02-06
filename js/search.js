@@ -537,6 +537,84 @@
             { text: 'สถานะ', datafield: 'FLAG', minwidth: 100, width: 100 },
         ];
         keyno = 'CONTNO';
+    } else if (show === "netarinvoi") {
+        datafields = [
+            { name: 'CONTNO', type: 'string' },
+            { name: 'NAME1', type: 'string' },
+            { name: 'NAME2', type: 'string' },
+            { name: 'NETAR', type: 'float' },
+        ];
+        fields = [
+            { text: 'เลขสัญญา', datafield: 'CONTNO', minwidth: 100, width: 100 },
+            { text: 'ชื่อ', datafield: 'NAME1', minwidth: 100, width: 100 },
+            { text: 'นามสกุล', datafield: 'NAME2', minwidth: 100, width: 100 },
+            { text: 'ยอดลูกหนี้คงเหลือ', datafield: 'NETAR', minwidth: 100, width: 120,cellsalign: 'right', cellsformat: 'd2' },
+        ];
+        keyno = 'CONTNO';
+    } else if (show === "netarcred") {
+        datafields = [
+            { name: 'CONTNO', type: 'string' },
+            { name: 'NAME1', type: 'string' },
+            { name: 'NAME2', type: 'string' },
+            { name: 'STRNO', type: 'string' },
+            { name: 'NETAR', type: 'float' },
+        ];
+        fields = [
+            { text: 'เลขสัญญา', datafield: 'CONTNO', minwidth: 100, width: 100 },
+            { text: 'ชื่อ', datafield: 'NAME1', minwidth: 100, width: 100 },
+            { text: 'นามสกุล', datafield: 'NAME2', minwidth: 100, width: 100 },
+            { text: 'เลขตัวถัง', datafield: 'STRNO', minwidth: 100, width: 200 },
+            { text: 'ยอดลูกหนี้คงเหลือ', datafield: 'NETAR', minwidth: 100, width: 120,cellsalign: 'right', cellsformat: 'd2' },
+        ];
+        keyno = 'CONTNO';
+    } else if (show === "netarfinc") {
+        datafields = [
+            { name: 'CONTNO', type: 'string' },
+            { name: 'NAME1', type: 'string' },
+            { name: 'NAME2', type: 'string' },
+            { name: 'STRNO', type: 'string' },
+            { name: 'NETAR', type: 'float' },
+        ];
+        fields = [
+            { text: 'เลขสัญญา', datafield: 'CONTNO', minwidth: 100, width: 100 },
+            { text: 'ชื่อ', datafield: 'NAME1', minwidth: 100, width: 100 },
+            { text: 'นามสกุล', datafield: 'NAME2', minwidth: 100, width: 100 },
+            { text: 'เลขตัวถัง', datafield: 'STRNO', minwidth: 100, width: 200 },
+            { text: 'ยอดลูกหนี้คงเหลือ', datafield: 'NETAR', minwidth: 100, width: 120,cellsalign: 'right', cellsformat: 'd2' },
+        ];
+        keyno = 'CONTNO';
+    } else if (show === "netarresv") {
+        datafields = [
+            { name: 'RESVNO', type: 'string' },
+            { name: 'NAME1', type: 'string' },
+            { name: 'NAME2', type: 'string' },
+            { name: 'STRNO', type: 'string' },
+            { name: 'NETAR', type: 'float' },
+        ];
+        fields = [
+            { text: 'เลขที่ใบจอง', datafield: 'RESVNO', minwidth: 100, width: 100 },
+            { text: 'ชื่อ', datafield: 'NAME1', minwidth: 100, width: 100 },
+            { text: 'นามสกุล', datafield: 'NAME2', minwidth: 100, width: 100 },
+            { text: 'เลขตัวถัง', datafield: 'STRNO', minwidth: 100, width: 200 },
+            { text: 'ยอดลูกหนี้คงเหลือ', datafield: 'NETAR', minwidth: 100, width: 120,cellsalign: 'right', cellsformat: 'd2' },
+        ];
+        keyno = 'RESVNO';
+    } else if (show === "netarothsale") {
+        datafields = [
+            { name: 'RESVNO', type: 'string' },
+            { name: 'NAME1', type: 'string' },
+            { name: 'NAME2', type: 'string' },
+            { name: 'STRNO', type: 'string' },
+            { name: 'NETAR', type: 'float' },
+        ];
+        fields = [
+            { text: 'เลขที่สัญญา', datafield: 'ARCONT', minwidth: 100, width: 100 },
+            { text: 'ชื่อ', datafield: 'NAME1', minwidth: 100, width: 100 },
+            { text: 'นามสกุล', datafield: 'NAME2', minwidth: 100, width: 100 },
+            { text: 'ค้างชำระค่า', datafield: 'FORDESC', minwidth: 100, width: 250 },
+            { text: 'ยอดลูกหนี้คงเหลือ', datafield: 'NETAR', minwidth: 100, width: 120,cellsalign: 'right', cellsformat: 'd2' },
+        ];
+        keyno = 'ARCONT';
     }
 
     fields.unshift({
@@ -567,7 +645,7 @@
     });
     $("#tbSearch").jqxGrid({
         width: width - 40,
-        height: height - 220,
+        height: height - 330,
         sortable: true,
         columnsresize: true,
         altrows: true,
@@ -680,6 +758,16 @@
             sqltxt = "SELECT A.IDNO,B.STRNO,A.ENGNO,A.REGNO,A.TYPECOD,A.MODELCOD,A.BAABCOD,A.COLORCOD,B.CURSTAT,B.REFDTIN,B.IDNO AS IDNO1, B.TADDCOST,B.CRCOST,B.DISCT,B.NETCOST,B.CRVAT,B.TOTCOST,B.STDPRC,B.REFNOIN FROM INVTRAN A,STKCARD B WHERE A.STRNO = B.STRNO AND B.FLAG = 'D' AND B.LOCAT = '"+$.session.get('paramSrch1')+"' AND UPPER(COALESCE(B.STRNO,'')||COALESCE(A.ENGNO,'')||COALESCE(A.REGNO,'')||COALESCE(A.TYPECOD,'')||COALESCE(A.MODELCOD,'')||COALESCE(A.BAABCOD,'')||COALESCE(A.COLORCOD,'')) LIKE '%" + param1 + "%' ORDER BY B.STRNO";
         } else if (show === "arcred") {
             sqltxt = "SELECT A.CONTNO, A.RESVNO, B.NAME1, B.NAME2, A.STRNO, C.REGNO, (CASE WHEN A.FLAG = 'C' THEN 'ยกเลิก' ELSE '' END) AS FLAG FROM ARCRED A, CUSTMAST B, INVTRAN C WHERE A.CUSCOD = B.CUSCOD AND A.STRNO = C.STRNO AND UPPER(COALESCE(A.CONTNO,'')||COALESCE(A.RESVNO,'')||COALESCE(B.NAME1,'')||COALESCE(B.NAME2,'')||COALESCE(A.STRNO,'')||COALESCE(C.REGNO,'')) LIKE '%" + param1 + "%' ORDER BY A.CONTNO";
+        } else if (show === "netarinvoi") {
+            sqltxt = "SELECT A.IDNO,A.TSALE,A.CONTNO,A.CUSCOD,B.NAME1,B.NAME2,A.LOCAT,A.SDATE,A.KEYINPRC,A.SMPAY,A.KEYINPRC-A.SMPAY AS NETAR, A.VATRT FROM AR_INVOI A,CUSTMAST B WHERE A.CUSCOD=B.CUSCOD AND A.FLAG<>'C' AND A.KEYINPRC > A.SMPAY AND UPPER(COALESCE(A.CONTNO,'')||COALESCE(B.NAME1,'')||COALESCE(B.NAME2,'')) LIKE '%" + param1 + "%' ORDER BY A.CONTNO";
+        } else if (show === "netarcred") {
+            sqltxt = "SELECT A.IDNO,A.TSALE,A.CONTNO,A.CUSCOD,B.NAME1,B.NAME2, A.LOCAT,A.STRNO,A.SDATE,A.KEYINPRC,A.SMPAY,A.KEYINPRC-A.SMPAY AS NETAR, A.DUEDT FROM ARCRED A,CUSTMAST B, INVTRAN I WHERE A.CUSCOD=B.CUSCOD  AND A.STRNO=I.STRNO AND A.FLAG<>'C' AND A.KEYINPRC > A.SMPAY AND UPPER(COALESCE(A.CONTNO,'')||COALESCE(B.NAME1,'')||COALESCE(B.NAME2,'')||COALESCE(A.STRNO,'')) LIKE '%" + param1 + "%' ORDER BY A.CONTNO";
+        } else if (show === "netarfinc") {
+            sqltxt = "SELECT A.IDNO,A.TSALE,A.CONTNO,A.CUSCOD,B.NAME1,B.NAME2, A.LOCAT,A.STRNO,A.SDATE,A.KEYINPRC,A.SMPAY,A.KEYINPRC-A.SMPAY AS NETAR FROM ARFINC A,CUSTMAST B, INVTRAN I WHERE A.CUSCOD=B.CUSCOD  AND A.STRNO=I.STRNO AND A.FLAG<>'C' AND A.KEYINPRC > A.SMPAY AND UPPER(COALESCE(A.CONTNO,'')||COALESCE(B.NAME1,'')||COALESCE(B.NAME2,'')||COALESCE(A.STRNO,'')) LIKE '%" + param1 + "%' ORDER BY A.CONTNO";
+        } else if (show === "netarresv") {
+            sqltxt = "SELECT A.IDNO,A.RESVNO,A.CUSCOD,A.LOCAT,B.NAME1,B.NAME2,A.RESVDT,A.RESPAY,A.SMPAY,A.RESPAY-A.SMPAY AS NETAR, B.CUSCOD, I.STRNO FROM ARRESV A LEFT JOIN INVTRAN I ON A.STRNO=I.STRNO, CUSTMAST B WHERE A.CUSCOD=B.CUSCOD  AND A.SDATE IS NULL AND A.CANFLAG<>'C' AND UPPER(COALESCE(A.RESVNO,'')||COALESCE(B.NAME1,'')||COALESCE(B.NAME2,'')||COALESCE(A.STRNO,'')) LIKE '%" + param1 + "%' ORDER BY A.RESVNO";
+        } else if (show === "netarothsale") {
+            sqltxt = "SELECT A.IDNO,A.ARCONT,A.LOCAT,B.CUSCOD,B.NAME1,B.NAME2,A.PAYFOR,A.ARDATE, A.PAYAMT,A.TSALE,A.SMPAY,A.CUSCOD,A.CONTID, C.FORDESC,A.PAYAMT-A.SMPAY AS NETAR FROM AROTHSALE A,CUSTMAST B, PAYFOR C WHERE A.CUSCOD=B.CUSCOD AND A.PAYAMT>A.SMPAY AND A.PAYFOR = C.FORCODE AND UPPER(COALESCE(A.ARCONT,'')||COALESCE(B.NAME1,'')||COALESCE(B.NAME2,'')||COALESCE(A.PAYFOR,'')) LIKE '%" + param1 + "%' ORDER BY A.ARCONT";
         }
 
         // Qurey Data

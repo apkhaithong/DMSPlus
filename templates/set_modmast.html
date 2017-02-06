@@ -126,63 +126,11 @@
         //Default status Insert
         var status = 'insert';
         //เช็คสิทธิการใช้งาน
-        var chkright = [];
-        var value = JSON.stringify([{
-            menucode: 'SET110',
-            userid: $.session.get('username')
-        }]);
-        $.ajax({
-            async: false,
-            url: "checkright",
-            contentType: "application/json",
-            dataType: 'json',
-            type: 'POST',
-            data: value,
-            success: function(data) {
-                chkright = data[0];
-                if (chkright.M_ACCESS === 'Y') {
-                    chkright.M_ACCESS = true
-                } else {
-                    chkright.M_ACCESS = false
-                }
-                if (chkright.M_DELETE === 'Y') {
-                    chkright.M_DELETE = true
-                } else {
-                    chkright.M_DELETE = false
-                }
-                if (chkright.M_EDIT === 'Y') {
-                    chkright.M_EDIT = true
-                } else {
-                    chkright.M_EDIT = false
-                }
-                if (chkright.M_INSERT === 'Y') {
-                    chkright.M_INSERT = true
-                } else {
-                    chkright.M_INSERT = false
-                }
-            }
-        });
+        var chkright = checkRight('SET110');
+
         //เช็ค Running เอกสาร
-        var chkrun = true;
-        var value = JSON.stringify([{
-            doc: 'R_MODMAST',
-            locat: $.session.get('locatcd')
-        }]);
-        $.ajax({
-            async: false,
-            url: "checkRundoc",
-            contentType: "application/json",
-            dataType: 'json',
-            type: 'POST',
-            data: value,
-            success: function(data) {
-                if (data[0].RUNNING === 'Y') {
-                    chkrun = true
-                } else {
-                    chkrun = false
-                }
-            }
-        });
+        var chkrun = checkRundoc('R_MODMAST');
+
         //ฟังก์ชั่น สถานะ Insert หรือ Edit
         function statusChange(disabled) {
             if (disabled === false) {
