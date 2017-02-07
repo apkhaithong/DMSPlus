@@ -615,6 +615,30 @@
             { text: 'ยอดลูกหนี้คงเหลือ', datafield: 'NETAR', minwidth: 100, width: 120,cellsalign: 'right', cellsformat: 'd2' },
         ];
         keyno = 'ARCONT';
+    } else if (show === "chqmas") {
+        datafields = [
+            { name: 'TMBILL', type: 'string' },
+            { name: 'BILLNO', type: 'string' },
+            { name: 'CONTNO', type: 'string' },
+            { name: 'NAME1', type: 'string' },
+            { name: 'NAME2', type: 'string' },
+            { name: 'PAYFOR', type: 'string' },
+            { name: 'FORDESC', type: 'string' },
+            { name: 'TPAYAMT', type: 'float' },
+            { name: 'FLAG', type: 'string' },
+        ];
+        fields = [
+            { text: 'เลขที่ใบรับเงิน', datafield: 'TMBILL', minwidth: 100, width: 100 },
+            { text: 'เลขที่ใบเสร็จ', datafield: 'BILLNO', minwidth: 100, width: 100 },
+            { text: 'เลขที่สัญญา', datafield: 'CONTNO', minwidth: 100, width: 100 },
+            { text: 'ชื่อ', datafield: 'NAME1', minwidth: 100, width: 100 },
+            { text: 'นามสกุล', datafield: 'NAME2', minwidth: 100, width: 100 },
+            { text: 'รหัสการชำระ', datafield: 'PAYFOR', minwidth: 80, width: 100 },
+            { text: 'ชำระค่า', datafield: 'FORDESC', minwidth: 100, width: 250 },
+            { text: 'จำนวนเงิน', datafield: 'TPAYAMT', minwidth: 100, width: 120,cellsalign: 'right', cellsformat: 'd2' },
+            { text: 'สถานะ', datafield: 'FLAG', minwidth: 100, width: 100 },
+        ];
+        keyno = 'TMBILL';
     }
 
     fields.unshift({
@@ -768,6 +792,8 @@
             sqltxt = "SELECT A.IDNO,A.RESVNO,A.CUSCOD,A.LOCAT,B.NAME1,B.NAME2,A.RESVDT,A.RESPAY,A.SMPAY,A.RESPAY-A.SMPAY AS NETAR, B.CUSCOD, I.STRNO FROM ARRESV A LEFT JOIN INVTRAN I ON A.STRNO=I.STRNO, CUSTMAST B WHERE A.CUSCOD=B.CUSCOD  AND A.SDATE IS NULL AND A.CANFLAG<>'C' AND UPPER(COALESCE(A.RESVNO,'')||COALESCE(B.NAME1,'')||COALESCE(B.NAME2,'')||COALESCE(A.STRNO,'')) LIKE '%" + param1 + "%' ORDER BY A.RESVNO";
         } else if (show === "netarothsale") {
             sqltxt = "SELECT A.IDNO,A.ARCONT,A.LOCAT,B.CUSCOD,B.NAME1,B.NAME2,A.PAYFOR,A.ARDATE, A.PAYAMT,A.TSALE,A.SMPAY,A.CUSCOD,A.CONTID, C.FORDESC,A.PAYAMT-A.SMPAY AS NETAR FROM AROTHSALE A,CUSTMAST B, PAYFOR C WHERE A.CUSCOD=B.CUSCOD AND A.PAYAMT>A.SMPAY AND A.PAYFOR = C.FORCODE AND UPPER(COALESCE(A.ARCONT,'')||COALESCE(B.NAME1,'')||COALESCE(B.NAME2,'')||COALESCE(A.PAYFOR,'')) LIKE '%" + param1 + "%' ORDER BY A.ARCONT";
+        } else if (show === "chqmas") {
+            sqltxt = "SELECT A.IDNO,A.TMBILL,A.BILLNO,A.TMBILDT,A.CUSCOD,B.NAME1,B.NAME2, A.LOCATRECV,C.NETPAY AS TPAYAMT,A.CHQNO,C.CONTNO,C.PAYFOR, D.FORDESC, (CASE WHEN A.FLAG = 'C' THEN 'ยกเลิก' ELSE '' END) AS FLAG FROM CHQMAS A,CHQTRAN C,CUSTMAST B, PAYFOR D WHERE A.IDNO=C.CHQMASID AND A.CUSCOD=B.CUSCOD AND C.PAYFOR = D.FORCODE AND UPPER(COALESCE(A.TMBILL,'')||COALESCE(A.BILLNO,'')||COALESCE(B.NAME1,'')||COALESCE(B.NAME2,'')||COALESCE(C.PAYFOR,'')||COALESCE(D.FORDESC,'')) LIKE '%" + param1 + "%' ORDER BY A.TMBILDT DESC,A.TMBILL";
         }
 
         // Qurey Data

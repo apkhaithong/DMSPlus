@@ -166,13 +166,11 @@
                                             <button type="button" id="saveBtn"><span class="fa fa-floppy-o"></span> บันทึก</button>
                                             <button type="button" id="searchBtn"><span class="fa fa-search"></span> ค้นหา</button>
                                             <button type="button" id="deleteBtn"><span class="fa fa-trash-o"></span> ลบ</button>
+                                            <input type="hidden" id="#sumpayamt" value="0">
+                                            <input type="hidden" id="#sumamount" value="0">
                                         </div>
                                     </div>
                                 </div>
-                                <input type="hidden" id="sumpayamt">
-                                <input type="hidden" id="sumdisct">
-                                <input type="hidden" id="sumnetpay">
-                                <input type="hidden" id="sumamount">
                             </div>
                         </div>
                     </div>
@@ -224,7 +222,7 @@
                 disabled: !chkright.M_DELETE
             });
         }
-
+        //ฟังก์ชั่น Get Data CHQMAS
         function getChqmas(tmbill) {
             $.ajax({
                 async: false,
@@ -232,19 +230,55 @@
                 dataType: 'json',
                 url: "sqltext",
                 data: {
-                    sql: "SELECT IDNO, CONTNO, SDATE, LOCAT, RESVNO, CUSCOD, STRNO, INCLVAT, VATRT, STDPRC, DISCT, KEYINPRC, NPRICE, VATPRC, PAYRES, SMPAY, TKANG, NKANG, VKANG, CREDIT, DUEDT, SALCOD, TSALE, ISSUENO, ISSUDT, COMEXT, COMINT, OTHPAY, TAXNO, TAXDT, USERID, INPUTDT, ADDRNO, REFNO, ACTICOD, PAYTYP, FLAG, ARREG1, ARREG3, PAYREG, PAYREG1, USERDEL, CANDT, FLREG, CREDAMT, SMCHQ, POSTGL, LOCSALE, FLCANCL FROM ARCRED WHERE CONTNO = '" + tmbill + "' "
+                    sql: "SELECT IDNO, TMBILL, BILLNO, VATRT, LOCATRECV, TMBILDT, CUSCOD, PAYTYP, CHQNO, TPAYAMT_N, TPAYAMT_V, TPAYAMT, FLAG, TAXFL, CANDT, TAXNO, INPUTDT, USERID, CANUSERID, POSTGL, REFDOCNO, CONTNO, TSALE FROM CHQMAS WHERE TMBILL = '" + tmbill + "' "
                 },
-                success: function (data) {
-                    $('#contno').val(data[0].CONTNO);
-                    $('#tmbildt').val(data[0].SDATE);
-                    $('#locat').val(data[0].LOCAT);
-                    $('#contno').val(data[0].CUSCOD);
-                    $('#vatrt').val(data[0].VATRT);
-                    if (data[0].FLAG === 'C') {
+                success: function (chqmas) {
+                    $('#billno').val(chqmas[0].BILLNO);
+                    $('#tsale').val(chqmas[0].TSALE);
+                    $('#v-contno').val(chqmas[0].CONTNO);
+                    $('#tmbildt').val(chqmas[0].TMBILDT);
+                    $('#locat').val(chqmas[0].LOCATRECV);
+                    $('#vatrt').val(chqmas[0].VATRT);
+                    if (chqmas[0].FLAG === 'C') {
                         $('#textState').show();
                     } else {
                         $('#textState').hide();
                     }
+                    getChqtran(chqmas[0].IDNO);
+                    getChqtype(chqmas[0].IDNO);
+                    $('#v-contno').trigger('blur');
+                }
+            });
+        }
+        //ฟังก์ชั่น Get Data CHQTRAN
+        function getChqtran(chqmasid) {
+            $.ajax({
+                async: false,
+                method: 'GET',
+                dataType: 'json',
+                url: "sqltext",
+                data: {
+                    sql: "SELECT A.IDNO, A.LOCATRECV, A.TMBILDT, A.CHQMASID, A.CONTID, A.CONTNO, A.TSALE, A.PAYFOR, TRIM(B.FORCODE)||' : '||TRIM(B.FORDESC) AS DATAPAYFOR, A.VATRT, A.PAYAMT, A.PAYAMT_N, A.PAYAMT_V, A.DISCT, A.PAYINT, A.DSCINT, A.NETPAY, A.F_PAR, A.F_PAY, A.L_PAR, A.L_PAY, A.LOCATPAY, A.RVPROFIT, A.TAXNO, A.TAXFL, A.FLAG, A.INPUTDT, A.CANDT, A.CANUSERID, A.USERID FROM CHQTRAN A, PAYFOR B WHERE A.PAYFOR = B.FORCODE AND A.CHQMASID = " + chqmasid + " ORDER BY A.IDNO "
+                },
+                success: function(data) {
+                    sourceChqtran.localdata = data;
+                    $('#tableChqtran').jqxGrid('updatebounddata');
+                }
+            });
+        }
+        //ฟังก์ชั่น Get Data CHQTYPE
+        function getChqtype(chqmasid) {
+            $.ajax({
+                async: false,
+                method: 'GET',
+                dataType: 'json',
+                url: "sqltext",
+                data: {
+                    sql: "SELECT A.IDNO, A.CHQMASID, A.PAYCODE, TRIM(B.PAYCODE)||' : '||TRIM(B.PAYDESC) AS DATAPAYTYP, A.REFNO, A.STATUS, A.AMOUNT, A.FLAG, A.INPUTDT, A.USERID, A.CANDT, A.CANUSERID FROM CHQTYPE A, PAYTYP B WHERE A.PAYCODE = B.PAYCODE AND A.CHQMASID = " + chqmasid + " ORDER BY A.IDNO "
+                },
+                success: function(data) {
+                    sourceChqtype.localdata = data;
+                    $('#tableChqtype').jqxGrid('updatebounddata');
                 }
             });
         }
@@ -952,7 +986,7 @@
                     var renderstring = "";
                     $.each(aggregates, function(key, value) {
                         renderstring += '<div style="position: relative; margin: 4px; overflow: hidden; font-weight: bold;">' + value + '</div>';
-                        $("#sumpatamt").val(value);
+                        $("#sumnetpay").val(value);
                     });
                     return renderstring;
                 }
@@ -990,7 +1024,6 @@
                     var renderstring = "";
                     $.each(aggregates, function(key, value) {
                         renderstring += '<div style="position: relative; margin: 4px; overflow: hidden; font-weight: bold;">' + value + '</div>';
-                        $("#sumdisct").val(value);
                     });
                     return renderstring;
                 }
@@ -1018,7 +1051,6 @@
                     var renderstring = "";
                     $.each(aggregates, function(key, value) {
                         renderstring += '<div style="position: relative; margin: 4px; overflow: hidden; font-weight: bold;">' + value + '</div>';
-                        $("#sumnetpay").val(value);
                     });
                     return renderstring;
                 }
@@ -1407,6 +1439,8 @@
         //บันทึก
         $('#saveBtn').off().on('click', function () {
             $('#fmChqmas').jqxValidator('validate', function (result) {
+                var rowscount1 = $("#tableChqtran").jqxGrid('getdatainformation').rowscount;
+                var rowscount2 = $("#tableChqtype").jqxGrid('getdatainformation').rowscount;
                 if ((result) && (validateChqtran() === true) && (validateChqtype() === true)) {
                     if ($('#sumnetpay').val() === $('#sumamount').val()) {
                         $.when($.confirmdlg('ต้องการบันทึกข้อมูล?', 'info')).then(function () {
@@ -1414,43 +1448,74 @@
                             var currentCulture = Globalize.cultures['en-US'];
                             var localizationObject = currentCulture.calendar;
                             var tmbildt = $.jqx.dataFormat.formatdate(docdate, "dd/MM/yyyy",localizationObject);
+                            var chqtran = [];
+                            var chqtype = [];
+                            var firstPayfor = '';
+                            var sumPayamt = 0,
+                                sumDisct = 0,
+                                sumNetpay = 0,
+                                sumAmount = 0;
+                            for (var i = 0; i < rowscount1; i++) {
+                                var data = $("#tableChqtran").jqxGrid('getrowdata', i);
+                                if (i === 0) {
+                                    firstPayfor = data.PAYFOR;
+                                }
+                                sumPayamt = sumPayamt+data.PAYAMT;
+                                sumDisct = sumDisct+data.DISCT;
+                                sumNetpay = sumNetpay+data.NETPAY;
+                                chqtran.push({
+                                    LOCATRECV: $('#locat').val(),
+                                    TMBILDT: tmbildt, 
+                                    CONTNO: $('#contno').val(), 
+                                    PAYFOR: data.PAYFOR, 
+                                    VATRT: $('#vatrt').val(),  
+                                    PAYAMT: data.PAYAMT, 
+                                    DISCT: data.DISCT,  
+                                    NETPAY: data.NETPAY, 
+                                    USERID: $.session.get('username'),
+                                });
+                            }; 
+                            for (var i = 0; i < rowscount2; i++) {
+                                var data = $("#tableChqtype").jqxGrid('getrowdata', i);
+                                sumAmount = sumAmount+data.AMOUNT;
+                                chqtype.push({
+                                    PAYCODE: data.PAYCODE, 
+                                    REFNO: data.REFNO, 
+                                    AMOUNT: data.AMOUNT, 
+                                    USERID: $.session.get('username'), 
+                                });
+                            };                           
                             var valueJSON = [{
                                 status: status,
                                 locat: $('#locat').val(),
                                 table: 'CHQMAS',
                                 key: $('#tmbill').val(),
                                 value: [{
-                                    TMBILL, 
-                                    BILLNO, 
-                                    VATRT, 
-                                    LOCATRECV, 
-                                    TMBILDT, 
-                                    CUSCOD, 
-                                    PAYTYP, 
-                                    CHQNO, 
-                                    TPAYAMT_N, 
-                                    TPAYAMT_V, 
-                                    TPAYAMT, 
-                                    FLAG, 
-                                    TAXFL, 
-                                    CANDT, 
-                                    TAXNO, 
-                                    MEMO1, 
-                                    INPUTDT, 
-                                    USERID, 
-                                    CANUSERID, 
-                                    POSTGL, 
-                                    REFDOCNO, 
-                                    CONTNO, 
-                                    TSALE
+                                    TMBILL: $('#tmbill').val(), 
+                                    BILLNO: $('#billno').val(), 
+                                    VATRT: $('#vatrt').val(), 
+                                    LOCATRECV: $('#locat').val(), 
+                                    TMBILDT: tmbildt,
+                                    TPAYAMT: sumPayamt, 
+                                    MEMO1: $('#memo1').val(), 
+                                    USERID: $.session.get('username'), 
+                                    CONTNO: $('#contno').val(), 
+                                    TSALE: $('#tsale').val(),
+                                    PAYFOR: firstPayfor, 
                                 }]
+                            }, {
+                                table: 'CHQTRAN',
+                                value: chqtran
+                            }, {
+                                table: 'CHQTYPE',
+                                value: chqtype
                             }];
                             // Convert Value To JSON String
                             var value = JSON.stringify(valueJSON);
-                            //console.log(value);
+                            console.log(value);
                             $('#ok').on('click', function (event) {
                                 $.ajax({
-                                    url: 'saveArcred',
+                                    url: 'saveChqmas',
                                     type: 'POST',
                                     contentType: "application/json",
                                     dataType: "json",
@@ -1460,7 +1525,7 @@
                                         if (data[0].save === true) {
                                             ShowMessage("บันทึกข้อมูลเรียบร้อย!","success");
                                             statusChange(true);
-                                            getChqmas(data[0].contno);
+                                            getChqmas(data[0].tmbill);
                                         } else {
                                             ShowMessage("บันทึกไม่สำเร็จ!","danger");
                                         }
@@ -1633,19 +1698,19 @@
         //ค้นหา
         $('#searchBtn').off().on('click', function () {
             //Show Dialog Search
-            searchAll('arcred', 'contno');
+            searchAll('chqmas', 'tmbill');
             $('#okButton').on('click', function (event) {
                 var rules2 = rules.slice();
                 if (chkrun === false) {
                     rules2.splice(1, 1);
                 }
-                rules2.splice(4, 8);
+                rules2.splice(3, 1);
                 //console.log(rules2);
                 $('#fmChqmas').jqxValidator('rules', rules2);
                 event.preventDefault();
                 $('#fmChqmas').jqxValidator('hide');
                 statusChange(true);
-                getChqmas($('#contno').val());
+                getChqmas($('#tmbill').val());
             });
         });
         //ลบ
