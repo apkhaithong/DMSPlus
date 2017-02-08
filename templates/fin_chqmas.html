@@ -382,11 +382,22 @@
                     if (validatePaytyp === 0) {
                         for (var j = 0; j < rows.length; j++) {
                             var row2 = rows[j];
-                            if ((row2.REFNO === row.REFNO) && (j !== i)) {
+                            if ((row2.REFNO === row.REFNO) && (j !== i) && (row2.REFNO !== '') && (row.REFNO !== '')) {
                                 duplicatePaytyp++;
                                 $("#tableChqtype").jqxGrid('showvalidationpopup', j, "REFNO", "ไม่สามารถเลือกรหัสซ้ำกันได้");
                                 result = false;
                             }
+                        }
+                    }
+                    if ((row.PAYCODE === '00') || (row.PAYCODE === '02') || (row.PAYCODE === '03')) {
+                        if (row.REFNO === '') {
+                            $("#tableChqtype").jqxGrid('showvalidationpopup', i, "REFNO", "กรุณาเลือกรหัสอ้างอิง");
+                            result = false;
+                        } else {
+                           if (((row.PAYCODE === '00') || (row.PAYCODE === '02')) && (row.AMOUNT > row.NETTYPE)) {
+                                $("#tableChqtype").jqxGrid('showvalidationpopup', i, "AMOUNT", "ระบุจำนวนเงินมากกว่ายอดคงเหลือไม่ได้");
+                                result = false;
+                           }
                         }
                     }
                 }
@@ -752,6 +763,9 @@
                     value: 'REFNO',
                     name: 'REFDESC'
                 }
+            }, {
+                name: 'NETTYPE',
+                type: 'float'
             }, {
                 name: 'AMOUNT',
                 type: 'float'
@@ -1265,6 +1279,7 @@
                                 },
                                 success: function(chqstat) {
                                     $("#tableChqtype").jqxGrid('setcellvalue', row, "AMOUNT", chqstat[0].CHQNET);
+                                    $("#tableChqtype").jqxGrid('setcellvalue', row, "NETTYPE", chqstat[0].CHQNET);
                                 }
                             });
                         } else if (rowdata.PAYCODE === '02') {
@@ -1278,11 +1293,20 @@
                                 },
                                 success: function(chqstat) {
                                     $("#tableChqtype").jqxGrid('setcellvalue', row, "AMOUNT", chqstat[0].CHQNET);
+                                    $("#tableChqtype").jqxGrid('setcellvalue', row, "NETTYPE", chqstat[0].CHQNET);
                                 }
                             });
                         }
                     };
                 }
+            }, {
+                text: 'คงเหลือ',
+                datafield: 'NETTYPE',
+                width: 110,
+                align: 'center',
+                cellsalign: 'right',
+                cellsformat: 'd2',
+                editable: false,
             }, {
                 text: 'จำนวนเงิน',
                 datafield: 'AMOUNT',
@@ -1361,6 +1385,59 @@
                     height: 25,
                     template: "danger",
                 });
+            }
+        });
+
+        //Event Select Row
+        $('#tableChqtype').on('rowselect', function (event) {
+            // event arguments.
+            var args = event.args;
+            // row's bound index.
+            var rowBoundIndex = args.rowindex;
+            // get row data
+            var data = $('#tableChqtype').jqxGrid('getrowdata', rowBoundIndex);
+            console.log(data);
+            if (data.PAYCODE === '00') {
+                $.ajax({
+                    async: false,
+                    method: 'GET',
+                    dataType: 'json',
+                    url: "sqltext",
+                    data: {
+                        sql: "SELECT A.RESPAY,A.SMPAY,A.FLAG,A.IDNO,A.RESVNO AS REFNO,A.RESVDT,B.CUSCOD,TRIM(A.RESVNO)||' : '||TRIM(B.SNAM)||TRIM(B.NAME1)||'   '||TRIM(B.NAME2) AS REFDESC,A.SDATE,A.LOCAT,A.STRNO,A.CHQMAS FROM ARRESV A,CUSTMAST B WHERE A.CUSCOD=B.CUSCOD AND CANFLAG <> 'C' AND A.SMPAY>(A.CHQMAS+A.REFUND) AND A.SMPAY>0 AND A.SDATE IS NOT NULL ORDER BY A.RESVNO "
+                    },
+                    success: function(data) {
+                        sourceRefno.localdata = data;
+                    }
+                });
+            } else if (data.PAYCODE === '02') {
+                $.ajax({
+                    async: false,
+                    method: 'GET',
+                    dataType: 'json',
+                    url: "sqltext",
+                    data: {
+                        sql: "SELECT A.CHQNO AS REFNO,A.CHQDT,A.RVCHQNO,A.RVCHQDT,A.CHQAMT, A.CHQPAY, A.CHQBK,TRIM(A.CHQNO)||' : '||TRIM(B.SNAM)||TRIM(B.NAME1)||'   '||TRIM(B.NAME2) AS REFDESC,A.CUSCOD FROM CHQSTAT A,CUSTMAST B WHERE A.CUSCOD=B.CUSCOD AND A.CHQSTAT = 'P' AND A.FLAG <> 'C' AND A.CHQAMT > A.CHQPAY ORDER BY A.CHQNO"
+                    },
+                    success: function(data) {
+                        sourceRefno.localdata = data;
+                    }
+                });
+            } else if (data.PAYCODE === '03') {
+                $.ajax({
+                    async: false,
+                    method: 'GET',
+                    dataType: 'json',
+                    url: "sqltext",
+                    data: {
+                        sql: "SELECT BOOKNO AS REFNO, TRIM(BOOKNO)||' : '||TRIM(BOOKNAM) AS REFDESC FROM BANKBOOK ORDER BY BOOKNO"
+                    },
+                    success: function(data) {
+                        sourceRefno.localdata = data;
+                    }
+                });
+            } else {
+                sourceRefno.localdata = dataRefno;
             }
         });
 
