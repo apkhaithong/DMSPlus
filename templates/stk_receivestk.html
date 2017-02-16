@@ -17,6 +17,65 @@
                     <form class="form-horizontal" id="fmInvinvo">
                         <div class="row">
                             <div class="col-md-6">
+                                <div class="admin-form">
+                                    <div class="form-group">
+                                        <label class="col-sm-2 control-label required" for="locat">สาขาที่รับ</label>
+                                        <div class="col-sm-10">
+                                            <div class="row">
+                                                <div class="col-sm-4">
+                                                    <div id="locat" class="input-button">
+                                                        <input type="text" id="v-locat" />
+                                                        <div id="searchInvlocat"><img alt="search" width="20" height="20" src="/images/search_lg.png"
+                                                            /></div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-8">
+                                                    <input type="text" id="locatnm" class="text-desc" readonly/>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-sm-2 control-label required" for="apcode">รหัสเจ้าหนี้</label>
+                                        <div class="col-sm-10">
+                                            <div class="row">
+                                                <div class="col-sm-4">
+                                                    <div id="apcode" class="input-button">
+                                                        <input type="text" id="v-apcode" />
+                                                        <div id="searchApmast"><img alt="search" width="20" height="20" src="/images/search_lg.png"
+                                                            /></div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-8">
+                                                    <input type="text" id="apname" class="text-desc" readonly/>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-sm-2 control-label" for="apcode">รหัสผู้รับสินค้า</label>
+                                        <div class="col-sm-10">
+                                            <div class="row">
+                                                <div class="col-sm-4">
+                                                    <input type="text" id="rvcode" class="text-desc" readonly/>
+                                                </div>
+                                                <div class="col-sm-8">
+                                                    <input type="text" id="rvname" class="text-desc" readonly/>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-sm-2 control-label" for="memo1">หมายเหตุ</label>
+                                        <div class="col-sm-10">
+                                            <div class="bs-component">
+                                                <textarea id="memo1"></textarea>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                           <div class="col-md-6">
                                 <div class="row">
                                     <div class="col-md-6">
                                         <div class="form-group">
@@ -97,65 +156,6 @@
                                                 <div class="bs-component">
                                                     <div id="apflag"><span>ตั้งเจ้าหนี้</span></div>
                                                 </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="admin-form">
-                                    <div class="form-group">
-                                        <label class="col-sm-4 control-label required" for="locat">สาขาที่รับ</label>
-                                        <div class="col-sm-8">
-                                            <div class="row">
-                                                <div class="col-sm-4">
-                                                    <div id="locat" class="input-button">
-                                                        <input type="text" id="v-locat" />
-                                                        <div id="searchInvlocat"><img alt="search" width="20" height="20" src="/images/search_lg.png"
-                                                            /></div>
-                                                    </div>
-                                                </div>
-                                                <div class="col-sm-8">
-                                                    <input type="text" id="locatnm" class="text-desc" readonly/>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="col-sm-4 control-label required" for="apcode">รหัสเจ้าหนี้</label>
-                                        <div class="col-sm-8">
-                                            <div class="row">
-                                                <div class="col-sm-4">
-                                                    <div id="apcode" class="input-button">
-                                                        <input type="text" id="v-apcode" />
-                                                        <div id="searchApmast"><img alt="search" width="20" height="20" src="/images/search_lg.png"
-                                                            /></div>
-                                                    </div>
-                                                </div>
-                                                <div class="col-sm-8">
-                                                    <input type="text" id="apname" class="text-desc" readonly/>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="col-sm-4 control-label" for="apcode">รหัสผู้รับสินค้า</label>
-                                        <div class="col-sm-8">
-                                            <div class="row">
-                                                <div class="col-sm-4">
-                                                    <input type="text" id="rvcode" class="text-desc" readonly/>
-                                                </div>
-                                                <div class="col-sm-8">
-                                                    <input type="text" id="rvname" class="text-desc" readonly/>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="col-sm-4 control-label" for="memo1">หมายเหตุ</label>
-                                        <div class="col-sm-8">
-                                            <div class="bs-component">
-                                                <textarea id="memo1"></textarea>
                                             </div>
                                         </div>
                                     </div>

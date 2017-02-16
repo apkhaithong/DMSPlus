@@ -639,6 +639,22 @@
             { text: 'สถานะ', datafield: 'FLAG', minwidth: 100, width: 100 },
         ];
         keyno = 'TMBILL';
+    } else if (show === "optinvoi") {
+        datafields = [
+            { name: 'RECVNO', type: 'string' },
+            { name: 'INVNO', type: 'string' },
+            { name: 'APCODE', type: 'string' },
+            { name: 'APNAME', type: 'string' },
+            { name: 'LOCAT', type: 'string' },
+        ];
+        fields = [
+            { text: 'เลขใบรับสินค้า', datafield: 'RECVNO', minwidth: 100, width: 250 },
+            { text: 'เลขใบส่งสินค้า', datafield: 'INVNO', minwidth: 100, width: 250 },
+            { text: 'รหัสเจ้าหนี้', datafield: 'APCODE', minwidth: 100, width: 250 },
+            { text: 'ชื่อเจ้าหนี้', datafield: 'APNAME', minwidth: 250, width: 250 },
+            { text: 'สาขา', datafield: 'LOCAT', minwidth: 100, width: 250 },
+        ];
+        keyno = 'RECVNO';
     }
 
     fields.unshift({
@@ -669,7 +685,7 @@
     });
     $("#tbSearch").jqxGrid({
         width: width - 40,
-        height: height - 330,
+        height: height - 340,
         sortable: true,
         columnsresize: true,
         altrows: true,
@@ -794,6 +810,8 @@
             sqltxt = "SELECT A.IDNO,A.ARCONT,A.LOCAT,B.CUSCOD,B.NAME1,B.NAME2,A.PAYFOR,A.ARDATE, A.PAYAMT,A.TSALE,A.SMPAY,A.CUSCOD,A.CONTID, C.FORDESC,A.PAYAMT-A.SMPAY AS NETAR FROM AROTHSALE A,CUSTMAST B, PAYFOR C WHERE A.CUSCOD=B.CUSCOD AND A.PAYAMT>A.SMPAY AND A.PAYFOR = C.FORCODE AND UPPER(COALESCE(A.ARCONT,'')||COALESCE(B.NAME1,'')||COALESCE(B.NAME2,'')||COALESCE(A.PAYFOR,'')) LIKE '%" + param1 + "%' ORDER BY A.ARCONT";
         } else if (show === "chqmas") {
             sqltxt = "SELECT A.IDNO,A.TMBILL,A.BILLNO,A.TMBILDT,A.CUSCOD,B.NAME1,B.NAME2, A.LOCATRECV,C.NETPAY AS TPAYAMT,A.CHQNO,C.CONTNO,C.PAYFOR, D.FORDESC, (CASE WHEN A.FLAG = 'C' THEN 'ยกเลิก' ELSE '' END) AS FLAG FROM CHQMAS A,CHQTRAN C,CUSTMAST B, PAYFOR D WHERE A.IDNO=C.CHQMASID AND A.CUSCOD=B.CUSCOD AND C.PAYFOR = D.FORCODE AND UPPER(COALESCE(A.TMBILL,'')||COALESCE(A.BILLNO,'')||COALESCE(B.NAME1,'')||COALESCE(B.NAME2,'')||COALESCE(C.PAYFOR,'')||COALESCE(D.FORDESC,'')) LIKE '%" + param1 + "%' ORDER BY A.TMBILDT DESC,A.TMBILL";
+        } else if (show === "optinvoi") {
+            sqltxt = "SELECT A.RECVNO, A.INVNO, A.APCODE, C.APNAME, B.LOCAT FROM OPTINVOI A, OPTINVTRAN B, APMAST C WHERE A.RECVNO = B.RECVNO AND A.APCODE = C.APCODE AND UPPER(COALESCE(A.RECVNO,'')||COALESCE(A.INVNO,'')||COALESCE(A.APCODE,'')||COALESCE(C.APNAME,'')||COALESCE(B.LOCAT,'')) LIKE '%" + param1 + "%' ORDER BY A.RECVNO";
         }
 
         // Qurey Data

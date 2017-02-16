@@ -193,6 +193,7 @@
         var chkrun1 = checkRundoc('R_BILLNO');
         var netar = 0;
         var netfindawn = 0;
+        var refnoEdit = [];
         
         //ฟังก์ชั่น สถานะ Insert หรือ Edit
         function statusChange(disabled) {
@@ -212,7 +213,7 @@
             } else {
                 status = 'update';
                 $("#saveBtn").jqxButton({
-                    disabled: !chkright.M_EDIT
+                    disabled: true
                 });
                 $('#searchInvlocat').hide();
             }
@@ -274,7 +275,7 @@
                 dataType: 'json',
                 url: "sqltext",
                 data: {
-                    sql: "SELECT A.IDNO, A.CHQMASID, A.PAYCODE, TRIM(B.PAYCODE)||' : '||TRIM(B.PAYDESC) AS DATAPAYTYP, A.REFNO, A.STATUS, A.AMOUNT, A.FLAG, A.INPUTDT, A.USERID, A.CANDT, A.CANUSERID FROM CHQTYPE A, PAYTYP B WHERE A.PAYCODE = B.PAYCODE AND A.CHQMASID = " + chqmasid + " ORDER BY A.IDNO "
+                    sql: "SELECT A.IDNO, A.CHQMASID, A.PAYCODE, TRIM(B.PAYCODE)||' : '||TRIM(B.PAYDESC) AS DATAPAYTYP, A.REFNO,(CASE WHEN A.PAYCODE = '00' THEN (SELECT TRIM(S.RESVNO)||' : '||TRIM(T.SNAM)||TRIM(T.NAME1)||'   '||TRIM(T.NAME2) FROM ARRESV S,CUSTMAST T WHERE S.CUSCOD=T.CUSCOD AND S.RESVNO = A.REFNO) WHEN A.PAYCODE = '02' THEN (SELECT TRIM(U.CHQNO)||' : '||TRIM(V.SNAM)||TRIM(V.NAME1)||'   '||TRIM(V.NAME2) FROM CHQSTAT U,CUSTMAST V WHERE U.CUSCOD=V.CUSCOD AND U.CHQNO = A.REFNO) WHEN A.PAYCODE = '03' THEN (SELECT TRIM(X.BOOKNO)||' : '||TRIM(X.BOOKNAM) FROM BANKBOOK X WHERE X.BOOKNO = A.REFNO) ELSE '' END) AS DATAREFNO, (CASE WHEN A.PAYCODE = '00' THEN (SELECT SMPAY-(CHQMAS+REFUND) FROM ARRESV WHERE RESVNO = A.REFNO) WHEN A.PAYCODE = '02' THEN (SELECT CHQAMT-CHQPAY FROM CHQSTAT WHERE CHQNO = A.REFNO) ELSE 0 END) AS NETTYPE, A.STATUS, A.AMOUNT, A.FLAG, A.INPUTDT, A.USERID, A.CANDT, A.CANUSERID FROM CHQTYPE A, PAYTYP B WHERE A.PAYCODE = B.PAYCODE AND A.CHQMASID = " + chqmasid + " ORDER BY A.IDNO"
                 },
                 success: function(data) {
                     sourceChqtype.localdata = data;
@@ -687,6 +688,48 @@
             id: 'id',
             localdata: dataRefno
         };
+        //PayType Code 00
+        var sourcePaytyp00 = [];
+        $.ajax({
+            async: false,
+            method: 'GET',
+            dataType: 'json',
+            url: "sqltext",
+            data: {
+                sql: "SELECT A.RESPAY,A.SMPAY,A.FLAG,A.IDNO,A.RESVNO AS REFNO,A.RESVDT,B.CUSCOD,TRIM(A.RESVNO)||' : '||TRIM(B.SNAM)||TRIM(B.NAME1)||'   '||TRIM(B.NAME2) AS REFDESC,A.SDATE,A.LOCAT,A.STRNO,A.CHQMAS FROM ARRESV A,CUSTMAST B WHERE A.CUSCOD=B.CUSCOD AND CANFLAG <> 'C' AND A.SMPAY>(A.CHQMAS+A.REFUND) AND A.SMPAY>0 AND A.SDATE IS NOT NULL ORDER BY A.RESVNO "
+            },
+            success: function(data) {
+                sourcePaytyp00 = data;
+            }
+        });
+        //PayType Code 02
+        var sourcePaytyp02 = [];
+        $.ajax({
+            async: false,
+            method: 'GET',
+            dataType: 'json',
+            url: "sqltext",
+            data: {
+                sql: "SELECT A.CHQNO AS REFNO,A.CHQDT,A.RVCHQNO,A.RVCHQDT,A.CHQAMT, A.CHQPAY, A.CHQBK,TRIM(A.CHQNO)||' : '||TRIM(B.SNAM)||TRIM(B.NAME1)||'   '||TRIM(B.NAME2) AS REFDESC,A.CUSCOD FROM CHQSTAT A,CUSTMAST B WHERE A.CUSCOD=B.CUSCOD AND A.CHQSTAT = 'P' AND A.FLAG <> 'C' AND A.CHQAMT > A.CHQPAY ORDER BY A.CHQNO"
+            },
+            success: function(data) {
+                sourcePaytyp02 = data;
+            }
+        });
+        //PayType Code 03
+        var sourcePaytyp03 = [];
+        $.ajax({
+            async: false,
+            method: 'GET',
+            dataType: 'json',
+            url: "sqltext",
+            data: {
+                sql: "SELECT BOOKNO AS REFNO, TRIM(BOOKNO)||' : '||TRIM(BOOKNAM) AS REFDESC FROM BANKBOOK ORDER BY BOOKNO"
+            },
+            success: function(data) {
+                sourcePaytyp03 = data;
+            }
+        });
         var dataAdtRefno = new $.jqx.dataAdapter(sourceRefno);
 
         //DataSource CHQTRAN
@@ -1152,8 +1195,7 @@
                 columntype: 'number',
                 width: 15,
                 cellsrenderer: function (row, column, value) {
-                    return "<div style='margin:4px; text-align:center;'>" + (value + 1) +
-                        "</div>";
+                    return "<div style='margin:4px; text-align:center;'>" + (value + 1) +"</div>";
                 },
                 aggregates: ['count'],
                 aggregatesrenderer: function (aggregates, column, element) {
@@ -1197,44 +1239,11 @@
                 cellvaluechanging: function(row, datafield, columntype, oldvalue, newvalue) {
                     if ((newvalue.value != oldvalue) && (newvalue.value != undefined)) {
                         if (newvalue.value === '00') {
-                            $.ajax({
-                                async: false,
-                                method: 'GET',
-                                dataType: 'json',
-                                url: "sqltext",
-                                data: {
-                                    sql: "SELECT A.RESPAY,A.SMPAY,A.FLAG,A.IDNO,A.RESVNO AS REFNO,A.RESVDT,B.CUSCOD,TRIM(A.RESVNO)||' : '||TRIM(B.SNAM)||TRIM(B.NAME1)||'   '||TRIM(B.NAME2) AS REFDESC,A.SDATE,A.LOCAT,A.STRNO,A.CHQMAS FROM ARRESV A,CUSTMAST B WHERE A.CUSCOD=B.CUSCOD AND CANFLAG <> 'C' AND A.SMPAY>(A.CHQMAS+A.REFUND) AND A.SMPAY>0 AND A.SDATE IS NOT NULL ORDER BY A.RESVNO "
-                                },
-                                success: function(data) {
-                                    sourceRefno.localdata = data;
-                                }
-                            });
+                            sourceRefno.localdata = sourcePaytyp00;
                         } else if (newvalue.value === '02') {
-                            $.ajax({
-                                async: false,
-                                method: 'GET',
-                                dataType: 'json',
-                                url: "sqltext",
-                                data: {
-                                    sql: "SELECT A.CHQNO AS REFNO,A.CHQDT,A.RVCHQNO,A.RVCHQDT,A.CHQAMT, A.CHQPAY, A.CHQBK,TRIM(A.CHQNO)||' : '||TRIM(B.SNAM)||TRIM(B.NAME1)||'   '||TRIM(B.NAME2) AS REFDESC,A.CUSCOD FROM CHQSTAT A,CUSTMAST B WHERE A.CUSCOD=B.CUSCOD AND A.CHQSTAT = 'P' AND A.FLAG <> 'C' AND A.CHQAMT > A.CHQPAY ORDER BY A.CHQNO"
-                                },
-                                success: function(data) {
-                                    sourceRefno.localdata = data;
-                                }
-                            });
+                            sourceRefno.localdata = sourcePaytyp02;
                         } else if (newvalue.value === '03') {
-                            $.ajax({
-                                async: false,
-                                method: 'GET',
-                                dataType: 'json',
-                                url: "sqltext",
-                                data: {
-                                    sql: "SELECT BOOKNO AS REFNO, TRIM(BOOKNO)||' : '||TRIM(BOOKNAM) AS REFDESC FROM BANKBOOK ORDER BY BOOKNO"
-                                },
-                                success: function(data) {
-                                    sourceRefno.localdata = data;
-                                }
-                            });
+                            sourceRefno.localdata = sourcePaytyp03;
                         } else {
                             sourceRefno.localdata = dataRefno;
                         }
@@ -1248,7 +1257,20 @@
                 cellsalign: 'left',
                 columntype: 'dropdownlist',
                 displayfield: 'DATAREFNO',
-                createeditor: function(row, value, editor) {
+                initeditor: function(row, value, editor) {
+                    var data = $('#tableChqtype').jqxGrid('getrowdata', row);
+                    if (data.PAYCODE !== '') {
+                        if (data.PAYCODE === '00') {
+                            sourceRefno.localdata = sourcePaytyp00;
+                        } else if (data.PAYCODE === '02') {
+                            sourceRefno.localdata = sourcePaytyp02;
+                        } else if (data.PAYCODE === '03') {
+                            sourceRefno.localdata = sourcePaytyp03;
+                        } else {
+                            sourceRefno.localdata = dataRefno;
+                        }
+                    }
+                    var dataAdtRefno = new $.jqx.dataAdapter(sourceRefno);
                     editor.jqxDropDownList({
                         source: dataAdtRefno,
                         displayMember: 'REFDESC',
@@ -1259,7 +1281,8 @@
                         filterHeight: 30,
                         filterPlaceHolder: "ค้นหา...",
                         searchMode: 'containsignorecase',
-                        dropDownWidth: 450
+                        dropDownWidth: 450,
+                        autoDropDownHeight: false
                     });
                     editor.on('close', function(event) {
                         $("#tableChqtype").jqxGrid('hidevalidationpopups');
@@ -1323,6 +1346,7 @@
                         spinButtonsStep: 0,
                         inputMode: 'simple'
                     });
+                    refnoEdit = editor;
                 },
                 aggregates: ['sum'],
                 aggregatesrenderer: function(aggregates) {
@@ -1385,59 +1409,6 @@
                     height: 25,
                     template: "danger",
                 });
-            }
-        });
-
-        //Event Select Row
-        $('#tableChqtype').on('rowselect', function (event) {
-            // event arguments.
-            var args = event.args;
-            // row's bound index.
-            var rowBoundIndex = args.rowindex;
-            // get row data
-            var data = $('#tableChqtype').jqxGrid('getrowdata', rowBoundIndex);
-            console.log(data);
-            if (data.PAYCODE === '00') {
-                $.ajax({
-                    async: false,
-                    method: 'GET',
-                    dataType: 'json',
-                    url: "sqltext",
-                    data: {
-                        sql: "SELECT A.RESPAY,A.SMPAY,A.FLAG,A.IDNO,A.RESVNO AS REFNO,A.RESVDT,B.CUSCOD,TRIM(A.RESVNO)||' : '||TRIM(B.SNAM)||TRIM(B.NAME1)||'   '||TRIM(B.NAME2) AS REFDESC,A.SDATE,A.LOCAT,A.STRNO,A.CHQMAS FROM ARRESV A,CUSTMAST B WHERE A.CUSCOD=B.CUSCOD AND CANFLAG <> 'C' AND A.SMPAY>(A.CHQMAS+A.REFUND) AND A.SMPAY>0 AND A.SDATE IS NOT NULL ORDER BY A.RESVNO "
-                    },
-                    success: function(data) {
-                        sourceRefno.localdata = data;
-                    }
-                });
-            } else if (data.PAYCODE === '02') {
-                $.ajax({
-                    async: false,
-                    method: 'GET',
-                    dataType: 'json',
-                    url: "sqltext",
-                    data: {
-                        sql: "SELECT A.CHQNO AS REFNO,A.CHQDT,A.RVCHQNO,A.RVCHQDT,A.CHQAMT, A.CHQPAY, A.CHQBK,TRIM(A.CHQNO)||' : '||TRIM(B.SNAM)||TRIM(B.NAME1)||'   '||TRIM(B.NAME2) AS REFDESC,A.CUSCOD FROM CHQSTAT A,CUSTMAST B WHERE A.CUSCOD=B.CUSCOD AND A.CHQSTAT = 'P' AND A.FLAG <> 'C' AND A.CHQAMT > A.CHQPAY ORDER BY A.CHQNO"
-                    },
-                    success: function(data) {
-                        sourceRefno.localdata = data;
-                    }
-                });
-            } else if (data.PAYCODE === '03') {
-                $.ajax({
-                    async: false,
-                    method: 'GET',
-                    dataType: 'json',
-                    url: "sqltext",
-                    data: {
-                        sql: "SELECT BOOKNO AS REFNO, TRIM(BOOKNO)||' : '||TRIM(BOOKNAM) AS REFDESC FROM BANKBOOK ORDER BY BOOKNO"
-                    },
-                    success: function(data) {
-                        sourceRefno.localdata = data;
-                    }
-                });
-            } else {
-                sourceRefno.localdata = dataRefno;
             }
         });
 
@@ -1511,7 +1482,7 @@
 
         //เริ่มใหม่
         $('#newBtn').off().on('click', function () {
-            loadHTML("sale_arcred");
+            loadHTML("fin_chqmas");
         });
         //บันทึก
         $('#saveBtn').off().on('click', function () {
@@ -1792,20 +1763,18 @@
         });
         //ลบ
         $('#deleteBtn').off().on('click', function () {
-            if ($('#contno').val() !== '') {
-                if ($('#smpay').val() > 0) {
-                    ShowMessage("รับชำระเงินแล้ว ยกเลิกไม่ได้! ", "danger");
-                } else if ($('#flag').val() === 'C') {
+            if ($('#tmbill').val() !== '') {
+                if ($('#flag').val() === 'C') {
                     ShowMessage("รายการนี้อยู่ในสถานะยกเลิกแล้ว! ", "danger");
                 } else if ($('#postgl').val() === 'Y') {
                     ShowMessage("รายการนี้บันทึก GL แล้ว ยกเลิกไม่ได้! ", "danger");
                 } else {
-                    $.when($.confirmdlg('ต้องการยกเลิกการขาย?', 'warning')).then(function () {
+                    $.when($.confirmdlg('ต้องการยกเลิกใบเสร็จรับเงินนี้?', 'warning')).then(function () {
                         $('#ok').on('click', function (event) {
                             var valueJSON = [{
-                                table: 'ARCRED',
-                                field: 'CONTNO',
-                                key: $('#contno').val(),
+                                table: 'CHQMAS',
+                                field: 'TMBILL',
+                                key: $('#tmbill').val(),
                                 userid: $.session.get('username'),
                                 flag: 'C',
                             }];
@@ -1815,7 +1784,7 @@
                                 async: false,
                                 method: 'POST',
                                 dataType: 'json',
-                                url: "cancelArcred",
+                                url: "cancelChqmas",
                                 data: value,
                                 success: function (data) {
                                     if (data[0].cancel === true) {

@@ -1,0 +1,1431 @@
+﻿<div class="row" id="spy2">
+    <!-- Chart with filter Widget -->
+    <div class="col-md-12 admin-grid">
+        <div class="panel" id="p2">
+            <div class="panel-heading">
+                <span class="panel-icon"><span class="glyphicons glyphicons-car"></span></span>
+                <span class="panel-title">บันทึกรับอุปกรณ์เสริมเข้าสต็อก</span>
+                <span class="panel-controls">
+                    <a href="#" class="panel-control-loader"></a>
+                    <a href="#" class="panel-control-remove"></a>
+                    <a href="#" class="panel-control-collapse"></a>
+                    <a href="#" class="panel-control-fullscreen"></a>
+                </span>
+            </div>
+            <div class="panel-body">
+                <div class="p15 pt5 mt15">
+                    <form class="form-horizontal" id="fmOptinvoi">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="admin-form">
+                                    <div class="form-group">
+                                        <label class="col-sm-2 control-label required" for="locat">สาขาที่รับ</label>
+                                        <div class="col-sm-10">
+                                            <div class="row">
+                                                <div class="col-sm-4">
+                                                    <div id="locat" class="input-button">
+                                                        <input type="text" id="v-locat" />
+                                                        <div id="searchInvlocat"><img alt="search" width="20" height="20" src="/images/search_lg.png"
+                                                            /></div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-8">
+                                                    <input type="text" id="locatnm" class="text-desc" readonly/>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-sm-2 control-label required" for="apcode">รหัสเจ้าหนี้</label>
+                                        <div class="col-sm-10">
+                                            <div class="row">
+                                                <div class="col-sm-4">
+                                                    <div id="apcode" class="input-button">
+                                                        <input type="text" id="v-apcode" />
+                                                        <div id="searchApmast"><img alt="search" width="20" height="20" src="/images/search_lg.png"
+                                                            /></div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-8">
+                                                    <input type="text" id="apname" class="text-desc" readonly/>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-sm-2 control-label" for="apcode">รหัสผู้รับสินค้า</label>
+                                        <div class="col-sm-10">
+                                            <div class="row">
+                                                <div class="col-sm-4">
+                                                    <input type="text" id="rvcode" class="text-desc" readonly/>
+                                                </div>
+                                                <div class="col-sm-8">
+                                                    <input type="text" id="rvname" class="text-desc" readonly/>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-sm-2 control-label" for="memo1">หมายเหตุ</label>
+                                        <div class="col-sm-10">
+                                            <div class="bs-component">
+                                                <textarea id="memo1"></textarea>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label class="col-sm-4 control-label required" for="recvno">เลขที่ใบรับสินค้า</label>
+                                            <div class="col-sm-8">
+                                                <div class="bs-component">
+                                                    <input type="text" id="recvno" style="color:#e9573f; font-weight: bold;" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label class="col-sm-4 control-label" for="recvdt">วันที่รับสินค้า</label>
+                                            <div class="col-sm-8">
+                                                <div class="bs-component">
+                                                    <div id="recvdt"></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label class="col-sm-4 control-label required" for="invno">เลขที่ใบส่งสินค้า</label>
+                                            <div class="col-sm-8">
+                                                <div class="bs-component">
+                                                    <input type="text" id="invno" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label class="col-sm-4 control-label" for="invdt">วันที่ส่งสินค้า</label>
+                                            <div class="col-sm-8">
+                                                <div class="bs-component">
+                                                    <div id="invdt"></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label class="col-sm-4 control-label" for="vatrt">อัตราภาษี</label>
+                                            <div class="col-sm-8">
+                                                <div id='vatrt'></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label class="col-sm-4 control-label" for="credtm">จำนวนวันเครดิต</label>
+                                            <div class="col-sm-8">
+                                                <div id='credtm'></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label class="col-sm-4 control-label" for="duedate">วันครบดิว</label>
+                                            <div class="col-sm-8">
+                                                <div class="bs-component">
+                                                    <div id="duedate"></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label class="col-sm-4 control-label" for="vattyp"></label>
+                                            <div class="col-sm-8">
+                                                <div class="bs-component">
+                                                    <div id="vattyp"><span>ยื่นเพิ่มเติม</span></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="admin-form">
+                                <div class="form-group">
+                                    <div class="col-md-12">
+                                        <div id="tableOptinvtran"></div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-md-4 control-label"></label>
+                                    <div class="col-md-8">
+                                        <div class="bs-component">
+                                            <button type="button" id="newBtn"><span class="fa fa-refresh"></span> เริ่มใหม่</button>
+                                            <button type="button" id="saveBtn"><span class="fa fa-floppy-o"></span> บันทึก</button>
+                                            <button type="button" id="searchBtn"><span class="fa fa-search"></span> ค้นหา</button>
+                                            <button type="button" id="deleteBtn"><span class="fa fa-trash-o"></span> ลบ</button>
+                                            <button type="button" id="printBtn"><span class="fa fa-print"></span> พิมพ์เอกสาร</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- end: .col-md-12.admin-grid -->
+</div>
+<!-- end: .row -->
+<script type="text/javascript">
+    $(document).ready(function() {
+         //Default status Insert
+        var status = 'insert';
+        //เช็คสิทธิการใช้งาน
+        var chkright = checkRight('STK003');
+
+        //เช็ค Running เอกสาร
+        var chkrun = checkRundoc('R_RECVOP');
+        
+        //ฟังก์ชั่น สถานะ Insert หรือ Edit
+        function statusChange(disabled) {
+            if (disabled === false) {
+                status = 'insert';
+                $('#recvno').val('');
+                $('#locat').val($.session.get('locatcd'));
+                $('#recvdt').jqxDateTimeInput('setDate', new Date());
+                $('#invno').val('');
+                $('#invdt').jqxDateTimeInput('setDate', new Date());
+                $('#apcode').val('');
+                $('#vatrt').val(condpay.VAT);
+                $('#credtm').val(0);
+                $('#rvcode').val($.session.get('officecode'));
+                $('#duedate').jqxDateTimeInput('setDate', new Date());
+                $('#memo1').val('');
+                $('#tableOptinvtran').jqxGrid('clear');
+                $('#searchInvlocat').show();
+                statusClear();
+            } else {
+                status = 'update';
+                $("#saveBtn").jqxButton({
+                    disabled: !chkright.M_EDIT
+                });
+                $('#searchInvlocat').hide();
+            }
+            $("#recvno").prop("readonly", disabled);
+            $("#locat").jqxInput({disabled: disabled});
+            $("#deleteBtn").jqxButton({
+                disabled: !chkright.M_DELETE
+            });
+            $("#printBtn").jqxButton({disabled: !disabled});
+        }
+
+        function getOptinvoi(recvno) {
+            $.ajax({
+                async: false,
+                method: 'GET',
+                dataType: 'json',
+                url: "sqltext",
+                data: {
+                    sql: "SELECT IDNO, LOCAT, RECVNO, RECVDT, APCODE, RVCODE, TAXNO, TAXDT, INVNO, INVDT, CREDTM, DUEDT, VATRT, VATTYP, USERID, TOTNETCOST, TOTNETVAT, TOTTOTALCOST, FLAG, CANDT, USERDEL, INPUTDT, MEMO1, MOVENO, TDISCT, TRANDISCT, SUMDISCT, RUN_IDNO FROM OPTINVOI WHERE RECVNO = '" + recvno + "' "
+                },
+                success: function (data) {
+                    $('#recvno').val(data[0].RECVNO);
+                    $('#recvdt').val(data[0].RECVDT);
+                    $('#v-locat').val(data[0].LOCAT);
+                    $('#invno').val(data[0].INVNO);
+                    $('#invdt').val(data[0].INVDT);
+                    $('#v-apcode').val(data[0].APCODE);
+                    $('#vatrt').val(data[0].VATRT);
+                    $('#credtm').val(data[0].CREDTM);
+                    $('#rvcode').val(data[0].RVCODE);
+                    $('#duedate').val(data[0].DUEDT);
+                    $('#memo1').val(data[0].MEMO1);
+                    if (data[0].VATTYP === 'N') {
+                        $("#vattyp").jqxCheckBox({ checked: false });
+                    } else {
+                        $("#vattyp").jqxCheckBox({ checked: true });
+                    }
+                    getOptinvtran(data[0].RECVNO);
+                    $('#v-apcode').trigger('blur');
+                }
+            });
+        }
+        //ฟังก์ชั่น Get Data INVTRAN
+        function getOptinvtran(recvno) {
+            $.ajax({
+                async: false,
+                method: 'GET',
+                dataType: 'json',
+                url: "sqltext",
+                data: {
+                    sql: "SELECT A.IDNO, A.RECVNO, A.RECVDT, A.PONO, A.LOCAT, A.LOCATPART, A.OPTCODE, TRIM(B.OPTCODE)||' : '||TRIM(B.OPTNMTH) AS SETMOD, A.QTY, A.UCODE, A.QTYOUT, A.COSTQTY, A.PRCQTY, A.DISCT, A.NETCOST, A.NETVAT, A.TOTCOST, A.MU, A.MAINCOD, A.TYPESTAT, A.TYPESTK, A.MOVEFM, A.PARTFM, A.FLAG, A.CANDT, A.USERDEL, A.INPUTDT, A.FLVATBUY, A.FLVATBUYRE,A.TAXQTY, A.TAXNO, A.TAXDT, A.COSTQTYBUY, A.NETTAXBUY, A.VATTAXBUY, A.TOTTAXBUY FROM OPTINVTRAN A, OPTMAST B WHERE A.OPTCODE = B.OPTCODE AND A.RECVNO = '" + recvno + "' ORDER BY A.IDNO "
+                },
+                success: function (data) {
+                    sourceOptinvtran.localdata = data;
+                    $('#tableOptinvtran').jqxGrid('updatebounddata');
+                }
+            });
+        }
+
+        //ฟังก์ชั่นเช็ค validate MODTRAN
+        function validateOptinvtran(value, index) {
+            $("#tableOptinvtran").jqxGrid('hidevalidationpopups');
+            var rows = $("#tableOptinvtran").jqxGrid('getdisplayrows');
+            var nullOptcode = 0,
+                validateOptcode = 0,
+                duplicateOptcode = 0,
+                result = true;
+            //Check validate
+            for (var i = 0; i < rows.length; i++) {
+                var row = rows[i];
+                if ((row.OPTCODE === undefined) || (row.OPTCODE === '')) {
+                    nullOptcode++;
+                } else {
+                    $.ajax({
+                        async: false,
+                        url: "duplicateCheck",
+                        type: 'get',
+                        data: {
+                            table: 'OPTMAST',
+                            field: 'OPTCODE',
+                            value: row.OPTCODE
+                        },
+                        success: function(data) {
+                            if (data === true) {
+                                validateOptcode++;
+                            }
+                        }
+                    });
+
+                    if (validateOptcode === 0) {
+                        for (var j = 0; j < rows.length; j++) {
+                            var row2 = rows[j];
+                            if ((row2.OPTCODE === row.OPTCODE) && (j !== i)) {
+                                duplicateOptcode++;
+                                $("#tableOptinvtran").jqxGrid('showvalidationpopup', j, "OPTCODE", "ไม่สามารถเลือกรหัสอุปกรณ์ซ้ำกันได้");
+                                result = false;
+                            }
+                        }
+                    }
+                }
+                if ((row.QTY === undefined) || (row.QTY === 0)) {
+                    $("#tableOptinvtran").jqxGrid('showvalidationpopup', i, "QTY", "กรุณาระบุจำนวนรับ");
+                    result = false;
+                };
+                if (nullOptcode !== 0) {
+                    $("#tableOptinvtran").jqxGrid('showvalidationpopup', i, "OPTCODE", "กรุณาเลือกรหัสอุปกรณ์");
+                    result = false;
+                };
+                if (validateOptcode !== 0) {
+                    $("#tableOptinvtran").jqxGrid('showvalidationpopup', i, "OPTCODE", "ไม่พบรหัสอุปกรณ์");
+                    result = false;
+                };
+            }
+            return result;
+        }
+
+        var statData = [{
+            value: "N",
+            label: "ใหม่"
+        }, {
+            value: "O",
+            label: "เก่า"
+        }];
+        var statSource = {
+            datatype: "array",
+            datafields: [{
+                name: 'label',
+                type: 'string'
+            }, {
+                name: 'value',
+                type: 'string'
+            }],
+            localdata: statData
+        };
+        var statAdapter = new $.jqx.dataAdapter(statSource);
+        //เงื่อนไข validate INVINVNO
+        var rules = [{
+            input: '#locat',
+            message: 'กรุณาระบุรหัสสาขา!',
+            action: 'keyup, blur, focusout',
+            rule: 'required'
+        }, {
+            input: '#locat',
+            message: 'ไม่พบรหัสสาขานี้!',
+            action: 'keyup, blur, focusout',
+            rule: function (input, commit) {
+                var locat = $('#locat').val();
+                if (locat !== '') {
+                    $.ajax({
+                        url: "duplicateCheck",
+                        type: 'get',
+                        data: {
+                            table: 'INVLOCAT',
+                            field: 'LOCATCD',
+                            value: locat
+                        },
+                        success: function (data) {
+                            if (data === true) {
+                                commit(false);
+                            } else commit(true);
+                        },
+                        error: function () {
+                            commit(false);
+                        }
+                    });
+                }
+            }
+        }, {
+            input: '#invno',
+            message: 'กรุณาระบุเลขที่ใบส่ง!',
+            action: 'keyup, blur, focusout',
+            rule: 'required'
+        }, {
+            input: '#apcode',
+            message: 'กรุณาระบุรหัสเจ้าหนี้!',
+            action: 'keyup, blur, focusout',
+            rule: 'required'
+        }, {
+            input: '#apcode',
+            message: 'ไม่พบรหัสเจ้าหนี้นี้!',
+            action: 'keyup, blur, focusout',
+            rule: function (input, commit) {
+                var apcode = $('#apcode').val();
+                if (apcode !== '') {
+                    $.ajax({
+                        url: "duplicateCheck",
+                        type: 'get',
+                        data: {
+                            table: 'APMAST',
+                            field: 'APCODE',
+                            value: apcode
+                        },
+                        success: function (data) {
+                            if (data === true) {
+                                commit(false);
+                            } else commit(true);
+                        },
+                        error: function () {
+                            commit(false);
+                        }
+                    });
+                }
+            }
+        }];
+        //เงื่อนไข validate INVTRAN
+        rulesInvt =[{
+            input: '#typecode',
+            message: 'กรุณาระบุรหัสยี่ห้อ!',
+            action: 'keyup, blur, focusout',
+            rule: 'required'
+        }, {
+            input: '#typecode',
+            message: 'ไม่พบรหัสยี่ห้อนี้!',
+            action: 'keyup, blur, focusout',
+            rule: function (input, commit) {
+                var typecode = $('#typecode').val();
+                if (typecode !== '') {
+                    $.ajax({
+                        url: "duplicateCheck",
+                        type: 'get',
+                        data: {
+                            table: 'SETTYPE',
+                            field: 'TYPECOD',
+                            value: typecode
+                        },
+                        success: function (data) {
+                            if (data === true) {
+                                commit(false);
+                            } else commit(true);
+                        },
+                        error: function () {
+                            commit(false);
+                        }
+                    });
+                }
+            }
+        }, {
+            input: '#modelcode',
+            message: 'กรุณาระบุรหัสรุ่น!',
+            action: 'keyup, blur, focusout',
+            rule: 'required'
+        }, {
+            input: '#modelcode',
+            message: 'ไม่พบรหัสรุ่นนี้!',
+            action: 'keyup, blur, focusout',
+            rule: function (input, commit) {
+                var modelcode = $('#modelcode').val();
+                if (modelcode !== '') {
+                    $.ajax({
+                        url: "duplicateCheck",
+                        type: 'get',
+                        data: {
+                            table: 'SETMODEL',
+                            field: 'MODELCOD',
+                            value: modelcode
+                        },
+                        success: function (data) {
+                            if (data === true) {
+                                commit(false);
+                            } else commit(true);
+                        },
+                        error: function () {
+                            commit(false);
+                        }
+                    });
+                }
+            }
+        }, {
+            input: '#baabcode',
+            message: 'กรุณาระบุรหัสแบบ!',
+            action: 'keyup, blur, focusout',
+            rule: 'required'
+        }, {
+            input: '#baabcode',
+            message: 'ไม่พบรหัสแบบนี้!',
+            action: 'keyup, blur, focusout',
+            rule: function (input, commit) {
+                var baabcode = $('#baabcode').val();
+                if (baabcode !== '') {
+                    $.ajax({
+                        url: "duplicateCheck",
+                        type: 'get',
+                        data: {
+                            table: 'SETBAAB',
+                            field: 'BAABCOD',
+                            value: baabcode
+                        },
+                        success: function (data) {
+                            if (data === true) {
+                                commit(false);
+                            } else commit(true);
+                        },
+                        error: function () {
+                            commit(false);
+                        }
+                    });
+                }
+            }
+        }, {
+            input: '#colorcode',
+            message: 'กรุณาระบุรหัสสี!',
+            action: 'keyup, blur, focusout',
+            rule: 'required'
+        }, {
+            input: '#colorcode',
+            message: 'ไม่พบรหัสสีนี้!',
+            action: 'keyup, blur, focusout',
+            rule: function (input, commit) {
+                var colorcode = $('#colorcode').val();
+                if (colorcode !== '') {
+                    $.ajax({
+                        url: "duplicateCheck",
+                        type: 'get',
+                        data: {
+                            table: 'SETCOLOR',
+                            field: 'COLORCOD',
+                            value: colorcode
+                        },
+                        success: function (data) {
+                            if (data === true) {
+                                commit(false);
+                            } else commit(true);
+                        },
+                        error: function () {
+                            commit(false);
+                        }
+                    });
+                }
+            }
+        }, {
+            input: '#groupcode',
+            message: 'กรุณาระบุรหัสกลุ่ม!',
+            action: 'keyup, blur, focusout',
+            rule: 'required'
+        }, {
+            input: '#groupcode',
+            message: 'ไม่พบรหัสกลุ่มนี้!',
+            action: 'keyup, blur, focusout',
+            rule: function (input, commit) {
+                var groupcode = $('#groupcode').val();
+                if (groupcode !== '') {
+                    $.ajax({
+                        url: "duplicateCheck",
+                        type: 'get',
+                        data: {
+                            table: 'SETGROUP',
+                            field: 'GCODE',
+                            value: groupcode
+                        },
+                        success: function (data) {
+                            if (data === true) {
+                                commit(false);
+                            } else commit(true);
+                        },
+                        error: function () {
+                            commit(false);
+                        }
+                    });
+                }
+            }
+        }, {
+            input: '#strno',
+            message: 'กรุณาระบุเลขตัวถังสินค้า!',
+            action: 'keyup, blur, focusout',
+            rule: 'required'
+        }, {
+            input: '#strno',
+            message: 'ระบุเลขตัวถังสินค้าซ้ำ!',
+            action: 'keyup, blur',
+            rule: function (input, commit) {
+                var strno = $('#strno').val();
+                var recvno = $('#recvno').val();
+                if (strno !== '') {
+                    $.ajax({
+                        url: "duplicateStrno",
+                        type: 'get',
+                        data: {
+                            value1: strno,
+                            value2: recvno
+                        },
+                        success: function (data) {
+                            if (data === true) {
+                                commit(true);
+                            } else commit(false);
+                        },
+                        error: function () {
+                            commit(false);
+                        }
+                    });
+                }
+            }
+        }, {
+            input: '#engno',
+            message: 'กรุณาระบุเลขเครื่องยนต์!',
+            action: 'keyup, blur, focusout',
+            rule: 'required'
+        }];
+        if (chkrun === false) {
+            rules.push({
+                input: '#recvno',
+                message: 'กรุณาระบุเลขที่ใบรับ!',
+                action: 'keyup, blur, focusout',
+                rule: 'required'
+            }, {
+                input: '#recvno',
+                message: 'ระบุเลขที่ใบรับซ้ำ!',
+                action: 'keyup, blur',
+                rule: function (input, commit) {
+                    var recvno = $('#recvno').val();
+                    if (recvno !== '') {
+                        $.ajax({
+                            url: "duplicateCheck",
+                            type: 'get',
+                            data: {
+                                table: 'INVINVNO',
+                                field: 'RECVNO',
+                                value: recvno
+                            },
+                            success: function (data) {
+                                if (data === true) {
+                                    commit(true);
+                                } else commit(false);
+                            },
+                            error: function () {
+                                commit(false);
+                            }
+                        });
+                    }
+                }
+            });
+        }
+        //ข้อมูลอุปกรณ์ ทั้งหมด
+        var sourceOptmast = {
+            async: false,
+            datatype: "json",
+            datafields: [{
+                name: 'OPTCODE',
+                type: 'string'
+            }, {
+                name: 'OPTNAME',
+                type: 'string'
+            }],
+            url: "sqltext",
+            data: {
+                sql: "SELECT OPTCODE, TRIM(OPTCODE)||' : '||TRIM(OPTNMTH) AS OPTNAME, OPTPRC FROM OPTMAST ORDER BY OPTCODE"
+            }
+        };
+        var dataAdtOptmast = new $.jqx.dataAdapter(sourceOptmast);
+        //DataSource MODTRAN
+        var dataOptinvtran = [];
+        var sourceOptinvtran = {
+            datatype: "json",
+            datafields: [{
+                name: 'IDNO',
+                type: 'integer'
+            }, {
+                name: 'OPTCODE',
+                type: 'string'
+            }, {
+                name: 'SETMOD',
+                value: 'OPTCODE',
+                values: {
+                    source: dataAdtOptmast.records,
+                    value: 'OPTCODE',
+                    name: 'OPTNAME'
+                }
+            }, {
+                name: 'QTY',
+                type: 'float'
+
+            }, {
+                name: 'UCODE',
+                type: 'string'
+
+            }, {
+                name: 'COSTQTY',
+                type: 'float'
+
+            }, {
+                name: 'PRCQTY',
+                type: 'float'
+
+            }, {
+                name: 'DISCT',
+                type: 'float'
+
+            }, {
+                name: 'NETCOST',
+                type: 'float'
+
+            }, {
+                name: 'NETVAT',
+                type: 'float'
+
+            }, {
+                name: 'TOTCOST',
+                type: 'float'
+
+            }, {
+                name: 'MU',
+                type: 'float'
+
+            }, {
+                name: 'TYPESTAT',
+                type: 'string'
+
+            }, {
+                name: 'TYPESTK',
+                type: 'string'
+
+            }],
+            addrow: function(rowid, rowdata, position, commit) {
+                commit(true);
+            },
+            deleterow: function(rowid, commit) {
+                commit(true);
+            },
+            updaterow: function(rowid, newdata, commit) {
+                commit(true);
+            },
+            id: 'id',
+            localdata: dataOptinvtran
+        };
+        var dataAdtOptinvtran = new $.jqx.dataAdapter(sourceOptinvtran);
+        $('.admin-panels').adminpanel({
+            grid: '.admin-grid',
+            callback: function () {
+                bootbox.confirm('<h3>A Custom Callback!</h3>', function () {});
+            },
+            onFinish: function () {
+                $('.admin-panels').addClass('animated fadeIn').removeClass('fade-onload');
+                demoHighCharts.init();
+            },
+            onSave: function () {
+                $(window).trigger('resize');
+            }
+        });
+
+        $('#locat').jqxInput({
+            height: 25,
+            width: '100%',
+            maxLength: 5
+        });
+        $('#locat').val($.session.get('locatcd'));
+        $('#locatnm').jqxInput({
+            height: 25,
+            width: '100%'
+        });
+        $('#apcode').jqxInput({
+            height: 25,
+            width: '100%',
+            maxLength: 8
+        });
+        $('#apname').jqxInput({
+            height: 25,
+            width: '100%'
+        });
+        $('#rvcode').jqxInput({
+            height: 25,
+            width: '100%',
+            maxLength: 8
+        });
+        $('#rvcode').val($.session.get('officecode'));
+        $('#rvname').jqxInput({
+            height: 25,
+            width: '100%'
+        });
+        $('#invno').jqxInput({
+            height: 25,
+            width: '100%',
+            maxLength: 12
+        });
+        $("#credtm").jqxNumberInput({
+            height: 25,
+            width: '100%',
+            symbol: '',
+            spinButtons: true,
+            digits: 3,
+            decimalDigits: 0,
+            min: 0,
+            max: 999
+        });
+        $("#vatrt").jqxNumberInput({
+            height: 25,
+            width: '100%',
+            symbol: '%',
+            spinButtons: true,
+            digits: 2,
+            decimalDigits: 0,
+            min: 0,
+            max: 99
+        });
+        $('#vatrt').val(condpay.VAT);
+        $("#recvno").jqxInput({
+            height: 25,
+            width: '100%',
+            maxLength: 12
+        });
+        if (chkrun === true) {
+            $("#recvno").jqxInput({
+                placeHolder: "Running Code"
+            });
+        } else {
+            $("#recvno").jqxInput({
+                placeHolder: "Enter a document no."
+            });
+        }
+        $("#recvno").prop("readonly", chkrun);
+        $("#recvdt").jqxDateTimeInput({
+            height: 25,
+            width: '100%',
+            culture: 'en-US'
+        });
+        $("#invdt").jqxDateTimeInput({
+            height: 25,
+            width: '100%',
+            culture: 'en-US'
+        });
+        $("#duedate").jqxDateTimeInput({
+            height: 25,
+            width: '100%',
+            culture: 'en-US'
+        });
+        $("#memo1").jqxInput({
+            height: 25,
+            width: '100%',
+            maxLength: 1024
+        });
+        $("#vattyp").jqxCheckBox({
+            width: 120,
+            height: 25,
+            checked: false
+        });
+        $('#credtm').on('valueChanged', function (event) {
+            var value = parseFloat(event.args.value);
+            var recvdt = $("#recvdt").jqxDateTimeInput('getDate');
+            recvdt.setDate(recvdt.getDate() + value);
+            $('#duedate').jqxDateTimeInput('setDate', recvdt);
+        });
+        //แสดงคำอธิบาย
+        $('#v-locat').off().on('blur', function () {
+            $('#locatnm').val(getLocatName($('#locat').val()));
+        });
+        $('#v-apcode').off().on('blur', function () {
+            $('#apname').val(getApName($('#apcode').val()));
+        });
+        $('#rvcode').off().on('blur', function () {
+            $('#rvname').val(getOfficeName($('#rvcode').val()));
+        });
+        $('#v-locat').trigger('blur');
+        $('#rvcode').trigger('blur');
+        $("#tableOptinvtran").jqxGrid({
+            width: '100%',
+            height: 400,
+            source: dataAdtOptinvtran,
+            editable: true,
+            altrows: true,
+            sortable: false,
+            filterable: false,
+            columnsresize: true,
+            selectionmode: 'singlerow',
+            editmode: 'selectedcell',
+            showstatusbar: true,
+            statusbarheight: 35,
+            showaggregates: true,
+            columns: [{
+                text: '#',
+                sortable: false,
+                filterable: false,
+                editable: false,
+                groupable: false,
+                draggable: false,
+                resizable: false,
+                align: 'center',
+                cellsalign: 'center',
+                datafield: '',
+                columntype: 'number',
+                width: 15,
+                cellsrenderer: function(row, column, value) {
+                    return "<div style='margin:4px; text-align:center;'>" + (value + 1) + "</div>";
+                },
+                aggregates: ['count'],
+                aggregatesrenderer: function(aggregates, column, element) {
+                    var renderstring = "";
+                    $.each(aggregates, function(key, value) {
+                        renderstring += '<div style="position: relative; margin: 4px; overflow: hidden; font-weight: bold;">' + value + '</div>';
+                    });
+                    return renderstring;
+                }
+            }, {
+                text: 'IDNO',
+                datafield: 'IDNO',
+                hidden: true
+            }, {
+                text: 'รหัสอุปกรณ์',
+                datafield: 'OPTCODE',
+                width: 450,
+                align: 'center',
+                cellsalign: 'left',
+                columntype: 'dropdownlist',
+                displayfield: 'SETMOD',
+                createeditor: function(row, value, editor) {
+                    editor.jqxDropDownList({
+                        source: dataAdtOptmast,
+                        displayMember: 'OPTNAME',
+                        valueMember: 'OPTCODE',
+                        placeHolder: "เลือกรหัสอุปกรณ์ :",
+                        dropDownHeight: 223,
+                        filterable: true,
+                        filterHeight: 30,
+                        filterPlaceHolder: "ค้นหา...",
+                        searchMode: 'containsignorecase',
+                        dropDownWidth: 450
+                    });
+                    editor.on('close', function(event) {
+                        $("#tableOptinvtran").jqxGrid('hidevalidationpopups');
+                    });
+                },
+                cellvaluechanging: function(row, datafield, columntype, oldvalue, newvalue) {
+                    if ((newvalue.value != oldvalue) && (newvalue.value != undefined)) {
+                        $.ajax({
+                            async: false,
+                            method: 'GET',
+                            dataType: 'json',
+                            url: "sqltext",
+                            data: {
+                                sql: "SELECT A.OPTCOST, B.MU, B.UCODE, A.OPTTYP FROM OPTMAST A,OPTTRAN B WHERE A.OPTCODE = B.OPTCODE AND A.OPTCODE = '" + newvalue.value + "' "
+                            },
+                            success: function(optmast) {
+                                $("#tableOptinvtran").jqxGrid('setcellvalue', row, "COSTQTY", optmast[0].OPTCOST);
+                                $("#tableOptinvtran").jqxGrid('setcellvalue', row, "MU", optmast[0].MU);
+                                $("#tableOptinvtran").jqxGrid('setcellvalue', row, "UCODE", optmast[0].UCODE);
+                                $("#tableOptinvtran").jqxGrid('setcellvalue', row, "TYPESTK", optmast[0].OPTTYP);
+                            }
+                        });
+                    };
+                }
+            }, {
+                text: 'จำนวน',
+                datafield: 'QTY',
+                width: 80,
+                align: 'center',
+                cellsalign: 'right',
+                cellsformat: 'd2',
+                columntype: 'numberinput',
+                createeditor: function(row, value, editor) {
+                    editor.jqxNumberInput({
+                        decimalDigits: 2,
+                        digits: 12,
+                        spinButtons: false,
+                        spinButtonsStep: 0,
+                        inputMode: 'simple'
+                    });
+                },
+                cellvaluechanging: function(row, datafield, columntype, oldvalue, newvalue) {
+                    if (newvalue != undefined) {
+                        if (newvalue >= 0) {
+                            var rowdata = $('#tableOptinvtran').jqxGrid('getrowdata', row);
+                            var disct = rowdata.DISCT;
+                            var totcost = (rowdata.COSTQTY * newvalue)-disct;
+                            var vatrt = $('#vatrt').val();
+                            var netvat = (totcost * vatrt)/(vatrt+100);
+                            var netcost = totcost-netvat;
+                            $("#tableOptinvtran").jqxGrid('setcellvalue', row, "NETVAT", netvat);
+                            $("#tableOptinvtran").jqxGrid('setcellvalue', row, "NETCOST", netcost);
+                            $("#tableOptinvtran").jqxGrid('setcellvalue', row, "TOTCOST", totcost);
+                        } else {
+                            return oldvalue;
+                        }
+                    };
+                },
+                aggregates: ['sum'],
+                aggregatesrenderer: function(aggregates) {
+                    var renderstring = "";
+                    $.each(aggregates, function(key, value) {
+                        renderstring += '<div style="position: relative; margin: 4px; overflow: hidden; font-weight: bold;">' + value + '</div>';
+                        $("#sumqty").val(value);
+                    });
+                    return renderstring;
+                }
+            }, {
+                text: 'หน่วยนับ',
+                datafield: 'UCODE',
+                width: 100,
+                hidden: true
+            }, {
+                text: 'ราคา / หน่วย',
+                datafield: 'COSTQTY',
+                width: 100,
+                align: 'center',
+                cellsalign: 'right',
+                cellsformat: 'd2',
+                columntype: 'numberinput',
+                createeditor: function(row, value, editor) {
+                    editor.jqxNumberInput({
+                        decimalDigits: 2,
+                        digits: 12,
+                        spinButtons: false,
+                        spinButtonsStep: 0,
+                        inputMode: 'simple'
+                    });
+                }
+            }, {
+                text: 'ส่วนลด',
+                datafield: 'DISCT',
+                width: 100,
+                align: 'center',
+                cellsalign: 'right',
+                cellsformat: 'd2',
+                columntype: 'numberinput',
+                createeditor: function(row, value, editor) {
+                    editor.jqxNumberInput({
+                        decimalDigits: 2,
+                        digits: 12,
+                        spinButtons: false,
+                        spinButtonsStep: 0,
+                        inputMode: 'simple'
+                    });
+                },
+                cellvaluechanging: function(row, datafield, columntype, oldvalue, newvalue) {
+                    if (newvalue != undefined) {
+                        if (newvalue >= 0) {
+                            var rowdata = $('#tableOptinvtran').jqxGrid('getrowdata', row);
+                            var costqty = rowdata.COSTQTY;
+                            var totcost = (rowdata.QTY * costqty)-newvalue;
+                            var vatrt = $('#vatrt').val();
+                            var netvat = (totcost * vatrt)/(vatrt+100);
+                            var netcost = totcost-netvat;
+                            $("#tableOptinvtran").jqxGrid('setcellvalue', row, "NETVAT", netvat);
+                            $("#tableOptinvtran").jqxGrid('setcellvalue', row, "NETCOST", netcost);
+                            $("#tableOptinvtran").jqxGrid('setcellvalue', row, "TOTCOST", totcost);
+                        } else {
+                            return oldvalue;
+                        }
+                    };
+                }
+            }, {
+                text: 'ราคารวมสุทธิ',
+                datafield: 'TOTCOST',
+                width: 100,
+                align: 'center',
+                cellsalign: 'right',
+                cellsformat: 'd2',
+                columntype: 'numberinput',
+                createeditor: function(row, value, editor) {
+                    editor.jqxNumberInput({
+                        decimalDigits: 2,
+                        digits: 12,
+                        spinButtons: false,
+                        spinButtonsStep: 0,
+                        inputMode: 'simple'
+                    });
+                },
+                cellvaluechanging: function(row, datafield, columntype, oldvalue, newvalue) {
+                    if (newvalue != undefined) {
+                        if (newvalue >= 0) {
+                            var rowdata = $('#tableOptinvtran').jqxGrid('getrowdata', row);
+                            var vatrt = $('#vatrt').val();
+                            var netvat = (newvalue * vatrt)/(vatrt+100);
+                            var netcost = newvalue-netvat;
+                            $("#tableOptinvtran").jqxGrid('setcellvalue', row, "NETVAT", netvat);
+                            $("#tableOptinvtran").jqxGrid('setcellvalue', row, "NETCOST", netcost);
+                        } else {
+                            return oldvalue;
+                        }
+                    };
+                },
+                aggregates: ['sum'],
+                aggregatesrenderer: function(aggregates) {
+                    var renderstring = "";
+                    $.each(aggregates, function(key, value) {
+                        renderstring += '<div style="position: relative; margin: 4px; overflow: hidden; font-weight: bold;">' + value + '</div>';
+                        $("#sumoptprc").val(value);
+                    });
+                    return renderstring;
+                }
+            }, {
+                text: 'ภาษี',
+                datafield: 'NETVAT',
+                width: 100,
+                align: 'center',
+                cellsalign: 'right',
+                cellsformat: 'd2',
+                columntype: 'numberinput',
+                createeditor: function(row, value, editor) {
+                    editor.jqxNumberInput({
+                        decimalDigits: 2,
+                        digits: 12,
+                        spinButtons: false,
+                        spinButtonsStep: 0,
+                        inputMode: 'simple'
+                    });
+                },
+                aggregates: ['sum'],
+                aggregatesrenderer: function(aggregates) {
+                    var renderstring = "";
+                    $.each(aggregates, function(key, value) {
+                        renderstring += '<div style="position: relative; margin: 4px; overflow: hidden; font-weight: bold;">' + value + '</div>';
+                        $("#sumoptprc").val(value);
+                    });
+                    return renderstring;
+                }
+            }, {
+                text: 'ทุนก่อนภาษี',
+                datafield: 'NETCOST',
+                width: 100,
+                align: 'center',
+                cellsalign: 'right',
+                cellsformat: 'd2',
+                columntype: 'numberinput',
+                createeditor: function(row, value, editor) {
+                    editor.jqxNumberInput({
+                        decimalDigits: 2,
+                        digits: 12,
+                        spinButtons: false,
+                        spinButtonsStep: 0,
+                        inputMode: 'simple'
+                    });
+                },
+                aggregates: ['sum'],
+                aggregatesrenderer: function(aggregates) {
+                    var renderstring = "";
+                    $.each(aggregates, function(key, value) {
+                        renderstring += '<div style="position: relative; margin: 4px; overflow: hidden; font-weight: bold;">' + value + '</div>';
+                        $("#sumoptprc").val(value);
+                    });
+                    return renderstring;
+                }
+            }, {
+                text: 'MU',
+                datafield: 'MU',
+                hidden: true
+            }, {
+                text: 'TYPESTAT',
+                datafield: 'TYPESTAT',
+                hidden: true
+            }, {
+                text: 'TYPESTK',
+                datafield: 'TYPESTK',
+                hidden: true
+            }],
+            showtoolbar: true,
+            rendertoolbar: function(toolbar) {
+                var container = $("<div style='margin: 5px;'></div>");
+                toolbar.append(container);
+                container.append('<button type="button" id="addrow1"><span class="fa fa-plus"></span> เพิ่มรายการ</button> <button type="button" id="deleterow"><span class="fa fa-minus"></span> ลบรายการ</button>');
+                //Add row
+                $("#addrow1").on('click', function() {
+                    var recodecount = $("#tableOptinvtran").jqxGrid('getdatainformation').rowscount;
+                    if (validateOptinvtran() === true) {
+                        var datarow = {
+                            IDNO: 0,
+                            OPTCODE: '',
+                            QTY: 0,
+                            UCODE: '',
+                            COSTQTY: 0,
+                            DISCT: 0,
+                            TOTCOST: 0,
+                            NETVAT: 0,
+                            NETCOST: 0,
+                            MU: 1,
+                            TYPESTAT: 'R',
+                            TYPESTK: 'Y',
+                        };
+                        var commit = $("#tableOptinvtran").jqxGrid('addrow', null, datarow);
+                        if (commit) {
+                            setTimeout(
+                                function() {
+                                    $("#tableOptinvtran").jqxGrid('selectrow', recodecount);
+                                    $('#tableOptinvtran').jqxGrid('begincelledit', recodecount, 'OPTCODE');
+                                },
+                                200
+                            );
+                        };
+                    }
+                });
+
+                //Delete row
+                $("#deleterow").on('click', function() {
+                    var selectedrowindex = $("#tableOptinvtran").jqxGrid('getselectedrowindex');
+                    var rowscount = $("#tableOptinvtran").jqxGrid('getdatainformation').rowscount;
+                    if (selectedrowindex >= 0 && selectedrowindex < rowscount) {
+                        var id = $("#tableOptinvtran").jqxGrid('getrowid', selectedrowindex);
+                        var commit = $("#tableOptinvtran").jqxGrid('deleterow', id);
+                    }
+                    return false;
+                });
+
+                $("#addrow1").jqxButton({
+                    width: 100,
+                    height: 25,
+                    template: "success"
+                });
+                $("#deleterow").jqxButton({
+                    width: 100,
+                    height: 25,
+                    template: "danger",
+                });
+            }
+        });
+
+        $("#newBtn").jqxButton({
+            template: "info",
+            width: 90
+        });
+        $("#saveBtn").jqxButton({
+            template: "primary",
+            width: 90,
+            disabled: !chkright.M_INSERT
+        });
+        $("#searchBtn").jqxButton({
+            template: "success",
+            width: 90
+        });
+        $("#deleteBtn").jqxButton({
+            disabled: true,
+            template: "danger",
+            width: 90
+        });
+        $("#printBtn").jqxButton({
+            disabled: true,
+            template: "inverse",
+            width: 120
+        });
+        $('#fmOptinvoi').jqxValidator({
+            hintType: 'label',
+            animationDuration: 0,
+            closeOnClick: false,
+            rules: rules
+        });
+        //เริ่มใหม่
+        $('#newBtn').off().on('click', function() {
+            loadHTML("stk_receiveopt");
+        });
+        //บันทึก
+        $('#saveBtn').off().on('click', function() {
+            $('#fmOptinvoi').jqxValidator('validate', function(result) {
+                if ((result) && (validateOptinvtran() === true)) {
+                    $.when($.confirmdlg('ต้องการบันทึกข้อมูล?', 'info')).then(function() {
+                        $("#tableOptinvtran").jqxGrid('refreshdata');
+                        var rowscount = $("#tableOptinvtran").jqxGrid('getdatainformation').rowscount;
+                        var docdate = $("#recvdt").jqxDateTimeInput('getDate');
+                        var invdate = $("#invdt").jqxDateTimeInput('getDate');
+                        var due = $("#duedate").jqxDateTimeInput('getDate');
+                        var currentCulture = Globalize.cultures['en-US'];
+                        var localizationObject = currentCulture.calendar;
+                        var recvdt = $.jqx.dataFormat.formatdate(docdate, "dd/MM/yyyy", localizationObject);
+                        var invdt = $.jqx.dataFormat.formatdate(invdate, "dd/MM/yyyy",localizationObject);
+                        var duedt = $.jqx.dataFormat.formatdate(due, "dd/MM/yyyy",localizationObject);
+                        var optinvtran = [];
+                        var valueVattyp = '';
+                        if ($("#vattyp").val() === true) {
+                            valueVattyp = 'Y';
+                        } else {
+                            valueVattyp = 'N';
+                        }
+                        var sumNet = 0,
+                            sumVat = 0,
+                            sumTot = 0,
+                            sumDisct = 0;
+                        for (var i = 0; i < rowscount; i++) {
+                            var data = $("#tableOptinvtran").jqxGrid('getrowdata', i);
+                            sumNet = sumNet+data.NETCOST;
+                            sumVat = sumVat+data.NETVAT;
+                            sumTot = sumTot+data.TOTCOST;
+                            sumDisct = sumDisct+data.DISCT;
+                            optinvtran.push({
+                                IDNO: data.IDNO,
+                                LOCAT: $('#locat').val(), 
+                                LOCATPART: $('#locat').val(),  
+                                OPTCODE: data.OPTCODE,
+                                QTY: data.QTY,
+                                UCODE: data.UCODE,
+                                COSTQTY: data.COSTQTY,
+                                DISCT: data.DISCT,
+                                TOTCOST: data.TOTCOST,
+                                NETVAT: data.NETVAT,
+                                NETCOST: data.NETCOST,
+                                MU: data.MU,
+                                TYPESTAT: data.TYPESTAT,
+                                TYPESTK: data.TYPESTK,
+                                FLAG: 'A',
+                            });
+                        };
+                        var valueJSON = [{
+                            status: status,
+                            locat: $('#locat').val(),
+                            table: 'OPTINVOI',
+                            key: $('#recvno').val(),
+                            value: [{
+                                LOCAT: $('#locat').val(), 
+                                RECVNO: $('#recvno').val(),
+                                RECVDT: recvdt, 
+                                APCODE: $('#apcode').val(), 
+                                RVCODE: $('#rvcode').val(), 
+                                INVNO: $('#invno').val(),
+                                INVDT: invdt,
+                                CREDTM: $('#credtm').val(), 
+                                DUEDT: duedt, 
+                                VATRT: $('#vatrt').val(),
+                                VATTYP: valueVattyp, 
+                                USERID: $.session.get('username'),
+                                TOTNETCOST: sumNet, 
+                                TOTNETVAT: sumVat, 
+                                TOTTOTALCOST: sumTot, 
+                                FLAG: 'A', 
+                                MEMO1: $('#memo1').val(),
+                                TDISCT: 0, 
+                                TRANDISCT: sumDisct, 
+                                SUMDISCT: sumDisct, 
+                                RUN_IDNO: 4
+                            }]
+                        }, {
+                            table: 'OPTINVTRAN',
+                            value: optinvtran
+                        }];
+                        // Convert Value To JSON String
+                        var value = JSON.stringify(valueJSON);
+                        console.log(value);
+                        $('#ok').on('click', function(event) {
+                            $.ajax({
+                                url: 'saveOptinvoi',
+                                type: 'POST',
+                                contentType: "application/json",
+                                dataType: "json",
+                                data: value,
+                                success: function(data) {
+                                    console.log(data);
+                                    if (data[0].save === true) {
+                                        ShowMessage("บันทึกข้อมูลเรียบร้อย!", "success");
+                                        statusChange(true);
+                                        getOptinvoi(data[0].recvno);
+                                    } else {
+                                        ShowMessage("บันทึกไม่สำเร็จ!", "danger");
+                                    }
+                                }
+                            });
+                        });
+                    });
+                }
+            });
+        });
+        //ค้นหาสาขา
+        $('#searchInvlocat').off().on('click', function () {
+            $('#fmOptinvoi').jqxValidator('hideHint', '#locat');
+            searchAll('invlocat', 'v-locat');
+        });
+        //ค้นหาเจ้าหนี้
+        $('#searchApmast').off().on('click', function () {
+            $('#fmOptinvoi').jqxValidator('hideHint', '#apcode');
+            searchAll('apmast', 'v-apcode');
+        });
+        //ค้นหา
+        $('#searchBtn').off().on('click', function() {
+            var rules2 = rules.slice();
+            rules2.splice(1, 1);
+            $('#fmOptinvoi').jqxValidator('rules', rules2);
+            //Show Dialog Search
+            searchAll('optinvoi', 'recvno');
+            $('#okButton').on('click', function(event) {
+                event.preventDefault();
+                $('#fmOptinvoi').jqxValidator('hide');
+                statusChange(true);
+                getOptinvoi($('#recvno').val());
+            });
+        });
+        //ลบ
+        $('#deleteBtn').off().on('click', function() {
+            if ($('#modno').val() !== '') {
+                $.when($.confirmdlg('ต้องการลบข้อมูล?', 'warning')).then(function() {
+                    $('#ok').on('click', function(event) {
+                        var valueJSON = [{
+                            table: 'OPTINVTRAN',
+                            field: 'RECVNO',
+                            key: $('#recvno').val(),
+                        }, {
+                            table: 'OPTINVOI',
+                            field: 'RECVNO',
+                            key: $('#recvno').val(),
+                        }];
+                        // Convert Value To JSON String
+                        var value = JSON.stringify(valueJSON);
+                        $.ajax({
+                            async: false,
+                            method: 'POST',
+                            dataType: 'json',
+                            url: "delete",
+                            data: value,
+                            success: function(data) {
+                                if (data === true) {
+                                    ShowMessage("ลบข้อมูลเรียบร้อย!", "success");
+                                    statusChange(false);
+                                }
+                            },
+                            error: function(xhr, status, error) {
+                                ShowMessage("ลบข้อมูลไม่สำเร็จ! ", "danger");
+                            }
+                        });
+                    });
+                });
+            }
+        });
+    });
+</script>
