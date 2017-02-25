@@ -1,0 +1,868 @@
+﻿<div class="row" id="spy2">
+    <!-- Chart with filter Widget -->
+    <div class="col-md-12 admin-grid">
+        <div class="panel" id="p2">
+            <div class="panel-heading">
+                <span class="panel-icon"><span class="glyphicons glyphicons-car"></span></span>
+                <span class="panel-title">บันทึกเบิกอุปกรณ์ตกแต่ง</span>
+                <span class="panel-controls">
+                    <a href="#" class="panel-control-loader"></a>
+                    <a href="#" class="panel-control-remove"></a>
+                    <a href="#" class="panel-control-collapse"></a>
+                    <a href="#" class="panel-control-fullscreen"></a>
+                </span>
+            </div>
+            <div class="panel-body">
+                <form class="form-horizontal" id="fmMcmast">
+                    <div class="p15 pt5 mt15">
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="admin-form">
+                                    <div class="form-group">
+                                        <label class="col-sm-4 control-label required" for="locat">สาขา</label>
+                                        <div class="col-sm-8">
+                                            <div id="locat" class="input-button">
+                                                <input type="text" id="v-locat" />
+                                                <div id="searchInvlocat"><img alt="search" width="20" height="20" src="/images/search_lg.png"
+                                                    /></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <input type="text" id="locatnm" class="text-desc" readonly/>
+                            </div>
+                            <div class="col-md-4">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="admin-form">
+                                    <div class="form-group">
+                                        <label class="col-md-4 control-label" for="mcno">เลขที่เบิก</label>
+                                        <div class="col-md-8">
+                                            <div class="bs-component">
+                                                <input type="text" id="mcno" style="color:#e9573f; font-weight: bold;" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="admin-form">
+                                    <div class="form-group">
+                                        <label class="col-md-4 control-label" for="mcdt">วันที่เบิก</label>
+                                        <div class="col-md-8">
+                                            <div class="bs-component">
+                                                <div id="mcdt"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="admin-form">
+                                    <div class="form-group">
+                                        <label class="col-md-4 control-label required" for="strno">เลขตัวถัง</label>
+                                        <div class="col-md-8">
+                                            <div class="bs-component">
+                                                <div id="strno" class="input-button">
+                                                    <input type="text" id="v-strno" />
+                                                    <div id="searchStrno"><img alt="search" width="20" height="20" src="/images/search_lg.png" /></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="admin-form">
+                                    <div class="form-group">
+                                        <label class="col-md-4 control-label required" for="searchModmast"></label>
+                                        <div class="col-md-8">
+                                            <div class="bs-component">
+                                                <button type="button" class="btn btn-rounded btn-dark btn-block" id="searchModmast">
+                                                    <i class="glyphicons glyphicons-inbox_in"></i>&nbsp;
+                                                    เลือกชุดแต่ง
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-8">
+                                <div class="admin-form">
+                                    <div class="form-group">
+                                        <label class="col-md-2 control-label" for="memo1">หมายเหตุ</label>
+                                        <div class="col-md-10">
+                                            <div class="bs-component">
+                                                <textarea id="memo1"></textarea>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="admin-form">
+                                    <div class="form-group">
+                                        <div class="col-md-12">
+                                            <div id="tableMctran"></div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-md-4 control-label"></label>
+                                        <div class="col-md-8">
+                                            <div class="bs-component">
+                                                <button type="button" id="newBtn"><span class="fa fa-refresh"></span> เริ่มใหม่</button>
+                                                <button type="button" id="saveBtn"><span class="fa fa-floppy-o"></span> บันทึก</button>
+                                                <button type="button" id="searchBtn"><span class="fa fa-search"></span> ค้นหา</button>
+                                                <button type="button" id="deleteBtn"><span class="fa fa-trash-o"></span> ลบ</button>
+                                                <input type="hidden" id="sumqty" value="">
+                                                <input type="hidden" id="modno" value="">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <!-- end: .col-md-12.admin-grid -->
+</div>
+<!-- end: .row -->
+<script type="text/javascript">
+    $(document).ready(function() {
+        //Default status Insert
+        var status = 'insert';
+        //เช็คสิทธิการใช้งาน
+        var chkright = checkRight('STK004');
+
+        //เช็ค Running เอกสาร
+        var chkrun = checkRundoc('R_MCMAST');
+
+        //ฟังก์ชั่น สถานะ Insert หรือ Edit
+        function statusChange(disabled) {
+            if (disabled === false) {
+                status = 'insert';
+                $('#locat').val($.session.get('locatcd'));
+                $('#mcno').val('');
+                $('#mcdt').jqxDateTimeInput('setDate', new Date());
+                $('#strno').val('');
+                $('#tableMctran').jqxGrid('clear');
+            } else {
+                status = 'update';
+                $("#saveBtn").jqxButton({
+                    disabled: !chkright.M_EDIT
+                });
+            }
+            $("#mcno").prop("readonly", disabled);
+            $("#deleteBtn").jqxButton({
+                disabled: !chkright.M_DELETE
+            });
+        }
+
+        function getMcmast(mcno) {
+            $.ajax({
+                async: false,
+                method: 'GET',
+                dataType: 'json',
+                url: "sqltext",
+                data: {
+                    sql: "SELECT * FROM MCMAST WHERE MCNO = '" + mcno + "' "
+                },
+                success: function(data) {
+                    $('#locat').val(data[0].LOCAT);
+                    $('#mcno').val(data[0].MCNO);
+                    $('#mcdt').val(data[0].MCDT);
+                    $('#strno').val(data[0].STRNO);
+                    $('#memo1').val(data[0].MOMO1);
+                    $('#v-locat').trigger('blur');
+                    getMctran(data[0].MCNO);
+                }
+            });
+        }
+        //ฟังก์ชั่น Get Data MCTRAN
+        function getMctran(mcno) {
+            $.ajax({
+                async: false,
+                method: 'GET',
+                dataType: 'json',
+                url: "sqltext",
+                data: {
+                    sql: "SELECT A.IDNO, A.MCNO, A.OPTCODE, A.OPTNAME, TRIM(B.OPTCODE)||' : '||TRIM(B.OPTNAME) AS SETMOD, A.QTY, A.FLAG, A.FLSTAT, A.USERID, A.INPUTDT, A.OPTPRC FROM MCTRAN A, SETMOD B WHERE A.OPTCODE = B.OPTCODE AND A.MCNO = '" + mcno + "' ORDER BY A.MCNO, A.OPTCODE"
+                },
+                success: function(data) {
+                    sourceMctran.localdata = data;
+                    $('#tableMctran').jqxGrid('updatebounddata');
+                }
+            });
+        }
+        //ฟังก์ชั่น Get Data MODTRAN
+        function getModtran(modno) {
+            $.ajax({
+                async: false,
+                method: 'GET',
+                dataType: 'json',
+                url: "sqltext",
+                data: {
+                    sql: "SELECT A.IDNO, A.MODNO, A.OPTCODE, A.OPTNAME, TRIM(B.OPTCODE)||' : '||TRIM(B.OPTNAME) AS SETMOD, A.QTY, A.FLAG, A.USERID, A.INPUTDT, A.OPTPRC FROM MODTRAN A, SETMOD B WHERE A.OPTCODE = B.OPTCODE AND A.MODNO = '" + modno + "' ORDER BY A.MODNO, A.OPTCODE"
+                },
+                success: function(data) {
+                    sourceMctran.localdata = data;
+                    $('#tableMctran').jqxGrid('updatebounddata');
+                }
+            });
+        }
+        //ฟังก์ชั่นเช็ค validate MCTRAN
+        function validateMctran(value, index) {
+            $("#tableMctran").jqxGrid('hidevalidationpopups');
+            var rows = $("#tableMctran").jqxGrid('getdisplayrows');
+            var nullOptcode = 0,
+                validateOptcode = 0,
+                duplicateOptcode = 0,
+                result = true;
+            //Check validate
+            for (var i = 0; i < rows.length; i++) {
+                var row = rows[i];
+                if ((row.OPTCODE === undefined) || (row.OPTCODE === '')) {
+                    nullOptcode++;
+                } else {
+                    $.ajax({
+                        async: false,
+                        url: "duplicateCheck",
+                        type: 'get',
+                        data: {
+                            table: 'SETMOD',
+                            field: 'OPTCODE',
+                            value: row.OPTCODE
+                        },
+                        success: function(data) {
+                            if (data === true) {
+                                validateOptcode++;
+                            }
+                        }
+                    });
+
+                    if (validateOptcode === 0) {
+                        for (var j = 0; j < rows.length; j++) {
+                            var row2 = rows[j];
+                            if ((row2.OPTCODE === row.OPTCODE) && (j !== i)) {
+                                duplicateOptcode++;
+                                $("#tableMctran").jqxGrid('showvalidationpopup', j, "OPTCODE", "ไม่สามารถเลือกรหัสอุปกรณ์ซ้ำกันได้");
+                                result = false;
+                            }
+                        }
+                    }
+                }
+                if (nullOptcode !== 0) {
+                    $("#tableMctran").jqxGrid('showvalidationpopup', i, "OPTCODE", "กรุณาเลือกรหัสอุปกรณ์");
+                    result = false;
+                };
+                if (validateOptcode !== 0) {
+                    $("#tableMctran").jqxGrid('showvalidationpopup', i, "OPTCODE", "ไม่พบรหัสอุปกรณ์");
+                    result = false;
+                };
+            }
+            return result;
+        }
+        //ข้อมูลอุปกรณ์ ทั้งหมด
+        var sourceOptmast = {
+            async: false,
+            datatype: "json",
+            datafields: [{
+                name: 'OPTCODE',
+                type: 'string'
+            }, {
+                name: 'OPTNAME',
+                type: 'string'
+            }],
+            url: "sqltext",
+            data: {
+                sql: "SELECT OPTCODE, TRIM(OPTCODE)||' : '||TRIM(OPTNAME) AS OPTNAME, OPTPRC FROM SETMOD ORDER BY OPTCODE"
+            }
+        };
+        var dataAdtOptmast = new $.jqx.dataAdapter(sourceOptmast);
+        //เงื่อนไข validate MCMAST
+        var rules = [{
+            input: '#strno',
+            message: 'กรุณาระบุเลขตัวถัง!',
+            action: 'keyup, blur, focusout',
+            rule: 'required'
+        }, {
+            input: '#strno',
+            message: 'ไม่พบเลขตัวถังนี้!',
+            action: 'keyup, blur, focusout',
+            rule: function(input, commit) {
+                var strno = $('#strno').val();
+                if (strno !== '') {
+                    $.ajax({
+                        url: "duplicateCheck",
+                        type: 'get',
+                        data: {
+                            table: 'INVTRAN',
+                            field: 'STRNO',
+                            value: strno
+                        },
+                        success: function(data) {
+                            if (data === true) {
+                                commit(false);
+                            } else commit(true);
+                        },
+                        error: function() {
+                            commit(false);
+                        }
+                    });
+                }
+            }
+        }];
+        if (chkrun === false) {
+            rules.push({
+                input: '#mcno',
+                message: 'กรุณาระบุเลขที่เบิก!',
+                action: 'keyup, blur, focusout',
+                rule: 'required'
+            }, {
+                input: '#mcno',
+                message: 'ระบุเลขที่เบิกซ้ำ!',
+                action: 'keyup, blur',
+                rule: function(input, commit) {
+                    var mcno = $('#mcno').val();
+                    if (mcno !== '') {
+                        $.ajax({
+                            url: "duplicateCheck",
+                            type: 'get',
+                            data: {
+                                table: 'MCMAST',
+                                field: 'MCNO',
+                                value: mcno
+                            },
+                            success: function(data) {
+                                if (data === true) {
+                                    commit(true);
+                                } else commit(false);
+                            },
+                            error: function() {
+                                commit(false);
+                            }
+                        });
+                    }
+                }
+            });
+        }
+        //DataSource MCTRAN
+        var dataModtran = [];
+        var sourceMctran = {
+            datatype: "json",
+            datafields: [{
+                name: 'IDNO',
+                type: 'integer'
+            }, {
+                name: 'MCNO',
+                type: 'string'
+
+            }, {
+                name: 'OPTCODE',
+                type: 'string'
+            }, {
+                name: 'SETMOD',
+                value: 'OPTCODE',
+                values: {
+                    source: dataAdtOptmast.records,
+                    value: 'OPTCODE',
+                    name: 'OPTNAME'
+                }
+            }, {
+                name: 'OPTNAME',
+                type: 'string'
+
+            }, {
+                name: 'QTY',
+                type: 'float'
+
+            }, {
+                name: 'FLAG',
+                type: 'string'
+
+            }, {
+                name: 'USERID',
+                type: 'string'
+
+            }, {
+                name: 'INPUTDT',
+                type: 'date'
+
+            }, {
+                name: 'OPTPRC',
+                type: 'float'
+
+            }],
+            addrow: function(rowid, rowdata, position, commit) {
+                commit(true);
+            },
+            deleterow: function(rowid, commit) {
+                commit(true);
+            },
+            updaterow: function(rowid, newdata, commit) {
+                commit(true);
+            },
+            id: 'id',
+            localdata: dataModtran
+        };
+        var dataAdtMctran = new $.jqx.dataAdapter(sourceMctran);
+        $('.admin-panels').adminpanel({
+            grid: '.admin-grid',
+            callback: function() {
+                bootbox.confirm('<h3>A Custom Callback!</h3>', function() {});
+            },
+            onFinish: function() {
+                $('.admin-panels').addClass('animated fadeIn').removeClass('fade-onload');
+                demoHighCharts.init();
+            },
+            onSave: function() {
+                $(window).trigger('resize');
+            }
+        });
+        $('#locat').jqxInput({
+            height: 25,
+            width: '100%',
+            maxLength: 5
+        });
+        $('#locat').val($.session.get('locatcd'));
+        $('#locatnm').jqxInput({
+            height: 25,
+            width: '100%'
+        });
+        $("#mcno").jqxInput({
+            height: 25,
+            width: '100%',
+            maxLength: 12
+        });
+        if (chkrun === true) {
+            $("#mcno").jqxInput({
+                placeHolder: "Running Code"
+            });
+        } else {
+            $("#mcno").jqxInput({
+                placeHolder: "Enter a document no."
+            });
+        }
+        $("#mcno").prop("readonly", chkrun);
+        $("#mcdt").jqxDateTimeInput({
+            height: 25,
+            width: '100%',
+            culture: 'en-US'
+        });
+        $("#searchModmast").jqxButton({
+            template: "inverse",
+            width: '100%'
+        });
+        $("#strno").jqxInput({
+            placeHolder: "Enter a model code",
+            height: 25,
+            width: '100%',
+            maxLength: 20
+        });
+        $("#memo1").jqxInput({
+            height: 60,
+            width: '100%'
+        });
+        //แสดงคำอธิบาย
+        $('#v-locat').off().on('blur', function () {
+            $('#locatnm').val(getLocatName($('#locat').val()));
+        });
+        $('#v-locat').trigger('blur');
+        $("#tableMctran").jqxGrid({
+            width: '100%',
+            height: 400,
+            source: dataAdtMctran,
+            editable: true,
+            altrows: true,
+            sortable: false,
+            filterable: false,
+            columnsresize: true,
+            selectionmode: 'singlerow',
+            editmode: 'selectedcell',
+            showstatusbar: true,
+            statusbarheight: 35,
+            showaggregates: true,
+            columns: [{
+                text: '#',
+                sortable: false,
+                filterable: false,
+                editable: false,
+                groupable: false,
+                draggable: false,
+                resizable: false,
+                align: 'center',
+                cellsalign: 'center',
+                datafield: '',
+                columntype: 'number',
+                width: 15,
+                cellsrenderer: function(row, column, value) {
+                    return "<div style='margin:4px; text-align:center;'>" + (value + 1) + "</div>";
+                },
+                aggregates: ['count'],
+                aggregatesrenderer: function(aggregates, column, element) {
+                    var renderstring = "";
+                    $.each(aggregates, function(key, value) {
+                        renderstring += '<div style="position: relative; margin: 4px; overflow: hidden; font-weight: bold;">' + value + '</div>';
+                    });
+                    return renderstring;
+                }
+            }, {
+                text: 'IDNO',
+                datafield: 'IDNO',
+                hidden: true
+            }, {
+                text: 'MCNO',
+                datafield: 'MCNO',
+                hidden: true
+            }, {
+                text: 'รหัสอุปกรณ์',
+                datafield: 'OPTCODE',
+                width: 450,
+                align: 'center',
+                cellsalign: 'left',
+                columntype: 'dropdownlist',
+                displayfield: 'SETMOD',
+                createeditor: function(row, value, editor) {
+                    editor.jqxDropDownList({
+                        source: dataAdtOptmast,
+                        displayMember: 'OPTNAME',
+                        valueMember: 'OPTCODE',
+                        placeHolder: "เลือกรหัสอุปกรณ์ :",
+                        dropDownHeight: 223,
+                        filterable: true,
+                        filterHeight: 30,
+                        filterPlaceHolder: "ค้นหา...",
+                        searchMode: 'containsignorecase',
+                        dropDownWidth: 450
+                    });
+                    editor.on('close', function(event) {
+                        $("#tableMctran").jqxGrid('hidevalidationpopups');
+                    });
+                },
+                cellvaluechanging: function(row, datafield, columntype, oldvalue, newvalue) {
+                    if ((newvalue.value != oldvalue) && (newvalue.value != undefined)) {
+                        $.ajax({
+                            async: false,
+                            method: 'GET',
+                            dataType: 'json',
+                            url: "sqltext",
+                            data: {
+                                sql: "SELECT OPTNAME, OPTPRC FROM SETMOD WHERE OPTCODE = '" + newvalue.value + "' "
+                            },
+                            success: function(setmod) {
+                                $("#tableMctran").jqxGrid('setcellvalue', row, "OPTNAME", setmod[0].OPTNAME);
+                                $("#tableMctran").jqxGrid('setcellvalue', row, "OPTPRC", setmod[0].OPTPRC);
+                            }
+                        });
+                    };
+                }
+            }, {
+                text: 'ชื่ออุปกรณ์',
+                datafield: 'OPTNAME',
+                hidden: true
+            }, {
+                text: 'จำนวน',
+                datafield: 'QTY',
+                width: 80,
+                align: 'center',
+                cellsalign: 'right',
+                cellsformat: 'd2',
+                columntype: 'numberinput',
+                createeditor: function(row, value, editor) {
+                    editor.jqxNumberInput({
+                        decimalDigits: 2,
+                        digits: 12,
+                        spinButtons: false,
+                        spinButtonsStep: 0,
+                        inputMode: 'simple'
+                    });
+                },
+                aggregates: ['sum'],
+                aggregatesrenderer: function(aggregates) {
+                    var renderstring = "";
+                    $.each(aggregates, function(key, value) {
+                        renderstring += '<div style="position: relative; margin: 4px; overflow: hidden; font-weight: bold;">' + value + '</div>';
+                        $("#sumqty").val(value);
+                    });
+                    return renderstring;
+                }
+            }, {
+                text: 'FLAG',
+                datafield: 'FLAG',
+                hidden: true
+            }, {
+                text: 'USERID',
+                datafield: 'USERID',
+                hidden: true
+            }, {
+                text: 'INPUTDT',
+                datafield: 'INPUTDT',
+                hidden: true
+            }, {
+                text: 'ราคา',
+                datafield: 'OPTPRC',
+                width: 100,
+                align: 'center',
+                cellsalign: 'right',
+                cellsformat: 'd2',
+                columntype: 'numberinput',
+                createeditor: function(row, value, editor) {
+                    editor.jqxNumberInput({
+                        decimalDigits: 2,
+                        digits: 12,
+                        spinButtons: false,
+                        spinButtonsStep: 0,
+                        inputMode: 'simple'
+                    });
+                },
+                aggregates: ['sum'],
+                aggregatesrenderer: function(aggregates) {
+                    var renderstring = "";
+                    $.each(aggregates, function(key, value) {
+                        renderstring += '<div style="position: relative; margin: 4px; overflow: hidden; font-weight: bold;">' + value + '</div>';
+                    });
+                    return renderstring;
+                }
+            }],
+            showtoolbar: true,
+            rendertoolbar: function(toolbar) {
+                var container = $("<div style='margin: 5px;'></div>");
+                toolbar.append(container);
+                container.append('<button type="button" id="addrow1"><span class="fa fa-plus"></span> เพิ่มรายการ</button> <button type="button" id="deleterow"><span class="fa fa-minus"></span> ลบรายการ</button>');
+                //Add row
+                $("#addrow1").on('click', function() {
+                    var recodecount = $("#tableMctran").jqxGrid('getdatainformation').rowscount;
+                    if (validateMctran() === true) {
+                        var datarow = {
+                            IDNO: 0,
+                            MCNO: '',
+                            OPTCODE: '',
+                            OPTNAME: '',
+                            QTY: 0,
+                            FLAG: 'A',
+                            USERID: $.session.get('username'),
+                            INPUTDT: '',
+                            OPTPRC: 0,
+                        };
+                        var commit = $("#tableMctran").jqxGrid('addrow', null, datarow);
+                        if (commit) {
+                            setTimeout(
+                                function() {
+                                    $("#tableMctran").jqxGrid('selectrow', recodecount);
+                                    $('#tableMctran').jqxGrid('begincelledit', recodecount, 'OPTCODE');
+                                },
+                                200
+                            );
+                        };
+                    }
+                });
+
+                //Delete row
+                $("#deleterow").on('click', function() {
+                    var selectedrowindex = $("#tableMctran").jqxGrid('getselectedrowindex');
+                    var rowscount = $("#tableMctran").jqxGrid('getdatainformation').rowscount;
+                    if (selectedrowindex >= 0 && selectedrowindex < rowscount) {
+                        var id = $("#tableMctran").jqxGrid('getrowid', selectedrowindex);
+                        var commit = $("#tableMctran").jqxGrid('deleterow', id);
+                    }
+                    return false;
+                });
+
+                $("#addrow1").jqxButton({
+                    width: 100,
+                    height: 25,
+                    template: "success"
+                });
+                $("#deleterow").jqxButton({
+                    width: 100,
+                    height: 25,
+                    template: "danger",
+                });
+            }
+        });
+
+        $("#newBtn").jqxButton({
+            template: "info",
+            width: 90
+        });
+        $("#saveBtn").jqxButton({
+            template: "primary",
+            width: 90,
+            disabled: !chkright.M_INSERT
+        });
+        $("#searchBtn").jqxButton({
+            template: "success",
+            width: 90
+        });
+        $("#deleteBtn").jqxButton({
+            disabled: true,
+            template: "danger",
+            width: 90
+        });
+        $('#fmMcmast').jqxValidator({
+            hintType: 'label',
+            animationDuration: 0,
+            closeOnClick: false,
+            rules: rules
+        });
+        //เริ่มใหม่
+        $('#newBtn').off().on('click', function() {
+            loadHTML("stk_receivemod");
+        });
+        //บันทึก
+        $('#saveBtn').off().on('click', function() {
+            $('#fmMcmast').jqxValidator('validate', function(result) {
+                if ((result) && (validateMctran() === true)) {
+                    $.when($.confirmdlg('ต้องการบันทึกข้อมูล?', 'info')).then(function() {
+                        $("#tableMctran").jqxGrid('refreshdata');
+                        var rowscount = $("#tableMctran").jqxGrid('getdatainformation').rowscount;
+                        var docdate = $("#mcdt").jqxDateTimeInput('getDate');
+                        var currentCulture = Globalize.cultures['en-US'];
+                        var localizationObject = currentCulture.calendar;
+                        var mcdt = $.jqx.dataFormat.formatdate(docdate, "dd/MM/yyyy", localizationObject);
+                        var mctran = [];
+                        var sumqty = 0,
+                            sumoptprc = 0;
+                        for (var i = 0; i < rowscount; i++) {
+                            var data = $("#tableMctran").jqxGrid('getrowdata', i);
+                            sumqty = sumqty+data.QTY;
+                            sumoptprc = sumoptprc+data.OPTPRC;
+                            mctran.push({
+                                IDNO: data.IDNO,
+                                MCNO: data.MCNO,
+                                OPTCODE: data.OPTCODE,
+                                OPTNAME: data.OPTNAME,
+                                QTY: data.QTY,
+                                FLAG: data.FLAG,
+                                USERID: data.USERID,
+                                OPTPRC: data.OPTPRC
+                            });
+                        };
+                        var valueJSON = [{
+                            status: status,
+                            locat: $('#locat').val(),
+                            table: 'MCMAST',
+                            key: $('#mcno').val(),
+                            value: [{
+                                LOCAT: $('#locat').val(),
+                                MCNO: $('#mcno').val(),
+                                MCDT: mcdt,
+                                STRNO: $('#strno').val(),
+                                SUMQTY: sumqty,
+                                FLAG: 'A',
+                                USERID: $.session.get('username'),
+                                MOMO1: $('#memo1').val(),
+                                SUMOPTPRC: sumoptprc
+                            }]
+                        }, {
+                            table: 'MCTRAN',
+                            value: mctran
+                        }];
+                        // Convert Value To JSON String
+                        var value = JSON.stringify(valueJSON);
+                        //console.log(value);
+                        $('#ok').on('click', function(event) {
+                            $.ajax({
+                                url: 'saveMcmast',
+                                type: 'POST',
+                                contentType: "application/json",
+                                dataType: "json",
+                                data: value,
+                                success: function(data) {
+                                    //console.log(data);
+                                    if (data[0].save === true) {
+                                        ShowMessage("บันทึกข้อมูลเรียบร้อย!", "success");
+                                        statusChange(true);
+                                        getMcmast(data[0].mcno);
+                                    } else {
+                                        ShowMessage("บันทึกไม่สำเร็จ!", "danger");
+                                    }
+                                }
+                            });
+                        });
+                    });
+                }
+            });
+        });
+        //ค้นหา เลขตัวถัง
+        $('#searchStrno').off().on('click', function() {
+            $.session.set('paramSrch1', $('#locat').val());
+            searchAll('strnoSale', 'strno');
+        });
+        $('#searchModmast').off().on('click', function() {
+            searchAll('modmast', 'modno');
+        });
+        $('#modno').off().on('blur', function() {
+            getModtran($('#modno').val());
+        });
+        //ค้นหา
+        $('#searchBtn').off().on('click', function() {
+            var rules2 = rules.slice();
+            rules2.splice(1, 1);
+            $('#fmMcmast').jqxValidator('rules', rules2);
+            //Show Dialog Search
+            searchAll('mcmast', 'mcno');
+            $('#okButton').on('click', function(event) {
+                event.preventDefault();
+                $('#fmMcmast').jqxValidator('hide');
+                statusChange(true);
+                getMcmast($('#mcno').val());
+            });
+        });
+        //ลบ
+        $('#deleteBtn').off().on('click', function() {
+            if ($('#mcno').val() !== '') {
+                $.when($.confirmdlg('ต้องการลบข้อมูล?', 'warning')).then(function() {
+                    $('#ok').on('click', function(event) {
+                        var valueJSON = [{
+                            table: 'MCTRAN',
+                            field: 'MCNO',
+                            key: $('#mcno').val(),
+                        }, {
+                            table: 'MCMAST',
+                            field: 'MCNO',
+                            key: $('#mcno').val(),
+                        }];
+                        // Convert Value To JSON String
+                        var value = JSON.stringify(valueJSON);
+                        $.ajax({
+                            async: false,
+                            method: 'POST',
+                            dataType: 'json',
+                            url: "delete",
+                            data: value,
+                            success: function(data) {
+                                if (data === true) {
+                                    ShowMessage("ลบข้อมูลเรียบร้อย!", "success");
+                                    statusChange(false);
+                                }
+                            },
+                            error: function(xhr, status, error) {
+                                ShowMessage("ลบข้อมูลไม่สำเร็จ! ", "danger");
+                            }
+                        });
+                    });
+                });
+            }
+        });
+    });
+</script>

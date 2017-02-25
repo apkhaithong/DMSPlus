@@ -655,6 +655,22 @@
             { text: 'สาขา', datafield: 'LOCAT', minwidth: 100, width: 250 },
         ];
         keyno = 'RECVNO';
+    } else if (show === "mcmast") {
+        datafields = [
+            { name: 'LOCAT', type: 'string' },
+            { name: 'MCNO', type: 'string' },
+            { name: 'MCDT', type: 'date', format: 'dd/MM/yyyy' },
+            { name: 'STRNO', type: 'string' },
+            { name: 'SUMQTY', type: 'float' },
+        ];
+        fields = [
+            { text: 'สาขา', datafield: 'LOCAT', minwidth: 100, width: 100 },
+            { text: 'เลขที่เบิก', datafield: 'MCNO', minwidth: 100, width: 100 },
+            { text: 'วันที่เบิก', datafield: 'MCDT', columntype: 'date', cellsformat: 'dd/MM/yyyy', minwidth: 100, width: 100 },
+            { text: 'เลขตัวถัง', datafield: 'STRNO', minwidth: 200, width: 250 },
+            { text: 'จำนวนเบิก', datafield: 'SUMQTY', minwidth: 100, width: 100 },
+        ];
+        keyno = 'MCNO';
     }
 
     fields.unshift({
@@ -812,6 +828,8 @@
             sqltxt = "SELECT A.IDNO,A.TMBILL,A.BILLNO,A.TMBILDT,A.CUSCOD,B.NAME1,B.NAME2, A.LOCATRECV,C.NETPAY AS TPAYAMT,A.CHQNO,C.CONTNO,C.PAYFOR, D.FORDESC, (CASE WHEN A.FLAG = 'C' THEN 'ยกเลิก' ELSE '' END) AS FLAG FROM CHQMAS A,CHQTRAN C,CUSTMAST B, PAYFOR D WHERE A.IDNO=C.CHQMASID AND A.CUSCOD=B.CUSCOD AND C.PAYFOR = D.FORCODE AND UPPER(COALESCE(A.TMBILL,'')||COALESCE(A.BILLNO,'')||COALESCE(B.NAME1,'')||COALESCE(B.NAME2,'')||COALESCE(C.PAYFOR,'')||COALESCE(D.FORDESC,'')) LIKE '%" + param1 + "%' ORDER BY A.TMBILDT DESC,A.TMBILL";
         } else if (show === "optinvoi") {
             sqltxt = "SELECT A.RECVNO, A.INVNO, A.APCODE, C.APNAME, B.LOCAT FROM OPTINVOI A, OPTINVTRAN B, APMAST C WHERE A.RECVNO = B.RECVNO AND A.APCODE = C.APCODE AND UPPER(COALESCE(A.RECVNO,'')||COALESCE(A.INVNO,'')||COALESCE(A.APCODE,'')||COALESCE(C.APNAME,'')||COALESCE(B.LOCAT,'')) LIKE '%" + param1 + "%' ORDER BY A.RECVNO";
+        } else if (show === "mcmast") {
+            sqltxt = "SELECT IDNO, MCNO, MCDT, LOCAT, REFNO, STRNO, SUMQTY, FLAG, USERID, INPUTDT, SUMOPTPRC FROM MCMAST WHERE UPPER(COALESCE(MCNO,'')||COALESCE(STRNO,'')) LIKE '%" + param1 + "%' ORDER BY MCNO";
         }
 
         // Qurey Data
