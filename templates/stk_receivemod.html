@@ -473,7 +473,6 @@
             width: '100%'
         });
         $("#strno").jqxInput({
-            placeHolder: "Enter a model code",
             height: 25,
             width: '100%',
             maxLength: 20
@@ -806,7 +805,13 @@
         //ค้นหา เลขตัวถัง
         $('#searchStrno').off().on('click', function() {
             $.session.set('paramSrch1', $('#locat').val());
+            $('#fmMcmast').jqxValidator('hideHint', '#strno');
             searchAll('strnoSale', 'strno');
+        });
+        //ค้นหาสาขา
+        $('#searchInvlocat').off().on('click', function () {
+            $('#fmMcmast').jqxValidator('hideHint', '#locat');
+            searchAll('invlocat', 'v-locat');
         });
         $('#searchModmast').off().on('click', function() {
             searchAll('modmast', 'modno');

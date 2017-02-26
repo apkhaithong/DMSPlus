@@ -671,6 +671,40 @@
             { text: 'จำนวนเบิก', datafield: 'SUMQTY', minwidth: 100, width: 100 },
         ];
         keyno = 'MCNO';
+    } else if (show === "strnoAll") {
+        datafields = [
+            { name: 'STRNO', type: 'string' },
+            { name: 'ENGNO', type: 'string' },
+            { name: 'REGNO', type: 'string' },
+            { name: 'TYPECOD', type: 'string' },
+            { name: 'MODELCOD', type: 'string' },
+            { name: 'BAABCOD', type: 'string' },
+            { name: 'COLORCOD', type: 'string' },
+        ];
+        fields = [
+            { text: 'เลขตัวถัง', datafield: 'STRNO', minwidth: 200, width: 250 },
+            { text: 'เลขเครื่องยนต์', datafield: 'ENGNO', minwidth: 150, width: 250 },
+            { text: 'เลขทะเบียน', datafield: 'REGNO', minwidth: 100, width: 250 },
+            { text: 'ยี่ห้อ', datafield: 'TYPECOD', minwidth: 100, width: 250 },
+            { text: 'รุ่น', datafield: 'MODELCOD', minwidth: 100, width: 250 },
+            { text: 'แบบ', datafield: 'BAABCOD', minwidth: 100, width: 250 },
+            { text: 'สี', datafield: 'COLORCOD', minwidth: 100, width: 250 },
+        ];
+        keyno = 'STRNO';
+    } else if (show === "adjstk") {
+        datafields = [
+            { name: 'ADJNO', type: 'string' },
+            { name: 'STRNO', type: 'string' },
+            { name: 'ENGNO', type: 'string' },
+            { name: 'REGNO', type: 'string' },
+        ];
+        fields = [
+            { text: 'เลขที่ปรับปรุง', datafield: 'ADJNO', minwidth: 200, width: 250 },
+            { text: 'เลขตัวถัง', datafield: 'STRNO', minwidth: 200, width: 250 },
+            { text: 'เลขเครื่องยนต์', datafield: 'ENGNO', minwidth: 150, width: 250 },
+            { text: 'เลขทะเบียน', datafield: 'REGNO', minwidth: 100, width: 250 },
+        ];
+        keyno = 'ADJNO';
     }
 
     fields.unshift({
@@ -830,6 +864,8 @@
             sqltxt = "SELECT A.RECVNO, A.INVNO, A.APCODE, C.APNAME, B.LOCAT FROM OPTINVOI A, OPTINVTRAN B, APMAST C WHERE A.RECVNO = B.RECVNO AND A.APCODE = C.APCODE AND UPPER(COALESCE(A.RECVNO,'')||COALESCE(A.INVNO,'')||COALESCE(A.APCODE,'')||COALESCE(C.APNAME,'')||COALESCE(B.LOCAT,'')) LIKE '%" + param1 + "%' ORDER BY A.RECVNO";
         } else if (show === "mcmast") {
             sqltxt = "SELECT IDNO, MCNO, MCDT, LOCAT, REFNO, STRNO, SUMQTY, FLAG, USERID, INPUTDT, SUMOPTPRC FROM MCMAST WHERE UPPER(COALESCE(MCNO,'')||COALESCE(STRNO,'')) LIKE '%" + param1 + "%' ORDER BY MCNO";
+        } else if (show === "adjstk") {
+            sqltxt = "SELECT A.IDNO, A.LOCAT, A.ADJNO, A.ADJDT, A.STRNO, A.TADDCOST, A.CRCOST, A.DISCT, A.NETCOST, A.CRVAT, A.TOTCOST, A.STDPRC, A.USERID, A.INPUTDT, A.LOCATPARK, A.POSTGL, A.APCODE, A.VATRT, A.STAT, B.ENGNO, B.REGNO FROM ADJSTK A, INVTRAN B WHERE A.STRNO = B.STRNO AND UPPER(COALESCE(A.ADJNO,'')||COALESCE(A.STRNO,'')||COALESCE(B.ENGNO,'')||COALESCE(B.REGNO,'')) LIKE '%" + param1 + "%' ORDER BY A.ADJNO";
         }
 
         // Qurey Data

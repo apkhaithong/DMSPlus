@@ -1370,9 +1370,9 @@
             searchAll('arcred', 'contno');
             $('#okButton').on('click', function (event) {
                 var rules2 = rules.slice();
-                if (chkrun === false) {
+                // if (chkrun === false) {
                     rules2.splice(1, 1);
-                }
+                // }
                 rules2.splice(4, 8);
                 //console.log(rules2);
                 $('#fmArcred').jqxValidator('rules', rules2);

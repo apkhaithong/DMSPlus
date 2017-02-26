@@ -1,0 +1,988 @@
+﻿<div class="row" id="spy2">
+    <!-- Chart with filter Widget -->
+    <div class="col-md-12 admin-grid">
+        <div class="panel" id="p2">
+            <div class="panel-heading">
+                <span class="panel-icon"><span class="glyphicons glyphicons-car"></span></span>
+                <span class="panel-title">ปรับปรุงสินค้าเข้าสต็อก</span>
+                <span class="panel-controls">
+                    <a href="#" class="panel-control-loader"></a>
+                    <a href="#" class="panel-control-remove"></a>
+                    <a href="#" class="panel-control-collapse"></a>
+                    <a href="#" class="panel-control-fullscreen"></a>
+                </span>
+            </div>
+            <div class="panel-body">
+                <form class="form-horizontal" id="fmAdjstk">
+                    <div class="p15 pt5 mt15">
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="admin-form">
+                                    <div class="form-group">
+                                        <label class="col-sm-4 control-label required" for="locat">สาขา</label>
+                                        <div class="col-sm-8">
+                                            <div id="locat" class="input-button">
+                                                <input type="text" id="v-locat" />
+                                                <div id="searchInvlocat"><img alt="search" width="20" height="20" src="/images/search_lg.png"
+                                                    /></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <input type="text" id="locatnm" class="text-desc" readonly/>
+                            </div>
+                            <div class="col-md-4">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="admin-form">
+                                    <div class="form-group">
+                                        <label class="col-md-4 control-label" for="adjno">เลขที่บันทึก</label>
+                                        <div class="col-md-8">
+                                            <div class="bs-component">
+                                                <input type="text" id="adjno" style="color:#e9573f; font-weight: bold;" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="admin-form">
+                                    <div class="form-group">
+                                        <label class="col-md-4 control-label" for="adjdt">วันที่บันทึก</label>
+                                        <div class="col-md-8">
+                                            <div class="bs-component">
+                                                <div id="adjdt"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="admin-form">
+                                    <div class="form-group">
+                                        <label class="col-md-4 control-label required" for="strno">เลขตัวถัง</label>
+                                        <div class="col-md-8">
+                                            <div class="bs-component">
+                                                <div id="strno" class="input-button">
+                                                    <input type="text" id="v-strno" />
+                                                    <div id="searchStrno"><img alt="search" width="20" height="20" src="/images/search_lg.png" /></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="admin-form">
+                                    <div class="form-group">
+                                        <label class="col-md-4 control-label" for="engno">เลขเครื่องยนต์</label>
+                                        <div class="col-md-8">
+                                            <div class="bs-component">
+                                                <input type="text" id="engno" class="text-desc" readonly/>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="admin-form">
+                                    <div class="form-group">
+                                        <label class="col-md-4 control-label" for="typecod">ยี่ห้อสินค้า</label>
+                                        <div class="col-md-8">
+                                            <div class="bs-component">
+                                                <input type="text" id="typecod" class="text-desc" readonly/>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="admin-form">
+                                    <div class="form-group">
+                                        <label class="col-md-4 control-label" for="modelcod">รุ่นสินค้า</label>
+                                        <div class="col-md-8">
+                                            <div class="bs-component">
+                                                <input type="text" id="modelcod" class="text-desc" readonly/>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="admin-form">
+                                    <div class="form-group">
+                                        <label class="col-md-4 control-label" for="baabcod">แบบสินค้า</label>
+                                        <div class="col-md-8">
+                                            <div class="bs-component">
+                                                <input type="text" id="baabcod" class="text-desc" readonly/>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="admin-form">
+                                    <div class="form-group">
+                                        <label class="col-md-4 control-label" for="colorcod">สีสินค้า</label>
+                                        <div class="col-md-8">
+                                            <div class="bs-component">
+                                                <input type="text" id="colorcod" class="text-desc" readonly/>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="admin-form">
+                                    <div class="form-group">
+                                        <label class="col-md-4 control-label" for="cc">ขนาด ซี ซี</label>
+                                        <div class="col-md-8">
+                                            <div class="bs-component">
+                                                <input type="text" id="cc" class="text-desc" readonly/>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="admin-form">
+                                    <div class="form-group">
+                                        <label class="col-md-4 control-label" for="gcode">กลุ่มสินค้า</label>
+                                        <div class="col-md-8">
+                                            <div class="bs-component">
+                                                <input type="text" id="gcode" class="text-desc" readonly/>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="admin-form">
+                                    <div class="form-group">
+                                        <label class="col-md-4 control-label required" for="apcode">รหัสเจ้าหนี้</label>
+                                        <div class="col-md-8">
+                                            <div class="bs-component">
+                                                <div id="apcode" class="input-button">
+                                                    <input type="text" id="v-apcode" />
+                                                    <div id="searchApmast"><img alt="search" width="20" height="20" src="/images/search_lg.png"
+                                                        /></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <input type="text" id="apname" class="text-desc" readonly/>
+                            </div>
+                            <div class="col-md-4">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="admin-form">
+                                    <div class="form-group">
+                                        <label class="col-sm-4 control-label" for="stat">สถานะสินค้า</label>
+                                        <div class="col-sm-8">
+                                            <div class="bs-component">
+                                                <div id='stat'></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="admin-form">
+                                    <div class="form-group">
+                                        <label class="col-sm-4 control-label" for="vatrt">ภาษี</label>
+                                        <div class="col-sm-8">
+                                            <div id='vatrt'></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="admin-form">
+                                    <div class="form-group">
+                                        <label class="col-sm-4 control-label" for="netcost">มูลค่าทุน</label>
+                                        <div class="col-sm-8">
+                                            <div id='netcost'></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="admin-form">
+                                    <div class="form-group">
+                                        <label class="col-sm-4 control-label" for="crvat">ภาษี</label>
+                                        <div class="col-sm-8">
+                                            <div id='crvat'></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="admin-form">
+                                    <div class="form-group">
+                                        <label class="col-sm-4 control-label" for="totcost">ทุนรวมภาษี</label>
+                                        <div class="col-sm-8">
+                                            <div id='totcost'></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="admin-form">
+                                    <div class="form-group">
+                                        <label class="col-sm-4 control-label" for="stdprc">ราคาขาย</label>
+                                        <div class="col-sm-8">
+                                            <div id='stdprc'></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-8">
+                                <div class="admin-form pt15">
+                                    <div class="form-group">
+                                        <label class="col-md-4 control-label"></label>
+                                        <div class="col-md-8">
+                                            <div class="bs-component">
+                                                <button type="button" id="newBtn"><span class="fa fa-refresh"></span> เริ่มใหม่</button>
+                                                <button type="button" id="saveBtn"><span class="fa fa-floppy-o"></span> บันทึก</button>
+                                                <button type="button" id="searchBtn"><span class="fa fa-search"></span> ค้นหา</button>
+                                                <button type="button" id="deleteBtn"><span class="fa fa-trash-o"></span> ลบ</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <!-- end: .col-md-12.admin-grid -->
+</div>
+<!-- end: .row -->
+<script type="text/javascript">
+    $(document).ready(function() {
+        //Default status Insert
+        var status = 'insert';
+        //เช็คสิทธิการใช้งาน
+        var chkright = checkRight('STK005');
+
+        //เช็ค Running เอกสาร
+        var chkrun = checkRundoc('R_ARLET');
+
+        //ฟังก์ชั่น สถานะ Insert หรือ Edit
+        function statusChange(disabled) {
+            if (disabled === false) {
+                status = 'insert';
+                $('#locat').val($.session.get('locatcd'));
+                $('#adjno').val('');
+                $('#adjdt').jqxDateTimeInput('setDate', new Date());
+                $('#strno').val('');
+                $('#stat').val('N');
+                $('#apcode').val('');
+                $('#vatrt').val(condpay.VAT);
+                $('#netcost').val(0);
+                $('#crvat').val(0);
+                $('#totcost').val(0);
+                $('#stdprc').val(0);
+                $('#searchStrno').show();
+            } else {
+                status = 'update';
+                $("#saveBtn").jqxButton({
+                    disabled: !chkright.M_EDIT
+                });
+            }
+            $("#adjno").prop("readonly", disabled);
+            $("#strno").jqxInput({disabled: disabled});
+            $('#searchStrno').hide();
+            $("#deleteBtn").jqxButton({
+                disabled: !chkright.M_DELETE
+            });
+        }
+
+        function getAdjstk(adjno) {
+            $.ajax({
+                async: false,
+                method: 'GET',
+                dataType: 'json',
+                url: "sqltext",
+                data: {
+                    sql: "SELECT * FROM ADJSTK WHERE ADJNO = '" + adjno + "' "
+                },
+                success: function(data) {
+                    $('#locat').val(data[0].LOCAT);
+                    $('#adjno').val(data[0].ADJNO);
+                    $('#adjdt').val(data[0].ADJDT);
+                    $('#strno').val(data[0].STRNO);
+                    $('#apcode').val(data[0].APCODE);
+                    $('#stat').val(data[0].STAT);
+                    $('#vatrt').val(data[0].VATRT);
+                    $('#netcost').val(data[0].NETCOST);
+                    $('#crvat').val(data[0].CRCOST);
+                    $('#totcost').val(data[0].TOTCOST);
+                    $('#stdprc').val(data[0].STDPRC);
+                    $('#v-locat').trigger('blur');
+                    $('#v-apcode').trigger('blur');
+                }
+            });
+        }
+
+        //สถานะสินค้า
+        var statData = [{
+            value: "N",
+            label: "ใหม่"
+        }, {
+            value: "O",
+            label: "เก่า"
+        }];
+        var statSource = {
+            datatype: "array",
+            datafields: [{
+                name: 'label',
+                type: 'string'
+            }, {
+                name: 'value',
+                type: 'string'
+            }],
+            localdata: statData
+        };
+        var statAdapter = new $.jqx.dataAdapter(statSource);
+        //ข้อมูลอุปกรณ์ ทั้งหมด
+        var sourceOptmast = {
+            async: false,
+            datatype: "json",
+            datafields: [{
+                name: 'OPTCODE',
+                type: 'string'
+            }, {
+                name: 'OPTNAME',
+                type: 'string'
+            }],
+            url: "sqltext",
+            data: {
+                sql: "SELECT OPTCODE, TRIM(OPTCODE)||' : '||TRIM(OPTNAME) AS OPTNAME, OPTPRC FROM SETMOD ORDER BY OPTCODE"
+            }
+        };
+        var dataAdtOptmast = new $.jqx.dataAdapter(sourceOptmast);
+        //เงื่อนไข validate ADJSTK
+        var rules = [{
+            input: '#strno',
+            message: 'กรุณาระบุเลขตัวถัง!',
+            action: 'keyup, blur, focusout',
+            rule: 'required'
+        }, {
+            input: '#strno',
+            message: 'ไม่พบเลขตัวถังนี้!',
+            action: 'keyup, blur, focusout',
+            rule: function(input, commit) {
+                var strno = $('#strno').val();
+                if (strno !== '') {
+                    var result = [];
+                    $.ajax({
+                        async: false,
+                        method: 'GET',
+                        dataType: 'json',
+                        url: "sqltext",
+                        data: {
+                            sql: "SELECT STRNO, ENGNO, TYPECOD, MODELCOD, BAABCOD, COLORCOD, GCODE, CC FROM INVTRAN WHERE STRNO ='"+strno+"' "
+                        },
+                        success: function (data) {
+                            if (data.length === 0) {
+                                result = false;
+                            } else { 
+                                result = true;
+                            }
+                        },
+                        error: function () {
+                            result = false;
+                        }
+                    });
+                    return result;
+                }
+            }
+        }, {
+            input: '#strno',
+            message: 'เป็นรถอยู่ในสต็อก ยังไม่ได้ขาย!',
+            action: 'keyup, blur, focusout',
+            rule: function (input, commit) {
+                var strno = $('#strno').val();
+                if (strno !== '') {
+                    var result = [];
+                    $.ajax({
+                        async: false,
+                        method: 'GET',
+                        dataType: 'json',
+                        url: "sqltext",
+                        data: {
+                            sql: "SELECT STRNO FROM STKCARD WHERE STRNO = '" + strno + "' AND FLAG='D' "
+                        },
+                        success: function (data) {
+                            if (data.length === 0) {
+                                result = true;
+                            } else { 
+                                result = false;
+                            }
+                        },
+                        error: function () {
+                            result = false;
+                        }
+                    });
+                    return result;
+                }
+            }
+        }, {
+            input: '#strno',
+            message: 'รถคันนี้ยังชำระเงินไม่หมด!',
+            action: 'keyup, blur, focusout',
+            rule: function (input, commit) {
+                var strno = $('#strno').val();
+                if (strno !== '') {
+                    var result = [];
+                    $.ajax({
+                        async: false,
+                        method: 'GET',
+                        dataType: 'json',
+                        url: "sqltext",
+                        data: {
+                            sql: "SELECT STRNO FROM VWSALE WHERE STRNO = '" + strno + "' AND KEYINPRC > SMPAY AND CONTYP = '1' "
+                        },
+                        success: function (data) {
+                            if (data.length === 0) {
+                                result = true;
+                            } else { 
+                                result = false;
+                            }
+                        },
+                        error: function () {
+                            result = false;
+                        }
+                    });
+                    return result;
+                }
+            }
+        }, {
+            input: '#apcode',
+            message: 'กรุณาระบุรหัสเจ้าหนี้!',
+            action: 'keyup, blur, focusout',
+            rule: 'required'
+        }, {
+            input: '#apcode',
+            message: 'ไม่พบรหัสเจ้าหนี้นี้!',
+            action: 'keyup, blur, focusout',
+            rule: function (input, commit) {
+                var apcode = $('#apcode').val();
+                if (apcode !== '') {
+                    $.ajax({
+                        url: "duplicateCheck",
+                        type: 'get',
+                        data: {
+                            table: 'APMAST',
+                            field: 'APCODE',
+                            value: apcode
+                        },
+                        success: function (data) {
+                            if (data === true) {
+                                commit(false);
+                            } else commit(true);
+                        },
+                        error: function () {
+                            commit(false);
+                        }
+                    });
+                }
+            }
+        }, {
+            input: '#netcost',
+            message: 'กรุณาระบุราคาทุนมากกว่า 0!',
+            action: 'keyup, blur, focusout',
+            rule: function (input, commit) {
+                var netcost = input.val();
+                if (netcost === 0) {
+                    return false;
+                } else {
+                    return true;
+                }
+            }
+        }];
+        if (chkrun === false) {
+            rules.push({
+                input: '#adjno',
+                message: 'กรุณาระบุเลขที่บันทึก!',
+                action: 'keyup, blur, focusout',
+                rule: 'required'
+            }, {
+                input: '#adjno',
+                message: 'ระบุเลขที่บันทึกซ้ำ!',
+                action: 'keyup, blur',
+                rule: function(input, commit) {
+                    var adjno = $('#adjno').val();
+                    if (adjno !== '') {
+                        $.ajax({
+                            url: "duplicateCheck",
+                            type: 'get',
+                            data: {
+                                table: 'ADJSTK',
+                                field: 'ADJNO',
+                                value: adjno
+                            },
+                            success: function(data) {
+                                if (data === true) {
+                                    commit(true);
+                                } else commit(false);
+                            },
+                            error: function() {
+                                commit(false);
+                            }
+                        });
+                    }
+                }
+            });
+        }
+        //DataSource MCTRAN
+        var dataModtran = [];
+        var sourceMctran = {
+            datatype: "json",
+            datafields: [{
+                name: 'IDNO',
+                type: 'integer'
+            }, {
+                name: 'ADJNO',
+                type: 'string'
+
+            }, {
+                name: 'OPTCODE',
+                type: 'string'
+            }, {
+                name: 'SETMOD',
+                value: 'OPTCODE',
+                values: {
+                    source: dataAdtOptmast.records,
+                    value: 'OPTCODE',
+                    name: 'OPTNAME'
+                }
+            }, {
+                name: 'OPTNAME',
+                type: 'string'
+
+            }, {
+                name: 'QTY',
+                type: 'float'
+
+            }, {
+                name: 'FLAG',
+                type: 'string'
+
+            }, {
+                name: 'USERID',
+                type: 'string'
+
+            }, {
+                name: 'INPUTDT',
+                type: 'date'
+
+            }, {
+                name: 'OPTPRC',
+                type: 'float'
+
+            }],
+            addrow: function(rowid, rowdata, position, commit) {
+                commit(true);
+            },
+            deleterow: function(rowid, commit) {
+                commit(true);
+            },
+            updaterow: function(rowid, newdata, commit) {
+                commit(true);
+            },
+            id: 'id',
+            localdata: dataModtran
+        };
+        var dataAdtMctran = new $.jqx.dataAdapter(sourceMctran);
+        $('.admin-panels').adminpanel({
+            grid: '.admin-grid',
+            callback: function() {
+                bootbox.confirm('<h3>A Custom Callback!</h3>', function() {});
+            },
+            onFinish: function() {
+                $('.admin-panels').addClass('animated fadeIn').removeClass('fade-onload');
+                demoHighCharts.init();
+            },
+            onSave: function() {
+                $(window).trigger('resize');
+            }
+        });
+        $('#locat').jqxInput({
+            height: 25,
+            width: '100%',
+            maxLength: 5
+        });
+        $('#locat').val($.session.get('locatcd'));
+        $('#locatnm').jqxInput({
+            height: 25,
+            width: '100%'
+        });
+        $("#adjno").jqxInput({
+            height: 25,
+            width: '100%',
+            maxLength: 12
+        });
+        if (chkrun === true) {
+            $("#adjno").jqxInput({
+                placeHolder: "Running Code"
+            });
+        } else {
+            $("#adjno").jqxInput({
+                placeHolder: "Enter a document no."
+            });
+        }
+        $("#adjno").prop("readonly", chkrun);
+        $("#adjdt").jqxDateTimeInput({
+            height: 25,
+            width: '100%',
+            culture: 'en-US'
+        });
+
+        $("#strno").jqxInput({
+            height: 25,
+            width: '100%',
+            maxLength: 20
+        });
+        $('#engno').jqxInput({
+            height: 25,
+            width: '100%'
+        });
+        $('#typecod').jqxInput({
+            height: 25,
+            width: '100%'
+        });
+        $('#modelcod').jqxInput({
+            height: 25,
+            width: '100%'
+        });
+        $('#baabcod').jqxInput({
+            height: 25,
+            width: '100%'
+        });
+        $('#colorcod').jqxInput({
+            height: 25,
+            width: '100%'
+        });
+        $('#cc').jqxInput({
+            height: 25,
+            width: '100%'
+        });
+        $('#gcode').jqxInput({
+            height: 25,
+            width: '100%'
+        });
+        $("#apcode").jqxInput({
+            height: 25,
+            width: '100%',
+            maxLength: 20
+        });
+        $('#apname').jqxInput({
+            height: 25,
+            width: '100%'
+        });
+        $("#stat").jqxDropDownList({
+            selectedIndex: 0,
+            source: statAdapter,
+            displayMember: "label",
+            valueMember: "value",
+            height: 25,
+            width: '100%',
+            dropDownHeight: 52,
+            placeHolder: "เลือก :"
+        });
+        $("#vatrt").jqxNumberInput({
+            height: 25,
+            width: '100%',
+            symbol: '%',
+            spinButtons: true,
+            digits: 2,
+            decimalDigits: 0,
+            min: 0,
+            max: 99
+        });
+        $('#vatrt').val(condpay.VAT);
+        $("#netcost").jqxNumberInput({
+            height: 25,
+            width: '100%',
+            symbol: '฿',
+            spinButtons: true,
+            digits: 10,
+            decimalDigits: 2,
+            min: 0,
+            max: 9999999999
+        });
+        $("#crvat").jqxNumberInput({
+            height: 25,
+            width: '100%',
+            symbol: '฿',
+            spinButtons: true,
+            digits: 10,
+            decimalDigits: 2,
+            min: 0,
+            max: 9999999999
+        });
+        $("#totcost").jqxNumberInput({
+            height: 25,
+            width: '100%',
+            symbol: '฿',
+            spinButtons: true,
+            digits: 10,
+            decimalDigits: 2,
+            min: 0,
+            max: 9999999999
+        });
+        $("#stdprc").jqxNumberInput({
+            height: 25,
+            width: '100%',
+            symbol: '฿',
+            spinButtons: true,
+            digits: 10,
+            decimalDigits: 2,
+            min: 0,
+            max: 9999999999
+        });
+
+        //แสดงคำอธิบาย
+        $('#v-locat').off().on('blur', function () {
+            $('#locatnm').val(getLocatName($('#locat').val()));
+        });
+        $('#v-apcode').off().on('blur', function () {
+            $('#apname').val(getApName($('#apcode').val()));
+        });
+        $('#v-locat').trigger('blur');
+
+        $("#newBtn").jqxButton({
+            template: "info",
+            width: 90
+        });
+        $("#saveBtn").jqxButton({
+            template: "primary",
+            width: 90,
+            disabled: !chkright.M_INSERT
+        });
+        $("#searchBtn").jqxButton({
+            template: "success",
+            width: 90
+        });
+        $("#deleteBtn").jqxButton({
+            disabled: true,
+            template: "danger",
+            width: 90
+        });
+        $('#fmAdjstk').jqxValidator({
+            hintType: 'label',
+            animationDuration: 0,
+            closeOnClick: false,
+            rules: rules
+        });
+        //เริ่มใหม่
+        $('#newBtn').off().on('click', function() {
+            loadHTML("stk_adjuststk");
+        });
+        //บันทึก
+        $('#saveBtn').off().on('click', function() {
+            $('#fmAdjstk').jqxValidator('validate', function(result) {
+                if (result) {
+                    $.when($.confirmdlg('ต้องการบันทึกข้อมูล?', 'info')).then(function() {
+                        var docdate = $("#adjdt").jqxDateTimeInput('getDate');
+                        var currentCulture = Globalize.cultures['en-US'];
+                        var localizationObject = currentCulture.calendar;
+                        var adjdt = $.jqx.dataFormat.formatdate(docdate, "dd/MM/yyyy", localizationObject);
+                        var valueJSON = [{
+                            status: status,
+                            locat: $('#locat').val(),
+                            table: 'ADJSTK',
+                            key: $('#adjno').val(),
+                            value: [{
+                                LOCAT: $('#locat').val(),
+                                ADJNO: $('#adjno').val(),
+                                ADJDT: adjdt,
+                                STRNO: $('#strno').val(),
+                                NETCOST: $('#netcost').val(), 
+                                CRVAT: $('#crvat').val(), 
+                                TOTCOST: $('#totcost').val(), 
+                                STDPRC: $('#stdprc').val(),
+                                USERID: $.session.get('username'),
+                                APCODE: $('#apcode').val(),
+                                VATRT: $('#vatrt').val(),
+                                STAT: $('#stat').val()
+                            }]
+                        }];
+                        // Convert Value To JSON String
+                        var value = JSON.stringify(valueJSON);
+                        console.log(value);
+                        $('#ok').on('click', function(event) {
+                            $.ajax({
+                                url: 'saveAdjstk',
+                                type: 'POST',
+                                contentType: "application/json",
+                                dataType: "json",
+                                data: value,
+                                success: function(data) {
+                                    //console.log(data);
+                                    if (data[0].save === true) {
+                                        ShowMessage("บันทึกข้อมูลเรียบร้อย!", "success");
+                                        statusChange(true);
+                                        getAdjstk(data[0].adjno);
+                                    } else {
+                                        ShowMessage("บันทึกไม่สำเร็จ!", "danger");
+                                    }
+                                }
+                            });
+                        });
+                    });
+                }
+            });
+        });
+        $('#strno').on('change', function (event) {
+            var value = event.args.value;
+            $.ajax({
+                async: false,
+                method: 'GET',
+                dataType: 'json',
+                url: "sqltext",
+                data: {
+                    sql: "SELECT STRNO, ENGNO, TYPECOD, MODELCOD, BAABCOD, COLORCOD, GCODE, CC FROM INVTRAN WHERE STRNO ='"+value+"' "
+                },
+                success: function (data) {
+                    if (data.length > 0) {
+                        $('#engno').val(data[0].ENGNO);
+                        $('#typecod').val(data[0].TYPECOD);
+                        $('#modelcod').val(data[0].MODELCOD);
+                        $('#baabcod').val(data[0].BAABCOD);
+                        $('#colorcod').val(data[0].COLORCOD);
+                        $('#cc').val(data[0].CC);
+                        $('#gcode').val(data[0].GCODE);
+                    }
+                }
+            });
+        });
+        //คำนวณจำนวนเงิน
+        $('#netcost').on('valueChanged', function (event) {
+            var value = parseFloat(event.args.value);
+            var vatrt = parseFloat($("#vatrt").val());
+            var crvat = ((value*vatrt)/100);
+            $("#crvat").val(crvat);
+        });
+        $('#crvat').on('valueChanged', function (event) {
+            var value = parseFloat(event.args.value);
+            var netcost = parseFloat($("#netcost").val());
+            var totcost = netcost+value;
+            $("#totcost").val(totcost);
+        });
+        
+        //ค้นหา เลขตัวถัง
+        $('#searchStrno').off().on('click', function() {
+            $('#fmAdjstk').jqxValidator('hideHint', '#strno');
+            searchAll('strnoAll', 'strno');
+        });
+        //ค้นหาสาขา
+        $('#searchInvlocat').off().on('click', function () {
+            $('#fmAdjstk').jqxValidator('hideHint', '#locat');
+            searchAll('invlocat', 'v-locat');
+        });
+        //ค้นหาเจ้าหนี้
+        $('#searchApmast').off().on('click', function () {
+            $('#fmAdjstk').jqxValidator('hideHint', '#apcode');
+            searchAll('apmast', 'v-apcode');
+        });
+        //ค้นหา
+        $('#searchBtn').off().on('click', function() {
+            var rules2 = rules.slice();
+            rules2.splice(1, 1);
+            rules2.splice(1, 2);
+            $('#fmAdjstk').jqxValidator('rules', rules2);
+            //Show Dialog Search
+            searchAll('adjstk', 'adjno');
+            $('#okButton').on('click', function(event) {
+                event.preventDefault();
+                $('#fmAdjstk').jqxValidator('hide');
+                statusChange(true);
+                getAdjstk($('#adjno').val());
+            });
+        });
+        //ลบ
+        $('#deleteBtn').off().on('click', function() {
+            if ($('#adjno').val() !== '') {
+                $.when($.confirmdlg('ต้องการลบข้อมูล?', 'warning')).then(function() {
+                    $('#ok').on('click', function(event) {
+                        var valueJSON = [{
+                            table: 'MCTRAN',
+                            field: 'ADJNO',
+                            key: $('#adjno').val(),
+                        }, {
+                            table: 'ADJSTK',
+                            field: 'ADJNO',
+                            key: $('#adjno').val(),
+                        }];
+                        // Convert Value To JSON String
+                        var value = JSON.stringify(valueJSON);
+                        $.ajax({
+                            async: false,
+                            method: 'POST',
+                            dataType: 'json',
+                            url: "delete",
+                            data: value,
+                            success: function(data) {
+                                if (data === true) {
+                                    ShowMessage("ลบข้อมูลเรียบร้อย!", "success");
+                                    statusChange(false);
+                                }
+                            },
+                            error: function(xhr, status, error) {
+                                ShowMessage("ลบข้อมูลไม่สำเร็จ! ", "danger");
+                            }
+                        });
+                    });
+                });
+            }
+        });
+    });
+</script>
