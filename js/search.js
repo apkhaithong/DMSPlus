@@ -725,6 +725,42 @@
             { text: 'เลขทะเบียน', datafield: 'REGNO', minwidth: 100, width: 250 },
         ];
         keyno = 'MOVENO';
+    } else if (show === "comp_asset") {
+        datafields = [
+            { name: 'CONTNO', type: 'string' },
+            { name: 'NAME1', type: 'string' },
+            { name: 'NAME2', type: 'string' },
+            { name: 'STRNO', type: 'string' },
+            { name: 'REGNO', type: 'string' },
+            { name: 'FLAG', type: 'string' },
+        ];
+        fields = [
+            { text: 'เลขสัญญา', datafield: 'CONTNO', minwidth: 100, width: 100 },
+            { text: 'ชื่อ', datafield: 'NAME1', minwidth: 100, width: 100 },
+            { text: 'นามสกุล', datafield: 'NAME2', minwidth: 100, width: 100 },
+            { text: 'เลขตัวถัง', datafield: 'STRNO', minwidth: 100, width: 200 },
+            { text: 'เลขทะเบียน', datafield: 'REGNO', minwidth: 100, width: 100 },
+            { text: 'สถานะ', datafield: 'FLAG', minwidth: 100, width: 100 },
+        ];
+        keyno = 'CONTNO';
+    } else if (show === "locatparking") {
+        datafields = [
+            { name: 'REFNOIN', type: 'string' },
+            { name: 'STRNO', type: 'string' },
+            { name: 'ENGNO', type: 'string' },
+            { name: 'REGNO', type: 'string' },
+            { name: 'LOCAT', type: 'string' },
+            { name: 'LOCATPARK', type: 'string' },
+        ];
+        fields = [
+            { text: 'เลขที่บันทึก', datafield: 'REFNOIN', minwidth: 200, width: 100 },
+            { text: 'เลขตัวถัง', datafield: 'STRNO', minwidth: 200, width: 250 },
+            { text: 'เลขเครื่องยนต์', datafield: 'ENGNO', minwidth: 150, width: 250 },
+            { text: 'เลขทะเบียน', datafield: 'REGNO', minwidth: 100, width: 100 },
+            { text: 'สาขา', datafield: 'LOCAT', minwidth: 100, width: 100 },
+            { text: 'สถานที่จอด', datafield: 'LOCATPARK', minwidth: 100, width: 100 },
+        ];
+        keyno = 'REFNOIN';
     }
 
     fields.unshift({
@@ -787,7 +823,7 @@
         } else if (show === "setcolor") {
             sqltxt = "SELECT * FROM SETCOLOR WHERE UPPER(COLORCOD||COLORDESC) LIKE '%" + param1 + "%' ORDER BY COLORCOD";
         } else if (show === "invparking") {
-            sqltxt = "SELECT * FROM INVPARKING WHERE UPPER(LOCATPARK||LOCATPARKNM) LIKE '%" + param1 + "%' AND LOCATCD = '" + xlocat + "' ORDER BY LOCATPARK";
+            sqltxt = "SELECT * FROM INVPARKING WHERE UPPER(LOCATPARK||LOCATPARKNM) LIKE '%" + param1 + "%' AND LOCATCD LIKE '"+$.session.get('paramSrch1')+"%' ORDER BY LOCATPARK";
         } else if (show === "payfor") {
             sqltxt = "SELECT * FROM PAYFOR WHERE UPPER(FORCODE||FORDESC) LIKE '%" + param1 + "%' ORDER BY FORCODE";
         } else if (show === "paytyp") {
@@ -867,7 +903,7 @@
         } else if (show === "strnoSale") {
             sqltxt = "SELECT A.IDNO,B.STRNO,A.ENGNO,A.REGNO,A.TYPECOD,A.MODELCOD,A.BAABCOD,A.COLORCOD,B.CURSTAT,B.REFDTIN,B.IDNO AS IDNO1, B.TADDCOST,B.CRCOST,B.DISCT,B.NETCOST,B.CRVAT,B.TOTCOST,B.STDPRC,B.REFNOIN FROM INVTRAN A,STKCARD B WHERE A.STRNO = B.STRNO AND B.FLAG = 'D' AND B.LOCAT = '"+$.session.get('paramSrch1')+"' AND UPPER(COALESCE(B.STRNO,'')||COALESCE(A.ENGNO,'')||COALESCE(A.REGNO,'')||COALESCE(A.TYPECOD,'')||COALESCE(A.MODELCOD,'')||COALESCE(A.BAABCOD,'')||COALESCE(A.COLORCOD,'')) LIKE '%" + param1 + "%' ORDER BY B.STRNO";
         } else if (show === "arcred") {
-            sqltxt = "SELECT A.CONTNO, A.RESVNO, B.NAME1, B.NAME2, A.STRNO, C.REGNO, (CASE WHEN A.FLAG = 'C' THEN 'ยกเลิก' ELSE '' END) AS FLAG FROM ARCRED A, CUSTMAST B, INVTRAN C WHERE A.CUSCOD = B.CUSCOD AND A.STRNO = C.STRNO AND UPPER(COALESCE(A.CONTNO,'')||COALESCE(A.RESVNO,'')||COALESCE(B.NAME1,'')||COALESCE(B.NAME2,'')||COALESCE(A.STRNO,'')||COALESCE(C.REGNO,'')) LIKE '%" + param1 + "%' ORDER BY A.CONTNO";
+            sqltxt = "SELECT A.CONTNO, A.RESVNO, B.NAME1, B.NAME2, A.STRNO, C.REGNO, (CASE WHEN A.FLAG = 'C' THEN 'ยกเลิก' ELSE ' ' END) AS FLAG FROM ARCRED A, CUSTMAST B, INVTRAN C WHERE A.CUSCOD = B.CUSCOD AND A.STRNO = C.STRNO AND UPPER(COALESCE(A.CONTNO,'')||COALESCE(A.RESVNO,'')||COALESCE(B.NAME1,'')||COALESCE(B.NAME2,'')||COALESCE(A.STRNO,'')||COALESCE(C.REGNO,'')) LIKE '%" + param1 + "%' ORDER BY A.CONTNO";
         } else if (show === "netarinvoi") {
             sqltxt = "SELECT A.IDNO,A.TSALE,A.CONTNO,A.CUSCOD,B.NAME1,B.NAME2,A.LOCAT,A.SDATE,A.KEYINPRC,A.SMPAY,A.KEYINPRC-A.SMPAY AS NETAR, A.VATRT FROM AR_INVOI A,CUSTMAST B WHERE A.CUSCOD=B.CUSCOD AND A.FLAG<>'C' AND A.KEYINPRC > A.SMPAY AND UPPER(COALESCE(A.CONTNO,'')||COALESCE(B.NAME1,'')||COALESCE(B.NAME2,'')) LIKE '%" + param1 + "%' ORDER BY A.CONTNO";
         } else if (show === "netarcred") {
@@ -879,7 +915,7 @@
         } else if (show === "netarothsale") {
             sqltxt = "SELECT A.IDNO,A.ARCONT,A.LOCAT,B.CUSCOD,B.NAME1,B.NAME2,A.PAYFOR,A.ARDATE, A.PAYAMT,A.TSALE,A.SMPAY,A.CUSCOD,A.CONTID, C.FORDESC,A.PAYAMT-A.SMPAY AS NETAR FROM AROTHSALE A,CUSTMAST B, PAYFOR C WHERE A.CUSCOD=B.CUSCOD AND A.PAYAMT>A.SMPAY AND A.PAYFOR = C.FORCODE AND UPPER(COALESCE(A.ARCONT,'')||COALESCE(B.NAME1,'')||COALESCE(B.NAME2,'')||COALESCE(A.PAYFOR,'')) LIKE '%" + param1 + "%' ORDER BY A.ARCONT";
         } else if (show === "chqmas") {
-            sqltxt = "SELECT A.IDNO,A.TMBILL,A.BILLNO,A.TMBILDT,A.CUSCOD,B.NAME1,B.NAME2, A.LOCATRECV,C.NETPAY AS TPAYAMT,A.CHQNO,C.CONTNO,C.PAYFOR, D.FORDESC, (CASE WHEN A.FLAG = 'C' THEN 'ยกเลิก' ELSE '' END) AS FLAG FROM CHQMAS A,CHQTRAN C,CUSTMAST B, PAYFOR D WHERE A.IDNO=C.CHQMASID AND A.CUSCOD=B.CUSCOD AND C.PAYFOR = D.FORCODE AND UPPER(COALESCE(A.TMBILL,'')||COALESCE(A.BILLNO,'')||COALESCE(B.NAME1,'')||COALESCE(B.NAME2,'')||COALESCE(C.PAYFOR,'')||COALESCE(D.FORDESC,'')) LIKE '%" + param1 + "%' ORDER BY A.TMBILDT DESC,A.TMBILL";
+            sqltxt = "SELECT A.IDNO,A.TMBILL,A.BILLNO,A.TMBILDT,A.CUSCOD,B.NAME1,B.NAME2, A.LOCATRECV,C.NETPAY AS TPAYAMT,A.CHQNO,C.CONTNO,C.PAYFOR, D.FORDESC, (CASE WHEN A.FLAG = 'C' THEN 'ยกเลิก' ELSE ' ' END) AS FLAG FROM CHQMAS A,CHQTRAN C,CUSTMAST B, PAYFOR D WHERE A.IDNO=C.CHQMASID AND A.CUSCOD=B.CUSCOD AND C.PAYFOR = D.FORCODE AND UPPER(COALESCE(A.TMBILL,'')||COALESCE(A.BILLNO,'')||COALESCE(B.NAME1,'')||COALESCE(B.NAME2,'')||COALESCE(C.PAYFOR,'')||COALESCE(D.FORDESC,'')) LIKE '%" + param1 + "%' ORDER BY A.TMBILDT DESC,A.TMBILL";
         } else if (show === "optinvoi") {
             sqltxt = "SELECT A.RECVNO, A.INVNO, A.APCODE, C.APNAME, B.LOCAT FROM OPTINVOI A, OPTINVTRAN B, APMAST C WHERE A.RECVNO = B.RECVNO AND A.APCODE = C.APCODE AND UPPER(COALESCE(A.RECVNO,'')||COALESCE(A.INVNO,'')||COALESCE(A.APCODE,'')||COALESCE(C.APNAME,'')||COALESCE(B.LOCAT,'')) LIKE '%" + param1 + "%' ORDER BY A.RECVNO";
         } else if (show === "mcmast") {
@@ -890,6 +926,10 @@
             sqltxt = "SELECT A.IDNO, A.LOCAT, A.ADJNO, A.ADJDT, A.STRNO, A.TADDCOST, A.CRCOST, A.DISCT, A.NETCOST, A.CRVAT, A.TOTCOST, A.STDPRC, A.USERID, A.INPUTDT, A.LOCATPARK, A.POSTGL, A.APCODE, A.VATRT, A.STAT, B.ENGNO, B.REGNO FROM ADJSTK A, INVTRAN B WHERE A.STRNO = B.STRNO AND UPPER(COALESCE(A.ADJNO,'')||COALESCE(A.STRNO,'')||COALESCE(B.ENGNO,'')||COALESCE(B.REGNO,'')) LIKE '%" + param1 + "%' ORDER BY A.ADJNO";
         } else if (show === "invmovm") {
             sqltxt = "SELECT A.IDNO, A.MOVENO, A.STRNO, A.MOVEDT, A.MOVEFM, A.MOVETO, A.TADDCOST, A.CRCOST, A.DISCT, A.NETCOST, A.CRVAT, A.TOTCOST, A.STDPRC, A.FLAGDEL, A.REFNO, A.STAT, A.LOCATPARK, B.GCODE, B.TYPECOD, B.MODELCOD, B.BAABCOD, B.COLORCOD, B.CC, B.ENGNO, B.REGNO FROM INVMOVT A, INVTRAN B WHERE A.STRNO = B.STRNO AND UPPER(COALESCE(A.MOVENO,'')||COALESCE(A.STRNO,'')||COALESCE(A.MOVEFM,'')||COALESCE(A.MOVETO,'')||COALESCE(B.ENGNO,'')||COALESCE(B.REGNO,'')) LIKE '%" + param1 + "%' ORDER BY A.MOVENO";
+        } else if (show === "comp_asset") {
+            sqltxt = "SELECT A.CONTNO, B.NAME1, B.NAME2, A.STRNO, C.REGNO, (CASE WHEN A.FLAG = 'C' THEN 'ยกเลิก' ELSE ' ' END) AS FLAG FROM COMP_ASSET A, CUSTMAST B, INVTRAN C WHERE A.CUSCOD = B.CUSCOD AND A.STRNO = C.STRNO AND UPPER(COALESCE(A.CONTNO,'')||COALESCE(B.NAME1,'')||COALESCE(B.NAME2,'')||COALESCE(A.STRNO,'')||COALESCE(C.REGNO,'')) LIKE '%" + param1 + "%' ORDER BY A.CONTNO";
+        } else if (show === "locatparking") {
+            sqltxt = "SELECT A.LOCAT, A.LOCATPARK, A.STRNO, A.REFNO, A.OFFCOD, A.REFNOIN, A.REFDTIN, B.ENGNO, B.REGNO FROM LOCATPARKING A, INVTRAN B WHERE A.STRNO = B.STRNO AND UPPER(COALESCE(A.REFNOIN,'')||COALESCE(A.STRNO,'')||COALESCE(B.ENGNO,'')||COALESCE(B.REGNO,'')||COALESCE(A.LOCAT,'')||COALESCE(A.LOCATPARK,'')) LIKE '%" + param1 + "%' ORDER BY A.REFNOIN";
         }
 
         // Qurey Data

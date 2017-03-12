@@ -1,0 +1,797 @@
+﻿<div class="row" id="spy2">
+    <!-- Chart with filter Widget -->
+    <div class="col-md-12 admin-grid">
+        <div class="panel" id="p2">
+            <div class="panel-heading">
+                <span class="panel-icon"><span class="glyphicons glyphicons-car"></span></span>
+                <span class="panel-title">บันทึกสถานที่จอดรถ</span>
+                <span class="panel-controls">
+                    <a href="#" class="panel-control-loader"></a>
+                    <a href="#" class="panel-control-remove"></a>
+                    <a href="#" class="panel-control-collapse"></a>
+                    <a href="#" class="panel-control-fullscreen"></a>
+                </span>
+            </div>
+            <div class="panel-body">
+                <form class="form-horizontal" id="fmLocatparking">
+                    <div class="p15 pt5 mt15">
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label class="col-sm-4 control-label required" for="locat">สาขา</label>
+                                    <div class="col-sm-8">
+                                        <div id="locat" class="input-button">
+                                            <input type="text" id="v-locat" />
+                                            <div id="searchInvlocat"><img alt="search" width="20" height="20" src="/images/search_lg.png"
+                                                /></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <input type="text" id="locatnm" class="text-desc" readonly/>
+                            </div>
+                            <div class="col-md-4">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label class="col-md-4 control-label" for="refnoin">เลขที่บันทึก</label>
+                                    <div class="col-md-8">
+                                        <div class="bs-component">
+                                            <input type="text" id="refnoin" style="color:#e9573f; font-weight: bold;" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label class="col-md-4 control-label" for="refdtin">วันที่บันทึก</label>
+                                    <div class="col-md-8">
+                                        <div class="bs-component">
+                                            <div id="refdtin"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label class="col-md-4 control-label required" for="strno">เลขตัวถัง</label>
+                                    <div class="col-md-8">
+                                        <div class="bs-component">
+                                            <div id="strno" class="input-button">
+                                                <input type="text" id="v-strno" />
+                                                <div id="searchStrno"><img alt="search" width="20" height="20" src="/images/search_lg.png" /></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label class="col-md-4 control-label" for="engno">เลขเครื่องยนต์</label>
+                                    <div class="col-md-8">
+                                        <div class="bs-component">
+                                            <input type="text" id="engno" class="text-desc" readonly/>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label class="col-md-4 control-label" for="typecod">ยี่ห้อสินค้า</label>
+                                    <div class="col-md-8">
+                                        <div class="bs-component">
+                                            <input type="text" id="typecod" class="text-desc" readonly/>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label class="col-md-4 control-label" for="modelcod">รุ่นสินค้า</label>
+                                    <div class="col-md-8">
+                                        <div class="bs-component">
+                                            <input type="text" id="modelcod" class="text-desc" readonly/>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label class="col-md-4 control-label" for="baabcod">แบบสินค้า</label>
+                                    <div class="col-md-8">
+                                        <div class="bs-component">
+                                            <input type="text" id="baabcod" class="text-desc" readonly/>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label class="col-md-4 control-label" for="colorcod">สีสินค้า</label>
+                                    <div class="col-md-8">
+                                        <div class="bs-component">
+                                            <input type="text" id="colorcod" class="text-desc" readonly/>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label class="col-md-4 control-label" for="cc">ขนาด ซี ซี</label>
+                                    <div class="col-md-8">
+                                        <div class="bs-component">
+                                            <input type="text" id="cc" class="text-desc" readonly/>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label class="col-md-4 control-label" for="gcode">กลุ่มสินค้า</label>
+                                    <div class="col-md-8">
+                                        <div class="bs-component">
+                                            <input type="text" id="gcode" class="text-desc" readonly/>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label class="col-md-4 control-label required" for="locatpark">สถานที่จอด</label>
+                                    <div class="col-md-8">
+                                        <div class="bs-component">
+                                            <div id="locatpark" class="input-button">
+                                                <input type="text" id="v-locatpark" />
+                                                <div id="searchLocatpark"><img alt="search" width="20" height="20" src="/images/search_lg.png"
+                                                    /></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <input type="text" id="locatparkname" class="text-desc" readonly/>
+                            </div>
+                            <div class="col-md-4">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label class="col-md-4 control-label" for="offcod">ผู้บันทึก</label>
+                                    <div class="col-md-8">
+                                        <input type="text" id="offcod" class="text-desc" readonly/>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <input type="text" id="offname" class="text-desc" readonly/>
+                            </div>
+                            <div class="col-md-4">
+                                <input type="hidden" id="refno" value="0" />
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-8">
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label" for="memo1">หมายเหตุ</label>
+                                    <div class="col-sm-10">
+                                        <div class="bs-component">
+                                            <textarea id="memo1"></textarea>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-8">
+                                <div class="admin-form pt15">
+                                    <div class="form-group">
+                                        <label class="col-md-4 control-label"></label>
+                                        <div class="col-md-8">
+                                            <div class="bs-component">
+                                                <button type="button" id="newBtn"><span class="fa fa-refresh"></span> เริ่มใหม่</button>
+                                                <button type="button" id="saveBtn"><span class="fa fa-floppy-o"></span> บันทึก</button>
+                                                <button type="button" id="searchBtn"><span class="fa fa-search"></span> ค้นหา</button>
+                                                <button type="button" id="deleteBtn"><span class="fa fa-trash-o"></span> ลบ</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <!-- end: .col-md-12.admin-grid -->
+</div>
+<!-- end: .row -->
+<script type="text/javascript">
+    $(document).ready(function() {
+        //Default status Insert
+        var status = 'insert';
+        //เช็คสิทธิการใช้งาน
+        var chkright = checkRight('STK008');
+
+        //เช็ค Running เอกสาร
+        var chkrun = checkRundoc('R_LOCATPARK');
+
+        //ฟังก์ชั่น สถานะ Insert หรือ Edit
+        function statusChange(disabled) {
+            if (disabled === false) {
+                status = 'insert';
+                $('#locat').val($.session.get('locatcd'));
+                $('#refnoin').val('');
+                $('#refdtin').jqxDateTimeInput('setDate', new Date());
+                $('#strno').val('');
+                $('#engno').val('');
+                $('#typecod').val('');
+                $('#modelcod').val('');
+                $('#baabcod').val('');
+                $('#colorcod').val('');
+                $('#cc').val('');
+                $('#gcode').val('');
+                $('#locatpark').val('');
+                $('#locatparkname').val('');
+                $('#refno').val(0);
+                $('#offcod').val($.session.get('officecode'));
+                $('#v-locat').trigger('blur');
+                $('#offcod').trigger('blur');
+                $('#searchStrno').show();
+            } else {
+                status = 'update';
+                $("#saveBtn").jqxButton({
+                    disabled: !chkright.M_EDIT
+                });
+            }
+            $("#refnoin").prop("readonly", disabled);
+            $("#strno").jqxInput({disabled: disabled});
+            $('#searchStrno').hide();
+            $("#deleteBtn").jqxButton({
+                disabled: !chkright.M_DELETE
+            });
+        }
+
+        function getLocatpark(refnoin) {
+            $.ajax({
+                async: false,
+                method: 'GET',
+                dataType: 'json',
+                url: "sqltext",
+                data: {
+                    sql: "SELECT * FROM LOCATPARKING WHERE REFNOIN = '" + refnoin + "' "
+                },
+                success: function(data) {
+                    $('#locat').val(data[0].LOCAT);
+                    $('#refnoin').val(data[0].REFNOIN);
+                    $('#refdtin').val(data[0].REFDTIN);
+                    $('#strno').val(data[0].STRNO);
+                    $('#locatpark').val(data[0].LOCATPARK);
+                    $('#refno').val(data[0].REFNO);
+                    $('#offcod').val(data[0].OFFCOD);
+                    $('#memo1').val(data[0].MEMO1);
+                    $('#v-locat').trigger('blur');
+                    $('#v-locatpark').trigger('blur');
+                    $('#offcod').trigger('blur');
+                }
+            });
+        }
+
+        //เงื่อนไข validate LOCATPARKING
+        var rules = [{
+            input: '#strno',
+            message: 'กรุณาระบุเลขตัวถัง!',
+            action: 'keyup, blur, focusout',
+            rule: 'required'
+        }, {
+            input: '#strno',
+            message: 'ไม่พบเลขตัวถังนี้!',
+            action: 'keyup, blur, focusout',
+            rule: function (input, commit) {
+                var strno = $('#strno').val();
+                var locatresv = $('#locat').val();
+                if (strno !== '') {
+                    var result = [];
+                    $.ajax({
+                        async: false,
+                        method: 'GET',
+                        dataType: 'json',
+                        url: "sqltext",
+                        data: {
+                            sql: "SELECT IDNO,STRNO,FLAG,CURSTAT,STDPRC FROM STKCARD WHERE STRNO ='"+strno+"' AND LOCAT ='"+locatresv+"' AND FLAG ='D' "
+                        },
+                        success: function (data) {
+                            if (data.length === 0) {
+                                result = false;
+                            } else { 
+                                result = true;
+                            }
+                        },
+                        error: function () {
+                            result = false;
+                        }
+                    });
+                    return result;
+                }
+            }
+        }, {
+            input: '#strno',
+            message: 'เลขตัวถังนี้มีการจองแล้ว!',
+            action: 'keyup, blur, focusout',
+            rule: function (input, commit) {
+                var strno = $('#strno').val();
+                var resvno = $('#resvno').val();
+                var locatresv = $('#locat').val();
+                if (strno !== '') {
+                    var result = [];
+                    $.ajax({
+                        async: false,
+                        method: 'GET',
+                        dataType: 'json',
+                        url: "sqltext",
+                        data: {
+                            sql: "SELECT RESVNO FROM ARRESV WHERE STRNO = '"+strno+"' AND RESVNO <> '"+resvno+"' "
+                        },
+                        success: function (data) {
+                            if (data.length === 0) {
+                                result = true;
+                            } else { 
+                                result = false;
+                            }
+                        },
+                        error: function () {
+                            result = false;
+                        }
+                    });
+                    return result;
+                }
+            }
+        }, {
+            input: '#locatpark',
+            message: 'กรุณาระบุรหัสสถานที่จอด!',
+            action: 'keyup, blur, focusout',
+            rule: 'required'
+        }, {
+            input: '#locatpark',
+            message: 'ไม่พบรหัสสถานที่จอดนี้!',
+            action: 'keyup, blur, focusout',
+            rule: function (input, commit) {
+                var locatpark = $('#locatpark').val();
+                if (locatpark !== '') {
+                    $.ajax({
+                        url: "duplicateCheck",
+                        type: 'get',
+                        data: {
+                            table: 'INVPARKING',
+                            field: 'LOCATPARK',
+                            value: locatpark
+                        },
+                        success: function (data) {
+                            if (data === true) {
+                                commit(false);
+                            } else commit(true);
+                        },
+                        error: function () {
+                            commit(false);
+                        }
+                    });
+                }
+            }
+        }];
+        if (chkrun === false) {
+            rules.push({
+                input: '#refnoin',
+                message: 'กรุณาระบุเลขที่บันทึก!',
+                action: 'keyup, blur, focusout',
+                rule: 'required'
+            }, {
+                input: '#refnoin',
+                message: 'ระบุเลขที่บันทึกซ้ำ!',
+                action: 'keyup, blur',
+                rule: function(input, commit) {
+                    var refnoin = $('#refnoin').val();
+                    if (refnoin !== '') {
+                        $.ajax({
+                            url: "duplicateCheck",
+                            type: 'get',
+                            data: {
+                                table: 'LOCATPARKING',
+                                field: 'REFNOIN',
+                                value: refnoin
+                            },
+                            success: function(data) {
+                                if (data === true) {
+                                    commit(true);
+                                } else commit(false);
+                            },
+                            error: function() {
+                                commit(false);
+                            }
+                        });
+                    }
+                }
+            });
+        }
+
+        $('.admin-panels').adminpanel({
+            grid: '.admin-grid',
+            callback: function() {
+                bootbox.confirm('<h3>A Custom Callback!</h3>', function() {});
+            },
+            onFinish: function() {
+                $('.admin-panels').addClass('animated fadeIn').removeClass('fade-onload');
+                demoHighCharts.init();
+            },
+            onSave: function() {
+                $(window).trigger('resize');
+            }
+        });
+        $('#locat').jqxInput({
+            height: 25,
+            width: '100%',
+            maxLength: 5
+        });
+        $('#locat').val($.session.get('locatcd'));
+        $('#locatnm').jqxInput({
+            height: 25,
+            width: '100%'
+        });
+        $("#refnoin").jqxInput({
+            height: 25,
+            width: '100%',
+            maxLength: 12
+        });
+        if (chkrun === true) {
+            $("#refnoin").jqxInput({
+                placeHolder: "Running Code"
+            });
+        } else {
+            $("#refnoin").jqxInput({
+                placeHolder: "Enter a document no."
+            });
+        }
+        $("#refnoin").prop("readonly", chkrun);
+        $("#refdtin").jqxDateTimeInput({
+            height: 25,
+            width: '100%',
+            culture: 'en-US'
+        });
+
+        $("#strno").jqxInput({
+            height: 25,
+            width: '100%',
+            maxLength: 20
+        });
+        $('#engno').jqxInput({
+            height: 25,
+            width: '100%'
+        });
+        $('#typecod').jqxInput({
+            height: 25,
+            width: '100%'
+        });
+        $('#modelcod').jqxInput({
+            height: 25,
+            width: '100%'
+        });
+        $('#baabcod').jqxInput({
+            height: 25,
+            width: '100%'
+        });
+        $('#colorcod').jqxInput({
+            height: 25,
+            width: '100%'
+        });
+        $('#cc').jqxInput({
+            height: 25,
+            width: '100%'
+        });
+        $('#gcode').jqxInput({
+            height: 25,
+            width: '100%'
+        });
+        $("#locatpark").jqxInput({
+            height: 25,
+            width: '100%',
+            maxLength: 20
+        });
+        $('#locatparkname').jqxInput({
+            height: 25,
+            width: '100%'
+        });
+        $('#offcod').jqxInput({
+            height: 25,
+            width: '100%'
+        })
+        $('#offcod').val($.session.get('officecode'));
+        $('#offname').jqxInput({
+            height: 25,
+            width: '100%'
+        });
+        $("#memo1").jqxInput({
+            height: 50,
+            width: '100%',
+            maxLength: 1024
+        });
+
+        //แสดงคำอธิบาย
+        $('#v-locat').off().on('blur', function () {
+            $('#locatnm').val(getLocatName($('#locat').val()));
+        });
+        $('#v-locatpark').off().on('blur', function () {
+            $('#locatparkname').val(getLocatparkName($('#locatpark').val()));
+        });
+        $('#offcod').off().on('blur', function () {
+            $('#offname').val(getOfficeName($('#offcod').val()));
+        });
+        $('#v-locat').trigger('blur');
+        $('#offcod').trigger('blur');
+
+        $("#newBtn").jqxButton({
+            template: "info",
+            width: 90
+        });
+        $("#saveBtn").jqxButton({
+            template: "primary",
+            width: 90,
+            disabled: !chkright.M_INSERT
+        });
+        $("#searchBtn").jqxButton({
+            template: "success",
+            width: 90
+        });
+        $("#deleteBtn").jqxButton({
+            disabled: true,
+            template: "danger",
+            width: 90
+        });
+        $('#fmLocatparking').jqxValidator({
+            hintType: 'label',
+            animationDuration: 0,
+            closeOnClick: false,
+            rules: rules
+        });
+        //เริ่มใหม่
+        $('#newBtn').off().on('click', function() {
+            loadHTML("stk_adjuststk");
+        });
+        //บันทึก
+        $('#saveBtn').off().on('click', function() {
+            var locat = $('#locat').val();
+            var strno = $('#strno').val();
+            var locatpark = $('#locatpark').val();
+            var refno = parseInt($('#refno').val());
+            var chklocat = 'n';
+            if (status === 'update') {
+                $.ajax({
+                    async: false,
+                    method: 'GET',
+                    dataType: 'json',
+                    url: "sqltext",
+                    data: {
+                        sql: "SELECT IDNO,STRNO,LOCATPARK FROM STKCARD WHERE STRNO ='"+strno+"' AND LOCAT ='"+locat+"' AND IDNO ="+refno+" AND LOCATPARK ='"+locatpark+"' AND FLAG='D' "
+                    },
+                    success: function (data) {
+                        if (data.length > 0) {
+                            chklocat = 'y';
+                        }
+                    }
+                });
+            }
+            if ((chklocat === 'n') && (status === 'update')) {
+                ShowMessage("รถคันนี้เปลี่ยนที่จอดแล้ว แก้ไขไม่ได้! ", "danger");
+            } else {
+                $('#fmLocatparking').jqxValidator('validate', function(result) {
+                    if (result) {
+                        $.when($.confirmdlg('ต้องการบันทึกข้อมูล?', 'info')).then(function() {
+                            var docdate = $("#refdtin").jqxDateTimeInput('getDate');
+                            var currentCulture = Globalize.cultures['en-US'];
+                            var localizationObject = currentCulture.calendar;
+                            var refdtin = $.jqx.dataFormat.formatdate(docdate, "dd/MM/yyyy", localizationObject);
+                            var refno = 0;
+                            console.log($('#refno').val());
+                            if ($('#refno').val() !== 0) {
+                                refno = parseInt($('#refno').val());
+                            }
+                            var valueJSON = [{
+                                status: status,
+                                locat: $('#locat').val(),
+                                table: 'LOCATPARKING',
+                                key: $('#refnoin').val(),
+                                value: [{
+                                    LOCAT: $('#locat').val(),
+                                    LOCATPARK: $('#locatpark').val(),
+                                    STRNO: $('#strno').val(),
+                                    REFNO: refno,
+                                    OFFCOD: $('#offcod').val(),
+                                    REFNOIN: $('#refnoin').val(),
+                                    REFDTIN: refdtin,
+                                    MEMO1: $('#memo1').val(), 
+                                    USERID: $.session.get('username')
+                                }]
+                            }];
+                            // Convert Value To JSON String
+                            var value = JSON.stringify(valueJSON);
+                            console.log(value);
+                            $('#ok').on('click', function(event) {
+                                $.ajax({
+                                    url: 'saveLocatparking',
+                                    type: 'POST',
+                                    contentType: "application/json",
+                                    dataType: "json",
+                                    data: value,
+                                    success: function(data) {
+                                        //console.log(data);
+                                        if (data[0].save === true) {
+                                            ShowMessage("บันทึกข้อมูลเรียบร้อย!", "success");
+                                            statusChange(true);
+                                            getLocatpark(data[0].refnoin);
+                                        } else {
+                                            ShowMessage("บันทึกไม่สำเร็จ!", "danger");
+                                        }
+                                    }
+                                });
+                            });
+                        });
+                    }
+                });
+            }
+        });
+
+        $('#strno').on('change', function (event) {
+            var value = event.args.value;
+            $.ajax({
+                async: false,
+                method: 'GET',
+                dataType: 'json',
+                url: "sqltext",
+                data: {
+                    sql: "SELECT STRNO, ENGNO, TYPECOD, MODELCOD, BAABCOD, COLORCOD, GCODE, CC FROM INVTRAN WHERE STRNO ='"+value+"' "
+                },
+                success: function (data) {
+                    if (data.length > 0) {
+                        $('#engno').val(data[0].ENGNO);
+                        $('#typecod').val(data[0].TYPECOD);
+                        $('#modelcod').val(data[0].MODELCOD);
+                        $('#baabcod').val(data[0].BAABCOD);
+                        $('#colorcod').val(data[0].COLORCOD);
+                        $('#cc').val(data[0].CC);
+                        $('#gcode').val(data[0].GCODE);
+                    }
+                }
+            });
+        });
+
+        //คำนวณจำนวนเงิน
+        $('#netcost').on('valueChanged', function (event) {
+            var value = parseFloat(event.args.value);
+            var vatrt = parseFloat($("#vatrt").val());
+            var crvat = ((value*vatrt)/100);
+            $("#crvat").val(crvat);
+        });
+        $('#crvat').on('valueChanged', function (event) {
+            var value = parseFloat(event.args.value);
+            var netcost = parseFloat($("#netcost").val());
+            var totcost = netcost+value;
+            $("#totcost").val(totcost);
+        });
+        
+        //ค้นหา เลขตัวถัง
+        $('#searchStrno').off().on('click', function() {
+            $('#fmLocatparking').jqxValidator('hideHint', '#strno');
+            $.session.set('paramSrch1', $('#locat').val());
+            searchAll('strnoSale', 'strno');
+        });
+        //ค้นหาสาขา
+        $('#searchInvlocat').off().on('click', function () {
+            $('#fmLocatparking').jqxValidator('hideHint', '#locat');
+            searchAll('invlocat', 'v-locat');
+        });
+        //ค้นหาสถานที่จอด
+        $('#searchLocatpark').off().on('click', function () {
+            $('#fmLocatparking').jqxValidator('hideHint', '#locatpark');
+            $.session.set('paramSrch1', $('#locat').val());
+            searchAll('invparking', 'v-locatpark');
+        });
+
+        //ค้นหา
+        $('#searchBtn').off().on('click', function() {
+            var rules2 = rules.slice();
+            rules2.splice(1, 1);
+            rules2.splice(1, 2);
+            $('#fmLocatparking').jqxValidator('rules', rules2);
+            //Show Dialog Search
+            searchAll('locatparking', 'refnoin');
+            $('#okButton').on('click', function(event) {
+                event.preventDefault();
+                $('#fmLocatparking').jqxValidator('hide');
+                statusChange(true);
+                getLocatpark($('#refnoin').val());
+            });
+        });
+        //ลบ
+        $('#deleteBtn').off().on('click', function() {
+            if ($('#refnoin').val() !== '') {
+                var locat = $('#locat').val();
+                var strno = $('#strno').val();
+                var locatpark = $('#locatpark').val();
+                var refno = parseInt($('#refno').val());
+                var chklocat = 'n';
+                $.ajax({
+                    async: false,
+                    method: 'GET',
+                    dataType: 'json',
+                    url: "sqltext",
+                    data: {
+                        sql: "SELECT IDNO,STRNO,LOCATPARK FROM STKCARD WHERE STRNO ='"+strno+"' AND LOCAT ='"+locat+"' AND IDNO ="+refno+" AND LOCATPARK ='"+locatpark+"' AND FLAG='D' "
+                    },
+                    success: function (data) {
+                        if (data.length > 0) {
+                            chklocat = 'y';
+                        }
+                    }
+                });
+                if (chklocat === 'n') {
+                    ShowMessage("รถคันนี้เปลี่ยนที่จอดแล้ว ลบไม่ได้! ", "danger");
+                } else {
+                    $.when($.confirmdlg('ต้องการลบข้อมูล?', 'warning')).then(function() {
+                        $('#ok').on('click', function(event) {
+                            var valueJSON = [{
+                                table: 'LOCATPARKING',
+                                field: 'REFNOIN',
+                                key: $('#refnoin').val(),
+                            }];
+                            // Convert Value To JSON String
+                            var value = JSON.stringify(valueJSON);
+                            $.ajax({
+                                async: false,
+                                method: 'POST',
+                                dataType: 'json',
+                                url: "delete",
+                                data: value,
+                                success: function(data) {
+                                    if (data === true) {
+                                        ShowMessage("ลบข้อมูลเรียบร้อย!", "success");
+                                        statusChange(false);
+                                    }
+                                },
+                                error: function(xhr, status, error) {
+                                    ShowMessage("ลบข้อมูลไม่สำเร็จ! ", "danger");
+                                }
+                            });
+                        });
+                    });
+                }
+            }
+        });
+    });
+</script>

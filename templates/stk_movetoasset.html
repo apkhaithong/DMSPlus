@@ -191,6 +191,7 @@
                         </div>
                         <input type="hidden" id="flag" />
                         <input type="hidden" id="postgl" />
+                        <input type="hidden" id="refno" />
                     </form>
                     <hr class="short alt">
                     <div class="row">
@@ -207,7 +208,6 @@
                                         </div>
                                     </div>
                                 </div>
-                                <input type="hidden" id="refno" />
                             </div>
                         </div>
                     </div>
@@ -223,10 +223,10 @@
         //Default status Insert
         var status = 'insert';
         //เช็คสิทธิการใช้งาน
-        var chkright = checkRight('SAL006');
+        var chkright = checkRight('STK007');
 
         //เช็ค Running เอกสาร
-        var chkrun = checkRundoc('R_CASHNO');
+        var chkrun = checkRundoc('R_ASSNO');
         
         //ฟังก์ชั่น สถานะ Insert หรือ Edit
         function statusChange(disabled) {
@@ -249,6 +249,7 @@
                 $('#comext').val(0);
                 $('#othpay').val(0);
                 $('#searchInvlocat').show();
+                $('#searchStrno').show();
                 $('#flag').val('');
                 $('#postgl').val('');
                 $('#textState').hide();
@@ -258,6 +259,7 @@
                     disabled: !chkright.M_EDIT
                 });
                 $('#searchInvlocat').hide();
+                $('#searchStrno').hide();
             }
             $("#contno").prop("readonly", disabled);
             $("#locat").jqxInput({disabled: disabled});
@@ -267,14 +269,14 @@
             });
         }
 
-        function getArcred(contno) {
+        function getCompAsset(contno) {
             $.ajax({
                 async: false,
                 method: 'GET',
                 dataType: 'json',
                 url: "sqltext",
                 data: {
-                    sql: "SELECT IDNO, CONTNO, SDATE, LOCAT, RESVNO, CUSCOD, STRNO, INCLVAT, VATRT, STDPRC, DISCT, KEYINPRC, NPRICE, VATPRC, PAYRES, SMPAY, TKANG, NKANG, VKANG, CREDIT, DUEDT, SALCOD, TSALE, ISSUENO, ISSUDT, COMEXT, COMINT, OTHPAY, TAXNO, TAXDT, USERID, INPUTDT, ADDRNO, REFNO, ACTICOD, PAYTYP, FLAG, ARREG1, ARREG3, PAYREG, PAYREG1, USERDEL, CANDT, FLREG, CREDAMT, SMCHQ, POSTGL, LOCSALE, FLCANCL FROM ARCRED WHERE CONTNO = '" + contno + "' "
+                    sql: "SELECT IDNO, CONTNO, SDATE, LOCAT, RESVNO, CUSCOD, STRNO, INCLVAT, VATRT, STDPRC, DISCT, KEYINPRC, NPRICE, VATPRC, PAYRES, SMPAY, TKANG, NKANG, VKANG, CREDIT, DUEDT, SALCOD, TSALE, ISSUENO, ISSUDT, COMEXT, COMINT, OTHPAY, TAXNO, TAXDT, MEMO1, USERID, INPUTDT, ADDRNO, REFNO, ACTICOD, PAYTYP, FLAG, ARREG1, ARREG3, PAYREG, PAYREG1, USERDEL, CANDT, FLREG, CREDAMT, SMCHQ, POSTGL, LOCSALE FROM COMP_ASSET WHERE CONTNO = '" + contno + "' "
                 },
                 success: function (data) {
                     $('#contno').val(data[0].CONTNO);
@@ -305,7 +307,7 @@
             });
         }
 
-        //เงื่อนไข validate ARCRED
+        //เงื่อนไข validate COMP_ASSET
         var rules = [{
             input: '#locat',
             message: 'กรุณาระบุรหัสสาขา!',
@@ -489,7 +491,7 @@
                             url: "duplicateCheck",
                             type: 'get',
                             data: {
-                                table: 'ARCRED',
+                                table: 'COMP_ASSET',
                                 field: 'CONTNO',
                                 value: contno
                             },
@@ -778,7 +780,7 @@
                         var valueJSON = [{
                             status: status,
                             locat: $('#locat').val(),
-                            table: 'ARCRED',
+                            table: 'COMP_ASSET',
                             key: $('#contno').val(),
                             value: [{
                                 CONTNO: $('#contno').val(),
@@ -805,10 +807,10 @@
                         }];
                         // Convert Value To JSON String
                         var value = JSON.stringify(valueJSON);
-                        //console.log(value);
+                        console.log(value);
                         $('#ok').on('click', function (event) {
                             $.ajax({
-                                url: 'saveArcred',
+                                url: 'saveCompAsset',
                                 type: 'POST',
                                 contentType: "application/json",
                                 dataType: "json",
@@ -818,7 +820,7 @@
                                     if (data[0].save === true) {
                                         ShowMessage("บันทึกข้อมูลเรียบร้อย!","success");
                                         statusChange(true);
-                                        getArcred(data[0].contno);
+                                        getCompAsset(data[0].contno);
                                     } else {
                                         ShowMessage("บันทึกไม่สำเร็จ!","danger");
                                     }
@@ -848,7 +850,7 @@
         //ค้นหา
         $('#searchBtn').off().on('click', function () {
             //Show Dialog Search
-            searchAll('arcred', 'contno');
+            searchAll('comp_asset', 'contno');
             $('#okButton').on('click', function (event) {
                 var rules2 = rules.slice();
                 // if (chkrun === false) {
@@ -860,7 +862,7 @@
                 event.preventDefault();
                 $('#fmCompAsset').jqxValidator('hide');
                 statusChange(true);
-                getArcred($('#contno').val());
+                getCompAsset($('#contno').val());
             });
         });
         //ลบ
@@ -874,7 +876,7 @@
                     $.when($.confirmdlg('ต้องการยกเลิกการขาย?', 'warning')).then(function () {
                         $('#ok').on('click', function (event) {
                             var valueJSON = [{
-                                table: 'ARCRED',
+                                table: 'COMP_ASSET',
                                 field: 'CONTNO',
                                 key: $('#contno').val(),
                                 userid: $.session.get('username'),
@@ -886,7 +888,7 @@
                                 async: false,
                                 method: 'POST',
                                 dataType: 'json',
-                                url: "cancelArcred",
+                                url: "cancelCompAsset",
                                 data: value,
                                 success: function (data) {
                                     if (data[0].cancel === true) {

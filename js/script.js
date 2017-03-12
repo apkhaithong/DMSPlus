@@ -193,6 +193,21 @@ function getLocatName(locatcd) {
     return locatnm;
 };
 
+function getLocatparkName(locatpark) {
+    var locatparknm = '';
+    $.ajax({
+        async: false,
+        url: "sqltext",
+        data: { sql: "SELECT LOCATPARKNM FROM INVPARKING WHERE LOCATPARK = '"+locatpark+"' " },
+        type: 'GET',
+        dataType: 'json',
+        success: function(data) {
+            locatparknm = data[0].LOCATPARKNM;
+        }
+    });
+    return locatparknm;
+};
+
 function getApName(apcode) {
     var apname = '';
     $.ajax({
