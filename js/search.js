@@ -705,6 +705,26 @@
             { text: 'เลขทะเบียน', datafield: 'REGNO', minwidth: 100, width: 250 },
         ];
         keyno = 'ADJNO';
+    } else if (show === "invmovm") {
+        datafields = [
+            { name: 'MOVENO', type: 'string' },
+            { name: 'MOVEDT', type: 'string' },
+            { name: 'MOVEFM', type: 'string' },
+            { name: 'MOVETO', type: 'string' },
+            { name: 'STRNO', type: 'string' },
+            { name: 'ENGNO', type: 'string' },
+            { name: 'REGNO', type: 'string' },
+        ];
+        fields = [
+            { text: 'เลขที่โอนย้าย', datafield: 'MOVENO', minwidth: 100, width: 100 },
+            { text: 'เลขที่โอนย้าย', datafield: 'MOVEDT', minwidth: 100, width: 100 },
+            { text: 'โอนจากสาขา', datafield: 'MOVEFM', minwidth: 100, width: 100 },
+            { text: 'ไปยังสาขา', datafield: 'MOVETO', minwidth: 100, width: 100 },
+            { text: 'เลขตัวถัง', datafield: 'STRNO', minwidth: 200, width: 250 },
+            { text: 'เลขเครื่องยนต์', datafield: 'ENGNO', minwidth: 150, width: 250 },
+            { text: 'เลขทะเบียน', datafield: 'REGNO', minwidth: 100, width: 250 },
+        ];
+        keyno = 'MOVENO';
     }
 
     fields.unshift({
@@ -864,8 +884,12 @@
             sqltxt = "SELECT A.RECVNO, A.INVNO, A.APCODE, C.APNAME, B.LOCAT FROM OPTINVOI A, OPTINVTRAN B, APMAST C WHERE A.RECVNO = B.RECVNO AND A.APCODE = C.APCODE AND UPPER(COALESCE(A.RECVNO,'')||COALESCE(A.INVNO,'')||COALESCE(A.APCODE,'')||COALESCE(C.APNAME,'')||COALESCE(B.LOCAT,'')) LIKE '%" + param1 + "%' ORDER BY A.RECVNO";
         } else if (show === "mcmast") {
             sqltxt = "SELECT IDNO, MCNO, MCDT, LOCAT, REFNO, STRNO, SUMQTY, FLAG, USERID, INPUTDT, SUMOPTPRC FROM MCMAST WHERE UPPER(COALESCE(MCNO,'')||COALESCE(STRNO,'')) LIKE '%" + param1 + "%' ORDER BY MCNO";
+        } else if (show === "strnoAll") {
+            sqltxt = "SELECT A.IDNO,A.STRNO,A.ENGNO,A.REGNO,A.TYPECOD,A.MODELCOD,A.BAABCOD,A.COLORCOD FROM INVTRAN A WHERE UPPER(COALESCE(A.STRNO,'')||COALESCE(A.ENGNO,'')||COALESCE(A.REGNO,'')||COALESCE(A.TYPECOD,'')||COALESCE(A.MODELCOD,'')||COALESCE(A.BAABCOD,'')||COALESCE(A.COLORCOD,'')) LIKE '%" + param1 + "%' ORDER BY A.STRNO";
         } else if (show === "adjstk") {
             sqltxt = "SELECT A.IDNO, A.LOCAT, A.ADJNO, A.ADJDT, A.STRNO, A.TADDCOST, A.CRCOST, A.DISCT, A.NETCOST, A.CRVAT, A.TOTCOST, A.STDPRC, A.USERID, A.INPUTDT, A.LOCATPARK, A.POSTGL, A.APCODE, A.VATRT, A.STAT, B.ENGNO, B.REGNO FROM ADJSTK A, INVTRAN B WHERE A.STRNO = B.STRNO AND UPPER(COALESCE(A.ADJNO,'')||COALESCE(A.STRNO,'')||COALESCE(B.ENGNO,'')||COALESCE(B.REGNO,'')) LIKE '%" + param1 + "%' ORDER BY A.ADJNO";
+        } else if (show === "invmovm") {
+            sqltxt = "SELECT A.IDNO, A.MOVENO, A.STRNO, A.MOVEDT, A.MOVEFM, A.MOVETO, A.TADDCOST, A.CRCOST, A.DISCT, A.NETCOST, A.CRVAT, A.TOTCOST, A.STDPRC, A.FLAGDEL, A.REFNO, A.STAT, A.LOCATPARK, B.GCODE, B.TYPECOD, B.MODELCOD, B.BAABCOD, B.COLORCOD, B.CC, B.ENGNO, B.REGNO FROM INVMOVT A, INVTRAN B WHERE A.STRNO = B.STRNO AND UPPER(COALESCE(A.MOVENO,'')||COALESCE(A.STRNO,'')||COALESCE(A.MOVEFM,'')||COALESCE(A.MOVETO,'')||COALESCE(B.ENGNO,'')||COALESCE(B.REGNO,'')) LIKE '%" + param1 + "%' ORDER BY A.MOVENO";
         }
 
         // Qurey Data

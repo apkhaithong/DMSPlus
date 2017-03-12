@@ -1420,6 +1420,7 @@
                     if (selectedrowindex >= 0 && selectedrowindex < rowscount) {
                         var id = $("#tableInvtran").jqxGrid('getrowid', selectedrowindex);
                         var commit = $("#tableInvtran").jqxGrid('deleterow', id);
+                        statusClear();
                     }
                     return false;
                 });

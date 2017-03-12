@@ -390,23 +390,6 @@
             localdata: statData
         };
         var statAdapter = new $.jqx.dataAdapter(statSource);
-        //ข้อมูลอุปกรณ์ ทั้งหมด
-        var sourceOptmast = {
-            async: false,
-            datatype: "json",
-            datafields: [{
-                name: 'OPTCODE',
-                type: 'string'
-            }, {
-                name: 'OPTNAME',
-                type: 'string'
-            }],
-            url: "sqltext",
-            data: {
-                sql: "SELECT OPTCODE, TRIM(OPTCODE)||' : '||TRIM(OPTNAME) AS OPTNAME, OPTPRC FROM SETMOD ORDER BY OPTCODE"
-            }
-        };
-        var dataAdtOptmast = new $.jqx.dataAdapter(sourceOptmast);
         //เงื่อนไข validate ADJSTK
         var rules = [{
             input: '#strno',
@@ -581,66 +564,7 @@
                 }
             });
         }
-        //DataSource MCTRAN
-        var dataModtran = [];
-        var sourceMctran = {
-            datatype: "json",
-            datafields: [{
-                name: 'IDNO',
-                type: 'integer'
-            }, {
-                name: 'ADJNO',
-                type: 'string'
 
-            }, {
-                name: 'OPTCODE',
-                type: 'string'
-            }, {
-                name: 'SETMOD',
-                value: 'OPTCODE',
-                values: {
-                    source: dataAdtOptmast.records,
-                    value: 'OPTCODE',
-                    name: 'OPTNAME'
-                }
-            }, {
-                name: 'OPTNAME',
-                type: 'string'
-
-            }, {
-                name: 'QTY',
-                type: 'float'
-
-            }, {
-                name: 'FLAG',
-                type: 'string'
-
-            }, {
-                name: 'USERID',
-                type: 'string'
-
-            }, {
-                name: 'INPUTDT',
-                type: 'date'
-
-            }, {
-                name: 'OPTPRC',
-                type: 'float'
-
-            }],
-            addrow: function(rowid, rowdata, position, commit) {
-                commit(true);
-            },
-            deleterow: function(rowid, commit) {
-                commit(true);
-            },
-            updaterow: function(rowid, newdata, commit) {
-                commit(true);
-            },
-            id: 'id',
-            localdata: dataModtran
-        };
-        var dataAdtMctran = new $.jqx.dataAdapter(sourceMctran);
         $('.admin-panels').adminpanel({
             grid: '.admin-grid',
             callback: function() {
