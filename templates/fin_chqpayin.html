@@ -1,0 +1,476 @@
+﻿<div class="row" id="spy2">
+    <!-- Chart with filter Widget -->
+    <div class="col-md-12 admin-grid">
+        <div class="panel" id="p2">
+            <div class="panel-heading">
+                <span class="panel-icon"><span class="glyphicons glyphicons-usd"></span></span>
+                <span class="panel-title">บันทึกเช็ค Pay In</span>
+                <span class="panel-controls">
+                    <a href="#" class="panel-control-loader"></a>
+                    <a href="#" class="panel-control-remove"></a>
+                    <a href="#" class="panel-control-collapse"></a>
+                    <a href="#" class="panel-control-fullscreen"></a>
+                </span>
+                <span id="textState" class="text-danger"> [ รายการนี้ยกเลิกแล้ว ]</span>
+            </div>
+            <div class="panel-body">
+                <form class="form-horizontal" id="fmChqstat">
+                    <div id="jqxLoader"></div>
+                    <div class="p15 pt5 mt15">
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label class="col-sm-4 control-label" for="locat">สาขา</label>
+                                    <div class="col-sm-8">
+                                        <div id="locat" class="input-button">
+                                            <input type="text" id="v-locat" />
+                                            <div id="searchInvlocat"><img alt="search" width="20" height="20" src="/images/search_lg.png"
+                                                /></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <input type="text" id="locatnm" class="text-desc" readonly/>
+                            </div>
+                            <div class="col-md-4">
+                                <button type="button" class="btn btn-rounded btn-dark btn-block" id="btnQuery">
+                                    <i class="glyphicons glyphicons-inbox_in"></i>&nbsp;
+                                    แสดงข้อมูล
+                            </button>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label class="col-md-4 control-label" for="fmchqdt">จากวันที่เช็ค</label>
+                                    <div class="col-md-8">
+                                        <div class="bs-component">
+                                            <div id="fmchqdt"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label class="col-md-4 control-label" for="tochqdt">ถึงวันที่เช็ค</label>
+                                    <div class="col-md-8">
+                                        <div class="bs-component">
+                                            <div id="tochqdt"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label class="col-md-4 control-label" for="fmchqno">เลขที่เช็ค</label>
+                                    <div class="col-md-8">
+                                        <div class="bs-component">
+                                            <input type="text" id="fmchqno" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label class="col-md-4 control-label" for="fmrvchqno">เลขที่ใบรับเช็ค</label>
+                                    <div class="col-md-8">
+                                        <div class="bs-component">
+                                            <input type="text" id="fmrvchqno" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="admin-form">
+                                    <div class="form-group">
+                                        <div class="col-md-12">
+                                            <div id="tableChqstattran"></div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-md-4 control-label"></label>
+                                        <div class="col-md-8">
+                                            <div class="bs-component">
+                                                <button type="button" id="newBtn"><span class="fa fa-refresh"></span> เริ่มใหม่</button>
+                                                <button type="button" id="saveBtn"><span class="fa fa-floppy-o"></span> บันทึก</button>
+                                                <input type="hidden" id="v-contno" value="">
+                                                <input type="hidden" id="flgchqstat" value="">
+                                                <input type="hidden" id="chqpay" value="">
+                                                <input type="hidden" id="sumchqpayamt" value="0">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <!-- end: .col-md-12.admin-grid -->
+</div>
+<!-- end: .row -->
+<script type="text/javascript">
+    $(document).ready(function() {
+        //Default status Insert
+        var status = 'update';
+        //เช็คสิทธิการใช้งาน
+        var chkright = checkRight('FIN202');
+
+        //ฟังก์ชั่น สถานะ Insert หรือ Edit
+        function statusChange(disabled) {
+            if (disabled === false) {
+                $('#locat').val($.session.get('locatcd'));
+                $('#fmchqdt').jqxDateTimeInput('setDate', new Date());
+                $('#tochqdt').jqxDateTimeInput('setDate', new Date());
+                $('#fmchqno').val('');
+                $('#fmrvchqno').val('');
+                $('#flgchqstat').val('');
+                $('#textState').hide();
+                $('#tableChqstattran').jqxGrid('clear');
+            } else {
+                $("#saveBtn").jqxButton({ disabled: !chkright.M_EDIT });
+            }
+        }
+ 
+        //ฟังก์ชั่น Get Data CHQSTATTRAN
+        function getChqstattran(locat, fmchqdt, tochqdt, chqno, rvchqno) {
+            var currentCulture = Globalize.cultures['en-US'];
+            var localizationObject = currentCulture.calendar;
+            var xfmdate = $.jqx.dataFormat.formatdate(fmchqdt, "yyyy-MM-dd", localizationObject);
+            var xtodate = $.jqx.dataFormat.formatdate(tochqdt, "yyyy-MM-dd", localizationObject);
+            $.ajax({
+                async: true,
+                method: 'GET',
+                dataType: 'json',
+                url: "sqltext",
+                data: {
+                    sql: "SELECT A.IDNO, A.CHQSTAT, A.LOCAT, A.RVCHQNO, A.RVCHQDT, A.CHQNO, A.CHQDT, TRIM(A.CHQBK)||' : '||TRIM(B.BANKNAM) AS BANKNAME, A.CHQAMT FROM CHQSTAT A, SETBANK B WHERE A.CHQBK = B.BANKCOD AND A.LOCAT LIKE '"+locat+"%' AND A.CHQDT BETWEEN '"+xfmdate+"' AND '"+xtodate+"' AND A.CHQNO LIKE '"+chqno+"%' AND A.RVCHQNO LIKE '"+rvchqno+"%' AND A.CHQSTAT IN ('H', 'B') ORDER BY A.LOCAT, A.CHQDT, A.CHQNO"
+                },
+                success: function(data) {
+                    sourceChqstattran.localdata = data;
+                    $('#tableChqstattran').jqxGrid('updatebounddata');
+                }
+            });
+            return true;
+        }
+
+        //DataSource CHQSTATTRAN
+        var dataChqstattran = [];
+        var sourceChqstattran = {
+            datatype: "json",
+            datafields: [{
+                name: 'IDNO',
+                type: 'integer'
+            }, {
+                name: 'CHQSTAT',
+                type: 'string'
+
+            }, {
+                name: 'LOCAT',
+                type: 'string'
+
+            }, {
+                name: 'RVCHQNO',
+                type: 'string'
+
+            }, {
+                name: 'RVCHQDT',
+                type: 'date'
+            }, {
+                name: 'CHQNO',
+                type: 'string'
+
+            }, {
+                name: 'CHQDT',
+                type: 'date'
+            }, {
+                name: 'BANKNAME',
+                type: 'string'
+
+            }, {
+                name: 'CHQAMT',
+                type: 'float'
+
+            }],
+            id: 'id',
+            localdata: dataChqstattran
+        };
+        var dataAdtChqstattran = new $.jqx.dataAdapter(sourceChqstattran,{
+            beforeLoadComplete: function (data) {
+                for (var i = 0; i < dataAdtChqstattran.records.length; i++) {
+                    if (data[i]["CHQSTAT"] === 'B') {
+                        data[i]["CHQSTAT"] = true;
+                    } else {
+                        data[i]["CHQSTAT"] = false;
+                    }
+                }
+                return data;
+            }
+        });
+        $('.admin-panels').adminpanel({
+            grid: '.admin-grid',
+            callback: function() {
+                bootbox.confirm('<h3>A Custom Callback!</h3>', function() {});
+            },
+            onFinish: function() {
+                $('.admin-panels').addClass('animated fadeIn').removeClass('fade-onload');
+                demoHighCharts.init();
+            },
+            onSave: function() {
+                $(window).trigger('resize');
+            }
+        });
+        $('#textState').hide();
+        $('#chqpay').val(0);
+        $('#locat').jqxInput({
+            height: 25,
+            width: '100%',
+            maxLength: 5
+        });
+        $('#locat').val($.session.get('locatcd'));
+        $('#locatnm').jqxInput({
+            height: 25,
+            width: '100%'
+        });
+        $("#fmchqdt").jqxDateTimeInput({
+            height: 25,
+            width: '100%',
+            culture: 'en-US'
+        });
+        $("#tochqdt").jqxDateTimeInput({
+            height: 25,
+            width: '100%',
+            culture: 'en-US'
+        });
+        $('#fmchqno').jqxInput({
+            height: 25,
+            width: '100%',
+            maxLength: 15
+        });
+        $('#fmrvchqno').jqxInput({
+            height: 25,
+            width: '100%',
+            maxLength: 15
+        });
+        $("#jqxLoader").jqxLoader({ 
+            width: 100, 
+            height: 60, 
+            imagePosition: 'top' 
+        });
+ 
+        //แสดงคำอธิบาย
+        $('#v-locat').off().on('blur', function () {
+            $('#locatnm').val(getLocatName($('#locat').val()));
+        });
+        $('#v-locat').trigger('blur');
+  
+        $("#tableChqstattran").jqxGrid({
+            width: '100%',
+            height: 400,
+            source: dataAdtChqstattran,
+            editable: true,
+            altrows: true,
+            sortable: false,
+            filterable: false,
+            columnsresize: true,
+            selectionmode: 'singlerow',
+            editmode: 'selectedcell',
+            showstatusbar: true,
+            statusbarheight: 35,
+            showaggregates: true,
+            columns: [{
+                text: '#',
+                sortable: false,
+                filterable: false,
+                editable: false,
+                groupable: false,
+                draggable: false,
+                resizable: false,
+                align: 'center',
+                cellsalign: 'center',
+                datafield: '',
+                columntype: 'number',
+                width: 15,
+                cellsrenderer: function(row, column, value) {
+                    return "<div style='margin:4px; text-align:center;'>" + (value + 1) + "</div>";
+                },
+                aggregates: ['count'],
+                aggregatesrenderer: function(aggregates, column, element) {
+                    var renderstring = "";
+                    $.each(aggregates, function(key, value) {
+                        renderstring += '<div style="position: relative; margin: 4px; overflow: hidden; font-weight: bold;">' + value + '</div>';
+                    });
+                    return renderstring;
+                }
+            }, {
+                text: 'IDNO',
+                datafield: 'IDNO',
+                hidden: true
+            }, {
+                text: 'Payin',
+                datafield: 'CHQSTAT',
+                width: 80,
+                align: 'center',
+                cellsalign: 'left',
+                columntype: 'checkbox'
+            }, {
+                text: 'สาขา',
+                datafield: 'LOCAT',
+                width: 80,
+                align: 'center',
+                cellsalign: 'left',
+                editable: false
+            }, {
+                text: 'เลขที่ใบรับเช็ค',
+                datafield: 'RVCHQNO',
+                width: 100,
+                align: 'center',
+                cellsalign: 'left',
+                editable: false
+            }, {
+                text: 'วันที่รับเช็ค',
+                datafield: 'RVCHQDT',
+                width: 100,
+                align: 'center',
+                cellsalign: 'left',
+                columntype: 'datetimeinput',
+                cellsformat: 'dd/MM/yyyy',
+                editable: false 
+            }, {
+                text: 'เลขที่เช็ค',
+                datafield: 'CHQNO',
+                width: 100,
+                align: 'center',
+                cellsalign: 'left',
+                editable: false
+            }, {
+                text: 'วันที่เช็ค',
+                datafield: 'CHQDT',
+                width: 100,
+                align: 'center',
+                cellsalign: 'left',
+                columntype: 'datetimeinput',
+                cellsformat: 'dd/MM/yyyy',
+                editable: false
+            }, {
+                text: 'เช็คธนาคาร',
+                datafield: 'BANKNAME',
+                width: 220,
+                align: 'center',
+                cellsalign: 'left',
+                editable: false
+            }, {
+                text: 'ยอดเงินหน้าเช็ค',
+                datafield: 'CHQAMT',
+                width: 120,
+                align: 'center',
+                cellsalign: 'right',
+                cellsformat: 'd2',
+                columntype: 'numberinput',
+                editable: false,
+                aggregates: ['sum'],
+                aggregatesrenderer: function (aggregates) {
+                    var renderstring = "";
+                    $.each(aggregates, function (key, value) {
+                        renderstring += '<div style="position: relative; margin: 4px; overflow: hidden; font-weight: bold;">' + value + '</div>';
+                    });
+                    return renderstring;
+                }
+            }],
+            showtoolbar: false
+        });
+
+        $("#newBtn").jqxButton({
+            template: "info",
+            width: 90
+        });
+        $("#saveBtn").jqxButton({
+            template: "primary",
+            width: 90,
+            disabled: !chkright.M_INSERT
+        });
+        //คลิ๊กแสดงข้อมูล
+        $("#btnQuery").off().on('click', function() {
+            $("#jqxLoader").jqxLoader('open');
+            var locat   = $('#locat').val();
+            var fmchqdt = $('#fmchqdt').jqxDateTimeInput('getDate');
+            var tochqdt = $('#tochqdt').jqxDateTimeInput('getDate');
+            var chqno   = $('#fmchqno').val();
+            var rvchqno = $('#fmrvchqno').val();
+            if (getChqstattran(locat, fmchqdt, tochqdt, chqno, rvchqno) === true) {
+                $("#jqxLoader").jqxLoader('close');
+            }
+            
+        });
+
+        //เริ่มใหม่
+        $('#newBtn').off().on('click', function() {
+            loadHTML("fin_chqpayin");
+        });
+        //บันทึก
+        $('#saveBtn').off().on('click', function() {
+            var rowscount = $("#tableChqstattran").jqxGrid('getdatainformation').rowscount;
+            if (rowscount > 0) {
+                $.when($.confirmdlg('ต้องการบันทึกข้อมูล?', 'info')).then(function() {
+                    $("#tableChqstattran").jqxGrid('refreshdata');
+                    var chqstattran = [];
+                    var chkstat = '';
+                    for (var i = 0; i < rowscount; i++) {
+                        var data = $("#tableChqstattran").jqxGrid('getrowdata', i);
+                        if (data.CHQSTAT == false) { 
+                            chkstat = 'H'; 
+                        } else { 
+                            chkstat = 'B'; 
+                        }
+                        chqstattran.push({
+                            IDNO: data.IDNO,
+                            CHQNO: data.CHQNO, 
+                            CHQSTAT: chkstat
+                        });
+                    };
+                    var valueJSON = [{
+                        table: 'CHQSTAT',
+                        value: chqstattran
+                    }];
+                    // Convert Value To JSON String
+                    var value = JSON.stringify(valueJSON);
+                    //console.log(value);
+                    $('#ok').on('click', function(event) {
+                        $.ajax({
+                            url: 'saveChqpayin',
+                            type: 'POST',
+                            contentType: "application/json",
+                            dataType: "json",
+                            data: value,
+                            success: function(data) {
+                                //console.log(data);
+                                if (data[0].save === true) {
+                                    ShowMessage("บันทึกข้อมูลเรียบร้อย!", "success");
+                                } else {
+                                    ShowMessage("บันทึกไม่สำเร็จ!", "danger");
+                                }
+                            }
+                        });
+                    });
+                });
+            }
+        });
+
+        //ค้นหาสาขา
+        $('#searchInvlocat').off().on('click', function () {
+            $('#fmChqstat').jqxValidator('hideHint', '#locat');
+            searchAll('invlocat', 'v-locat');
+        });
+    });
+</script>

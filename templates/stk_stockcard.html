@@ -3,6 +3,7 @@
     <div class="col-md-12 admin-grid">
         <div class="panel" id="p2">
             <div class="panel-heading">
+                <span class="panel-icon"><span class="glyphicons glyphicons-car"></span></span>
                 <span class="panel-title">สอบถามรายละเอียดสินค้า</span>
                 <span class="panel-controls">
                     <a href="#" class="panel-control-loader"></a>
@@ -12,91 +13,142 @@
                 </span>
             </div>
             <div class="panel-body">
-                <div class="p15 pt5 mt15">
-                    <div class="row">
-                        <div class="col-md-4"></div>
-                        <div class="col-md-4">
-                           <form class="form-horizontal" role="form">
+                <form class="form-horizontal" id="fmLocatparking">
+                    <div class="p15 pt5 mt15">
+                        <div class="row">
+                            <div class="col-md-4">
                                 <div class="form-group">
-                                    <label class="col-sm-4 control-label" for="strno">ค้นหาตามเลขตัวถัง</label>
+                                    <label class="col-sm-4 control-label required" for="schStrno">ค้นหาตามเลขตัวถัง</label>
                                     <div class="col-sm-8">
                                         <div class="bs-component">
-                                            <div id="strno" class="input-button">
-                                                <input type="text" id="v-strno" />
+                                            <div id="schStrno" class="input-button">
+                                                <input type="text" id="v-schStrno" />
                                                 <div id="searchStrno"><img alt="search" width="20" height="20" src="/images/search_lg.png" /></div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                            </form>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="row">
-                                <div class="col-md-4"></div>
-                                <div class="col-md-4">
-                                    <button type="button" class="btn btn-rounded btn-dark btn-block" id="btnQuery">
-                                        <i class="glyphicons glyphicons-inbox_in"></i>&nbsp;
-                                        แสดงข้อมูล
-                                    </button>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <button type="button" class="btn btn-rounded btn-dark btn-block" id="btnQuery">
+                                            <i class="glyphicons glyphicons-inbox_in"></i>&nbsp;
+                                            แสดงข้อมูล
+                                        </button>
+                                    </div>
+                                    <div class="col-md-8"></div>
                                 </div>
-                                <div class="col-md-4"></div>
+                            </div>
+                            <div class="col-md-4">
+
+                            </div>
+                        </div>
+                        <hr class="short alt">
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label class="col-md-4 control-label" for="strno">เลขตัวถัง</label>
+                                    <div class="col-md-8">
+                                        <div class="bs-component">
+                                            <input type="text" id="strno" class="text-desc" readonly/>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label class="col-md-4 control-label" for="engno">เลขเครื่องยนต์</label>
+                                    <div class="col-md-8">
+                                        <div class="bs-component">
+                                            <input type="text" id="engno" class="text-desc" readonly/>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label class="col-md-4 control-label" for="typecod">ยี่ห้อสินค้า</label>
+                                    <div class="col-md-8">
+                                        <div class="bs-component">
+                                            <input type="text" id="typecod" class="text-desc" readonly/>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label class="col-md-4 control-label" for="modelcod">รุ่นสินค้า</label>
+                                    <div class="col-md-8">
+                                        <div class="bs-component">
+                                            <input type="text" id="modelcod" class="text-desc" readonly/>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label class="col-md-4 control-label" for="baabcod">แบบสินค้า</label>
+                                    <div class="col-md-8">
+                                        <div class="bs-component">
+                                            <input type="text" id="baabcod" class="text-desc" readonly/>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label class="col-md-4 control-label" for="colorcod">สีสินค้า</label>
+                                    <div class="col-md-8">
+                                        <div class="bs-component">
+                                            <input type="text" id="colorcod" class="text-desc" readonly/>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label class="col-md-4 control-label" for="cc">ขนาด ซี ซี</label>
+                                    <div class="col-md-8">
+                                        <div class="bs-component">
+                                            <input type="text" id="cc" class="text-desc" readonly/>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label class="col-md-4 control-label" for="gcode">กลุ่มสินค้า</label>
+                                    <div class="col-md-8">
+                                        <div class="bs-component">
+                                            <input type="text" id="gcode" class="text-desc" readonly/>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                            </div>
+                        </div>
+                        <hr class="short alt">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div id="gridStock"></div>
                             </div>
                         </div>
                     </div>
-                    <hr class="short alt">
-                    <div class="row">
-                        <div class="col-md-3">
-                             <form class="form-horizontal" role="form">
-                                <div class="form-group">
-                                    <label class="col-sm-4 control-label" for="groupcode">เลขตัวถัง</label>
-                                    <div class="col-sm-8">
-                                        <div class="bs-component">
-                                            <div id="groupcode" class="input-button">
-                                                <input type="text" id="v-groupcode" />
-                                                <div id="searchSetgroup"><img alt="search" width="20" height="20" src="/images/search_lg.png" /></div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label class="col-sm-4 control-label" for="baabcode">แบบสินค้า</label>
-                                    <div class="col-sm-8">
-                                        <div class="bs-component">
-                                            <div id="baabcode" class="input-button">
-                                                <input type="text" id="v-baabcode" />
-                                                <div id="searchSetbaab"><img alt="search" width="20" height="20" src="/images/search_lg.png" /></div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label class="col-sm-4 control-label" for="statuscode">สถานะสินค้า</label>
-                                    <div class="col-sm-8">
-                                        <div class="bs-component pr5">
-                                            <div id="statuscode"></div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </form>
-                        </div>
-                        <div class="col-md-3">
- 
-                        </div>
-                        <div class="col-md-3">
- 
-                        </div>
-                        <div class="col-md-3">
-
-                        </div>
-                    </div>
-                    <hr class="short alt">
-                    <div class="row">
-                        <div class="col-md-12">
-                            <div id="gridStock"></div>
-                        </div>
-                    </div>
-                </div>
-
+                </form>
             </div>
         </div>
     </div>
@@ -104,251 +156,344 @@
 </div>
 <!-- end: .row -->
 <script type="text/javascript">
-    $(document).ready(function() {
+    $(document).ready(function () {
         $('.admin-panels').adminpanel({
             grid: '.admin-grid',
-            callback: function() {
-                bootbox.confirm('<h3>A Custom Callback!</h3>', function() {});
+            callback: function () {
+                bootbox.confirm('<h3>A Custom Callback!</h3>', function () {});
             },
-            onFinish: function() {
+            onFinish: function () {
                 $('.admin-panels').addClass('animated fadeIn').removeClass('fade-onload');
                 demoHighCharts.init();
             },
-            onSave: function() {
+            onSave: function () {
                 $(window).trigger('resize');
             }
         });
 
-        $.jqx.theme = "bootstrap";
+        function getDesc(strno) {
+            $.ajax({
+                async: false,
+                method: 'GET',
+                dataType: 'json',
+                url: "sqltext",
+                data: {
+                    sql: "SELECT STRNO, ENGNO, TYPECOD, MODELCOD, BAABCOD, COLORCOD, CC, GCODE FROM INVTRAN WHERE STRNO = '" + strno + "' "
+                },
+                success: function(data) {
+                    $('#strno').val(data[0].STRNO);
+                    $('#engno').val(data[0].ENGNO);
+                    $('#typecod').val(data[0].TYPECOD);
+                    $('#modelcod').val(data[0].MODELCOD);
+                    $('#baabcod').val(data[0].BAABCOD);
+                    $('#colorcod').val(data[0].COLORCOD);
+                    $('#cc').val(data[0].CC);
+                    $('#gcode').val(data[0].GCODE);
+                }
+            });
+        }
 
-        var sourceInvlocat = {
-            async:false,
-            datatype: "json",
-            datafields: [
-                { name: 'LOCATCD' },
-                { name: 'LOCATNM' }
-            ],
-            url: "invlocat"
-        };
-        var sourceStatus = [
-            { text: "ทั้งหมด", value: '%' },
-            { text: "รถใหม่", value: 'N%' },
-            { text: "รถเก่า", value: 'O%' }
-        ];
-        var sourceCurrent = [
-            { text: "ทั้งหมด", value: '1' },
-            { text: "ไม่รวมจอง", value: '2' },
-            { text: "เฉพาะจอง", value: '3' }
-        ];
         var emptyStock = [];
         var sourceStock = {
             datatype: "json",
-            datafields: [
-                { name: 'LOCAT', type: 'string' },
-                { name: 'REFDTIN', type: 'date' },
-                { name: 'STRNO', type: 'string' },
-                { name: 'ENGNO', type: 'string' },
-                { name: 'TYPECOD', type: 'string' },
-                { name: 'MODELCOD', type: 'string' },
-                { name: 'BAABCOD', type: 'string' },
-                { name: 'COLORCOD', type: 'string' },
-                { name: 'CRCOST', type: 'float' },
-                { name: 'DISCT', type: 'float' },
-                { name: 'NETCOST', type: 'float' },
-                { name: 'CRVAT', type: 'float' },
-                { name: 'TOTCOST', type: 'float' },
-                { name: 'NETTAXBUY', type: 'float' },
-                { name: 'VATTAXBUY', type: 'float' },
-                { name: 'TOTTAXBUY', type: 'float' }
+            datafields: [{
+                    name: 'LOCAT',
+                    type: 'string'
+                },
+                {
+                    name: 'REFNOIN',
+                    type: 'string'
+                },
+                {
+                    name: 'REFDTIN',
+                    type: 'date'
+                },
+                {
+                    name: 'INDESC',
+                    type: 'string'
+                },
+                {
+                    name: 'REFNOOUT',
+                    type: 'string'
+                },
+                {
+                    name: 'REFDTOUT',
+                    type: 'date'
+                },
+                {
+                    name: 'OUTDESC',
+                    type: 'string'
+                },
+                {
+                    name: 'FLAG',
+                    type: 'string'
+                },
+                {
+                    name: 'CRCOST',
+                    type: 'float'
+                },
+                {
+                    name: 'DISCT',
+                    type: 'float'
+                },
+                {
+                    name: 'NETCOST',
+                    type: 'float'
+                },
+                {
+                    name: 'CRVAT',
+                    type: 'float'
+                },
+                {
+                    name: 'TOTCOST',
+                    type: 'float'
+                },
+                {
+                    name: 'STDPRC',
+                    type: 'float'
+                },
+                {
+                    name: 'NETTAXBUY',
+                    type: 'float'
+                },
+                {
+                    name: 'VATTAXBUY',
+                    type: 'float'
+                },
+                {
+                    name: 'TOTTAXBUY',
+                    type: 'float'
+                },
+                {
+                    name: 'LOCATPARK',
+                    type: 'string'
+                }
             ],
             localdata: emptyStock
         };
         // create Data Adapter
-        var dataInvlocat = new $.jqx.dataAdapter(sourceInvlocat);
         var dataStock = new $.jqx.dataAdapter(sourceStock);
         // create jqxInput widget.
-        $('#strno').jqxInput({ height: 25, width: '100%' });
-        // $('#groupcode').jqxInput({ height: 25, width: '100%' });
-        // $('#typecode').jqxInput({ height: 25, width: '100%' });
-        // $('#modelcode').jqxInput({ height: 25, width: '100%' });
-        // $('#baabcode').jqxInput({ height: 25, width: '100%' });
-        // $('#colorcode').jqxInput({ height: 25, width: '100%' });
-        // $('#parkcode').jqxInput({ height: 25, width: '100%' });
-        // $("#statuscode").jqxDropDownList({ height: 25, width: '100%', source: sourceStatus, displayMember: 'text', valueMember: 'value', dropDownHeight:80, selectedIndex: 0 });
-        // $("#currentcode").jqxDropDownList({ height: 25, width: '100%', source: sourceCurrent, displayMember: 'text', valueMember: 'value', dropDownHeight:80, selectedIndex: 0 });
+        $('#schStrno').jqxInput({
+            height: 25,
+            width: '100%'
+        });
+        $("#strno").jqxInput({
+            height: 25,
+            width: '100%',
+            maxLength: 20
+        });
+        $('#engno').jqxInput({
+            height: 25,
+            width: '100%'
+        });
+        $('#typecod').jqxInput({
+            height: 25,
+            width: '100%'
+        });
+        $('#modelcod').jqxInput({
+            height: 25,
+            width: '100%'
+        });
+        $('#baabcod').jqxInput({
+            height: 25,
+            width: '100%'
+        });
+        $('#colorcod').jqxInput({
+            height: 25,
+            width: '100%'
+        });
+        $('#cc').jqxInput({
+            height: 25,
+            width: '100%'
+        });
+        $('#gcode').jqxInput({
+            height: 25,
+            width: '100%'
+        });
         // create jqxGrid widget.
         $("#gridStock").jqxGrid({
             width: '100%',
-            height: 570,
+            height: 300,
             source: dataStock,
             sortable: true,
             columnsresize: true,
             filterable: true,
             showfilterrow: true,
             showaggregates: true,
-            showstatusbar: true,
+            showstatusbar: false,
             statusbarheight: 25,
             pageable: false,
             pagesize: 20,
             pagermode: "simple",
-            columns: [
+            columns: [{
+                    text: 'สาขา',
+                    datafield: 'LOCAT',
+                    width: 60,
+                    align: 'center',
+                    filtertype: 'checkedlist'
+                },
                 {
-                    text: 'ลำดับ', sortable: false, filterable: false, editable: false,
-                    groupable: false, draggable: false, resizable: false, align: 'center', cellsalign: 'center',
-                    datafield: '', columntype: 'number', width: 40, exportable: false,
-                    cellsrenderer: function (row, column, value) {
-                        return "<div style='margin:4px;'>" + (value + 1) + "</div>";
-                    },
-                    aggregates: ['count'],
-                    aggregatesrenderer: function (aggregates) {
-                        var renderstring = "";
-                        $.each(aggregates, function (key, value) {
-                            renderstring += '<div style="position: relative; margin: 4px; overflow: hidden; font-weight: bold;">' + value + '</div>';
-                        });
-                        return renderstring;
-                    }
+                    text: 'เลขที่รับเข้าสต็อก',
+                    datafield: 'REFNOIN',
+                    width: 100,
+                    align: 'center',
+                    filtertype: 'checkedlist'
                 },
-                {text: 'สาขา', datafield: 'LOCAT', width: 60, align: 'center', filtertype: 'checkedlist'},
-                {text: 'วันที่รับรถ', datafield: 'REFDTIN', width: 90, align: 'center', columntype: 'datetimeinput', cellsformat: 'dd/MM/yyyy', filtertype: 'range'},
-                {text: 'เลขตัวถัง', datafield: 'STRNO', width: 160, align: 'center', filtertype: 'checkedlist'},
-                {text: 'เลขเครื่องยนต์', datafield: 'ENGNO', width: 160, align: 'center', filtertype: 'checkedlist'},
-                {text: 'ยี่ห้อ', datafield: 'TYPECOD', width: 80, align: 'center', filtertype: 'checkedlist'},
-                {text: 'รุ่น', datafield: 'MODELCOD', width: 150, align: 'center', filtertype: 'checkedlist'},
-                {text: 'แบบ', datafield: 'BAABCOD', width: 160, align: 'center', filtertype: 'checkedlist'},
-                {text: 'สี', datafield: 'COLORCOD', width: 150, align: 'center', filtertype: 'checkedlist'},
-                {text: 'มูลค่าทุน', datafield: 'CRCOST', width: 100, align: 'center', cellsalign: 'right', cellsformat: 'd2', filtertype: 'number',
-                    aggregates: ['sum'],
-                    aggregatesrenderer: function (aggregates) {
-                        var renderstring = "";
-                        $.each(aggregates, function (key, value) {
-                            renderstring += '<div style="position: relative; margin: 4px; overflow: hidden; font-weight: bold;">' + value + '</div>';
-                        });
-                        return renderstring;
-                    }
+                {
+                    text: 'วันที่รับเข้าสต็อก',
+                    datafield: 'REFDTIN',
+                    width: 100,
+                    align: 'center',
+                    columntype: 'datetimeinput',
+                    cellsformat: 'dd/MM/yyyy',
+                    filtertype: 'range'
                 },
-                {text: 'ส่วนลด', datafield: 'DISCT', width: 80, align: 'center', cellsalign: 'right', cellsformat: 'd2', filtertype: 'number',
-                    aggregates: ['sum'],
-                    aggregatesrenderer: function (aggregates) {
-                        var renderstring = "";
-                        $.each(aggregates, function (key, value) {
-                            renderstring += '<div style="position: relative; margin: 4px; overflow: hidden; font-weight: bold;">' + value + '</div>';
-                        });
-                        return renderstring;
-                    }
+                {
+                    text: 'เข้าสต็อกโดย',
+                    datafield: 'INDESC',
+                    width: 100,
+                    align: 'center',
+                    filtertype: 'checkedlist'
                 },
-                {text: 'ทุนสุทธิ', datafield: 'NETCOST', width: 100, align: 'center', cellsalign: 'right', cellsformat: 'd2', filtertype: 'number',
-                    aggregates: ['sum'],
-                    aggregatesrenderer: function (aggregates) {
-                        var renderstring = "";
-                        $.each(aggregates, function (key, value) {
-                            renderstring += '<div style="position: relative; margin: 4px; overflow: hidden; font-weight: bold;">' + value + '</div>';
-                        });
-                        return renderstring;
-                    }
+                {
+                    text: 'เลขที่ตัดสต็อก',
+                    datafield: 'REFNOOUT',
+                    width: 100,
+                    align: 'center',
+                    filtertype: 'checkedlist'
                 },
-                {text: 'ภาษี', datafield: 'CRVAT', width: 100, align: 'center', cellsalign: 'right', cellsformat: 'd2', filtertype: 'number',
-                    aggregates: ['sum'],
-                    aggregatesrenderer: function (aggregates) {
-                        var renderstring = "";
-                        $.each(aggregates, function (key, value) {
-                            renderstring += '<div style="position: relative; margin: 4px; overflow: hidden; font-weight: bold;">' + value + '</div>';
-                        });
-                        return renderstring;
-                    }
+                {
+                    text: 'วันที่ตัดสต็อก',
+                    datafield: 'REFDTOUT',
+                    width: 100,
+                    align: 'center',
+                    columntype: 'datetimeinput',
+                    cellsformat: 'dd/MM/yyyy',
+                    filtertype: 'range'
                 },
-                {text: 'ทุนรวมภาษี', datafield: 'TOTCOST', width: 100, align: 'center', cellsalign: 'right', cellsformat: 'd2', filtertype: 'number',
-                    aggregates: ['sum'],
-                    aggregatesrenderer: function (aggregates) {
-                        var renderstring = "";
-                        $.each(aggregates, function (key, value) {
-                            renderstring += '<div style="position: relative; margin: 4px; overflow: hidden; font-weight: bold;">' + value + '</div>';
-                        });
-                        return renderstring;
-                    }
+                {
+                    text: 'ตัดสต็อกโดย',
+                    datafield: 'OUTDESC',
+                    width: 100,
+                    align: 'center',
+                    filtertype: 'checkedlist'
                 },
-                {text: 'มูลค่าลดหนี้ซื้อ', datafield: 'NETTAXBUY', width: 100, align: 'center', cellsalign: 'right', cellsformat: 'd2', filtertype: 'number',
-                    aggregates: ['sum'],
-                    aggregatesrenderer: function (aggregates) {
-                        var renderstring = "";
-                        $.each(aggregates, function (key, value) {
-                            renderstring += '<div style="position: relative; margin: 4px; overflow: hidden; font-weight: bold;">' + value + '</div>';
-                        });
-                        return renderstring;
-                    }
+                {
+                    text: 'สถานะ',
+                    datafield: 'FLAG',
+                    width: 70,
+                    align: 'center',
+                    filtertype: 'checkedlist'
                 },
-                {text: 'ภาษีลดหนี้ซื้อ', datafield: 'VATTAXBUY', width: 100, align: 'center', cellsalign: 'right', cellsformat: 'd2', filtertype: 'number',
-                    aggregates: ['sum'],
-                    aggregatesrenderer: function (aggregates) {
-                        var renderstring = "";
-                        $.each(aggregates, function (key, value) {
-                            renderstring += '<div style="position: relative; margin: 4px; overflow: hidden; font-weight: bold;">' + value + '</div>';
-                        });
-                        return renderstring;
-                    }
+                {
+                    text: 'มูลค่าทุน',
+                    datafield: 'CRCOST',
+                    width: 100,
+                    align: 'center',
+                    cellsalign: 'right',
+                    cellsformat: 'd2',
+                    filtertype: 'number'
                 },
-                {text: 'ยอดรวมลดหนี้ซื้อ', datafield: 'TOTTAXBUY', width: 100, align: 'center', cellsalign: 'right', cellsformat: 'd2', filtertype: 'number',
-                    aggregates: ['sum'],
-                    aggregatesrenderer: function (aggregates) {
-                        var renderstring = "";
-                        $.each(aggregates, function (key, value) {
-                            renderstring += '<div style="position: relative; margin: 4px; overflow: hidden; font-weight: bold;">' + value + '</div>';
-                        });
-                        return renderstring;
-                    }
+                {
+                    text: 'ส่วนลด',
+                    datafield: 'DISCT',
+                    width: 80,
+                    align: 'center',
+                    cellsalign: 'right',
+                    cellsformat: 'd2',
+                    filtertype: 'number'
+                },
+                {
+                    text: 'ทุนสุทธิ',
+                    datafield: 'NETCOST',
+                    width: 100,
+                    align: 'center',
+                    cellsalign: 'right',
+                    cellsformat: 'd2',
+                    filtertype: 'number'
+                },
+                {
+                    text: 'ภาษี',
+                    datafield: 'CRVAT',
+                    width: 100,
+                    align: 'center',
+                    cellsalign: 'right',
+                    cellsformat: 'd2',
+                    filtertype: 'number'
+                },
+                {
+                    text: 'ทุนรวมภาษี',
+                    datafield: 'TOTCOST',
+                    width: 100,
+                    align: 'center',
+                    cellsalign: 'right',
+                    cellsformat: 'd2',
+                    filtertype: 'number'
+                },
+                {
+                    text: 'มูลค่าลดหนี้ซื้อ',
+                    datafield: 'NETTAXBUY',
+                    width: 100,
+                    align: 'center',
+                    cellsalign: 'right',
+                    cellsformat: 'd2',
+                    filtertype: 'number'
+                },
+                {
+                    text: 'ภาษีลดหนี้ซื้อ',
+                    datafield: 'VATTAXBUY',
+                    width: 100,
+                    align: 'center',
+                    cellsalign: 'right',
+                    cellsformat: 'd2',
+                    filtertype: 'number'
+                },
+                {
+                    text: 'ยอดรวมลดหนี้ซื้อ',
+                    datafield: 'TOTTAXBUY',
+                    width: 100,
+                    align: 'center',
+                    cellsalign: 'right',
+                    cellsformat: 'd2',
+                    filtertype: 'number'
+                },
+                {
+                    text: 'สถานที่จอด',
+                    datafield: 'LOCATPARK',
+                    width: 100,
+                    align: 'center',
+                    filtertype: 'checkedlist'
                 }
             ]
         });
         // On Click
-        $("#btnQuery").off().on('click', function() {
-            $("#jqxLoader").jqxLoader('open');
-            var txtCurrent = "";
-            if ($("#currentcode").val() === '1') {
-                txtCurrent = " AND (A.CURSTAT ='' OR A.CURSTAT='R' OR A.CURSTAT IS NULL ) ";
-            } else if ($("#currentcode").val() === '2') {
-                txtCurrent = " AND (A.CURSTAT ='' OR A.CURSTAT IS NULL) ";
+        $("#btnQuery").off().on('click', function () {
+            if ($("#schStrno").val() === '') {
+                ShowMessage("กรุณาระบุเลขตัวถัง! ", "danger");
             } else {
-                txtCurrent = " AND (A.CURSTAT ='R') ";
+                $("#jqxLoader").jqxLoader('open');
+                // Get Data
+                $.ajax({
+                    async: true,
+                    method: 'GET',
+                    dataType: 'json',
+                    url: "sqltext",
+                    data: {
+                        sql: "SELECT * FROM  STKCARD  WHERE STRNO ='"+$("#schStrno").val()+"' ORDER BY REFDTIN"
+                    },
+                    success: function (data) {
+                        sourceStock.localdata = data;
+                        getDesc($("#schStrno").val());
+                        $("#gridStock").jqxGrid('updatebounddata');
+                        $("#jqxLoader").jqxLoader('close');
+                    }
+                });
             }
-            // Get Data
-            $.ajax({
-                async: false,
-                method: 'GET',
-                dataType: 'json',
-                url: "sqltext",
-                data: { sql: "SELECT A.STRNO,B.ENGNO,A.CRCOST,A.DISCT,A.NETCOST,A.CRVAT,A.TOTCOST,A.LOCAT,B.TYPECOD,B.MODELCOD,B.BAABCOD,B.COLORCOD,A.REFDTIN,A.CURSTAT,A.NETTAXBUY,A.VATTAXBUY,A.TOTTAXBUY FROM STKCARD A,INVTRAN B WHERE A.STRNO=B.STRNO AND  (A.CURSTAT<>'Y' OR A.CURSTAT IS NULL) AND A.FLAG='D' AND (B.TYPECOD LIKE '"+$("#typecode").val()+"%') AND (B.MODELCOD LIKE '"+$("#modelcode").val()+"%') AND (B.BAABCOD LIKE '"+$("#baabcode").val()+"%') AND (B.COLORCOD LIKE '"+$("#colorcode").val()+"%') AND (A.LOCAT LIKE '"+$("#locatcd").val()+"%') AND (A.LOCATPARK LIKE '"+$("#parkcode").val()+"%' OR A.LOCATPARK IS NULL) AND (B.GCODE LIKE '"+$("#groupcode").val()+"%') AND A.STAT LIKE '"+$("#statuscode").val()+"' "+txtCurrent },
-                success: function (data) {
-                    sourceStock.localdata = data;
-                    $("#gridStock").jqxGrid('updatebounddata');
-                    $("#jqxLoader").jqxLoader('close');
-                }
-            })
         });
         // Search
-        $("#searchInvlocat").off().on('click', function() {
-            searchAll('invlocat', 'locatcd');
-        });
-        $("#searchSetgroup").off().on('click', function() {
-            searchAll('setgroup', 'groupcode');
-        });
-        $("#searchSettype").off().on('click', function() {
-            searchAll('settype', 'typecode');
-        });
-        $("#searchSetmodel").off().on('click', function() {
-            searchAll('setmodel', 'modelcode');
-        });
-        $("#searchSetbaab").off().on('click', function() {
-            searchAll('setbaab', 'baabcode');
-        });
-        $("#searchSetcolor").off().on('click', function() {
-            searchAll('setcolor', 'colorcode');
-        });
-        $("#searchInvparking").off().on('click', function() {
-            xlocat = $('#locatcd').val();
-            if (xlocat === "") {
-                ShowMessage("กรุณาระบุรหัสสาขาก่อน!", "info");
-            } else {
-                searchAll('invparking', 'parkcode');
-            }
+        $("#searchStrno").off().on('click', function () {
+            searchAll('strnoAll', 'schStrno');
         });
     });
 </script>

@@ -761,6 +761,20 @@
             { text: 'สถานที่จอด', datafield: 'LOCATPARK', minwidth: 100, width: 100 },
         ];
         keyno = 'REFNOIN';
+    } else if (show === "chqstat") {
+        datafields = [
+            { name: 'CHQNO', type: 'string' },
+            { name: 'RVCHQNO', type: 'string' },
+            { name: 'NAME1', type: 'string' },
+            { name: 'NAME2', type: 'string' },
+        ];
+        fields = [
+            { text: 'เลขที่เช็ค', datafield: 'CHQNO', minwidth: 200, width: 100 },
+            { text: 'เลขตัที่ใบรับเช็ค', datafield: 'RVCHQNO', minwidth: 200, width: 100 },
+            { text: 'ชื่อ', datafield: 'NAME1', minwidth: 100, width: 100 },
+            { text: 'นามสกุล', datafield: 'NAME2', minwidth: 100, width: 100 },
+        ];
+        keyno = 'RVCHQNO';
     }
 
     fields.unshift({
@@ -930,6 +944,10 @@
             sqltxt = "SELECT A.CONTNO, B.NAME1, B.NAME2, A.STRNO, C.REGNO, (CASE WHEN A.FLAG = 'C' THEN 'ยกเลิก' ELSE ' ' END) AS FLAG FROM COMP_ASSET A, CUSTMAST B, INVTRAN C WHERE A.CUSCOD = B.CUSCOD AND A.STRNO = C.STRNO AND UPPER(COALESCE(A.CONTNO,'')||COALESCE(B.NAME1,'')||COALESCE(B.NAME2,'')||COALESCE(A.STRNO,'')||COALESCE(C.REGNO,'')) LIKE '%" + param1 + "%' ORDER BY A.CONTNO";
         } else if (show === "locatparking") {
             sqltxt = "SELECT A.LOCAT, A.LOCATPARK, A.STRNO, A.REFNO, A.OFFCOD, A.REFNOIN, A.REFDTIN, B.ENGNO, B.REGNO FROM LOCATPARKING A, INVTRAN B WHERE A.STRNO = B.STRNO AND UPPER(COALESCE(A.REFNOIN,'')||COALESCE(A.STRNO,'')||COALESCE(B.ENGNO,'')||COALESCE(B.REGNO,'')||COALESCE(A.LOCAT,'')||COALESCE(A.LOCATPARK,'')) LIKE '%" + param1 + "%' ORDER BY A.REFNOIN";
+        } else if (show === "locatparking") {
+            sqltxt = "SELECT A.LOCAT, A.LOCATPARK, A.STRNO, A.REFNO, A.OFFCOD, A.REFNOIN, A.REFDTIN, B.ENGNO, B.REGNO FROM LOCATPARKING A, INVTRAN B WHERE A.STRNO = B.STRNO AND UPPER(COALESCE(A.REFNOIN,'')||COALESCE(A.STRNO,'')||COALESCE(B.ENGNO,'')||COALESCE(B.REGNO,'')||COALESCE(A.LOCAT,'')||COALESCE(A.LOCATPARK,'')) LIKE '%" + param1 + "%' ORDER BY A.REFNOIN";
+        } else if (show === "chqstat") {
+            sqltxt = "SELECT A.RVCHQNO, A.CHQNO, A.CHQDT, B.NAME1, B.NAME2 FROM CHQSTAT A, CUSTMAST B WHERE A.CUSCOD = B.CUSCOD AND UPPER(COALESCE(A.RVCHQNO,'')||COALESCE(A.CHQNO,'')||COALESCE(B.NAME1,'')||COALESCE(B.NAME2,'')) LIKE '%" + param1 + "%' ORDER BY A.CHQDT DESC,A.CHQNO";
         }
 
         // Qurey Data

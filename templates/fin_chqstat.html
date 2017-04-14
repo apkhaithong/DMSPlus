@@ -1,0 +1,1253 @@
+﻿<div class="row" id="spy2">
+    <!-- Chart with filter Widget -->
+    <div class="col-md-12 admin-grid">
+        <div class="panel" id="p2">
+            <div class="panel-heading">
+                <span class="panel-icon"><span class="glyphicons glyphicons-usd"></span></span>
+                <span class="panel-title">ออกใบรับเช็ค</span>
+                <span class="panel-controls">
+                    <a href="#" class="panel-control-loader"></a>
+                    <a href="#" class="panel-control-remove"></a>
+                    <a href="#" class="panel-control-collapse"></a>
+                    <a href="#" class="panel-control-fullscreen"></a>
+                </span>
+                <span id="textState" class="text-danger"> [ รายการนี้ยกเลิกแล้ว ]</span>
+            </div>
+            <div class="panel-body">
+                <form class="form-horizontal" id="fmChqstat">
+                    <div class="p15 pt5 mt15">
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label class="col-sm-4 control-label required" for="locat">สาขา</label>
+                                    <div class="col-sm-8">
+                                        <div id="locat" class="input-button">
+                                            <input type="text" id="v-locat" />
+                                            <div id="searchInvlocat"><img alt="search" width="20" height="20" src="/images/search_lg.png"
+                                                /></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <input type="text" id="locatnm" class="text-desc" readonly/>
+                            </div>
+                            <div class="col-md-4">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label class="col-md-4 control-label" for="rvchqno">เลขที่ใบรับเช็ค</label>
+                                    <div class="col-md-8">
+                                        <div class="bs-component">
+                                            <input type="text" id="rvchqno" style="color:#e9573f; font-weight: bold;" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label class="col-md-4 control-label" for="rvchqdt">วันที่รับเช็ค</label>
+                                    <div class="col-md-8">
+                                        <div class="bs-component">
+                                            <div id="rvchqdt"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label class="col-md-4 control-label required" for="chqno">เลขที่เช็ค</label>
+                                    <div class="col-md-8">
+                                        <div class="bs-component">
+                                            <input type="text" id="chqno" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label class="col-md-4 control-label" for="chqdt">วันที่เช็ค</label>
+                                    <div class="col-md-8">
+                                        <div class="bs-component">
+                                            <div id="chqdt"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label class="col-md-4 control-label required" for="chqamt">ยอดเงินหน้าเช็ค</label>
+                                    <div class="col-md-8">
+                                        <div id='chqamt'></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                            </div>
+                            <div class="col-md-4">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label class="col-md-4 control-label required" for="cuscod">รหัสลูกค้า</label>
+                                    <div class="col-md-8">
+                                        <div id="cuscod" class="input-button">
+                                            <input type="text" id="v-cuscod" />
+                                            <div id="searchCustmast"><img alt="search" width="20" height="20" src="/images/search_lg.png"
+                                                /></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <input type="text" id="custname" class="text-desc" readonly/>
+                            </div>
+                            <div class="col-md-4">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label class="col-md-4 control-label required" for="chqbk">เช็คธนาคาร</label>
+                                    <div class="col-md-8">
+                                        <div id="chqbk" class="input-button">
+                                            <input type="text" id="v-chqbk" />
+                                            <div id="searchSetbank"><img alt="search" width="20" height="20" src="/images/search_lg.png"
+                                                /></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <input type="text" id="bankname" class="text-desc" readonly/>
+                            </div>
+                            <div class="col-md-4">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label class="col-md-4 control-label" for="rvchq">รหัสผู้รับเช็ค</label>
+                                    <div class="col-md-8">
+                                        <input type="text" id="rvchq" class="text-desc" readonly/>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <input type="text" id="rvname" class="text-desc" readonly/>
+                            </div>
+                            <div class="col-md-4">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-8">
+                                <div class="form-group">
+                                    <label class="col-md-2 control-label" for="chqdesc">รายละเอียดเช็ค</label>
+                                    <div class="col-md-10">
+                                        <div class="bs-component">
+                                            <input type="text" id="chqdesc" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="admin-form">
+                                    <div class="form-group">
+                                        <div class="col-md-12">
+                                            <div id="tableChqstattran"></div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-md-4 control-label"></label>
+                                        <div class="col-md-8">
+                                            <div class="bs-component">
+                                                <button type="button" id="newBtn"><span class="fa fa-refresh"></span> เริ่มใหม่</button>
+                                                <button type="button" id="saveBtn"><span class="fa fa-floppy-o"></span> บันทึก</button>
+                                                <button type="button" id="searchBtn"><span class="fa fa-search"></span> ค้นหา</button>
+                                                <button type="button" id="deleteBtn"><span class="fa fa-trash-o"></span> ลบ</button>
+                                                <button type="button" id="printBtn"><span class="fa fa-print"></span> พิมพ์เอกสาร</button>
+                                                <input type="hidden" id="v-contno" value="">
+                                                <input type="hidden" id="flgchqstat" value="">
+                                                <input type="hidden" id="chqpay" value="">
+                                                <input type="hidden" id="sumchqpayamt" value="0">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <!-- end: .col-md-12.admin-grid -->
+</div>
+<!-- end: .row -->
+<script type="text/javascript">
+    $(document).ready(function() {
+        //Default status Insert
+        var status = 'insert';
+        var chqstatid = 0;
+        //เช็คสิทธิการใช้งาน
+        var chkright = checkRight('FIN201');
+
+        //เช็ค Running เอกสาร
+        var chkrun = checkRundoc('R_RVCHQ');
+
+        //ฟังก์ชั่น สถานะ Insert หรือ Edit
+        function statusChange(disabled) {
+            if (disabled === false) {
+                status = 'insert';
+                chqstatid = 0;
+                $('#locat').val($.session.get('locatcd'));
+                $('#rvchqno').val('');
+                $('#rvchqdt').jqxDateTimeInput('setDate', new Date());
+                $('#chqno').val('');
+                $('#chqdt').jqxDateTimeInput('setDate', new Date());
+                $('#chqamt').val(0);
+                $('#chqpay').val(0);
+                $('#cuscod').val('');
+                $('#chqbk').val('');
+                $('#chqdesc').val('');
+                $('#flgchqstat').val('');
+                $('#textState').hide();
+                $('#tableChqstattran').jqxGrid('clear');
+            } else {
+                status = 'update';
+                if ($('#chqpay').val() > 0) {
+                    $("#saveBtn").jqxButton({ disabled: true });  
+                    $("#deleteBtn").jqxButton({ disabled: true });
+                } else if (($('#flgchqstat').val() === 'P') || ($('#flgchqstat').val() === 'B') || ($('#flgchqstat').val() === 'R')) {
+                    $("#saveBtn").jqxButton({ disabled: true }); 
+                    $("#deleteBtn").jqxButton({ disabled: true }); 
+                } else {
+                    $("#saveBtn").jqxButton({ disabled: !chkright.M_EDIT });
+                    $("#deleteBtn").jqxButton({ disabled: !chkright.M_DELETE });
+                }
+            }
+            $("#rvchqno").prop("readonly", disabled);
+            $("#printBtn").jqxButton({disabled: !disabled});
+        }
+        //ฟังก์ชั่น Get Data CHQSTAT
+        function getChqstat(rvchqno) {
+            $.ajax({
+                async: false,
+                method: 'GET',
+                dataType: 'json',
+                url: "sqltext",
+                data: {
+                    sql: "SELECT * FROM CHQSTAT WHERE RVCHQNO = '" + rvchqno + "' "
+                },
+                success: function(data) {
+                    chqstatid = data[0].IDNO;
+                    $('#locat').val(data[0].LOCAT);
+                    $('#rvchqno').val(data[0].RVCHQNO);
+                    $('#rvchqdt').val(data[0].RVCHQDT);
+                    $('#chqno').val(data[0].CHQNO);
+                    $('#chqdt').val(data[0].CHQDT);
+                    $('#chqamt').val(data[0].CHQAMT);
+                    $('#cuscod').val(data[0].CUSCOD);
+                    $('#chqbk').val(data[0].CHQBK);
+                    $('#chqdesc').val(data[0].CHQDESC);
+                    $('#flgchqstat').val(data[0].CHQSTAT);
+                    $('#chqpay').val(data[0].CHQPAY);
+                    $('#v-locat').trigger('blur');
+                    $('#v-cuscod').trigger('blur');
+                    $('#v-chqbk').trigger('blur');
+                    $('#rvchq').trigger('blur');
+                    if (data[0].CHQPAY > 0) {
+                        $('#textState').show();
+                        $('#textState').text('[ เช็คใบนี้ตัดจ่ายแล้ว ]');
+                    } else if (data[0].CHQSTAT === 'P') {
+                        $('#textState').show();
+                        $('#textState').text('[ เช็คผ่านแล้ว ]');
+                    } else if (data[0].CHQSTAT === 'B') {
+                        $('#textState').show();
+                        $('#textState').text('[ เช็ค Payin แล้ว ]');
+                    } else if (data[0].CHQSTAT === 'R') {
+                        $('#textState').show();
+                        $('#textState').text('[ เช็คคืนแล้ว ]');
+                    } else {
+                        $('#textState').hide();
+                    }
+                    getChqstattran(data[0].IDNO);
+                }
+            });
+        }
+        //ฟังก์ชั่น Get Data CHQSTATTRAN
+        function getChqstattran(chqstatid) {
+            $.ajax({
+                async: false,
+                method: 'GET',
+                dataType: 'json',
+                url: "sqltext",
+                data: {
+                    sql: "SELECT A.IDNO, A.CHQSTATID, A.CHQNO, A.CHQDT, A.FLAG, A.TSALE, TRIM(B.TSALE)||' : '||TRIM(B.DESC) AS TDESC, A.CONTID, A.CONTNO, A.CHQPAYAMT FROM CHQSTATTRAN A, TSALE B WHERE A.TSALE = B.TSALE AND A.CHQSTATID = " + chqstatid + " ORDER BY A.IDNO"
+                },
+                success: function(data) {
+                    sourceChqstattran.localdata = data;
+                    $('#tableChqstattran').jqxGrid('updatebounddata');
+                }
+            });
+        }
+        //ฟังก์ชั่นเช็ค validate CHQSTATTRAN
+        function validateChqstattran(value, index) {
+            $("#tableChqstattran").jqxGrid('hidevalidationpopups');
+            var rows = $("#tableChqstattran").jqxGrid('getdisplayrows');
+            var nullTsale = 0,
+                validateTsale = 0,
+                nullContno = 0,
+                validateContno = 0,
+                duplicateContno = 0,
+                nullChqpay = 0,
+                result = true;
+            //Check validate
+            for (var i = 0; i < rows.length; i++) {
+                var row = rows[i];
+                if ((row.TSALE === undefined) || (row.TSALE === '')) {
+                    nullTsale++;
+                } else {
+                    $.ajax({
+                        async: false,
+                        url: "duplicateCheck",
+                        type: 'get',
+                        data: {
+                            table: 'TSALE',
+                            field: 'TSALE',
+                            value: row.TSALE
+                        },
+                        success: function(data) {
+                            if (data === true) {
+                                validateTsale++;
+                            }
+                        }
+                    });
+
+                    if (validateTsale === 0) {
+                        for (var j = 0; j < rows.length; j++) {
+                            var row2 = rows[j];
+                            if ((row2.TSALE === row.TSALE) && (j !== i)) {
+                                duplicateOptcode++;
+                                $("#tableChqstattran").jqxGrid('showvalidationpopup', j, "OPTCODE", "ไม่สามารถเลือกรหัสอุปกรณ์ซ้ำกันได้");
+                                result = false;
+                            }
+                        }
+                    }
+                };
+                if ((row.CONTNO === undefined) || (row.CONTNO === '')) {
+                    nullContno++;
+                } else {
+                    if (row.TSALE === 'A') {
+                        $.ajax({
+                            async: false,
+                            method: 'GET',
+                            dataType: 'json',
+                            url: "sqltext",
+                            data: {
+                                sql: "SELECT CONTNO FROM AR_INVOI WHERE CONTNO = '"+row.CONTNO+"' "
+                            },
+                            success: function(data) {
+                                if (data.length === 0) {
+                                    validateContno++;
+                                }
+                            }
+                        });
+                    } else if (row.TSALE === 'C') {
+                        $.ajax({
+                            async: false,
+                            method: 'GET',
+                            dataType: 'json',
+                            url: "sqltext",
+                            data: {
+                                sql: "SELECT CONTNO FROM ARCRED WHERE CONTNO = '"+row.CONTNO+"' "
+                            },
+                            success: function(data) {
+                                if (data.length === 0) {
+                                    validateContno++;
+                                }
+                            }
+                        });
+                    } else if (row.TSALE === 'F') {
+                        $.ajax({
+                            async: false,
+                            method: 'GET',
+                            dataType: 'json',
+                            url: "sqltext",
+                            data: {
+                                sql: "SELECT CONTNO FROM ARFINC WHERE CONTNO = '"+row.CONTNO+"' "
+                            },
+                            success: function(data) {
+                                if (data.length === 0) {
+                                    validateContno++;
+                                }
+                            }
+                        });
+                    } else if (row.TSALE === 'R') {
+                        $.ajax({
+                            async: false,
+                            method: 'GET',
+                            dataType: 'json',
+                            url: "sqltext",
+                            data: {
+                                sql: "SELECT RESVNO FROM ARRESV WHERE RESVNO = '"+row.CONTNO+"' "
+                            },
+                            success: function(data) {
+                                if (data.length === 0) {
+                                    validateContno++;
+                                }
+                            }
+                        });
+                    } else if (row.TSALE === 'T') {
+                        $.ajax({
+                            async: false,
+                            method: 'GET',
+                            dataType: 'json',
+                            url: "sqltext",
+                            data: {
+                                sql: "SELECT CUSCOD FROM CUSTMAST WHERE CUSCOD = '"+row.CONTNO+"' "
+                            },
+                            success: function(data) {
+                                if (data.length === 0) {
+                                    validateContno++;
+                                }
+                            }
+                        });
+                    } else if (row.TSALE === 'X') {
+                        $.ajax({
+                            async: false,
+                            method: 'GET',
+                            dataType: 'json',
+                            url: "sqltext",
+                            data: {
+                                sql: "SELECT ARCONT FROM AROTHSALE WHERE ARCONT = '"+row.CONTNO+"' "
+                            },
+                            success: function(data) {
+                                if (data.length === 0) {
+                                    validateContno++;
+                                }
+                            }
+                        });
+                    };
+
+                    if (validateContno === 0) {
+                        for (var j = 0; j < rows.length; j++) {
+                            var row2 = rows[j];
+                            if ((row2.CONTNO === row.CONTNO) && (j !== i)) {
+                                duplicateContno++;
+                                $("#tableChqstattran").jqxGrid('showvalidationpopup', j, "CONTNO", "ไม่สามารถระบุเลขที่สัญญาซ้ำกันได้");
+                                result = false;
+                            }
+                        }
+                    }
+                };
+                if ((row.CHQPAYAMT === undefined) || (row.CHQPAYAMT === 0)) {
+                    nullChqpay++;
+                };
+                if (nullTsale !== 0) {
+                    $("#tableChqstattran").jqxGrid('showvalidationpopup', i, "TSALE", "กรุณาเลือกประเภทการขาย");
+                    result = false;
+                };
+                if (nullContno !== 0) {
+                    $("#tableChqstattran").jqxGrid('showvalidationpopup', i, "CONTNO", "กรุณาระบุเลขที่สัญญา");
+                    result = false;
+                };
+                if (validateTsale !== 0) {
+                    $("#tableChqstattran").jqxGrid('showvalidationpopup', i, "TSALE", "ไม่พบประเภทการขาย");
+                    result = false;
+                };
+                if (validateContno !== 0) {
+                    $("#tableChqstattran").jqxGrid('showvalidationpopup', i, "CONTNO", "ไม่พบเลขที่สัญญา");
+                    result = false;
+                };
+                if (nullChqpay !== 0) {
+                    $("#tableChqstattran").jqxGrid('showvalidationpopup', i, "CHQPAYAMT", "กรุณาระบุจำนวนเงิน");
+                    result = false;
+                };
+            }
+            return result;
+        }
+        //ข้อมูลประเภทการขาย ทั้งหมด
+        var sourceTsale = {
+            async: false,
+            datatype: "json",
+            datafields: [{
+                name: 'TSALE',
+                type: 'string'
+            }, {
+                name: 'DESC',
+                type: 'string'
+            }],
+            url: "sqltext",
+            data: {
+                sql: "SELECT TSALE, TRIM(TSALE)||' : '||TRIM(DESC) AS DESC FROM TSALE WHERE TSALE NOT IN ('H', 'O') ORDER BY TSALE"
+            }
+        };
+        var dataAdtTsale = new $.jqx.dataAdapter(sourceTsale);
+        //เงื่อนไข validate CHQSTAT
+        var rules = [{
+            input: '#locat',
+            message: 'กรุณาระบุรหัสสาขา!',
+            action: 'keyup, blur, focusout',
+            rule: 'required'
+        }, {
+            input: '#locat',
+            message: 'ไม่พบรหัสสาขานี้!',
+            action: 'keyup, blur, focusout',
+            rule: function (input, commit) {
+                var locat = $('#locat').val();
+                if (locat !== '') {
+                    $.ajax({
+                        url: "duplicateCheck",
+                        type: 'get',
+                        data: {
+                            table: 'INVLOCAT',
+                            field: 'LOCATCD',
+                            value: locat
+                        },
+                        success: function (data) {
+                            if (data === true) {
+                                commit(false);
+                            } else commit(true);
+                        },
+                        error: function () {
+                            commit(false);
+                        }
+                    });
+                }
+            }
+        }, {
+            input: '#chqno',
+            message: 'กรุณาระบุเลขที่เช็ค!',
+            action: 'keyup, blur, focusout',
+            rule: 'required'
+        }, {
+            input: '#chqno',
+            message: 'ระบุเลขที่เช็คซ้ำ!',
+            action: 'keyup, blur',
+            rule: function(input, commit) {
+                var chqno = $('#chqno').val();
+                var rvchqno = $('#rvchqno').val();
+                if (chqno !== '') {
+                    var result = [];
+                    $.ajax({
+                        async: false,
+                        method: 'GET',
+                        dataType: 'json',
+                        url: "sqltext",
+                        data: {
+                            sql: "SELECT CHQNO FROM CHQSTAT WHERE CHQNO ='" + chqno + "' AND RVCHQNO <> '"+rvchqno+"' "
+                        },
+                        success: function (data) {
+                            if (data.length > 0) {
+                                result = false;
+                            } else {
+                                result = true;
+                            }
+                        },
+                        error: function () {
+                            result = false;
+                        }
+                    });
+                    return result;
+                }
+            }
+        }, {
+            input: '#chqamt', 
+            message: 'กรุณาระบุยอดเงินหน้าเช็ค', 
+            action: 'keyup, blur, focusou', 
+            rule: function (input, commit) {
+                if ((input.val() === 0) || (input.val() === undefined)) {
+                    return false;
+                }
+                return true;
+            }
+        }, {
+            input: '#cuscod',
+            message: 'กรุณาระบุรหัสลูกค้า!',
+            action: 'keyup, blur, focusout',
+            rule: 'required'
+        }, {
+            input: '#cuscod',
+            message: 'ไม่พบรหัสลูกค้านี้!',
+            action: 'keyup, blur, focusout',
+            rule: function (input, commit) {
+                var cuscod = $('#cuscod').val();
+                if (cuscod !== '') {
+                    $.ajax({
+                        url: "duplicateCheck",
+                        type: 'get',
+                        data: {
+                            table: 'CUSTMAST',
+                            field: 'CUSCOD',
+                            value: cuscod
+                        },
+                        success: function (data) {
+                            if (data === true) {
+                                commit(false);
+                            } else commit(true);
+                        },
+                        error: function () {
+                            commit(false);
+                        }
+                    });
+                }
+            }
+        }, {
+            input: '#chqbk',
+            message: 'กรุณาระบุรหัสธนาคาร!',
+            action: 'keyup, blur, focusout',
+            rule: 'required'
+        }, {
+            input: '#chqbk',
+            message: 'ไม่พบรหัสธนาคารนี้!',
+            action: 'keyup, blur, focusout',
+            rule: function (input, commit) {
+                var chqbk = $('#chqbk').val();
+                if (chqbk !== '') {
+                    $.ajax({
+                        url: "duplicateCheck",
+                        type: 'get',
+                        data: {
+                            table: 'SETBANK',
+                            field: 'BANKCOD',
+                            value: chqbk
+                        },
+                        success: function (data) {
+                            if (data === true) {
+                                commit(false);
+                            } else commit(true);
+                        },
+                        error: function () {
+                            commit(false);
+                        }
+                    });
+                }
+            }
+        }];
+        if (chkrun === false) {
+            rules.push({
+                input: '#rvchqno',
+                message: 'กรุณาระบุเลขที่ใบรับเช็ค!',
+                action: 'keyup, blur, focusout',
+                rule: 'required'
+            }, {
+                input: '#rvchqno',
+                message: 'ระบุเลขที่ใบรับเช็คซ้ำ!',
+                action: 'keyup, blur',
+                rule: function(input, commit) {
+                    var rvchqno = $('#rvchqno').val();
+                    if (rvchqno !== '') {
+                        $.ajax({
+                            url: "duplicateCheck",
+                            type: 'get',
+                            data: {
+                                table: 'CHQSTAT',
+                                field: 'RVCHQNO',
+                                value: rvchqno
+                            },
+                            success: function(data) {
+                                if (data === true) {
+                                    commit(true);
+                                } else commit(false);
+                            },
+                            error: function() {
+                                commit(false);
+                            }
+                        });
+                    }
+                }
+            });
+        }
+        //DataSource CHQSTATTRAN
+        var dataChqstattran = [];
+        var sourceChqstattran = {
+            datatype: "json",
+            datafields: [{
+                name: 'IDNO',
+                type: 'integer'
+            }, {
+                name: 'CHQNO',
+                type: 'string'
+
+            }, {
+                name: 'CHQDT',
+                type: 'date'
+            }, {
+                name: 'TSALE',
+                type: 'string'
+
+            }, {
+                name: 'TDESC',
+                value: 'TSALE',
+                values: {
+                    source: dataAdtTsale.records,
+                    value: 'TSALE',
+                    name: 'DESC'
+                }
+            }, {
+                name: 'CONTNO',
+                type: 'string'
+
+            }, {
+                name: 'CHQPAYAMT',
+                type: 'float'
+
+            }, {
+                name: 'FLAG',
+                type: 'string'
+
+            }],
+            addrow: function(rowid, rowdata, position, commit) {
+                commit(true);
+            },
+            deleterow: function(rowid, commit) {
+                commit(true);
+            },
+            updaterow: function(rowid, newdata, commit) {
+                commit(true);
+            },
+            id: 'id',
+            localdata: dataChqstattran
+        };
+        var dataAdtChqstattran = new $.jqx.dataAdapter(sourceChqstattran);
+        $('.admin-panels').adminpanel({
+            grid: '.admin-grid',
+            callback: function() {
+                bootbox.confirm('<h3>A Custom Callback!</h3>', function() {});
+            },
+            onFinish: function() {
+                $('.admin-panels').addClass('animated fadeIn').removeClass('fade-onload');
+                demoHighCharts.init();
+            },
+            onSave: function() {
+                $(window).trigger('resize');
+            }
+        });
+        $('#textState').hide();
+        $('#chqpay').val(0);
+        $('#locat').jqxInput({
+            height: 25,
+            width: '100%',
+            maxLength: 5
+        });
+        $('#locat').val($.session.get('locatcd'));
+        $('#locatnm').jqxInput({
+            height: 25,
+            width: '100%'
+        });
+        $("#rvchqno").jqxInput({
+            height: 25,
+            width: '100%',
+            maxLength: 12
+        });
+        if (chkrun === true) {
+            $("#rvchqno").jqxInput({
+                placeHolder: "Running Code"
+            });
+        } else {
+            $("#rvchqno").jqxInput({
+                placeHolder: "Enter a document no."
+            });
+        }
+        $("#rvchqno").prop("readonly", chkrun);
+        $("#rvchqdt").jqxDateTimeInput({
+            height: 25,
+            width: '100%',
+            culture: 'en-US'
+        });
+        $('#chqno').jqxInput({
+            height: 25,
+            width: '100%',
+            maxLength: 15
+        });
+        $("#chqdt").jqxDateTimeInput({
+            height: 25,
+            width: '100%',
+            culture: 'en-US'
+        });
+        $("#chqamt").jqxNumberInput({
+            height: 25,
+            width: '100%',
+            symbol: '฿',
+            spinButtons: true,
+            digits: 10,
+            decimalDigits: 2,
+            min: 0,
+            max: 9999999999
+        });
+        $('#cuscod').jqxInput({
+            height: 25,
+            width: '100%',
+            maxLength: 13
+        });
+        $('#custname').jqxInput({
+            height: 25,
+            width: '100%'
+        });
+        $('#chqbk').jqxInput({
+            height: 25,
+            width: '100%',
+            maxLength: 8
+        });
+        $('#bankname').jqxInput({
+            height: 25,
+            width: '100%'
+        });
+        $('#rvchq').jqxInput({
+            height: 25,
+            width: '100%',
+            maxLength: 8
+        });
+        $('#rvchq').val($.session.get('officecode'));
+        $('#rvname').jqxInput({
+            height: 25,
+            width: '100%'
+        });
+        $("#chqdesc").jqxInput({
+            height: 25,
+            width: '100%',
+            maxLength: 100
+        });
+        //แสดงคำอธิบาย
+        $('#v-locat').off().on('blur', function () {
+            $('#locatnm').val(getLocatName($('#locat').val()));
+        });
+        $('#v-cuscod').off().on('blur', function () {
+            $('#custname').val(getCustname($('#cuscod').val()));
+        });
+        $('#v-chqbk').off().on('blur', function () {
+            $.ajax({
+                async: false,
+                method: 'GET',
+                dataType: 'json',
+                url: "sqltext",
+                data: {
+                    sql: "SELECT BANKCOD, BANKNAM FROM SETBANK WHERE BANKCOD = '"+$('#v-chqbk').val()+"' "
+                },
+                success: function(data) {
+                    $('#bankname').val(data[0].BANKNAM);
+                }
+            });
+        });
+        $('#rvchq').off().on('blur', function () {
+            $('#rvname').val(getOfficeName($('#rvchq').val()));
+        });
+        $('#v-contno').off().on('blur', function () {
+            var rowindex = $('#tableChqstattran').jqxGrid('getselectedrowindex');
+            $("#tableChqstattran").jqxGrid('setcellvalue', rowindex, "CONTNO", $('#v-contno').val());
+        });
+        $('#v-locat').trigger('blur');
+        $('#rvchq').trigger('blur');
+        $("#tableChqstattran").jqxGrid({
+            width: '100%',
+            height: 300,
+            source: dataAdtChqstattran,
+            editable: true,
+            altrows: true,
+            sortable: false,
+            filterable: false,
+            columnsresize: true,
+            selectionmode: 'singlerow',
+            editmode: 'selectedcell',
+            showstatusbar: true,
+            statusbarheight: 35,
+            showaggregates: true,
+            columns: [{
+                text: '#',
+                sortable: false,
+                filterable: false,
+                editable: false,
+                groupable: false,
+                draggable: false,
+                resizable: false,
+                align: 'center',
+                cellsalign: 'center',
+                datafield: '',
+                columntype: 'number',
+                width: 15,
+                cellsrenderer: function(row, column, value) {
+                    return "<div style='margin:4px; text-align:center;'>" + (value + 1) + "</div>";
+                },
+                aggregates: ['count'],
+                aggregatesrenderer: function(aggregates, column, element) {
+                    var renderstring = "";
+                    $.each(aggregates, function(key, value) {
+                        renderstring += '<div style="position: relative; margin: 4px; overflow: hidden; font-weight: bold;">' + value + '</div>';
+                    });
+                    return renderstring;
+                }
+            }, {
+                text: 'IDNO',
+                datafield: 'IDNO',
+                hidden: true
+            }, {
+                text: 'RVCHQNO',
+                datafield: 'RVCHQNO',
+                hidden: true
+            }, {
+                text: 'ประเภทการขาย',
+                datafield: 'TSALE',
+                width: 180,
+                align: 'center',
+                cellsalign: 'left',
+                columntype: 'dropdownlist',
+                displayfield: 'TDESC',
+                createeditor: function(row, value, editor) {
+                    editor.jqxDropDownList({
+                        source: dataAdtTsale,
+                        displayMember: 'DESC',
+                        valueMember: 'TSALE',
+                        placeHolder: "เลือกประเภทการขาย :",
+                        dropDownHeight: 185,
+                        filterable: true,
+                        filterHeight: 30,
+                        filterPlaceHolder: "ค้นหา...",
+                        searchMode: 'containsignorecase',
+                        dropDownWidth: 450
+                    });
+                    editor.on('close', function(event) {
+                        $("#tableChqstattran").jqxGrid('hidevalidationpopups');
+                    });
+                },
+                cellvaluechanging: function(row, datafield, columntype, oldvalue, newvalue) {
+                    if ((newvalue.value != oldvalue) && (newvalue.value != undefined)) {
+                        $("#tableChqstattran").jqxGrid('setcellvalue', row, "CONTNO", '');
+                    };
+                }
+            }, {
+                text: 'เลขที่สัญญา',
+                datafield: 'CONTNO',
+                width: 180,
+                align: 'center',
+                cellsalign: 'left',
+                columntype: 'template',
+                createeditor: function (row, cellvalue, editor, cellText, width, height) {
+                    // construct the editor.
+                    var inputElement = $("<div><input type='text' /><div id='searchContno'><img alt='search' width='20' height='20' src='../images/search_lg.png' /></div></div>").prependTo(editor);
+                    inputElement.jqxInput({ });
+                },
+                initeditor: function (row, cellvalue, editor, celltext, pressedkey) {
+                    // set the editor's current value. The callback is called each time the editor is displayed.
+                    var inputField = editor.find('input');
+                    var searchContno = editor.find('#searchContno');
+                    if (pressedkey) {
+                        inputField.val(pressedkey);
+                        inputField.jqxInput('selectLast');
+                    }
+                    else {
+                        inputField.val(cellvalue);
+                        inputField.jqxInput('selectAll');
+                    }
+                    searchContno.on('click', function(event) {
+                        var data = $('#tableChqstattran').jqxGrid('getrowdata', row);
+                        if (data.TSALE === 'A') {
+                            searchAll('netarinvoi', 'v-contno');
+                        } else if (data.TSALE === 'C') {
+                            searchAll('netarcred', 'v-contno');
+                        } else if (data.TSALE === 'F') {
+                            searchAll('netarfinc', 'v-contno');
+                        } else if (data.TSALE === 'R') {
+                            searchAll('netarresv', 'v-contno');
+                        } else if (data.TSALE === 'T') {
+                            searchAll('custmast', 'v-contno');
+                        } else if (data.TSALE === 'X') {
+                            searchAll('netarothsale', 'v-contno');
+                        }
+                    });
+                },
+                geteditorvalue: function (row, cellvalue, editor) {
+                    // return the editor's value.
+                    return editor.find('input').val();
+                }
+            }, {
+                text: 'ยอดหักลูกหนี้',
+                datafield: 'CHQPAYAMT',
+                width: 120,
+                align: 'center',
+                cellsalign: 'right',
+                cellsformat: 'd2',
+                columntype: 'numberinput',
+                createeditor: function(row, value, editor) {
+                    editor.jqxNumberInput({
+                        decimalDigits: 2,
+                        digits: 12,
+                        spinButtons: false,
+                        spinButtonsStep: 0,
+                        inputMode: 'simple'
+                    });
+                },
+                aggregates: ['sum'],
+                aggregatesrenderer: function(aggregates) {
+                    var renderstring = "";
+                    $.each(aggregates, function(key, value) {
+                        renderstring += '<div style="position: relative; margin: 4px; overflow: hidden; font-weight: bold;">' + value + '</div>';
+                        $("#sumchqpayamt").val(value)
+                    });
+                    return renderstring;
+                }
+            }, {
+                text: 'CONTID',
+                datafield: 'CONTID',
+                hidden: true
+            }],
+            showtoolbar: true,
+            rendertoolbar: function(toolbar) {
+                var container = $("<div style='margin: 5px;'></div>");
+                toolbar.append(container);
+                container.append('<button type="button" id="addrow1"><span class="fa fa-plus"></span> เพิ่มรายการ</button> <button type="button" id="deleterow"><span class="fa fa-minus"></span> ลบรายการ</button>');
+                //Add row
+                $("#addrow1").on('click', function() {
+                    var recodecount = $("#tableChqstattran").jqxGrid('getdatainformation').rowscount;
+                    if (validateChqstattran() === true) {
+                        var datarow = {
+                            IDNO: 0,
+                            RVCHQNO: '',
+                            TSALE: '',
+                            CONTNO: '',
+                            CHQPAYAMT: 0
+                        };
+                        var commit = $("#tableChqstattran").jqxGrid('addrow', null, datarow);
+                        if (commit) {
+                            setTimeout(
+                                function() {
+                                    $("#tableChqstattran").jqxGrid('selectrow', recodecount);
+                                    $('#tableChqstattran').jqxGrid('begincelledit', recodecount, 'TSALE');
+                                },
+                                200
+                            );
+                        };
+                    }
+                });
+
+                //Delete row
+                $("#deleterow").on('click', function() {
+                    var selectedrowindex = $("#tableChqstattran").jqxGrid('getselectedrowindex');
+                    var rowscount = $("#tableChqstattran").jqxGrid('getdatainformation').rowscount;
+                    if (selectedrowindex >= 0 && selectedrowindex < rowscount) {
+                        var id = $("#tableChqstattran").jqxGrid('getrowid', selectedrowindex);
+                        var commit = $("#tableChqstattran").jqxGrid('deleterow', id);
+                    }
+                    return false;
+                });
+
+                $("#addrow1").jqxButton({
+                    width: 100,
+                    height: 25,
+                    template: "success"
+                });
+                $("#deleterow").jqxButton({
+                    width: 100,
+                    height: 25,
+                    template: "danger",
+                });
+            }
+        });
+
+        $("#newBtn").jqxButton({
+            template: "info",
+            width: 90
+        });
+        $("#saveBtn").jqxButton({
+            template: "primary",
+            width: 90,
+            disabled: !chkright.M_INSERT
+        });
+        $("#searchBtn").jqxButton({
+            template: "success",
+            width: 90
+        });
+        $("#deleteBtn").jqxButton({
+            disabled: true,
+            template: "danger",
+            width: 90
+        });
+        $("#printBtn").jqxButton({
+            disabled: true,
+            template: "inverse",
+            width: 120
+        });
+        $('#fmChqstat').jqxValidator({
+            hintType: 'label',
+            animationDuration: 0,
+            closeOnClick: false,
+            rules: rules
+        });
+        //เริ่มใหม่
+        $('#newBtn').off().on('click', function() {
+            loadHTML("fin_chqstat");
+        });
+        //บันทึก
+        $('#saveBtn').off().on('click', function() {
+            $('#fmChqstat').jqxValidator('validate', function(result) {
+                if ((result) && (validateChqstattran() === true)) {
+                    if ($("#chqamt").val() === parseFloat($("#sumchqpayamt").val().replace(',', ''))) {
+                        $.when($.confirmdlg('ต้องการบันทึกข้อมูล?', 'info')).then(function() {
+                            $("#tableChqstattran").jqxGrid('refreshdata');
+                            var rowscount = $("#tableChqstattran").jqxGrid('getdatainformation').rowscount;
+                            var docdate = $("#rvchqdt").jqxDateTimeInput('getDate');
+                            var chqdate = $("#chqdt").jqxDateTimeInput('getDate');
+                            var currentCulture = Globalize.cultures['en-US'];
+                            var localizationObject = currentCulture.calendar;
+                            var rvchqdt = $.jqx.dataFormat.formatdate(docdate, "dd/MM/yyyy", localizationObject);
+                            var chqdt = $.jqx.dataFormat.formatdate(chqdate, "dd/MM/yyyy", localizationObject);
+                            var chqstattran = [];
+                            var sumchqpay = 0;
+                            for (var i = 0; i < rowscount; i++) {
+                                var data = $("#tableChqstattran").jqxGrid('getrowdata', i);
+                                sumchqpay = sumchqpay+data.CHQPAYAMT;
+                                chqstattran.push({
+                                    IDNO: data.IDNO,
+                                    CHQNO: $('#chqno').val(), 
+                                    CHQDT: chqdt, 
+                                    TSALE: data.TSALE, 
+                                    CONTID: 0, 
+                                    CONTNO: data.CONTNO, 
+                                    CHQPAYAMT: data.CHQPAYAMT
+                                });
+                            };
+                            var valueJSON = [{
+                                status: status,
+                                locat: $('#locat').val(),
+                                table: 'CHQSTAT',
+                                key: $('#rvchqno').val(),
+                                value: [{
+                                    LOCAT: $('#locat').val(),
+                                    CUSCOD: $('#cuscod').val(),
+                                    RVCHQNO: $('#rvchqno').val(),
+                                    RVCHQDT: rvchqdt,
+                                    CHQNO: $('#chqno').val(),
+                                    CHQDT: chqdt,
+                                    CHQDESC: $('#chqdesc').val(),
+                                    CHQBK: $('#chqbk').val(),
+                                    CHQAMT: $('#chqamt').val(),
+                                    RVCHQ: $('#rvchq').val(), 
+                                    CHQSTAT: 'H',
+                                    USERID: $.session.get('username')
+                                }]
+                            }, {
+                                table: 'CHQSTATTRAN',
+                                value: chqstattran
+                            }];
+                            // Convert Value To JSON String
+                            var value = JSON.stringify(valueJSON);
+                            //console.log(value);
+                            $('#ok').on('click', function(event) {
+                                $.ajax({
+                                    url: 'saveChqstat',
+                                    type: 'POST',
+                                    contentType: "application/json",
+                                    dataType: "json",
+                                    data: value,
+                                    success: function(data) {
+                                        //console.log(data);
+                                        if (data[0].save === true) {
+                                            ShowMessage("บันทึกข้อมูลเรียบร้อย!", "success");
+                                            statusChange(true);
+                                            getChqstat(data[0].rvchqno);
+                                        } else {
+                                            ShowMessage("บันทึกไม่สำเร็จ!", "danger");
+                                        }
+                                    }
+                                });
+                            });
+                        });
+                    } else {
+                        $.alertdlg('ระบุจำนวนเงินยอดตัดลูกหนี้ไม่เท่ากับยอดเงินหน้าเช็ค?', 'warning');
+                    }
+                }
+            });
+        });
+
+        //ค้นหาสาขา
+        $('#searchInvlocat').off().on('click', function () {
+            $('#fmChqstat').jqxValidator('hideHint', '#locat');
+            searchAll('invlocat', 'v-locat');
+        });
+        //ค้นหาลูกค้า
+        $('#searchCustmast').off().on('click', function () {
+            $('#fmChqstat').jqxValidator('hideHint', '#cuscod');
+            searchAll('custmast', 'v-cuscod');
+        });
+        //ค้นหาธนาคาร
+        $('#searchSetbank').off().on('click', function () {
+            $('#fmChqstat').jqxValidator('hideHint', '#chqbk');
+            searchAll('setbank', 'v-chqbk');
+        });
+
+        //ค้นหา
+        $('#searchBtn').off().on('click', function() {
+            if (chkrun === false) {
+                var rules2 = rules.slice();
+                rules2.splice(1, 1);
+                $('#fmChqstat').jqxValidator('rules', rules2);
+            }
+            //Show Dialog Search
+            searchAll('chqstat', 'rvchqno');
+            $('#okButton').on('click', function(event) {
+                event.preventDefault();
+                $('#fmChqstat').jqxValidator('hide');
+                getChqstat($('#rvchqno').val());
+                statusChange(true);
+            });
+        });
+        //ลบ
+        $('#deleteBtn').off().on('click', function() {
+            if ($('#rvchqno').val() !== '') {
+                $.when($.confirmdlg('ต้องการลบข้อมูล?', 'warning')).then(function() {
+                    $('#ok').on('click', function(event) {
+                        var valueJSON = [{
+                            table: 'CHQSTATTRAN',
+                            field: 'CHQSTATID',
+                            key: chqstatid,
+                        }, {
+                            table: 'CHQSTAT',
+                            field: 'RVCHQNO',
+                            key: $('#rvchqno').val(),
+                        }];
+                        // Convert Value To JSON String
+                        var value = JSON.stringify(valueJSON);
+                        $.ajax({
+                            async: false,
+                            method: 'POST',
+                            dataType: 'json',
+                            url: "delete",
+                            data: value,
+                            success: function(data) {
+                                if (data === true) {
+                                    ShowMessage("ลบข้อมูลเรียบร้อย!", "success");
+                                    statusChange(false);
+                                }
+                            },
+                            error: function(xhr, status, error) {
+                                ShowMessage("ลบข้อมูลไม่สำเร็จ! ", "danger");
+                            }
+                        });
+                    });
+                });
+            }
+        });
+        //พิมพ์
+        $('#printBtn').off().on('click', function () { 
+            var baseUrl = document.location.origin;
+            var reportname = 'fr_rvchq';
+            var vdocno = $('#rvchqno').val();
+            openReport('GET', baseUrl+'/report', {reportname: reportname, vdocno: vdocno});
+        });
+    });
+</script>

@@ -1,0 +1,182 @@
+﻿<div class="row" id="spy2">
+    <!-- Chart with filter Widget -->
+    <div class="col-md-12 admin-grid">
+        <div class="panel" id="p2">
+            <div class="panel-heading">
+                <span class="panel-icon"><span class="glyphicons glyphicons-car"></span></span>
+                <span class="panel-title">สอบถามอุปกรณ์เสริมคงเหลือ</span>
+                <span class="panel-controls">
+                    <a href="#" class="panel-control-loader"></a>
+                    <a href="#" class="panel-control-remove"></a>
+                    <a href="#" class="panel-control-collapse"></a>
+                    <a href="#" class="panel-control-fullscreen"></a>
+                </span>
+            </div>
+            <div class="panel-body">
+                <div class="p15 pt5 mt15">
+                    <div id="jqxLoader"></div>
+                    <div class="row">
+                        <div class="col-md-3">
+                            <form class="form-horizontal" role="form">
+                                <div class="form-group">
+                                    <label class="col-sm-4 control-label" for="locatcd">สาขา</label>
+                                    <div class="col-sm-8">
+                                        <div class="bs-component">
+                                            <div id="locatcd" class="input-button">
+                                                <input type="text" id="v-locatcd" />
+                                                <div id="searchInvlocat"><img alt="search" width="20" height="20" src="/images/search_lg.png" /></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="col-md-3">
+                            <form class="form-horizontal" role="form">
+                                <div class="form-group">
+                                    <label class="col-sm-4 control-label" for="optcode">รหัสอุปกรณ์เสริม</label>
+                                    <div class="col-sm-8">
+                                        <div class="bs-component">
+                                            <div id="optcode" class="input-button">
+                                                <input type="text" id="v-optcode" />
+                                                <div id="searchOptmast"><img alt="search" width="20" height="20" src="/images/search_lg.png" /></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="col-md-3">
+                            <button type="button" class="btn btn-rounded btn-dark btn-block" id="btnQuery">
+                                <i class="glyphicons glyphicons-inbox_in"></i>&nbsp;
+                                แสดงข้อมูล
+                            </button>
+                        </div>
+                    </div>
+                    <hr class="short alt">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div id="gridStock"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- end: .col-md-12.admin-grid -->
+</div>
+<!-- end: .row -->
+<script type="text/javascript">
+    $(document).ready(function() {
+        $('.admin-panels').adminpanel({
+            grid: '.admin-grid',
+            callback: function() {
+                bootbox.confirm('<h3>A Custom Callback!</h3>', function() {});
+            },
+            onFinish: function() {
+                $('.admin-panels').addClass('animated fadeIn').removeClass('fade-onload');
+                demoHighCharts.init();
+            },
+            onSave: function() {
+                $(window).trigger('resize');
+            }
+        });
+
+        $.jqx.theme = "bootstrap";
+
+        var emptyStock = [];
+        var sourceStock = {
+            datatype: "json",
+            datafields: [
+                { name: 'LOCATCD', type: 'string' },
+                { name: 'OPTCODE', type: 'string' },
+                { name: 'OPTNAME', type: 'string' },
+                { name: 'OPTCOST', type: 'float' },
+                { name: 'OPTPRC', type: 'float' },
+                { name: 'ONHAND', type: 'float' }
+            ],
+            localdata: emptyStock
+        };
+        // create Data Adapter
+        var dataStock = new $.jqx.dataAdapter(sourceStock);
+        // create jqxInput widget.
+        $('#locatcd').jqxInput({ height: 25, width: '100%' });
+        $('#optcode').jqxInput({ height: 25, width: '100%' });
+        $("#jqxLoader").jqxLoader({ width: 100, height: 60, imagePosition: 'top' });
+        $('#locatcd').val($.session.get('locatcd'));
+        // create jqxGrid widget.
+        $("#gridStock").jqxGrid({
+            width: '100%',
+            height: 570,
+            source: dataStock,
+            sortable: true,
+            columnsresize: true,
+            filterable: true,
+            showfilterrow: true,
+            showaggregates: true,
+            showstatusbar: true,
+            statusbarheight: 25,
+            pageable: false,
+            pagesize: 20,
+            pagermode: "simple",
+            columns: [
+                {
+                    text: 'ลำดับ', sortable: false, filterable: false, editable: false,
+                    groupable: false, draggable: false, resizable: false, align: 'center', cellsalign: 'center',
+                    datafield: '', columntype: 'number', width: 40, exportable: false,
+                    cellsrenderer: function (row, column, value) {
+                        return "<div style='margin:4px;'>" + (value + 1) + "</div>";
+                    },
+                    aggregates: ['count'],
+                    aggregatesrenderer: function (aggregates) {
+                        var renderstring = "";
+                        $.each(aggregates, function (key, value) {
+                            renderstring += '<div style="position: relative; margin: 4px; overflow: hidden; font-weight: bold;">' + value + '</div>';
+                        });
+                        return renderstring;
+                    }
+                },
+                {text: 'สาขา', datafield: 'LOCATCD', width: 80, align: 'center', filtertype: 'checkedlist'},
+                {text: 'รหัสอุปกรณ์เสริม', datafield: 'OPTCODE', width: 150, align: 'center', filtertype: 'checkedlist'},
+                {text: 'ชื่ออุปกรณ์เสริม', datafield: 'OPTNAME', width: 250, align: 'center', filtertype: 'checkedlist'},
+                {text: 'ราคาทุน', datafield: 'OPTCOST', width: 100, align: 'center', cellsalign: 'right', cellsformat: 'd2', filtertype: 'number'},
+                {text: 'ราคาขาย', datafield: 'OPTPRC', width: 100, align: 'center', cellsalign: 'right', cellsformat: 'd2', filtertype: 'number'},
+                {text: 'สินค้าคงเหลือ', datafield: 'ONHAND', width: 100, align: 'center', cellsalign: 'right', cellsformat: 'd2', filtertype: 'number',
+                    aggregates: ['sum'],
+                    aggregatesrenderer: function (aggregates) {
+                        var renderstring = "";
+                        $.each(aggregates, function (key, value) {
+                            renderstring += '<div style="position: relative; margin: 4px; overflow: hidden; font-weight: bold;">' + value + '</div>';
+                        });
+                        return renderstring;
+                    }
+                }
+            ]
+        });
+        // On Click
+        $("#btnQuery").off().on('click', function() {
+            $("#jqxLoader").jqxLoader('open');
+            // Get Data
+            $.ajax({
+                async: true,
+                method: 'GET',
+                dataType: 'json',
+                url: "sqltext",
+                data: { sql: "SELECT A.LOCATCD, B.OPTCOST, B.OPTPRC, A.ONHAND, B.OPTCODE, B.OPTNMTH AS OPTNAME FROM STKOPTPART A,OPTMAST B WHERE A.OPTCODE = B.OPTCODE AND A.OPTCODE LIKE '"+$("#optcode").val()+"%'  AND A.LOCATCD LIKE '"+$("#locatcd").val()+"%' AND A.LOCATCD = A.LOCATPART ORDER BY A.LOCATCD"
+                },
+                success: function (data) {
+                    sourceStock.localdata = data;
+                    $("#gridStock").jqxGrid('updatebounddata');
+                    $("#jqxLoader").jqxLoader('close');
+                }
+            });
+        });
+        // Search
+        $("#searchInvlocat").off().on('click', function() {
+            searchAll('invlocat', 'locatcd');
+        });
+        $("#searchOptmast").off().on('click', function() {
+            searchAll('optmast', 'optcode');
+        });
+    });
+</script>
