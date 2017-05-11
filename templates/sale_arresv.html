@@ -617,7 +617,7 @@
         }];
 
         if (chkrun === false) {
-            rules.push({
+            rules.unshift({
             input: '#acardno',
             message: 'กรุณาระบุเลขที่ A-card!',
             action: 'keyup, blur, focusout',

@@ -168,6 +168,8 @@
                                             <button type="button" id="deleteBtn"><span class="fa fa-trash-o"></span> ลบ</button>
                                             <input type="hidden" id="sumnetpay" value="0">
                                             <input type="hidden" id="sumamount" value="0">
+                                            <input type="hidden" id="flag" value="H">
+                                            <input type="hidden" id="postgl" value="N">
                                         </div>
                                     </div>
                                 </div>
@@ -212,16 +214,17 @@
                 $('#textState').hide();
             } else {
                 status = 'update';
-                $("#saveBtn").jqxButton({
-                    disabled: true
-                });
+                if (($('#flag').val() === 'C') || ($('#postgl').val() === 'Y')) {
+                    $("#saveBtn").jqxButton({ disabled: true });  
+                    $("#deleteBtn").jqxButton({ disabled: true });
+                } else {
+                    $("#saveBtn").jqxButton({ disabled: true });
+                    $("#deleteBtn").jqxButton({ disabled: !chkright.M_DELETE });
+                }
                 $('#searchInvlocat').hide();
             }
             $("#contno").prop("readonly", disabled);
             $("#locat").jqxInput({disabled: disabled});
-            $("#deleteBtn").jqxButton({
-                disabled: !chkright.M_DELETE
-            });
         }
         //ฟังก์ชั่น Get Data CHQMAS
         function getChqmas(tmbill) {
@@ -234,20 +237,23 @@
                     sql: "SELECT IDNO, TMBILL, BILLNO, VATRT, LOCATRECV, TMBILDT, CUSCOD, PAYTYP, CHQNO, TPAYAMT_N, TPAYAMT_V, TPAYAMT, FLAG, TAXFL, CANDT, TAXNO, INPUTDT, USERID, CANUSERID, POSTGL, REFDOCNO, CONTNO, TSALE FROM CHQMAS WHERE TMBILL = '" + tmbill + "' "
                 },
                 success: function (chqmas) {
+                    $('#tmbill').val(chqmas[0].TMBILL);
                     $('#billno').val(chqmas[0].BILLNO);
                     $('#tsale').val(chqmas[0].TSALE);
-                    $('#v-contno').val(chqmas[0].CONTNO);
                     $('#tmbildt').val(chqmas[0].TMBILDT);
                     $('#locat').val(chqmas[0].LOCATRECV);
                     $('#vatrt').val(chqmas[0].VATRT);
+                    $('#flag').val(chqmas[0].FLAG);
+                    $('#postgl').val(chqmas[0].POSTGL);
                     if (chqmas[0].FLAG === 'C') {
                         $('#textState').show();
                     } else {
                         $('#textState').hide();
-                    }
+                    };
+                    $('#v-contno').val(chqmas[0].CONTNO);
+                    $('#v-contno').trigger('blur');
                     getChqtran(chqmas[0].IDNO);
                     getChqtype(chqmas[0].IDNO);
-                    $('#v-contno').trigger('blur');
                 }
             });
         }
@@ -587,7 +593,7 @@
         }];
 
         if (chkrun === false) {
-            rules.push({
+            rules.unshift({
                 input: '#tmbill',
                 message: 'กรุณาระบุเลขที่ใบรับเงิน!',
                 action: 'keyup, blur, focusout',
@@ -1568,12 +1574,19 @@
                                     contentType: "application/json",
                                     dataType: "json",
                                     data: value,
-                                    success: function (data) {
+                                    success: function (chqmas) {
                                         //console.log(data);
-                                        if (data[0].save === true) {
+                                        if (chqmas[0].save === true) {
                                             ShowMessage("บันทึกข้อมูลเรียบร้อย!","success");
+                                            var rules2 = rules.slice();
+                                            if (chkrun === false) {
+                                                rules2.splice(1, 1);
+                                            }
+                                            rules2.splice(3, 1);
+                                            //console.log(rules2);
+                                            $('#fmChqmas').jqxValidator('rules', rules2);
+                                            getChqmas(chqmas[0].tmbill);
                                             statusChange(true);
-                                            getChqmas(data[0].tmbill);
                                         } else {
                                             ShowMessage("บันทึกไม่สำเร็จ!","danger");
                                         }
@@ -1738,7 +1751,7 @@
                 var value = event.args.item.value;
                 if (value !== '') { 
                     $('#tableChqtran').jqxGrid('clear');
-                    sourcePayfor.data = { sql: "SELECT FORCODE, TRIM(FORCODE)||' : '||TRIM(FORDESC) AS FORDESC FROM PAYFOR WHERE REGTYP = 'N' AND BLOCK = 'N' AND SALETYPE NOT IN ('O', 'H') AND (TSALE = '"+value+"' OR TSALE = 'T') ORDER BY FORCODE" };
+                    sourcePayfor.data = { sql: "SELECT FORCODE, TRIM(FORCODE)||' : '||TRIM(FORDESC) AS FORDESC FROM PAYFOR WHERE REGTYP = 'N' AND BLOCK = 'N' AND SALETYPE NOT IN ('O', 'H') AND (SALETYPE = '"+value+"' OR SALETYPE = 'T') ORDER BY FORCODE" };
                     dataAdtPayfor = new $.jqx.dataAdapter(sourcePayfor);
                 }  
             }
@@ -1751,14 +1764,16 @@
                 var rules2 = rules.slice();
                 if (chkrun === false) {
                     rules2.splice(1, 1);
+                    rules2.splice(4, 1);
+                } else {
+                    rules2.splice(3, 1);
                 }
-                rules2.splice(3, 1);
                 //console.log(rules2);
                 $('#fmChqmas').jqxValidator('rules', rules2);
                 event.preventDefault();
                 $('#fmChqmas').jqxValidator('hide');
-                statusChange(true);
                 getChqmas($('#tmbill').val());
+                statusChange(true);
             });
         });
         //ลบ
@@ -1789,8 +1804,9 @@
                                 success: function (data) {
                                     if (data[0].cancel === true) {
                                         ShowMessage("ยกเลิกเรียบร้อย!","success");
-                                        $('#textState').show();
-                                        //statusChange(false);
+                                        getChqmas($('#tmbill').val());
+                                        //$('#textState').show();
+                                        statusChange(true);
                                     } else {
                                         ShowMessage("ยกเลิกไม่สำเร็จ! ", "danger");
                                     }

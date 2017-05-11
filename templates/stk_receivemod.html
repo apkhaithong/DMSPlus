@@ -300,6 +300,57 @@
         var dataAdtOptmast = new $.jqx.dataAdapter(sourceOptmast);
         //เงื่อนไข validate MCMAST
         var rules = [{
+            input: '#mcno',
+            message: 'กรุณาระบุเลขที่เบิก!',
+            action: 'keyup, blur, focusout',
+            rule: function (input, commit) {
+                var mcno = $('#mcno').val()
+                if (chkrun === false) {
+                    var result = [];
+                    if (mcno === '') {
+                        result = false;
+                    } else {
+                        result = true;
+                    }
+                    return result;
+                } else {
+                    return true;
+                }
+            }
+        }, {
+            input: '#mcno',
+            message: 'ระบุเลขที่เบิกซ้ำ!',
+            action: 'keyup, blur',
+            rule: function (input, commit) {
+                var mcno = $('#mcno').val();
+                if ((mcno !== '') && (status === 'insert')) {
+                    var result = [];
+                    $.ajax({
+                        async: false,
+                        url: "duplicateCheck",
+                        type: 'get',
+                        data: {
+                            table: 'MCMAST',
+                            field: 'MCNO',
+                            value: mcno
+                        },
+                        success: function (data) {
+                            if (data === true) {
+                                result = true;
+                            } else {
+                                result = false;
+                            }
+                        },
+                        error: function () {
+                            result = false;
+                        }
+                    });
+                    return result;
+                } else {
+                    return true;
+                }
+            }
+        }, {
             input: '#strno',
             message: 'กรุณาระบุเลขตัวถัง!',
             action: 'keyup, blur, focusout',
@@ -308,10 +359,12 @@
             input: '#strno',
             message: 'ไม่พบเลขตัวถังนี้!',
             action: 'keyup, blur, focusout',
-            rule: function(input, commit) {
+            rule: function (input, commit) {
                 var strno = $('#strno').val();
                 if (strno !== '') {
+                    var result = [];
                     $.ajax({
+                        async: false,
                         url: "duplicateCheck",
                         type: 'get',
                         data: {
@@ -319,52 +372,24 @@
                             field: 'STRNO',
                             value: strno
                         },
-                        success: function(data) {
+                        success: function (data) {
                             if (data === true) {
-                                commit(false);
-                            } else commit(true);
+                                result = false;
+                            } else {
+                                result = true;
+                            }
                         },
-                        error: function() {
-                            commit(false);
+                        error: function () {
+                            result = false;
                         }
                     });
+                    return result;
+                } else {
+                    return true;
                 }
             }
         }];
-        if (chkrun === false) {
-            rules.push({
-                input: '#mcno',
-                message: 'กรุณาระบุเลขที่เบิก!',
-                action: 'keyup, blur, focusout',
-                rule: 'required'
-            }, {
-                input: '#mcno',
-                message: 'ระบุเลขที่เบิกซ้ำ!',
-                action: 'keyup, blur',
-                rule: function(input, commit) {
-                    var mcno = $('#mcno').val();
-                    if (mcno !== '') {
-                        $.ajax({
-                            url: "duplicateCheck",
-                            type: 'get',
-                            data: {
-                                table: 'MCMAST',
-                                field: 'MCNO',
-                                value: mcno
-                            },
-                            success: function(data) {
-                                if (data === true) {
-                                    commit(true);
-                                } else commit(false);
-                            },
-                            error: function() {
-                                commit(false);
-                            }
-                        });
-                    }
-                }
-            });
-        }
+
         //DataSource MCTRAN
         var dataModtran = [];
         var sourceMctran = {
@@ -821,9 +846,6 @@
         });
         //ค้นหา
         $('#searchBtn').off().on('click', function() {
-            var rules2 = rules.slice();
-            rules2.splice(1, 1);
-            $('#fmMcmast').jqxValidator('rules', rules2);
             //Show Dialog Search
             searchAll('mcmast', 'mcno');
             $('#okButton').on('click', function(event) {

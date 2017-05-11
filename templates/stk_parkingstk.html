@@ -308,6 +308,57 @@
 
         //เงื่อนไข validate LOCATPARKING
         var rules = [{
+            input: '#refnoin',
+            message: 'กรุณาระบุเลขที่บันทึก!',
+            action: 'keyup, blur, focusout',
+            rule: function (input, commit) {
+                var refnoin = $('#refnoin').val()
+                if (chkrun === false) {
+                    var result = [];
+                    if (refnoin === '') {
+                        result = false;
+                    } else {
+                        result = true;
+                    }
+                    return result;
+                } else {
+                    return true;
+                }
+            }
+        }, {
+            input: '#refnoin',
+            message: 'ระบุเลขที่บันทึกซ้ำ!',
+            action: 'keyup, blur',
+            rule: function (input, commit) {
+                var refnoin = $('#refnoin').val();
+                if ((refnoin !== '') && (status === 'insert')) {
+                    var result = [];
+                    $.ajax({
+                        async: false,
+                        url: "duplicateCheck",
+                        type: 'get',
+                        data: {
+                            table: 'LOCATPARKING',
+                            field: 'REFNOIN',
+                            value: refnoin
+                        },
+                        success: function (data) {
+                            if (data === true) {
+                                result = true;
+                            } else {
+                                result = false;
+                            }
+                        },
+                        error: function () {
+                            result = false;
+                        }
+                    });
+                    return result;
+                } else {
+                    return true;
+                }
+            }
+        }, {
             input: '#strno',
             message: 'กรุณาระบุเลขตัวถัง!',
             action: 'keyup, blur, focusout',
@@ -319,7 +370,7 @@
             rule: function (input, commit) {
                 var strno = $('#strno').val();
                 var locatresv = $('#locat').val();
-                if (strno !== '') {
+                if ((strno !== '') && (status === 'insert')) {
                     var result = [];
                     $.ajax({
                         async: false,
@@ -341,6 +392,8 @@
                         }
                     });
                     return result;
+                } else {
+                    return true;
                 }
             }
         }, {
@@ -351,7 +404,7 @@
                 var strno = $('#strno').val();
                 var resvno = $('#resvno').val();
                 var locatresv = $('#locat').val();
-                if (strno !== '') {
+                if ((strno !== '') && (status === 'insert')) {
                     var result = [];
                     $.ajax({
                         async: false,
@@ -373,6 +426,8 @@
                         }
                     });
                     return result;
+                } else {
+                    return true;
                 }
             }
         }, {
@@ -387,7 +442,9 @@
             rule: function (input, commit) {
                 var locatpark = $('#locatpark').val();
                 if (locatpark !== '') {
+                    var result = [];
                     $.ajax({
+                        async: false,
                         url: "duplicateCheck",
                         type: 'get',
                         data: {
@@ -397,50 +454,21 @@
                         },
                         success: function (data) {
                             if (data === true) {
-                                commit(false);
-                            } else commit(true);
+                                result = false;
+                            } else {
+                                result = true;
+                            }
                         },
                         error: function () {
-                            commit(false);
+                            result = false;
                         }
                     });
+                    return result;
+                } else {
+                    return true;
                 }
             }
         }];
-        if (chkrun === false) {
-            rules.push({
-                input: '#refnoin',
-                message: 'กรุณาระบุเลขที่บันทึก!',
-                action: 'keyup, blur, focusout',
-                rule: 'required'
-            }, {
-                input: '#refnoin',
-                message: 'ระบุเลขที่บันทึกซ้ำ!',
-                action: 'keyup, blur',
-                rule: function(input, commit) {
-                    var refnoin = $('#refnoin').val();
-                    if (refnoin !== '') {
-                        $.ajax({
-                            url: "duplicateCheck",
-                            type: 'get',
-                            data: {
-                                table: 'LOCATPARKING',
-                                field: 'REFNOIN',
-                                value: refnoin
-                            },
-                            success: function(data) {
-                                if (data === true) {
-                                    commit(true);
-                                } else commit(false);
-                            },
-                            error: function() {
-                                commit(false);
-                            }
-                        });
-                    }
-                }
-            });
-        }
 
         $('.admin-panels').adminpanel({
             grid: '.admin-grid',
@@ -641,7 +669,7 @@
                             }];
                             // Convert Value To JSON String
                             var value = JSON.stringify(valueJSON);
-                            console.log(value);
+                            //console.log(value);
                             $('#ok').on('click', function(event) {
                                 $.ajax({
                                     url: 'saveLocatparking',
@@ -725,10 +753,6 @@
 
         //ค้นหา
         $('#searchBtn').off().on('click', function() {
-            var rules2 = rules.slice();
-            rules2.splice(1, 1);
-            rules2.splice(1, 2);
-            $('#fmLocatparking').jqxValidator('rules', rules2);
             //Show Dialog Search
             searchAll('locatparking', 'refnoin');
             $('#okButton').on('click', function(event) {

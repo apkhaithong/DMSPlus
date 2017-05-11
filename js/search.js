@@ -7,12 +7,6 @@
     var keyno = "";
     var data = [];
     var datafields = [];
-    var source = {
-        localdata: data,
-        datatype: 'json',
-        datafields: datafields
-    };
-    var gridDataAdapter = new $.jqx.dataAdapter(source);
 
     //ตรวจสอบว่าจะค้นหาข้อมูลอะไร พร้อมระบุ Field ที่จะแสดง
     if (show === "invlocat") {
@@ -88,6 +82,16 @@
         ];
         keyno = 'LOCATPARK';
     } else if (show === "payfor") {
+        datafields = [
+            { name: 'FORCODE', type: 'string' },
+            { name: 'FORDESC', type: 'string' },
+        ];
+        fields = [
+            { text: 'รหัสชำระค่า', datafield: 'FORCODE', minwidth: 100, width: 250 },
+            { text: 'คำอธิบาย', datafield: 'FORDESC', minwidth: 200, width: 250 },
+        ];
+        keyno = 'FORCODE';
+    } else if (show === "payforano") {
         datafields = [
             { name: 'FORCODE', type: 'string' },
             { name: 'FORDESC', type: 'string' },
@@ -483,6 +487,20 @@
             { text: 'เกรด', datafield: 'GRADE', minwidth: 100, width: 250 },
         ];
         keyno = 'CUSCOD';
+    } else if (show === "custanother") {
+        datafields = [
+            { name: 'CUSCOD', type: 'string' },
+            { name: 'SNAM', type: 'string' },
+            { name: 'NAME1', type: 'string' },
+            { name: 'NAME2', type: 'string' },
+        ];
+        fields = [
+            { text: 'รหัสลูกค้า', datafield: 'CUSCOD', minwidth: 100, width: 100 },
+            { text: 'คำนำหน้า', datafield: 'SNAM', minwidth: 100, width: 80 },
+            { text: 'ชื่อ', datafield: 'NAME1', minwidth: 100, width: 100 },
+            { text: 'นามสกุล', datafield: 'NAME2', minwidth: 100, width: 100 },
+        ];
+        keyno = 'CUSCOD';
     } else if (show === "arresvSale") {
         datafields = [
             { name: 'RESVNO', type: 'string' },
@@ -530,6 +548,28 @@
         fields = [
             { text: 'เลขสัญญา', datafield: 'CONTNO', minwidth: 100, width: 100 },
             { text: 'เลขที่ใบจอง', datafield: 'RESVNO', minwidth: 100, width: 100 },
+            { text: 'ชื่อ', datafield: 'NAME1', minwidth: 100, width: 100 },
+            { text: 'นามสกุล', datafield: 'NAME2', minwidth: 100, width: 100 },
+            { text: 'เลขตัวถัง', datafield: 'STRNO', minwidth: 100, width: 200 },
+            { text: 'เลขทะเบียน', datafield: 'REGNO', minwidth: 100, width: 100 },
+            { text: 'สถานะ', datafield: 'FLAG', minwidth: 100, width: 100 },
+        ];
+        keyno = 'CONTNO';
+    } else if (show === "arfinc") {
+        datafields = [
+            { name: 'CONTNO', type: 'string' },
+            { name: 'RESVNO', type: 'string' },
+            { name: 'FINNAME', type: 'string' },
+            { name: 'NAME1', type: 'string' },
+            { name: 'NAME2', type: 'string' },
+            { name: 'STRNO', type: 'string' },
+            { name: 'REGNO', type: 'string' },
+            { name: 'FLAG', type: 'string' },
+        ];
+        fields = [
+            { text: 'เลขสัญญา', datafield: 'CONTNO', minwidth: 100, width: 100 },
+            { text: 'เลขที่ใบจอง', datafield: 'RESVNO', minwidth: 100, width: 100 },
+            { text: 'บริษัทไฟแนนซ์', datafield: 'FINNAME', minwidth: 100, width: 200 },
             { text: 'ชื่อ', datafield: 'NAME1', minwidth: 100, width: 100 },
             { text: 'นามสกุล', datafield: 'NAME2', minwidth: 100, width: 100 },
             { text: 'เลขตัวถัง', datafield: 'STRNO', minwidth: 100, width: 200 },
@@ -775,6 +815,58 @@
             { text: 'นามสกุล', datafield: 'NAME2', minwidth: 100, width: 100 },
         ];
         keyno = 'RVCHQNO';
+    } else if (show === "bookno") {
+        datafields = [
+            { name: 'BANKBOOKCOD', type: 'string' },
+            { name: 'BOOKNO', type: 'string' },
+            { name: 'BOOKNAM', type: 'string' },
+        ];
+        fields = [
+            { text: 'รหัส', datafield: 'BANKBOOKCOD', minwidth: 100, width: 250 },
+            { text: 'รหัสบัญชีธนาคาร', datafield: 'BOOKNO', minwidth: 200, width: 250 },
+            { text: 'ชื่อบัญชี', datafield: 'BOOKNAM', minwidth: 200, width: 250 },
+        ];
+        keyno = 'BOOKNO';
+    } else if (show === "paymenttranfer") {
+        datafields = [
+            { name: 'LOCAT', type: 'string' },
+            { name: 'CHQNO', type: 'string' },
+            { name: 'CHQDT', type: 'date' },
+            { name: 'BOOKCODE', type: 'string' },
+            { name: 'CHQAMT', type: 'float' },
+            { name: 'OFFCHQ', type: 'string' },
+            { name: 'FLAG', type: 'string' },
+        ];
+        fields = [
+            { text: 'สาขา', datafield: 'LOCAT', minwidth: 100, width: 100 },
+            { text: 'เลขที่บันทึก', datafield: 'CHQNO', minwidth: 100, width: 100 },
+            { text: 'วันที่บันทึก', datafield: 'CHQDT', minwidth: 100, width: 100, cellsalign: 'left', columntype: 'datetimeinput', cellsformat: 'dd/MM/yyyy' },
+            { text: 'เลขที่บัญชีธนาคาร', datafield: 'BOOKCODE', minwidth: 100, width: 200 },
+            { text: 'ยอดเงินโอน', datafield: 'CHQAMT', minwidth: 100, width: 100, cellsalign: 'right', cellsformat: 'd2' },
+            { text: 'ผู้บันทึก', datafield: 'OFFCHQ', minwidth: 100, width: 100 },
+            { text: 'สถานะ', datafield: 'FLAG', minwidth: 100, width: 100 },
+        ];
+        keyno = 'CHQNO';
+    } else if (show === "chqanother") {
+        datafields = [
+            { name: 'TMBILL', type: 'string' },
+            { name: 'NAME1', type: 'string' },
+            { name: 'NAME2', type: 'string' },
+            { name: 'FORCODE', type: 'string' },
+            { name: 'FORDESC', type: 'string' },
+            { name: 'PAYAMT', type: 'float' },
+            { name: 'FLAG', type: 'string' },
+        ];
+        fields = [
+            { text: 'เลขที่ใบเสร็จ', datafield: 'TMBILL', minwidth: 100, width: 100 },
+            { text: 'ชื่อ', datafield: 'NAME1', minwidth: 100, width: 100 },
+            { text: 'นามสกุล', datafield: 'NAME2', minwidth: 100, width: 100 },
+            { text: 'รหัสชำระ', datafield: 'FORCODE', minwidth: 100, width: 100 },
+            { text: 'ชำระค่า', datafield: 'FORDESC', minwidth: 100, width: 100 },
+            { text: 'ยอดชำระ', datafield: 'PAYAMT', minwidth: 100, width: 100, cellsalign: 'right', cellsformat: 'd2' },
+            { text: 'สถานะ', datafield: 'FLAG', minwidth: 100, width: 100 },
+        ];
+        keyno = 'TMBILL';
     }
 
     fields.unshift({
@@ -803,6 +895,13 @@
             return renderstring;
         }
     });
+    
+    var source = {
+        localdata: data,
+        datatype: 'json',
+        datafields: datafields
+    };
+    var gridDataAdapter = new $.jqx.dataAdapter(source);
     $("#tbSearch").jqxGrid({
         width: width - 40,
         height: height - 340,
@@ -840,6 +939,8 @@
             sqltxt = "SELECT * FROM INVPARKING WHERE UPPER(LOCATPARK||LOCATPARKNM) LIKE '%" + param1 + "%' AND LOCATCD LIKE '"+$.session.get('paramSrch1')+"%' ORDER BY LOCATPARK";
         } else if (show === "payfor") {
             sqltxt = "SELECT * FROM PAYFOR WHERE UPPER(FORCODE||FORDESC) LIKE '%" + param1 + "%' ORDER BY FORCODE";
+        } else if (show === "payforano") {
+            sqltxt = "SELECT * FROM PAYFORANO WHERE UPPER(FORCODE||FORDESC) LIKE '%" + param1 + "%' ORDER BY FORCODE";
         } else if (show === "paytyp") {
             sqltxt = "SELECT * FROM PAYTYP WHERE UPPER(PAYCODE||PAYDESC) LIKE '%" + param1 + "%' ORDER BY PAYCODE";
         } else if (show === "regflag") {
@@ -912,12 +1013,16 @@
             sqltxt = "SELECT A.RECVNO, A.INVNO, A.APCODE, C.APNAME, B.STRNO, B.ENGNO FROM INVINVO A, INVTRAN B, APMAST C WHERE A.RECVNO = B.RECVNO AND A.APCODE = C.APCODE AND UPPER(COALESCE(A.RECVNO,'')||COALESCE(A.INVNO,'')||COALESCE(A.APCODE,'')||COALESCE(C.APNAME,'')||COALESCE(B.STRNO,'')||COALESCE(B.ENGNO,'')) LIKE '%" + param1 + "%' ORDER BY A.RECVNO";
         } else if (show === "custmast") {
             sqltxt = "SELECT CUSCOD, SNAM, NAME1, NAME2, NOCARD, GRADE FROM CUSTMAST WHERE UPPER(COALESCE(CUSCOD,'')||COALESCE(NAME1,'')||COALESCE(NAME2,'')||COALESCE(NOCARD,'')||COALESCE(GRADE,'')) LIKE '%" + param1 + "%' ORDER BY NAME1,NAME2";
+        } else if (show === "custanother") {
+            sqltxt = "SELECT CUSCOD, SNAM, NAME1, NAME2 FROM CUSTANOTHER WHERE UPPER(COALESCE(CUSCOD,'')||COALESCE(SNAM,'')||COALESCE(NAME1,'')||COALESCE(NAME2,'')) LIKE '%" + param1 + "%' ORDER BY CUSCOD";
         } else if (show === "arresvSale") {
             sqltxt = "SELECT A.RESPAY,A.SMPAY,A.FLAG,A.IDNO,A.RESVNO,A.RESVDT,B.CUSCOD,B.NAME1,B.NAME2,A.SDATE,A.LOCAT,A.STRNO,A.CHQMAS FROM ARRESV A,CUSTMAST B WHERE A.CUSCOD=B.CUSCOD AND UPPER(COALESCE(A.RESVNO,'')||COALESCE(B.NAME1,'')||COALESCE(B.NAME2,'')||COALESCE(A.STRNO,'')) LIKE '%" + param1 + "%' AND A.CANFLAG <> 'C' AND A.SMPAY<=A.RESPAY AND A.STRNO <> '' AND A.SDATE IS NULL ORDER BY A.RESVNO ";
         } else if (show === "strnoSale") {
             sqltxt = "SELECT A.IDNO,B.STRNO,A.ENGNO,A.REGNO,A.TYPECOD,A.MODELCOD,A.BAABCOD,A.COLORCOD,B.CURSTAT,B.REFDTIN,B.IDNO AS IDNO1, B.TADDCOST,B.CRCOST,B.DISCT,B.NETCOST,B.CRVAT,B.TOTCOST,B.STDPRC,B.REFNOIN FROM INVTRAN A,STKCARD B WHERE A.STRNO = B.STRNO AND B.FLAG = 'D' AND B.LOCAT = '"+$.session.get('paramSrch1')+"' AND UPPER(COALESCE(B.STRNO,'')||COALESCE(A.ENGNO,'')||COALESCE(A.REGNO,'')||COALESCE(A.TYPECOD,'')||COALESCE(A.MODELCOD,'')||COALESCE(A.BAABCOD,'')||COALESCE(A.COLORCOD,'')) LIKE '%" + param1 + "%' ORDER BY B.STRNO";
         } else if (show === "arcred") {
             sqltxt = "SELECT A.CONTNO, A.RESVNO, B.NAME1, B.NAME2, A.STRNO, C.REGNO, (CASE WHEN A.FLAG = 'C' THEN 'ยกเลิก' ELSE ' ' END) AS FLAG FROM ARCRED A, CUSTMAST B, INVTRAN C WHERE A.CUSCOD = B.CUSCOD AND A.STRNO = C.STRNO AND UPPER(COALESCE(A.CONTNO,'')||COALESCE(A.RESVNO,'')||COALESCE(B.NAME1,'')||COALESCE(B.NAME2,'')||COALESCE(A.STRNO,'')||COALESCE(C.REGNO,'')) LIKE '%" + param1 + "%' ORDER BY A.CONTNO";
+        } else if (show === "arfinc") {
+            sqltxt = "SELECT A.CONTNO, A.RESVNO, A.FINCOD, D.FINNAME, B.NAME1, B.NAME2, A.STRNO, C.REGNO, (CASE WHEN A.FLAG = 'C' THEN 'ยกเลิก' ELSE ' ' END) AS FLAG FROM ARFINC A, CUSTMAST B, INVTRAN C, FINMAST D WHERE A.CUSCOD = B.CUSCOD AND A.STRNO = C.STRNO AND A.FINCOD = D.FINCODE AND UPPER(COALESCE(A.CONTNO,'')||COALESCE(A.RESVNO,'')||COALESCE(B.NAME1,'')||COALESCE(B.NAME2,'')||COALESCE(A.STRNO,'')||COALESCE(C.REGNO,'')||COALESCE(D.FINNAME,'')) LIKE '%" + param1 + "%' ORDER BY A.CONTNO";
         } else if (show === "netarinvoi") {
             sqltxt = "SELECT A.IDNO,A.TSALE,A.CONTNO,A.CUSCOD,B.NAME1,B.NAME2,A.LOCAT,A.SDATE,A.KEYINPRC,A.SMPAY,A.KEYINPRC-A.SMPAY AS NETAR, A.VATRT FROM AR_INVOI A,CUSTMAST B WHERE A.CUSCOD=B.CUSCOD AND A.FLAG<>'C' AND A.KEYINPRC > A.SMPAY AND UPPER(COALESCE(A.CONTNO,'')||COALESCE(B.NAME1,'')||COALESCE(B.NAME2,'')) LIKE '%" + param1 + "%' ORDER BY A.CONTNO";
         } else if (show === "netarcred") {
@@ -948,6 +1053,12 @@
             sqltxt = "SELECT A.LOCAT, A.LOCATPARK, A.STRNO, A.REFNO, A.OFFCOD, A.REFNOIN, A.REFDTIN, B.ENGNO, B.REGNO FROM LOCATPARKING A, INVTRAN B WHERE A.STRNO = B.STRNO AND UPPER(COALESCE(A.REFNOIN,'')||COALESCE(A.STRNO,'')||COALESCE(B.ENGNO,'')||COALESCE(B.REGNO,'')||COALESCE(A.LOCAT,'')||COALESCE(A.LOCATPARK,'')) LIKE '%" + param1 + "%' ORDER BY A.REFNOIN";
         } else if (show === "chqstat") {
             sqltxt = "SELECT A.RVCHQNO, A.CHQNO, A.CHQDT, B.NAME1, B.NAME2 FROM CHQSTAT A, CUSTMAST B WHERE A.CUSCOD = B.CUSCOD AND UPPER(COALESCE(A.RVCHQNO,'')||COALESCE(A.CHQNO,'')||COALESCE(B.NAME1,'')||COALESCE(B.NAME2,'')) LIKE '%" + param1 + "%' ORDER BY A.CHQDT DESC,A.CHQNO";
+        } else if (show === "bookno") {
+            sqltxt = "SELECT * FROM BANKBOOK WHERE UPPER(BANKBOOKCOD||BOOKNO) LIKE '%" + param1 + "%' ORDER BY BANKBOOKCOD";
+        } else if (show === "paymenttranfer") {
+            sqltxt = "SELECT IDNO, LOCAT, CHQNO, CHQDT, BOOKCODE, CHQAMT, CHQPAY, OFFCHQ, (CASE WHEN FLAG = 'C' THEN 'ยกเลิก' ELSE ' ' END) AS FLAG, ACC_CODE, USERID, INPUTDT, CANDT, CANUSERID, POSTGL FROM PAYMENTTRANFER WHERE UPPER(COALESCE(LOCAT,'')||COALESCE(CHQNO,'')||COALESCE(BOOKCODE,'')) LIKE '%" + param1 + "%' ORDER BY CHQDT DESC,CHQNO";
+        } else if (show === "chqanother") {
+            sqltxt = "SELECT A.TMBILL, B.NAME1, B.NAME2, A.FORCODE, C.FORDESC, A.PAYAMT, (CASE WHEN A.FLAG = 'C' THEN 'ยกเลิก' ELSE ' ' END) AS FLAG FROM CHQANOTHER A, CUSTANOTHER B, PAYFORANO C WHERE A.CUSCOD = B.CUSCOD AND A.FORCODE = C.FORCODE AND UPPER(COALESCE(A.TMBILL,'')||COALESCE(B.NAME1,'')||COALESCE(B.NAME2,'')||COALESCE(A.FORCODE,'')||COALESCE(C.FORDESC,'')) LIKE '%" + param1 + "%' ORDER BY A.TMBILL";
         }
 
         // Qurey Data

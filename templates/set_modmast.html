@@ -291,7 +291,7 @@
             }
         }];
         if (chkrun === false) {
-            rules.push({
+            rules.unshift({
                 input: '#modno',
                 message: 'กรุณาระบุเลขที่ชุดแต่ง!',
                 action: 'keyup, blur, focusout',

@@ -392,6 +392,57 @@
         var statAdapter = new $.jqx.dataAdapter(statSource);
         //เงื่อนไข validate ADJSTK
         var rules = [{
+            input: '#adjno',
+            message: 'กรุณาระบุเลขที่บันทึก!',
+            action: 'keyup, blur, focusout',
+            rule: function (input, commit) {
+                var adjno = $('#adjno').val()
+                if (chkrun === false) {
+                    var result = [];
+                    if (adjno === '') {
+                        result = false;
+                    } else {
+                        result = true;
+                    }
+                    return result;
+                } else {
+                    return true;
+                }
+            }
+        }, {
+            input: '#adjno',
+            message: 'ระบุเลขที่บันทึกซ้ำ!',
+            action: 'keyup, blur',
+            rule: function (input, commit) {
+                var adjno = $('#adjno').val();
+                if ((adjno !== '') && (status === 'insert')) {
+                    var result = [];
+                    $.ajax({
+                        async: false,
+                        url: "duplicateCheck",
+                        type: 'get',
+                        data: {
+                            table: 'ADJSTK',
+                            field: 'ADJNO',
+                            value: adjno
+                        },
+                        success: function (data) {
+                            if (data === true) {
+                                result = true;
+                            } else {
+                                result = false;
+                            }
+                        },
+                        error: function () {
+                            result = false;
+                        }
+                    });
+                    return result;
+                } else {
+                    return true;
+                }
+            }
+        }, {
             input: '#strno',
             message: 'กรุณาระบุเลขตัวถัง!',
             action: 'keyup, blur, focusout',
@@ -498,7 +549,9 @@
             rule: function (input, commit) {
                 var apcode = $('#apcode').val();
                 if (apcode !== '') {
+                    var result = [];
                     $.ajax({
+                        async: false,
                         url: "duplicateCheck",
                         type: 'get',
                         data: {
@@ -508,13 +561,18 @@
                         },
                         success: function (data) {
                             if (data === true) {
-                                commit(false);
-                            } else commit(true);
+                                result = false;
+                            } else {
+                                result = true;
+                            }
                         },
                         error: function () {
-                            commit(false);
+                            result = false;
                         }
                     });
+                    return result;
+                } else {
+                    return true;
                 }
             }
         }, {
@@ -530,40 +588,6 @@
                 }
             }
         }];
-        if (chkrun === false) {
-            rules.push({
-                input: '#adjno',
-                message: 'กรุณาระบุเลขที่บันทึก!',
-                action: 'keyup, blur, focusout',
-                rule: 'required'
-            }, {
-                input: '#adjno',
-                message: 'ระบุเลขที่บันทึกซ้ำ!',
-                action: 'keyup, blur',
-                rule: function(input, commit) {
-                    var adjno = $('#adjno').val();
-                    if (adjno !== '') {
-                        $.ajax({
-                            url: "duplicateCheck",
-                            type: 'get',
-                            data: {
-                                table: 'ADJSTK',
-                                field: 'ADJNO',
-                                value: adjno
-                            },
-                            success: function(data) {
-                                if (data === true) {
-                                    commit(true);
-                                } else commit(false);
-                            },
-                            error: function() {
-                                commit(false);
-                            }
-                        });
-                    }
-                }
-            });
-        }
 
         $('.admin-panels').adminpanel({
             grid: '.admin-grid',
@@ -859,10 +883,6 @@
         });
         //ค้นหา
         $('#searchBtn').off().on('click', function() {
-            var rules2 = rules.slice();
-            rules2.splice(1, 1);
-            rules2.splice(1, 2);
-            $('#fmAdjstk').jqxValidator('rules', rules2);
             //Show Dialog Search
             searchAll('adjstk', 'adjno');
             $('#okButton').on('click', function(event) {

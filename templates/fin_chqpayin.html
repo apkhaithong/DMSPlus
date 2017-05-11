@@ -318,12 +318,16 @@
                 datafield: 'IDNO',
                 hidden: true
             }, {
-                text: 'Payin',
+                text: 'เช็ค Payin',
                 datafield: 'CHQSTAT',
                 width: 80,
                 align: 'center',
                 cellsalign: 'left',
-                columntype: 'checkbox'
+                columntype: 'checkbox',
+                rendered: function changeColor (header) {
+                    header.css('font-weight', 'bold');
+                    header.css('color', '##ef4023');
+                }
             }, {
                 text: 'สาขา',
                 datafield: 'LOCAT',
@@ -469,7 +473,6 @@
 
         //ค้นหาสาขา
         $('#searchInvlocat').off().on('click', function () {
-            $('#fmChqstat').jqxValidator('hideHint', '#locat');
             searchAll('invlocat', 'v-locat');
         });
     });

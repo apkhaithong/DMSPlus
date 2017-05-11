@@ -267,3 +267,18 @@ function getSaleCustname(contno) {
     });
     return custname;
 };
+
+function getFinname(fincode) {
+    var finname = '';
+    $.ajax({
+        async: false,
+        url: "sqltext",
+        data: { sql: "SELECT FINNAME FROM FINMAST WHERE FINCODE = '"+fincode+"' " },
+        type: 'GET',
+        dataType: 'json',
+        success: function(data) {
+            finname = data[0].FINNAME;
+        }
+    });
+    return finname;
+};

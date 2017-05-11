@@ -1,0 +1,688 @@
+﻿<div class="row" id="spy2">
+    <!-- Chart with filter Widget -->
+    <div class="col-md-12 admin-grid">
+        <div class="panel" id="p2">
+            <div class="panel-heading">
+                <span class="panel-icon"><span class="glyphicons glyphicons-usd"></span></span>
+                <span class="panel-title">บันทึกเงินโอนไม่ทราบที่มา</span>
+                <span class="panel-controls">
+                    <a href="#" class="panel-control-loader"></a>
+                    <a href="#" class="panel-control-remove"></a>
+                    <a href="#" class="panel-control-collapse"></a>
+                    <a href="#" class="panel-control-fullscreen"></a>
+                </span>
+                <span id="textState" class="text-danger"> [ รายการนี้ยกเลิกแล้ว ]</span>
+            </div>
+            <div class="panel-body">
+                <form class="form-horizontal" id="fmPaymenttranfer">
+                    <div class="p15 pt5 mt15">
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label class="col-sm-4 control-label required" for="locat">สาขา</label>
+                                    <div class="col-sm-8">
+                                        <div id="locat" class="input-button">
+                                            <input type="text" id="v-locat" />
+                                            <div id="searchInvlocat"><img alt="search" width="20" height="20" src="/images/search_lg.png"
+                                                /></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <input type="text" id="locatnm" class="text-desc" readonly/>
+                            </div>
+                            <div class="col-md-4">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label class="col-md-4 control-label" for="chqno">เลขที่บันทึก</label>
+                                    <div class="col-md-8">
+                                        <div class="bs-component">
+                                            <input type="text" id="chqno" style="color:#e9573f; font-weight: bold;" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label class="col-md-4 control-label" for="chqdt">วันที่บันทึก</label>
+                                    <div class="col-md-8">
+                                        <div class="bs-component">
+                                            <div id="chqdt"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label class="col-md-4 control-label required" for="bookcode">เลขที่บัญชีธนาคาร</label>
+                                    <div class="col-md-8">
+                                        <div id="bookcode" class="input-button">
+                                            <input type="text" id="v-bookcode" />
+                                            <div id="searchBook"><img alt="search" width="20" height="20" src="/images/search_lg.png"
+                                                /></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <input type="text" id="bankname" class="text-desc" readonly/>
+                            </div>
+                            <div class="col-md-4">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label class="col-md-4 control-label required" for="acc_code">รหัสบัญชี</label>
+                                    <div class="col-md-8">
+                                        <div id="acc_code" class="input-button">
+                                            <input type="text" id="v-acc_code" />
+                                            <div id="searchAcccode"><img alt="search" width="20" height="20" src="/images/search_lg.png"
+                                                /></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <input type="text" id="acc_name" class="text-desc" readonly/>
+                            </div>
+                            <div class="col-md-4">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label class="col-md-4 control-label" for="offchq">ผู้บันทึก</label>
+                                    <div class="col-md-8">
+                                        <input type="text" id="offchq" class="text-desc" readonly/>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <input type="text" id="offname" class="text-desc" readonly/>
+                            </div>
+                            <div class="col-md-4">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label class="col-sm-4 control-label required" for="chqamt">ยอดเงินโอน</label>
+                                    <div class="col-sm-8">
+                                        <div id='chqamt'></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label class="col-md-4 control-label" for="chqpay">ยอดเงินตัดชำระ</label>
+                                    <div class="col-md-8">
+                                        <div class="bs-component">
+                                            <input type="text" id="chqpay" class="text-desc" value="0.00" readonly/>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-8">
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label" for="memo1">หมายเหตุ</label>
+                                    <div class="col-sm-10">
+                                        <div class="bs-component">
+                                            <textarea id="memo1"></textarea>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-8">
+                                <div class="admin-form pt15">
+                                    <div class="form-group">
+                                        <label class="col-md-4 control-label"></label>
+                                        <div class="col-md-8">
+                                            <div class="bs-component">
+                                                <button type="button" id="newBtn"><span class="fa fa-refresh"></span> เริ่มใหม่</button>
+                                                <button type="button" id="saveBtn"><span class="fa fa-floppy-o"></span> บันทึก</button>
+                                                <button type="button" id="searchBtn"><span class="fa fa-search"></span> ค้นหา</button>
+                                                <button type="button" id="deleteBtn"><span class="fa fa-trash-o"></span> ลบ</button>
+                                                <input type="hidden" id="flag" value="H">
+                                                <input type="hidden" id="postgl" value="N">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <!-- end: .col-md-12.admin-grid -->
+</div>
+<!-- end: .row -->
+<script type="text/javascript">
+    $(document).ready(function() {
+        //Default status Insert
+        var status = 'insert';
+        //เช็คสิทธิการใช้งาน
+        var chkright = checkRight('FIN006');
+
+        //เช็ค Running เอกสาร
+        var chkrun = checkRundoc('R_PAYMENTTRANFER');
+
+        //ฟังก์ชั่น สถานะ Insert หรือ Edit
+        function statusChange(disabled) {
+            if (disabled === false) {
+                status = 'insert';
+                $('#locat').val($.session.get('locatcd'));
+                $('#chqno').val('');
+                $('#chqdt').jqxDateTimeInput('setDate', new Date());
+                $('#bookcode').val('');
+                $('#acc_code').val('');
+                $('#chqpay').val('');
+                $('#chqamt').val(0);
+                $('#textState').hide();
+            } else {
+                status = 'update';
+                if (($('#flag').val() === 'C') || ($('#postgl').val() === 'Y')) {
+                    $("#saveBtn").jqxButton({ disabled: true });  
+                    $("#deleteBtn").jqxButton({ disabled: true });
+                } else {
+                    $("#saveBtn").jqxButton({ disabled: !chkright.M_EDIT });
+                    $("#deleteBtn").jqxButton({ disabled: !chkright.M_DELETE });
+                }
+            }
+            $("#chqno").prop("readonly", disabled);
+        }
+
+        function getPaymenttranfer(chqno) {
+            $.ajax({
+                async: false,
+                method: 'GET',
+                dataType: 'json',
+                url: "sqltext",
+                data: {
+                    sql: "SELECT IDNO, LOCAT, CHQNO, CHQDT, BOOKCODE, CHQAMT, CHQPAY, OFFCHQ, FLAG, ACC_CODE, USERID, INPUTDT, CANDT, COALESCE(MEMO1,'') AS MEMO1, CANUSERID, POSTGL FROM PAYMENTTRANFER WHERE CHQNO = '" + chqno + "' "
+                },
+                success: function(data) {
+                    $('#memo1').val('');
+                    $('#locat').val(data[0].LOCAT);
+                    $('#chqno').val(data[0].CHQNO);
+                    $('#chqdt').val(data[0].CHQDT);
+                    $('#bookcode').val(data[0].BOOKCODE);
+                    $('#acc_code').val(data[0].ACC_CODE);
+                    $('#offchq').val(data[0].OFFCHQ);
+                    $('#memo1').val(data[0].MEMO1);
+                    $('#chqamt').val(data[0].CHQAMT);
+                    $('#chqpay').val($.jqx.dataFormat.formatnumber(data[0].CHQPAY,'d2'));
+                    $('#flag').val(data[0].FLAG);
+                    $('#postgl').val(data[0].POSTGL);
+                    if (data[0].FLAG === 'C') {
+                        $('#textState').show();
+                    } else {
+                       $('#textState').hide(); 
+                    }
+                    $('#v-locat').trigger('blur');
+                    $('#v-bookcode').trigger('blur');
+                    $('#v-acc_code').trigger('blur');
+                    $('#offchq').trigger('blur');
+                }
+            });
+        }
+
+        //เงื่อนไข validate PAYMENTTRANFER
+        var rules = [{
+            input: '#locat',
+            message: 'กรุณาระบุรหัสสาขา!',
+            action: 'keyup, blur, focusout',
+            rule: 'required'
+        }, {
+            input: '#locat',
+            message: 'ไม่พบรหัสสาขานี้!',
+            action: 'keyup, blur, focusout',
+            rule: function (input, commit) {
+                var locat = $('#locat').val();
+                if (locat !== '') {
+                    $.ajax({
+                        url: "duplicateCheck",
+                        type: 'get',
+                        data: {
+                            table: 'INVLOCAT',
+                            field: 'LOCATCD',
+                            value: locat
+                        },
+                        success: function (data) {
+                            if (data === true) {
+                                commit(false);
+                            } else commit(true);
+                        },
+                        error: function () {
+                            commit(false);
+                        }
+                    });
+                }
+            }
+        }, {
+            input: '#bookcode',
+            message: 'กรุณาระบุเลขที่บัญชีธนาคาร!',
+            action: 'keyup, blur, focusout',
+            rule: 'required'
+        }, {
+            input: '#bookcode',
+            message: 'ไม่พบเลขที่บัญชีธนาคารนี้!',
+            action: 'keyup, blur, focusout',
+            rule: function(input, commit) {
+                var bookcode = $('#bookcode').val();
+                if (bookcode !== '') {
+                    $.ajax({
+                        url: "duplicateCheck",
+                        type: 'get',
+                        data: {
+                            table: 'BANKBOOK',
+                            field: 'BOOKNO',
+                            value: bookcode
+                        },
+                        success: function (data) {
+                            if (data === true) {
+                                commit(false);
+                            } else commit(true);
+                        },
+                        error: function () {
+                            commit(false);
+                        }
+                    });
+                }
+            }
+        }, {
+            input: '#acc_code',
+            message: 'กรุณาระบุรหัสบัญชี!',
+            action: 'keyup, blur, focusout',
+            rule: 'required'
+        }, {
+            input: '#acc_code',
+            message: 'ไม่พบรหัสบัญชีนี้!',
+            action: 'keyup, blur, focusout',
+            rule: function(input, commit) {
+                var acc_code = $('#acc_code').val();
+                if (acc_code !== '') {
+                    $.ajax({
+                        url: "duplicateCheck",
+                        type: 'get',
+                        data: {
+                            table: 'ACCMST',
+                            field: 'ACCMSTCOD',
+                            value: acc_code
+                        },
+                        success: function (data) {
+                            if (data === true) {
+                                commit(false);
+                            } else commit(true);
+                        },
+                        error: function () {
+                            commit(false);
+                        }
+                    });
+                }
+            }
+        }, {
+            input: '#chqamt',
+            message: 'กรุณาระบุยอดเงินโอนมากกว่า 0!',
+            action: 'keyup, blur, focusout',
+            rule: function (input, commit) {
+                var chqamt = input.val();
+                if (chqamt === 0) {
+                    return false;
+                } else {
+                    return true;
+                }
+            }
+        }];
+        if (chkrun === false) {
+            rules.unshift({
+                input: '#chqno',
+                message: 'กรุณาระบุเลขที่บันทึก!',
+                action: 'keyup, blur, focusout',
+                rule: 'required'
+            }, {
+                input: '#chqno',
+                message: 'ระบุเลขที่บันทึกซ้ำ!',
+                action: 'keyup, blur',
+                rule: function(input, commit) {
+                    var chqno = $('#chqno').val();
+                    if (chqno !== '') {
+                        $.ajax({
+                            url: "duplicateCheck",
+                            type: 'get',
+                            data: {
+                                table: 'PAYMENTTRANFER',
+                                field: 'CHQNO',
+                                value: chqno
+                            },
+                            success: function(data) {
+                                if (data === true) {
+                                    commit(true);
+                                } else commit(false);
+                            },
+                            error: function() {
+                                commit(false);
+                            }
+                        });
+                    }
+                }
+            });
+        }
+
+        $('.admin-panels').adminpanel({
+            grid: '.admin-grid',
+            callback: function() {
+                bootbox.confirm('<h3>A Custom Callback!</h3>', function() {});
+            },
+            onFinish: function() {
+                $('.admin-panels').addClass('animated fadeIn').removeClass('fade-onload');
+                demoHighCharts.init();
+            },
+            onSave: function() {
+                $(window).trigger('resize');
+            }
+        });
+        $('#textState').hide();
+        $('#locat').jqxInput({
+            height: 25,
+            width: '100%',
+            maxLength: 5
+        });
+        $('#locat').val($.session.get('locatcd'));
+        $('#locatnm').jqxInput({
+            height: 25,
+            width: '100%'
+        });
+        $("#chqno").jqxInput({
+            height: 25,
+            width: '100%',
+            maxLength: 12
+        });
+        if (chkrun === true) {
+            $("#chqno").jqxInput({
+                placeHolder: "Running Code"
+            });
+        } else {
+            $("#chqno").jqxInput({
+                placeHolder: "Enter a document no."
+            });
+        }
+        $("#chqno").prop("readonly", chkrun);
+        $("#chqdt").jqxDateTimeInput({
+            height: 25,
+            width: '100%',
+            culture: 'en-US'
+        });
+        $('#bookcode').jqxInput({
+            height: 25,
+            width: '100%',
+            maxLength: 15
+        });
+        $('#bankname').jqxInput({
+            height: 25,
+            width: '100%'
+        });
+        $('#acc_code').jqxInput({
+            height: 25,
+            width: '100%',
+            maxLength: 12
+        });
+        $('#acc_name').jqxInput({
+            height: 25,
+            width: '100%'
+        });
+        $('#offchq').jqxInput({
+            height: 25,
+            width: '100%',
+            maxLength: 8
+        });
+        $('#offchq').val($.session.get('officecode'));
+        $('#offname').jqxInput({
+            height: 25,
+            width: '100%'
+        });
+        $('#chqpay').jqxInput({
+            height: 25,
+            width: '100%',
+            rtl:true
+        });
+        $("#chqamt").jqxNumberInput({
+            height: 25,
+            width: '100%',
+            symbol: '฿',
+            spinButtons: true,
+            digits: 10,
+            decimalDigits: 2,
+            min: 0,
+            max: 9999999999
+        });
+        $("#memo1").jqxInput({
+            height: 50,
+            width: '100%',
+            maxLength: 1024
+        });
+
+        //แสดงคำอธิบาย
+        $('#v-locat').off().on('blur', function () {
+            $('#locatnm').val(getLocatName($('#locat').val()));
+        });
+        $('#offchq').off().on('blur', function () {
+            $('#offname').val(getOfficeName($('#offchq').val()));
+        });
+        $('#v-bookcode').off().on('blur', function () {
+            $.ajax({
+                async: false,
+                method: 'GET',
+                dataType: 'json',
+                url: "sqltext",
+                data: {
+                    sql: "SELECT BOOKNO, BOOKNAM FROM BANKBOOK WHERE BOOKNO = '"+$('#v-bookcode').val()+"' "
+                },
+                success: function(data) {
+                    $('#bankname').val(data[0].BOOKNAM);
+                }
+            });
+        });
+        $('#v-acc_code').off().on('blur', function () {
+            $.ajax({
+                async: false,
+                method: 'GET',
+                dataType: 'json',
+                url: "sqltext",
+                data: {
+                    sql: "SELECT ACCMSTCOD, ACCMSTNAM FROM ACCMST WHERE ACCMSTCOD = '"+$('#v-acc_code').val()+"' "
+                },
+                success: function(data) {
+                    $('#acc_name').val(data[0].ACCMSTNAM);
+                }
+            });
+        });
+        $('#v-locat').trigger('blur');
+        $('#offchq').trigger('blur');
+
+        $("#newBtn").jqxButton({
+            template: "info",
+            width: 90
+        });
+        $("#saveBtn").jqxButton({
+            template: "primary",
+            width: 90,
+            disabled: !chkright.M_INSERT
+        });
+        $("#searchBtn").jqxButton({
+            template: "success",
+            width: 90
+        });
+        $("#deleteBtn").jqxButton({
+            disabled: true,
+            template: "danger",
+            width: 90
+        });
+        $('#fmPaymenttranfer').jqxValidator({
+            hintType: 'label',
+            animationDuration: 0,
+            closeOnClick: false,
+            rules: rules
+        });
+        //เริ่มใหม่
+        $('#newBtn').off().on('click', function() {
+            loadHTML("fin_unknownmoney");
+        });
+        //บันทึก
+        $('#saveBtn').off().on('click', function() {
+            $('#fmPaymenttranfer').jqxValidator('validate', function(result) {
+                if (result) {
+                    $.when($.confirmdlg('ต้องการบันทึกข้อมูล?', 'info')).then(function() {
+                        var docdate = $("#chqdt").jqxDateTimeInput('getDate');
+                        var currentCulture = Globalize.cultures['en-US'];
+                        var localizationObject = currentCulture.calendar;
+                        var chqdt = $.jqx.dataFormat.formatdate(docdate, "dd/MM/yyyy", localizationObject);
+                        var valueJSON = [{
+                            status: status,
+                            locat: $('#locat').val(),
+                            table: 'PAYMENTTRANFER',
+                            key: $('#chqno').val(),
+                            value: [{
+                                LOCAT: $('#locat').val(),
+                                CHQNO: $('#chqno').val(),
+                                CHQDT: chqdt,
+                                BOOKCODE: $('#bookcode').val(),
+                                CHQAMT: $('#chqamt').val(), 
+                                OFFCHQ: $('#offchq').val(),
+                                ACC_CODE: $('#acc_code').val(), 
+                                FLAG: 'H',
+                                USERID: $.session.get('username'),
+                                MEMO1: $('#memo1').val()
+                            }]
+                        }];
+                        // Convert Value To JSON String
+                        var value = JSON.stringify(valueJSON);
+                        //console.log(value);
+                        $('#ok').on('click', function(event) {
+                            $.ajax({
+                                url: 'savePaymenttranfer',
+                                type: 'POST',
+                                contentType: "application/json",
+                                dataType: "json",
+                                data: value,
+                                success: function(data) {
+                                    //console.log(data);
+                                    if (data[0].save === true) {
+                                        ShowMessage("บันทึกข้อมูลเรียบร้อย!", "success");
+                                        getPaymenttranfer(data[0].chqno);
+                                        statusChange(true);
+                                    } else {
+                                        ShowMessage("บันทึกไม่สำเร็จ!", "danger");
+                                    }
+                                }
+                            });
+                        });
+                    });
+                }
+            });
+        });
+        
+        //ค้นหาสาขา
+        $('#searchInvlocat').off().on('click', function () {
+            $('#fmPaymenttranfer').jqxValidator('hideHint', '#locat');
+            searchAll('invlocat', 'v-locat');
+        });
+        //ค้นหาเลขที่บัญชีธนาคาร
+        $('#searchBook').off().on('click', function () {
+            $('#fmPaymenttranfer').jqxValidator('hideHint', '#bookcode');
+            searchAll('bookno', 'v-bookcode');
+        });
+        //ค้นหารหัสบัญชี
+        $('#searchAcccode').off().on('click', function () {
+            $('#fmPaymenttranfer').jqxValidator('hideHint', '#acc_code');
+            searchAll('accmst', 'v-acc_code');
+        });
+        //ค้นหา
+        $('#searchBtn').off().on('click', function() {
+            if (chkrun === false) {
+                var rules2 = rules.slice();
+                rules2.splice(1, 1);
+                $('#fmPaymenttranfer').jqxValidator('rules', rules2);
+            }
+            //Show Dialog Search
+            searchAll('paymenttranfer', 'chqno');
+            $('#okButton').on('click', function(event) {
+                event.preventDefault();
+                $('#fmPaymenttranfer').jqxValidator('hide');
+                getPaymenttranfer($('#chqno').val());
+                statusChange(true);
+            });
+        });
+        //ลบ
+        $('#deleteBtn').off().on('click', function() {
+            if ($('#chqno').val() !== '') {
+                $.when($.confirmdlg('ต้องการยกเลิกข้อมูล?', 'warning')).then(function() {
+                    var docdate = $("#chqdt").jqxDateTimeInput('getDate');
+                    var currentCulture = Globalize.cultures['en-US'];
+                    var localizationObject = currentCulture.calendar;
+                    var chqdt = $.jqx.dataFormat.formatdate(docdate, "dd/MM/yyyy", localizationObject);
+                    var valueJSON = [{
+                        status: status,
+                        locat: $('#locat').val(),
+                        table: 'PAYMENTTRANFER',
+                        key: $('#chqno').val(),
+                        value: [{
+                            LOCAT: $('#locat').val(),
+                            CHQNO: $('#chqno').val(),
+                            CHQDT: chqdt,
+                            BOOKCODE: $('#bookcode').val(),
+                            CHQAMT: $('#chqamt').val(), 
+                            OFFCHQ: $('#offchq').val(),
+                            ACC_CODE: $('#acc_code').val(), 
+                            FLAG: 'C',
+                            USERID: $.session.get('username'),
+                            MEMO1: $('#memo1').val()
+                        }]
+                    }];
+                    // Convert Value To JSON String
+                    var value = JSON.stringify(valueJSON);
+                    //console.log(value);
+                    $('#ok').on('click', function(event) {
+                        $.ajax({
+                            url: 'savePaymenttranfer',
+                            type: 'POST',
+                            contentType: "application/json",
+                            dataType: "json",
+                            data: value,
+                            success: function(data) {
+                                //console.log(data);
+                                if (data[0].save === true) {
+                                    ShowMessage("ยกเลิกข้อมูลเรียบร้อย!", "success");
+                                    getPaymenttranfer(data[0].chqno);
+                                    statusChange(true);
+                                } else {
+                                    ShowMessage("ยกเลิกไม่สำเร็จ!", "danger");
+                                }
+                            }
+                        });
+                    });
+                });
+            }
+        });
+    });
+</script>

@@ -439,6 +439,57 @@
 
         //เงื่อนไข validate INVMOVM
         var rules = [{
+            input: '#moveno',
+            message: 'กรุณาระบุเลขที่โอนย้าย!',
+            action: 'keyup, blur, focusout',
+            rule: function (input, commit) {
+                var moveno = $('#moveno').val()
+                if (chkrun === false) {
+                    var result = [];
+                    if (moveno === '') {
+                        result = false;
+                    } else {
+                        result = true;
+                    }
+                    return result;
+                } else {
+                    return true;
+                }
+            }
+        }, {
+            input: '#moveno',
+            message: 'ระบุเลขที่โอนย้ายซ้ำ!',
+            action: 'keyup, blur',
+            rule: function (input, commit) {
+                var moveno = $('#moveno').val();
+                if ((moveno !== '') && (status === 'insert')) {
+                    var result = [];
+                    $.ajax({
+                        async: false,
+                        url: "duplicateCheck",
+                        type: 'get',
+                        data: {
+                            table: 'INVMOVM',
+                            field: 'MOVENO',
+                            value: moveno
+                        },
+                        success: function (data) {
+                            if (data === true) {
+                                result = true;
+                            } else {
+                                result = false;
+                            }
+                        },
+                        error: function () {
+                            result = false;
+                        }
+                    });
+                    return result;
+                } else {
+                    return true;
+                }
+            }
+        }, {
             input: '#locatfm',
             message: 'กรุณาระบุรหัสสาขาที่โอน!',
             action: 'keyup, blur, focusout',
@@ -450,7 +501,9 @@
             rule: function (input, commit) {
                 var locatfm = $('#locatfm').val();
                 if (locatfm !== '') {
+                    var result = [];
                     $.ajax({
+                        async: false,
                         url: "duplicateCheck",
                         type: 'get',
                         data: {
@@ -460,13 +513,18 @@
                         },
                         success: function (data) {
                             if (data === true) {
-                                commit(false);
-                            } else commit(true);
+                                result = false;
+                            } else {
+                                result = true;
+                            }
                         },
                         error: function () {
-                            commit(false);
+                            result = false;
                         }
                     });
+                    return result;
+                } else {
+                    return true;
                 }
             }
         }, {
@@ -481,7 +539,9 @@
             rule: function (input, commit) {
                 var locatto = $('#locatto').val();
                 if (locatto !== '') {
+                    var result = [];
                     $.ajax({
+                        async: false,
                         url: "duplicateCheck",
                         type: 'get',
                         data: {
@@ -491,13 +551,18 @@
                         },
                         success: function (data) {
                             if (data === true) {
-                                commit(false);
-                            } else commit(true);
+                                result = false;
+                            } else {
+                                result = true;
+                            }
                         },
                         error: function () {
-                            commit(false);
+                            result = false;
                         }
                     });
+                    return result;
+                } else {
+                    return true;
                 }
             }
         }, {
@@ -525,7 +590,9 @@
             rule: function (input, commit) {
                 var movenm = $('#movenm').val();
                 if (movenm !== '') {
+                    var result = [];
                     $.ajax({
+                        async: false,
                         url: "duplicateCheck",
                         type: 'get',
                         data: {
@@ -535,13 +602,18 @@
                         },
                         success: function (data) {
                             if (data === true) {
-                                commit(false);
-                            } else commit(true);
+                                result = false;
+                            } else {
+                                result = true;
+                            }
                         },
                         error: function () {
-                            commit(false);
+                            result = false;
                         }
                     });
+                    return result;
+                } else {
+                    return true;
                 }
             }
         }, {
@@ -556,7 +628,9 @@
             rule: function (input, commit) {
                 var moverv = $('#moverv').val();
                 if (moverv !== '') {
+                    var result = [];
                     $.ajax({
+                        async: false,
                         url: "duplicateCheck",
                         type: 'get',
                         data: {
@@ -566,50 +640,22 @@
                         },
                         success: function (data) {
                             if (data === true) {
-                                commit(false);
-                            } else commit(true);
+                                result = false;
+                            } else {
+                                result = true;
+                            }
                         },
                         error: function () {
-                            commit(false);
+                            result = false;
                         }
                     });
+                    return result;
+                } else {
+                    return true;
                 }
             }
         }];
-        if (chkrun === false) {
-            rules.push({
-                input: '#moveno',
-                message: 'กรุณาระบุเลขที่โอนย้าย!',
-                action: 'keyup, blur, focusout',
-                rule: 'required'
-            }, {
-                input: '#moveno',
-                message: 'ระบุเลขที่โอนย้ายซ้ำ!',
-                action: 'keyup, blur',
-                rule: function(input, commit) {
-                    var moveno = $('#moveno').val();
-                    if (moveno !== '') {
-                        $.ajax({
-                            url: "duplicateCheck",
-                            type: 'get',
-                            data: {
-                                table: 'INVMOVM',
-                                field: 'MOVENO',
-                                value: moveno
-                            },
-                            success: function(data) {
-                                if (data === true) {
-                                    commit(true);
-                                } else commit(false);
-                            },
-                            error: function() {
-                                commit(false);
-                            }
-                        });
-                    }
-                }
-            });
-        }
+
         rulesInvt = [{
             input: '#strno',
             message: 'กรุณาระบุเลขตัวถัง!',
@@ -1303,7 +1349,7 @@
                         var invmovt = [];
                         for (var i = 0; i < rowscount; i++) {
                             var data = $("#tableInvmovt").jqxGrid('getrowdata', i);
-                            console.log(data);
+                            //console.log(data);
                             invmovt.push({
                                 IDNO: data.IDNO,
                                 STRNO: data.STRNO,
@@ -1339,7 +1385,7 @@
                         }];
                         // Convert Value To JSON String
                         var value = JSON.stringify(valueJSON);
-                        console.log(value);
+                        //console.log(value);
                         $('#ok').on('click', function(event) {
                             $.ajax({
                                 url: 'saveInvmovm',

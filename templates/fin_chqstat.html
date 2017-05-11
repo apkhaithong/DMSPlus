@@ -342,9 +342,9 @@
                     if (validateTsale === 0) {
                         for (var j = 0; j < rows.length; j++) {
                             var row2 = rows[j];
-                            if ((row2.TSALE === row.TSALE) && (j !== i)) {
-                                duplicateOptcode++;
-                                $("#tableChqstattran").jqxGrid('showvalidationpopup', j, "OPTCODE", "ไม่สามารถเลือกรหัสอุปกรณ์ซ้ำกันได้");
+                            if ((row2.TSALE === row.TSALE) && (row2.CONTNO === row.CONTNO) && (j !== i)) {
+                                duplicateContno++;
+                                $("#tableChqstattran").jqxGrid('showvalidationpopup', j, "CONTNO", "ไม่สามารถเลือกเลขที่สัญญาซ้ำกันได้");
                                 result = false;
                             }
                         }
@@ -641,7 +641,7 @@
             }
         }];
         if (chkrun === false) {
-            rules.push({
+            rules.unshift({
                 input: '#rvchqno',
                 message: 'กรุณาระบุเลขที่ใบรับเช็ค!',
                 action: 'keyup, blur, focusout',
@@ -849,8 +849,11 @@
             $('#rvname').val(getOfficeName($('#rvchq').val()));
         });
         $('#v-contno').off().on('blur', function () {
-            var rowindex = $('#tableChqstattran').jqxGrid('getselectedrowindex');
-            $("#tableChqstattran").jqxGrid('setcellvalue', rowindex, "CONTNO", $('#v-contno').val());
+            if ($('#v-contno').val() !== '') {
+                var rowindex = $('#tableChqstattran').jqxGrid('getselectedrowindex');
+                $("#tableChqstattran").jqxGrid('setcellvalue', rowindex, "CONTNO", $('#v-contno').val());
+                $('#v-contno').val('')
+            }
         });
         $('#v-locat').trigger('blur');
         $('#rvchq').trigger('blur');
@@ -1158,8 +1161,8 @@
                                         //console.log(data);
                                         if (data[0].save === true) {
                                             ShowMessage("บันทึกข้อมูลเรียบร้อย!", "success");
-                                            statusChange(true);
                                             getChqstat(data[0].rvchqno);
+                                            statusChange(true);
                                         } else {
                                             ShowMessage("บันทึกไม่สำเร็จ!", "danger");
                                         }

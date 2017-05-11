@@ -267,7 +267,7 @@
                 }
             });
         }
-        //ฟังก์ชั่น Get Data INVTRAN
+        //ฟังก์ชั่น Get Data OPTINVTRAN
         function getOptinvtran(recvno) {
             $.ajax({
                 async: false,
@@ -360,8 +360,59 @@
             localdata: statData
         };
         var statAdapter = new $.jqx.dataAdapter(statSource);
-        //เงื่อนไข validate INVINVNO
+        //เงื่อนไข validate OPTINVOI
         var rules = [{
+            input: '#recvno',
+            message: 'กรุณาระบุเลขที่ใบรับ!',
+            action: 'keyup, blur, focusout',
+            rule: function (input, commit) {
+                var recvno = $('#recvno').val()
+                if (chkrun === false) {
+                    var result = [];
+                    if (recvno === '') {
+                        result = false;
+                    } else {
+                        result = true;
+                    }
+                    return result;
+                } else {
+                    return true;
+                }
+            }
+        }, {
+            input: '#recvno',
+            message: 'ระบุเลขที่ใบรับซ้ำ!',
+            action: 'keyup, blur',
+            rule: function (input, commit) {
+                var recvno = $('#recvno').val();
+                if ((recvno !== '') && (status === 'insert')) {
+                    var result = [];
+                    $.ajax({
+                        async: false,
+                        url: "duplicateCheck",
+                        type: 'get',
+                        data: {
+                            table: 'OPTINVOI',
+                            field: 'RECVNO',
+                            value: recvno
+                        },
+                        success: function (data) {
+                            if (data === true) {
+                                result = true;
+                            } else {
+                                result = false;
+                            }
+                        },
+                        error: function () {
+                            result = false;
+                        }
+                    });
+                    return result;
+                } else {
+                    return true;
+                }
+            }
+        }, {
             input: '#locat',
             message: 'กรุณาระบุรหัสสาขา!',
             action: 'keyup, blur, focusout',
@@ -373,7 +424,9 @@
             rule: function (input, commit) {
                 var locat = $('#locat').val();
                 if (locat !== '') {
+                    var result = [];
                     $.ajax({
+                        async: false,
                         url: "duplicateCheck",
                         type: 'get',
                         data: {
@@ -383,13 +436,18 @@
                         },
                         success: function (data) {
                             if (data === true) {
-                                commit(false);
-                            } else commit(true);
+                                result = false;
+                            } else {
+                                result = true;
+                            }
                         },
                         error: function () {
-                            commit(false);
+                            result = false;
                         }
                     });
+                    return result;
+                } else {
+                    return true;
                 }
             }
         }, {
@@ -397,6 +455,39 @@
             message: 'กรุณาระบุเลขที่ใบส่ง!',
             action: 'keyup, blur, focusout',
             rule: 'required'
+        }, {
+            input: '#invno',
+            message: 'ระบุเลขที่ใบส่งซ้ำ!',
+            action: 'keyup, blur',
+            rule: function (input, commit) {
+                var invno = $('#invno').val();
+                if ((invno !== '') && (status === 'insert')) {
+                    var result = [];
+                    $.ajax({
+                        async: false,
+                        url: "duplicateCheck",
+                        type: 'get',
+                        data: {
+                            table: 'OPTINVOI',
+                            field: 'INVNO',
+                            value: invno
+                        },
+                        success: function (data) {
+                            if (data === true) {
+                                result = true;
+                            } else {
+                                result = false;
+                            }
+                        },
+                        error: function () {
+                            result = false;
+                        }
+                    });
+                    return result;
+                } else {
+                    return true;
+                }
+            }
         }, {
             input: '#apcode',
             message: 'กรุณาระบุรหัสเจ้าหนี้!',
@@ -409,7 +500,9 @@
             rule: function (input, commit) {
                 var apcode = $('#apcode').val();
                 if (apcode !== '') {
+                    var result = [];
                     $.ajax({
+                        async: false,
                         url: "duplicateCheck",
                         type: 'get',
                         data: {
@@ -419,243 +512,22 @@
                         },
                         success: function (data) {
                             if (data === true) {
-                                commit(false);
-                            } else commit(true);
-                        },
-                        error: function () {
-                            commit(false);
-                        }
-                    });
-                }
-            }
-        }];
-        //เงื่อนไข validate INVTRAN
-        rulesInvt =[{
-            input: '#typecode',
-            message: 'กรุณาระบุรหัสยี่ห้อ!',
-            action: 'keyup, blur, focusout',
-            rule: 'required'
-        }, {
-            input: '#typecode',
-            message: 'ไม่พบรหัสยี่ห้อนี้!',
-            action: 'keyup, blur, focusout',
-            rule: function (input, commit) {
-                var typecode = $('#typecode').val();
-                if (typecode !== '') {
-                    $.ajax({
-                        url: "duplicateCheck",
-                        type: 'get',
-                        data: {
-                            table: 'SETTYPE',
-                            field: 'TYPECOD',
-                            value: typecode
-                        },
-                        success: function (data) {
-                            if (data === true) {
-                                commit(false);
-                            } else commit(true);
-                        },
-                        error: function () {
-                            commit(false);
-                        }
-                    });
-                }
-            }
-        }, {
-            input: '#modelcode',
-            message: 'กรุณาระบุรหัสรุ่น!',
-            action: 'keyup, blur, focusout',
-            rule: 'required'
-        }, {
-            input: '#modelcode',
-            message: 'ไม่พบรหัสรุ่นนี้!',
-            action: 'keyup, blur, focusout',
-            rule: function (input, commit) {
-                var modelcode = $('#modelcode').val();
-                if (modelcode !== '') {
-                    $.ajax({
-                        url: "duplicateCheck",
-                        type: 'get',
-                        data: {
-                            table: 'SETMODEL',
-                            field: 'MODELCOD',
-                            value: modelcode
-                        },
-                        success: function (data) {
-                            if (data === true) {
-                                commit(false);
-                            } else commit(true);
-                        },
-                        error: function () {
-                            commit(false);
-                        }
-                    });
-                }
-            }
-        }, {
-            input: '#baabcode',
-            message: 'กรุณาระบุรหัสแบบ!',
-            action: 'keyup, blur, focusout',
-            rule: 'required'
-        }, {
-            input: '#baabcode',
-            message: 'ไม่พบรหัสแบบนี้!',
-            action: 'keyup, blur, focusout',
-            rule: function (input, commit) {
-                var baabcode = $('#baabcode').val();
-                if (baabcode !== '') {
-                    $.ajax({
-                        url: "duplicateCheck",
-                        type: 'get',
-                        data: {
-                            table: 'SETBAAB',
-                            field: 'BAABCOD',
-                            value: baabcode
-                        },
-                        success: function (data) {
-                            if (data === true) {
-                                commit(false);
-                            } else commit(true);
-                        },
-                        error: function () {
-                            commit(false);
-                        }
-                    });
-                }
-            }
-        }, {
-            input: '#colorcode',
-            message: 'กรุณาระบุรหัสสี!',
-            action: 'keyup, blur, focusout',
-            rule: 'required'
-        }, {
-            input: '#colorcode',
-            message: 'ไม่พบรหัสสีนี้!',
-            action: 'keyup, blur, focusout',
-            rule: function (input, commit) {
-                var colorcode = $('#colorcode').val();
-                if (colorcode !== '') {
-                    $.ajax({
-                        url: "duplicateCheck",
-                        type: 'get',
-                        data: {
-                            table: 'SETCOLOR',
-                            field: 'COLORCOD',
-                            value: colorcode
-                        },
-                        success: function (data) {
-                            if (data === true) {
-                                commit(false);
-                            } else commit(true);
-                        },
-                        error: function () {
-                            commit(false);
-                        }
-                    });
-                }
-            }
-        }, {
-            input: '#groupcode',
-            message: 'กรุณาระบุรหัสกลุ่ม!',
-            action: 'keyup, blur, focusout',
-            rule: 'required'
-        }, {
-            input: '#groupcode',
-            message: 'ไม่พบรหัสกลุ่มนี้!',
-            action: 'keyup, blur, focusout',
-            rule: function (input, commit) {
-                var groupcode = $('#groupcode').val();
-                if (groupcode !== '') {
-                    $.ajax({
-                        url: "duplicateCheck",
-                        type: 'get',
-                        data: {
-                            table: 'SETGROUP',
-                            field: 'GCODE',
-                            value: groupcode
-                        },
-                        success: function (data) {
-                            if (data === true) {
-                                commit(false);
-                            } else commit(true);
-                        },
-                        error: function () {
-                            commit(false);
-                        }
-                    });
-                }
-            }
-        }, {
-            input: '#strno',
-            message: 'กรุณาระบุเลขตัวถังสินค้า!',
-            action: 'keyup, blur, focusout',
-            rule: 'required'
-        }, {
-            input: '#strno',
-            message: 'ระบุเลขตัวถังสินค้าซ้ำ!',
-            action: 'keyup, blur',
-            rule: function (input, commit) {
-                var strno = $('#strno').val();
-                var recvno = $('#recvno').val();
-                if (strno !== '') {
-                    $.ajax({
-                        url: "duplicateStrno",
-                        type: 'get',
-                        data: {
-                            value1: strno,
-                            value2: recvno
-                        },
-                        success: function (data) {
-                            if (data === true) {
-                                commit(true);
-                            } else commit(false);
-                        },
-                        error: function () {
-                            commit(false);
-                        }
-                    });
-                }
-            }
-        }, {
-            input: '#engno',
-            message: 'กรุณาระบุเลขเครื่องยนต์!',
-            action: 'keyup, blur, focusout',
-            rule: 'required'
-        }];
-        if (chkrun === false) {
-            rules.push({
-                input: '#recvno',
-                message: 'กรุณาระบุเลขที่ใบรับ!',
-                action: 'keyup, blur, focusout',
-                rule: 'required'
-            }, {
-                input: '#recvno',
-                message: 'ระบุเลขที่ใบรับซ้ำ!',
-                action: 'keyup, blur',
-                rule: function (input, commit) {
-                    var recvno = $('#recvno').val();
-                    if (recvno !== '') {
-                        $.ajax({
-                            url: "duplicateCheck",
-                            type: 'get',
-                            data: {
-                                table: 'INVINVNO',
-                                field: 'RECVNO',
-                                value: recvno
-                            },
-                            success: function (data) {
-                                if (data === true) {
-                                    commit(true);
-                                } else commit(false);
-                            },
-                            error: function () {
-                                commit(false);
+                                result = false;
+                            } else {
+                                result = true;
                             }
-                        });
-                    }
+                        },
+                        error: function () {
+                            result = false;
+                        }
+                    });
+                    return result;
+                } else {
+                    return true;
                 }
-            });
-        }
+            }
+        }];
+ 
         //ข้อมูลอุปกรณ์ ทั้งหมด
         var sourceOptmast = {
             async: false,
@@ -1379,9 +1251,6 @@
         });
         //ค้นหา
         $('#searchBtn').off().on('click', function() {
-            var rules2 = rules.slice();
-            rules2.splice(1, 1);
-            $('#fmOptinvoi').jqxValidator('rules', rules2);
             //Show Dialog Search
             searchAll('optinvoi', 'recvno');
             $('#okButton').on('click', function(event) {
@@ -1426,6 +1295,13 @@
                     });
                 });
             }
+        });
+        //พิมพ์
+        $('#printBtn').off().on('click', function () { 
+            var baseUrl = document.location.origin;
+            var reportname = 'fr_optinvoi';
+            var vdocno = $('#recvno').val();
+            openReport('GET', baseUrl+'/report', {reportname: reportname, vdocno: vdocno});
         });
     });
 </script>

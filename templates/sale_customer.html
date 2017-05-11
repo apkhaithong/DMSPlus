@@ -1012,7 +1012,7 @@
         }];
 
         if (chkrun === false) {
-            rules.push({
+            rules.unshift({
                 input: '#custcode',
                 message: 'กรุณาหรัสลูกค้า!',
                 action: 'keyup, blur, focusout',

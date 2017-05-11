@@ -747,7 +747,7 @@
         }];
 
         if (chkrun === false) {
-            rules.push({
+            rules.unshift({
                 input: '#contno',
                 message: 'กรุณาระบุเลขที่สัญญา!',
                 action: 'keyup, blur, focusout',
