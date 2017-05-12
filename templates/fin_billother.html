@@ -301,6 +301,57 @@
 
         //เงื่อนไข validate CHQANOTHER
         var rules = [{
+            input: '#tmbill',
+            message: 'กรุณาระบุเลขที่ใบเสร็จ!',
+            action: 'keyup, blur, focusout',
+            rule: function (input, commit) {
+                var tmbill = $('#tmbill').val()
+                if (chkrun === false) {
+                    var result = [];
+                    if (tmbill === '') {
+                        result = false;
+                    } else {
+                        result = true;
+                    }
+                    return result;
+                } else {
+                    return true;
+                }
+            }
+        }, {
+            input: '#tmbill',
+            message: 'ระบุเลขที่ใบเสร็จซ้ำ!',
+            action: 'keyup, blur',
+            rule: function (input, commit) {
+                var tmbill = $('#tmbill').val();
+                if ((tmbill !== '') && (status === 'insert')) {
+                    var result = [];
+                    $.ajax({
+                        async: false,
+                        url: "duplicateCheck",
+                        type: 'get',
+                        data: {
+                            table: 'CHQANOTHER',
+                            field: 'TMBILL',
+                            value: tmbill
+                        },
+                        success: function (data) {
+                            if (data === true) {
+                                result = true;
+                            } else {
+                                result = false;
+                            }
+                        },
+                        error: function () {
+                            result = false;
+                        }
+                    });
+                    return result;
+                } else {
+                    return true;
+                }
+            }
+        }, {
             input: '#locat',
             message: 'กรุณาระบุรหัสสาขา!',
             action: 'keyup, blur, focusout',
@@ -312,7 +363,9 @@
             rule: function (input, commit) {
                 var locat = $('#locat').val();
                 if (locat !== '') {
+                    var result = [];
                     $.ajax({
+                        async: false,
                         url: "duplicateCheck",
                         type: 'get',
                         data: {
@@ -322,13 +375,18 @@
                         },
                         success: function (data) {
                             if (data === true) {
-                                commit(false);
-                            } else commit(true);
+                                result = false;
+                            } else {
+                                result = true;
+                            }
                         },
                         error: function () {
-                            commit(false);
+                            result = false;
                         }
                     });
+                    return result;
+                } else {
+                    return true;
                 }
             }
         }, {
@@ -343,7 +401,9 @@
             rule: function (input, commit) {
                 var cuscod = $('#cuscod').val();
                 if (cuscod !== '') {
+                    var result = [];
                     $.ajax({
+                        async: false,
                         url: "duplicateCheck",
                         type: 'get',
                         data: {
@@ -353,13 +413,18 @@
                         },
                         success: function (data) {
                             if (data === true) {
-                                commit(false);
-                            } else commit(true);
+                                result = false;
+                            } else {
+                                result = true;
+                            }
                         },
                         error: function () {
-                            commit(false);
+                            result = false;
                         }
                     });
+                    return result;
+                } else {
+                    return true;
                 }
             }
         }, {
@@ -374,7 +439,9 @@
             rule: function (input, commit) {
                 var forcode = $('#forcode').val();
                 if (forcode !== '') {
+                    var result = [];
                     $.ajax({
+                        async: false,
                         url: "duplicateCheck",
                         type: 'get',
                         data: {
@@ -384,13 +451,18 @@
                         },
                         success: function (data) {
                             if (data === true) {
-                                commit(false);
-                            } else commit(true);
+                                result = false;
+                            } else {
+                                result = true;
+                            }
                         },
                         error: function () {
-                            commit(false);
+                            result = false;
                         }
                     });
+                    return result;
+                } else {
+                    return true;
                 }
             }
         }, {
@@ -405,7 +477,9 @@
             rule: function (input, commit) {
                 var paycode = $('#paycode').val();
                 if (paycode !== '') {
+                    var result = [];
                     $.ajax({
+                        async: false,
                         url: "duplicateCheck",
                         type: 'get',
                         data: {
@@ -415,13 +489,18 @@
                         },
                         success: function (data) {
                             if (data === true) {
-                                commit(false);
-                            } else commit(true);
+                                result = false;
+                            } else {
+                                result = true;
+                            }
                         },
                         error: function () {
-                            commit(false);
+                            result = false;
                         }
                     });
+                    return result;
+                } else {
+                    return true;
                 }
             }
         }, {
@@ -437,40 +516,6 @@
                 }
             }
         }];
-        if (chkrun === false) {
-            rules.unshift({
-                input: '#tmbill',
-                message: 'กรุณาระบุเลขที่ใบเสร็จ!',
-                action: 'keyup, blur, focusout',
-                rule: 'required'
-            }, {
-                input: '#tmbill',
-                message: 'ระบุเลขที่ใบเสร็จซ้ำ!',
-                action: 'keyup, blur',
-                rule: function(input, commit) {
-                    var tmbill = $('#tmbill').val();
-                    if (tmbill !== '') {
-                        $.ajax({
-                            url: "duplicateCheck",
-                            type: 'get',
-                            data: {
-                                table: 'CHQANOTHER',
-                                field: 'TMBILL',
-                                value: tmbill
-                            },
-                            success: function(data) {
-                                if (data === true) {
-                                    commit(true);
-                                } else commit(false);
-                            },
-                            error: function() {
-                                commit(false);
-                            }
-                        });
-                    }
-                }
-            });
-        }
 
         $('.admin-panels').adminpanel({
             grid: '.admin-grid',
@@ -710,6 +755,7 @@
                                     //console.log(data);
                                     if (data[0].save === true) {
                                         ShowMessage("บันทึกข้อมูลเรียบร้อย!", "success");
+                                        status = 'update';
                                         getChqanother(data[0].tmbill);
                                         statusChange(true);
                                     } else {
@@ -745,17 +791,12 @@
         });
         //ค้นหา
         $('#searchBtn').off().on('click', function() {
-            if (chkrun === false) {
-                var rules2 = rules.slice();
-                rules2.splice(1, 1);
-                console.log(rules2);
-                $('#fmChqanother').jqxValidator('rules', rules2);
-            }
             //Show Dialog Search
             searchAll('chqanother', 'tmbill');
             $('#okButton').on('click', function(event) {
                 event.preventDefault();
                 $('#fmChqanother').jqxValidator('hide');
+                status = 'update';
                 getChqanother($('#tmbill').val());
                 statusChange(true);
             });

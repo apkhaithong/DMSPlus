@@ -501,6 +501,57 @@
         var dataAdtTsale = new $.jqx.dataAdapter(sourceTsale);
         //เงื่อนไข validate CHQSTAT
         var rules = [{
+            input: '#rvchqno',
+            message: 'กรุณาระบุเลขที่ใบรับเช็ค!',
+            action: 'keyup, blur, focusout',
+            rule: function (input, commit) {
+                var rvchqno = $('#rvchqno').val()
+                if (chkrun === false) {
+                    var result = [];
+                    if (rvchqno === '') {
+                        result = false;
+                    } else {
+                        result = true;
+                    }
+                    return result;
+                } else {
+                    return true;
+                }
+            }
+        }, {
+            input: '#rvchqno',
+            message: 'ระบุเลขที่ใบรับเช็คซ้ำ!',
+            action: 'keyup, blur',
+            rule: function (input, commit) {
+                var rvchqno = $('#rvchqno').val();
+                if ((rvchqno !== '') && (status === 'insert')) {
+                    var result = [];
+                    $.ajax({
+                        async: false,
+                        url: "duplicateCheck",
+                        type: 'get',
+                        data: {
+                            table: 'CHQSTAT',
+                            field: 'RVCHQNO',
+                            value: rvchqno
+                        },
+                        success: function (data) {
+                            if (data === true) {
+                                result = true;
+                            } else {
+                                result = false;
+                            }
+                        },
+                        error: function () {
+                            result = false;
+                        }
+                    });
+                    return result;
+                } else {
+                    return true;
+                }
+            }
+        }, {
             input: '#locat',
             message: 'กรุณาระบุรหัสสาขา!',
             action: 'keyup, blur, focusout',
@@ -512,7 +563,9 @@
             rule: function (input, commit) {
                 var locat = $('#locat').val();
                 if (locat !== '') {
+                    var result = [];
                     $.ajax({
+                        async: false,
                         url: "duplicateCheck",
                         type: 'get',
                         data: {
@@ -522,13 +575,18 @@
                         },
                         success: function (data) {
                             if (data === true) {
-                                commit(false);
-                            } else commit(true);
+                                result = false;
+                            } else {
+                                result = true;
+                            }
                         },
                         error: function () {
-                            commit(false);
+                            result = false;
                         }
                     });
+                    return result;
+                } else {
+                    return true;
                 }
             }
         }, {
@@ -640,40 +698,7 @@
                 }
             }
         }];
-        if (chkrun === false) {
-            rules.unshift({
-                input: '#rvchqno',
-                message: 'กรุณาระบุเลขที่ใบรับเช็ค!',
-                action: 'keyup, blur, focusout',
-                rule: 'required'
-            }, {
-                input: '#rvchqno',
-                message: 'ระบุเลขที่ใบรับเช็คซ้ำ!',
-                action: 'keyup, blur',
-                rule: function(input, commit) {
-                    var rvchqno = $('#rvchqno').val();
-                    if (rvchqno !== '') {
-                        $.ajax({
-                            url: "duplicateCheck",
-                            type: 'get',
-                            data: {
-                                table: 'CHQSTAT',
-                                field: 'RVCHQNO',
-                                value: rvchqno
-                            },
-                            success: function(data) {
-                                if (data === true) {
-                                    commit(true);
-                                } else commit(false);
-                            },
-                            error: function() {
-                                commit(false);
-                            }
-                        });
-                    }
-                }
-            });
-        }
+
         //DataSource CHQSTATTRAN
         var dataChqstattran = [];
         var sourceChqstattran = {
@@ -1161,6 +1186,7 @@
                                         //console.log(data);
                                         if (data[0].save === true) {
                                             ShowMessage("บันทึกข้อมูลเรียบร้อย!", "success");
+                                            status = 'update';
                                             getChqstat(data[0].rvchqno);
                                             statusChange(true);
                                         } else {
@@ -1205,6 +1231,7 @@
             $('#okButton').on('click', function(event) {
                 event.preventDefault();
                 $('#fmChqstat').jqxValidator('hide');
+                status = 'update';
                 getChqstat($('#rvchqno').val());
                 statusChange(true);
             });

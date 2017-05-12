@@ -422,6 +422,57 @@
 
         //เงื่อนไข validate CHQMAS
         var rules = [{
+            input: '#tmbill',
+            message: 'กรุณาระบุเลขที่ใบรับเงิน!',
+            action: 'keyup, blur, focusout',
+            rule: function (input, commit) {
+                var tmbill = $('#tmbill').val()
+                if (chkrun === false) {
+                    var result = [];
+                    if (tmbill === '') {
+                        result = false;
+                    } else {
+                        result = true;
+                    }
+                    return result;
+                } else {
+                    return true;
+                }
+            }
+        }, {
+            input: '#tmbill',
+            message: 'ระบุเลขที่ใบรับเงินซ้ำ!',
+            action: 'keyup, blur',
+            rule: function (input, commit) {
+                var tmbill = $('#tmbill').val();
+                if ((tmbill !== '') && (status === 'insert')) {
+                    var result = [];
+                    $.ajax({
+                        async: false,
+                        url: "duplicateCheck",
+                        type: 'get',
+                        data: {
+                            table: 'CHQMAS',
+                            field: 'TMBILL',
+                            value: tmbill
+                        },
+                        success: function (data) {
+                            if (data === true) {
+                                result = true;
+                            } else {
+                                result = false;
+                            }
+                        },
+                        error: function () {
+                            result = false;
+                        }
+                    });
+                    return result;
+                } else {
+                    return true;
+                }
+            }
+        }, {
             input: '#locat',
             message: 'กรุณาระบุรหัสสาขา!',
             action: 'keyup, blur, focusout',
@@ -433,7 +484,9 @@
             rule: function (input, commit) {
                 var locat = $('#locat').val();
                 if (locat !== '') {
+                    var result = [];
                     $.ajax({
+                        async: false,
                         url: "duplicateCheck",
                         type: 'get',
                         data: {
@@ -443,13 +496,18 @@
                         },
                         success: function (data) {
                             if (data === true) {
-                                commit(false);
-                            } else commit(true);
+                                result = false;
+                            } else {
+                                result = true;
+                            }
                         },
                         error: function () {
-                            commit(false);
+                            result = false;
                         }
                     });
+                    return result;
+                } else {
+                    return true;
                 }
             }
         }, {
@@ -464,7 +522,7 @@
             rule: function (input, commit) {
                 var contno = $('#contno').val();
                 var tsale = $('#tsale').val();
-                if (contno !== '') {
+                if ((contno !== '') && (status === 'insert')) {
                     var result = [];
                     if (tsale === 'A') {
                         $.ajax({
@@ -588,44 +646,12 @@
                         });
                     }
                     return result;
+                } else {
+                    return true;
                 }
             }
         }];
 
-        if (chkrun === false) {
-            rules.unshift({
-                input: '#tmbill',
-                message: 'กรุณาระบุเลขที่ใบรับเงิน!',
-                action: 'keyup, blur, focusout',
-                rule: 'required'
-            }, {
-                input: '#tmbill',
-                message: 'ระบุเลขที่ใบรับเงินซ้ำ!',
-                action: 'keyup, blur',
-                rule: function (input, commit) {
-                    var tmbill = $('#tmbill').val();
-                    if (tmbill !== '') {
-                        $.ajax({
-                            url: "duplicateCheck",
-                            type: 'get',
-                            data: {
-                                table: 'ARCRED',
-                                field: 'CONTNO',
-                                value: tmbill
-                            },
-                            success: function (data) {
-                                if (data === true) {
-                                    commit(true);
-                                } else commit(false);
-                            },
-                            error: function () {
-                                commit(false);
-                            }
-                        });
-                    }
-                }
-            });
-        }
         //ข้อมูลประเภทการขาย
         var sourceTsale = {
             async: false,
@@ -1578,13 +1604,7 @@
                                         //console.log(data);
                                         if (chqmas[0].save === true) {
                                             ShowMessage("บันทึกข้อมูลเรียบร้อย!","success");
-                                            var rules2 = rules.slice();
-                                            if (chkrun === false) {
-                                                rules2.splice(1, 1);
-                                            }
-                                            rules2.splice(3, 1);
-                                            //console.log(rules2);
-                                            $('#fmChqmas').jqxValidator('rules', rules2);
+                                            status = 'update';
                                             getChqmas(chqmas[0].tmbill);
                                             statusChange(true);
                                         } else {
@@ -1761,17 +1781,10 @@
             //Show Dialog Search
             searchAll('chqmas', 'tmbill');
             $('#okButton').on('click', function (event) {
-                var rules2 = rules.slice();
-                if (chkrun === false) {
-                    rules2.splice(1, 1);
-                    rules2.splice(4, 1);
-                } else {
-                    rules2.splice(3, 1);
-                }
                 //console.log(rules2);
-                $('#fmChqmas').jqxValidator('rules', rules2);
                 event.preventDefault();
                 $('#fmChqmas').jqxValidator('hide');
+                status = 'update';
                 getChqmas($('#tmbill').val());
                 statusChange(true);
             });

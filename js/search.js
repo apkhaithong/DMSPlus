@@ -1,7 +1,7 @@
 ﻿function searchAll(show, returnid) {
     $("body").css("overflow", "hidden");
-    var width = $(document).width();
-    var height = $(document).height();
+    var width = $( window ).width();
+    var height = $( window ).height();
     var sqltxt = "";
     var fields = [];
     var keyno = "";
@@ -903,8 +903,8 @@
     };
     var gridDataAdapter = new $.jqx.dataAdapter(source);
     $("#tbSearch").jqxGrid({
-        width: width - 40,
-        height: height - 340,
+        width: '100%',
+        height: '92%',
         sortable: true,
         columnsresize: true,
         altrows: true,

@@ -64,7 +64,8 @@
             <div style="margin: 10px">
                 ข้อความค้นหา
                 <input type="text" id="searchInput" onkeyup="keyPressed(event)" />
-                <input type="button" value="ค้นหา" id="searchButton" />
+                <button id="searchButton"><span class="fa fa-search"></span> ค้นหา</button>
+                <!--<input type="button" value="ค้นหา" id="searchButton" />-->
                 <input type="button" value="ตกลง" id="okButton" />
                 <input type="button" value="ยกเลิก" id="cancelButton" />
                 <div id="panel1" style="margin-top: 10px;">
@@ -314,8 +315,8 @@
 
             // Init jqxTheme
             $.jqx.theme = "bootstrap";
-            var width = 1590;
-            var height = 780;
+            var width = $( window ).width();
+            var height = $( window ).height();
             $.ajax({
                 async: false,
                 url: "sqltext",

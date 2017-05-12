@@ -249,6 +249,57 @@
 
         //เงื่อนไข validate PAYMENTTRANFER
         var rules = [{
+            input: '#chqno',
+            message: 'กรุณาระบุเลขที่บันทึก!',
+            action: 'keyup, blur, focusout',
+            rule: function (input, commit) {
+                var chqno = $('#chqno').val()
+                if (chkrun === false) {
+                    var result = [];
+                    if (chqno === '') {
+                        result = false;
+                    } else {
+                        result = true;
+                    }
+                    return result;
+                } else {
+                    return true;
+                }
+            }
+        }, {
+            input: '#chqno',
+            message: 'ระบุเลขที่บันทึกซ้ำ!',
+            action: 'keyup, blur',
+            rule: function (input, commit) {
+                var chqno = $('#chqno').val();
+                if ((chqno !== '') && (status === 'insert')) {
+                    var result = [];
+                    $.ajax({
+                        async: false,
+                        url: "duplicateCheck",
+                        type: 'get',
+                        data: {
+                            table: 'PAYMENTTRANFER',
+                            field: 'CHQNO',
+                            value: chqno
+                        },
+                        success: function (data) {
+                            if (data === true) {
+                                result = true;
+                            } else {
+                                result = false;
+                            }
+                        },
+                        error: function () {
+                            result = false;
+                        }
+                    });
+                    return result;
+                } else {
+                    return true;
+                }
+            }
+        }, {
             input: '#locat',
             message: 'กรุณาระบุรหัสสาขา!',
             action: 'keyup, blur, focusout',
@@ -260,7 +311,9 @@
             rule: function (input, commit) {
                 var locat = $('#locat').val();
                 if (locat !== '') {
+                    var result = [];
                     $.ajax({
+                        async: false,
                         url: "duplicateCheck",
                         type: 'get',
                         data: {
@@ -270,13 +323,18 @@
                         },
                         success: function (data) {
                             if (data === true) {
-                                commit(false);
-                            } else commit(true);
+                                result = false;
+                            } else {
+                                result = true;
+                            }
                         },
                         error: function () {
-                            commit(false);
+                            result = false;
                         }
                     });
+                    return result;
+                } else {
+                    return true;
                 }
             }
         }, {
@@ -288,10 +346,12 @@
             input: '#bookcode',
             message: 'ไม่พบเลขที่บัญชีธนาคารนี้!',
             action: 'keyup, blur, focusout',
-            rule: function(input, commit) {
+            rule: function (input, commit) {
                 var bookcode = $('#bookcode').val();
                 if (bookcode !== '') {
+                    var result = [];
                     $.ajax({
+                        async: false,
                         url: "duplicateCheck",
                         type: 'get',
                         data: {
@@ -301,13 +361,18 @@
                         },
                         success: function (data) {
                             if (data === true) {
-                                commit(false);
-                            } else commit(true);
+                                result = false;
+                            } else {
+                                result = true;
+                            }
                         },
                         error: function () {
-                            commit(false);
+                            result = false;
                         }
                     });
+                    return result;
+                } else {
+                    return true;
                 }
             }
         }, {
@@ -319,10 +384,12 @@
             input: '#acc_code',
             message: 'ไม่พบรหัสบัญชีนี้!',
             action: 'keyup, blur, focusout',
-            rule: function(input, commit) {
+            rule: function (input, commit) {
                 var acc_code = $('#acc_code').val();
                 if (acc_code !== '') {
+                    var result = [];
                     $.ajax({
+                        async: false,
                         url: "duplicateCheck",
                         type: 'get',
                         data: {
@@ -332,13 +399,18 @@
                         },
                         success: function (data) {
                             if (data === true) {
-                                commit(false);
-                            } else commit(true);
+                                result = false;
+                            } else {
+                                result = true;
+                            }
                         },
                         error: function () {
-                            commit(false);
+                            result = false;
                         }
                     });
+                    return result;
+                } else {
+                    return true;
                 }
             }
         }, {
@@ -354,40 +426,6 @@
                 }
             }
         }];
-        if (chkrun === false) {
-            rules.unshift({
-                input: '#chqno',
-                message: 'กรุณาระบุเลขที่บันทึก!',
-                action: 'keyup, blur, focusout',
-                rule: 'required'
-            }, {
-                input: '#chqno',
-                message: 'ระบุเลขที่บันทึกซ้ำ!',
-                action: 'keyup, blur',
-                rule: function(input, commit) {
-                    var chqno = $('#chqno').val();
-                    if (chqno !== '') {
-                        $.ajax({
-                            url: "duplicateCheck",
-                            type: 'get',
-                            data: {
-                                table: 'PAYMENTTRANFER',
-                                field: 'CHQNO',
-                                value: chqno
-                            },
-                            success: function(data) {
-                                if (data === true) {
-                                    commit(true);
-                                } else commit(false);
-                            },
-                            error: function() {
-                                commit(false);
-                            }
-                        });
-                    }
-                }
-            });
-        }
 
         $('.admin-panels').adminpanel({
             grid: '.admin-grid',
@@ -589,6 +627,7 @@
                                     //console.log(data);
                                     if (data[0].save === true) {
                                         ShowMessage("บันทึกข้อมูลเรียบร้อย!", "success");
+                                        status = 'update';
                                         getPaymenttranfer(data[0].chqno);
                                         statusChange(true);
                                     } else {
@@ -619,16 +658,12 @@
         });
         //ค้นหา
         $('#searchBtn').off().on('click', function() {
-            if (chkrun === false) {
-                var rules2 = rules.slice();
-                rules2.splice(1, 1);
-                $('#fmPaymenttranfer').jqxValidator('rules', rules2);
-            }
             //Show Dialog Search
             searchAll('paymenttranfer', 'chqno');
             $('#okButton').on('click', function(event) {
                 event.preventDefault();
                 $('#fmPaymenttranfer').jqxValidator('hide');
+                status = 'update';
                 getPaymenttranfer($('#chqno').val());
                 statusChange(true);
             });
