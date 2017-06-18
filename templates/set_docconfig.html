@@ -1,0 +1,305 @@
+﻿<div class="row" id="spy2">
+    <!-- Chart with filter Widget -->
+    <div class="col-md-12 admin-grid">
+        <div class="panel" id="p2">
+            <div class="panel-heading">
+                <span class="panel-icon"><span class="glyphicons glyphicons-imac"></span></span>
+                <span class="panel-title">กำหนดหมวดหมู่เอกสาร</span>
+                <span class="panel-controls">
+                    <a href="#" class="panel-control-loader"></a>
+                    <a href="#" class="panel-control-remove"></a>
+                    <a href="#" class="panel-control-collapse"></a>
+                    <a href="#" class="panel-control-fullscreen"></a>
+                </span>
+            </div>
+            <div class="panel-body">
+                <form class="form-horizontal" id="fmDocconfig">
+                    <div class="p15 pt5 mt15">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <div class="col-md-12">
+                                        <div class="bs-component">
+                                            <div id="tableDocconfig"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="col-md-4 control-label"></label>
+                                    <div class="col-md-8">
+                                        <div class="bs-component">
+                                            <button type="button" id="newBtn"><span class="fa fa-refresh"></span> เริ่มใหม่</button>
+                                            <button type="button" id="saveBtn"><span class="fa fa-floppy-o"></span> บันทึก</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <!-- end: .col-md-12.admin-grid -->
+</div>
+<!-- end: .row -->
+<script type="text/javascript">
+    $(document).ready(function() {
+        //Default status Insert
+        var status = 'insert';
+        //เช็คสิทธิการใช้งาน
+        var chkright = [];
+        var value = JSON.stringify([{
+            menucode: 'SET710',
+            userid: $.session.get('username')
+        }]);
+        $.ajax({
+            async: false,
+            url: "checkright",
+            contentType: "application/json",
+            dataType: 'json',
+            type: 'POST',
+            data: value,
+            success: function(data) {
+                chkright = data[0];
+                if (chkright.M_ACCESS === 'Y') {
+                    chkright.M_ACCESS = true
+                } else {
+                    chkright.M_ACCESS = false
+                }
+                if (chkright.M_DELETE === 'Y') {
+                    chkright.M_DELETE = true
+                } else {
+                    chkright.M_DELETE = false
+                }
+                if (chkright.M_EDIT === 'Y') {
+                    chkright.M_EDIT = true
+                } else {
+                    chkright.M_EDIT = false
+                }
+                if (chkright.M_INSERT === 'Y') {
+                    chkright.M_INSERT = true
+                } else {
+                    chkright.M_INSERT = false
+                }
+            }
+        });
+        //ฟังก์ชั่น สถานะ Insert หรือ Edit
+        function statusChange(disabled) {
+            if (disabled === false) {
+                status = 'insert';
+                $('#locat').val('');
+                $('#locatnm').val('');
+                $('#tableDocconfig').jqxGrid('clear');
+            } else {
+                status = 'update';
+                $("#saveBtn").jqxButton({
+                    disabled: !chkright.M_EDIT
+                });
+            }
+        }
+        //ฟังก์ชั่น Get Data Docconfig
+        function getDocconfig(locatcd) {
+            $.ajax({
+                async: false,
+                method: 'GET',
+                dataType: 'json',
+                url: "getDocconfig",
+                data: {
+                    locat: locatcd
+                },
+                success: function(data) {
+                    sourceDocconfig.localdata = data;
+                    $('#tableDocconfig').jqxGrid('updatebounddata');
+                }
+            });
+        }
+
+        //DataSource COLORTRAN
+        var dataDocconfig = [];
+        var sourceDocconfig = {
+            datatype: "json",
+            datafields: [{
+                name: 'IDNO',
+                type: 'integer'
+            }, {
+                name: 'DOCCODE',
+                type: 'string'
+            }, {
+                name: 'DOCNAME',
+                type: 'string'
+
+            }, {
+                name: 'HD',
+                type: 'string'
+
+            }],
+            addrow: function(rowid, rowdata, position, commit) {
+                commit(true);
+            },
+            deleterow: function(rowid, commit) {
+                commit(true);
+            },
+            updaterow: function(rowid, newdata, commit) {
+                commit(true);
+            },
+            id: 'id',
+            localdata: dataDocconfig
+        };
+        var dataAdtDocconfig = new $.jqx.dataAdapter(sourceDocconfig);
+        $('.admin-panels').adminpanel({
+            grid: '.admin-grid',
+            callback: function() {
+                bootbox.confirm('<h3>A Custom Callback!</h3>', function() {});
+            },
+            onFinish: function() {
+                $('.admin-panels').addClass('animated fadeIn').removeClass('fade-onload');
+                demoHighCharts.init();
+            },
+            onSave: function() {
+                $(window).trigger('resize');
+            }
+        });
+        $("#tableDocconfig").jqxGrid({
+            width: '100%',
+            height: 600,
+            source: dataAdtDocconfig,
+            editable: true,
+            altrows: true,
+            sortable: false,
+            filterable: false,
+            columnsresize: true,
+            selectionmode: 'singlerow',
+            editmode: 'selectedcell',
+            showstatusbar: false,
+            statusbarheight: 35,
+            showaggregates: false,
+            columns: [{
+                text: '#',
+                sortable: false,
+                filterable: false,
+                editable: false,
+                groupable: false,
+                draggable: false,
+                resizable: false,
+                align: 'center',
+                cellsalign: 'center',
+                datafield: '',
+                columntype: 'number',
+                width: 15,
+                cellsrenderer: function(row, column, value) {
+                    return "<div style='margin:4px; text-align:center;'>" + (value + 1) + "</div>";
+                }
+            }, {
+                text: 'IDNO',
+                datafield: 'IDNO',
+                width: 80,
+                hidden: true
+            }, {
+                text: 'DOCCODE',
+                datafield: 'DOCCODE',
+                width: 80,
+                hidden: true
+            }, {
+                text: 'รายการเอกสาร',
+                datafield: 'DOCNAME',
+                width: 300,
+                align: 'center',
+                cellsalign: 'left',
+                editable: false,
+                rendered: function changeColor (header) {
+                    header.css('font-weight', 'bold');
+                }
+            }, {
+                text: 'หมวดเอกสาร',
+                datafield: 'HD',
+                width: 90,
+                align: 'center',
+                cellsalign: 'left',
+                rendered: function changeColor (header) {
+                    header.css('font-weight', 'bold');
+                    header.css('color', '##ef4023');
+                }
+            }],
+            showtoolbar: false,
+        });
+
+        $("#newBtn").jqxButton({
+            template: "info",
+            width: 90
+        });
+        $("#saveBtn").jqxButton({
+            template: "primary",
+            width: 90,
+            disabled: !chkright.M_INSERT
+        });
+        //เริ่มใหม่
+        $('#newBtn').off().on('click', function() {
+            loadHTML("set_docconfig");
+        });
+        //บันทึก
+        $('#saveBtn').off().on('click', function() {
+            $.when($.confirmdlg('ต้องการบันทึกข้อมูล?', 'info')).then(function() {
+                $("#tableDocconfig").jqxGrid('refreshdata');
+                var rowscount = $("#tableDocconfig").jqxGrid('getdatainformation').rowscount;
+                var valueDocconfig = [];
+                var varlueHD = '';
+                for (var i = 0; i < rowscount; i++) {
+                    var data = $("#tableDocconfig").jqxGrid('getrowdata', i);
+                    if (data.HD === undefined) {
+                        varlueHD = '';
+                    } else {
+                        varlueHD = data.HD;
+                    }
+                    valueDocconfig.push({
+                        IDNO: data.IDNO,
+                        DOCCODE: data.DOCCODE, 
+                        DOCNAME: data.DOCNAME,
+                        HD: varlueHD,
+                    });
+                };
+                var valueJSON = [{
+                    status: status,
+                    table: 'CONDPAY',
+                    value: valueDocconfig
+                }];
+                // Convert Value To JSON String
+                var value = JSON.stringify(valueJSON);
+                //console.log(value);
+                $('#ok').click(function(event) {
+                    $.ajax({
+                        url: 'saveDocconfig',
+                        type: 'POST',
+                        contentType: "application/json",
+                        dataType: "json",
+                        data: value,
+                        success: function(data) {
+                            if (data[0].save === true) {
+                                ShowMessage("บันทึกข้อมูลเรียบร้อย!", "success");
+                                statusChange(false);
+                                getDocconfig('')
+                            } else {
+                                ShowMessage("บันทึกไม่สำเร็จ!", "danger");
+                            }
+                        }
+                    });
+                });
+            });
+        });
+        getDocconfig('');
+        //แสดงคำอธิบาย
+        $('#v-locat').off().on('blur', function () {
+            $('#locatnm').val(getLocatName($('#locat').val()));
+        });
+        //ค้นหาสาขา
+        $('#searchInvlocat').off().on('click', function () {
+            searchAll('invlocat', 'v-locat');
+        });
+    });
+</script>

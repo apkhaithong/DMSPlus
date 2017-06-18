@@ -18,67 +18,65 @@
                         <div class="row">
                             <div class="col-md-8">
                                 <!-- Start -->
-                                <div class="admin-form">
-                                    <div class="form-group">
-                                        <label class="col-md-4 control-label" for="modelcode">รหัสรุ่นสินค้า</label>
-                                        <div class="col-md-8">
-                                            <div class="bs-component">
-                                                <input type="text" id="modelcode" />
+                                <div class="form-group">
+                                    <label class="col-md-4 control-label required" for="modelcode">รหัสรุ่นสินค้า</label>
+                                    <div class="col-md-8">
+                                        <div class="bs-component">
+                                            <input type="text" id="modelcode" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-md-4 control-label" for="modeldesc">รายละเอียดรุ่นสินค้า</label>
+                                    <div class="col-md-8">
+                                        <div class="bs-component">
+                                            <input type="text" id="modeldesc" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-md-4 control-label" for="prefix">Prefix เลขถัง/เลขเครื่อง</label>
+                                    <div class="col-md-8">
+                                        <div class="bs-component">
+                                            <input type="text" id="prefix" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-md-4 control-label" for="cost">ราคาทุน</label>
+                                    <div class="col-md-8">
+                                        <div class="bs-component">
+                                            <div style='margin-top: 3px;' id='cost'></div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-md-4 control-label" for="price">ราคาขาย</label>
+                                    <div class="col-md-8">
+                                        <div class="bs-component">
+                                            <div style='margin-top: 3px;' id='price'></div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-md-4 control-label required" for="typecode">รหัสยี่ห้อ</label>
+                                    <div class="col-md-8">
+                                        <div class="bs-component">
+                                            <div id="typecode" class="input-button">
+                                                <input type="text" id="v-typecode" />
+                                                <div id="searchTypecode"><img alt="search" width="20" height="20" src="/images/search_lg.png" /></div>
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="form-group">
-                                        <label class="col-md-4 control-label" for="modeldesc">รายละเอียดรุ่นสินค้า</label>
-                                        <div class="col-md-8">
-                                            <div class="bs-component">
-                                                <input type="text" id="modeldesc" />
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="col-md-4 control-label" for="prefix">Prefix เลขถัง/เลขเครื่อง</label>
-                                        <div class="col-md-8">
-                                            <div class="bs-component">
-                                                <input type="text" id="prefix" />
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="col-md-4 control-label" for="cost">ราคาทุน</label>
-                                        <div class="col-md-8">
-                                            <div class="bs-component">
-                                                <div style='margin-top: 3px;' id='cost'></div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="col-md-4 control-label" for="price">ราคาขาย</label>
-                                        <div class="col-md-8">
-                                            <div class="bs-component">
-                                                <div style='margin-top: 3px;' id='price'></div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="col-md-4 control-label" for="typecode">รหัสยี่ห้อ</label>
-                                        <div class="col-md-8">
-                                            <div class="bs-component">
-                                                <div id="typecode" class="input-button">
-                                                    <input type="text" id="v-typecode" />
-                                                    <div id="searchTypecode"><img alt="search" width="20" height="20" src="/images/search_lg.png" /></div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="col-md-4 control-label"></label>
-                                        <div class="col-md-8">
-                                            <div class="bs-component">
-                                                <button type="button" id="newBtn"><span class="fa fa-refresh"></span> เริ่มใหม่</button>
-                                                <button type="button" id="saveBtn"><span class="fa fa-floppy-o"></span> บันทึก</button>
-                                                <button type="button" id="searchBtn"><span class="fa fa-search"></span> ค้นหา</button>
-                                                <button type="button" id="deleteBtn"><span class="fa fa-trash-o"></span> ลบ</button>
-                                            </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-md-4 control-label"></label>
+                                    <div class="col-md-8">
+                                        <div class="bs-component">
+                                            <button type="button" id="newBtn"><span class="fa fa-refresh"></span> เริ่มใหม่</button>
+                                            <button type="button" id="saveBtn"><span class="fa fa-floppy-o"></span> บันทึก</button>
+                                            <button type="button" id="searchBtn"><span class="fa fa-search"></span> ค้นหา</button>
+                                            <button type="button" id="deleteBtn"><span class="fa fa-trash-o"></span> ลบ</button>
                                         </div>
                                     </div>
                                 </div>
@@ -168,8 +166,10 @@
             action: 'keyup, blur',
             rule: function(input, commit) {
                 var modelcode = $('#modelcode').val();
-                if (modelcode !== '') {
+                if ((modelcode !== '') && (status === 'insert')) {
+                    var result = [];
                     $.ajax({
+                        async: false,
                         url: "duplicateCheck",
                         type: 'get',
                         data: {
@@ -177,15 +177,20 @@
                             field: 'MODELCOD',
                             value: modelcode
                         },
-                        success: function(data) {
+                        success: function (data) {
                             if (data === true) {
-                                commit(true);
-                            } else commit(false);
+                                result = true;
+                            } else {
+                                result = false;
+                            }
                         },
-                        error: function() {
-                            commit(false);
+                        error: function () {
+                            result = false;
                         }
                     });
+                    return result;
+                } else {
+                    return true;
                 }
             }
         }, {
@@ -200,7 +205,9 @@
             rule: function(input, commit) {
                 var typecode = $('#typecode').val();
                 if (typecode !== '') {
+                    var result = [];
                     $.ajax({
+                        async: false,
                         url: "duplicateCheck",
                         type: 'get',
                         data: {
@@ -208,15 +215,20 @@
                             field: 'TYPECOD',
                             value: typecode
                         },
-                        success: function(data) {
+                        success: function (data) {
                             if (data === true) {
-                                commit(false);
-                            } else commit(true);
+                                result = false;
+                            } else {
+                                result = true;
+                            }
                         },
-                        error: function() {
-                            commit(false);
+                        error: function () {
+                            result = false;
                         }
                     });
+                    return result;
+                } else {
+                    return true;
                 }
             }
         }];
@@ -346,9 +358,6 @@
         });
         //ค้นหา
         $('#searchBtn').off().on('click', function() {
-            var rules2 = rules.slice();
-            rules2.splice(1, 1);
-            $('#fmSetmodel').jqxValidator('rules', rules2);
             //Show Dialog Search
             searchAll('setmodel', 'modelcode');
             $('#okButton').on('click', function() {

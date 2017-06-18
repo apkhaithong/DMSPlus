@@ -18,37 +18,35 @@
                         <div class="row">
                             <div class="col-md-8">
                                 <!-- Start -->
-                                <div class="admin-form">
-                                    <div class="form-group">
-                                        <label class="col-md-4 control-label" for="colorcode">รหัสสีสินค้า</label>
-                                        <div class="col-md-8">
-                                            <div class="bs-component">
-                                                <input type="text" id="colorcode" />
-                                            </div>
+                                <div class="form-group">
+                                    <label class="col-md-4 control-label required" for="colorcode">รหัสสีสินค้า</label>
+                                    <div class="col-md-8">
+                                        <div class="bs-component">
+                                            <input type="text" id="colorcode" />
                                         </div>
                                     </div>
-                                    <div class="form-group">
-                                        <label class="col-md-4 control-label" for="colordesc">รายละเอียดสีสินค้า</label>
-                                        <div class="col-md-8">
-                                            <div class="bs-component">
-                                                <input type="text" id="colordesc" />
-                                            </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-md-4 control-label" for="colordesc">รายละเอียดสีสินค้า</label>
+                                    <div class="col-md-8">
+                                        <div class="bs-component">
+                                            <input type="text" id="colordesc" />
                                         </div>
                                     </div>
-                                    <div class="form-group">
-                                        <label class="col-md-4 control-label" for="colorgroup">สีตลาด</label>
-                                        <div class="col-md-8">
-                                            <div class="bs-component">
-                                                <input type="text" id="colorgroup" />
-                                            </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-md-4 control-label" for="colorgroup">สีตลาด</label>
+                                    <div class="col-md-8">
+                                        <div class="bs-component">
+                                            <input type="text" id="colorgroup" />
                                         </div>
                                     </div>
-                                    <div class="form-group">
-                                        <label class="col-md-4 control-label" for="colorflag">ระงับการใช้งาน</label>
-                                        <div class="col-md-8">
-                                            <div class="bs-component">
-                                                <div id='block'><span>ใช้งานปกติ</span></div>
-                                            </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-md-4 control-label" for="colorflag">ระงับการใช้งาน</label>
+                                    <div class="col-md-8">
+                                        <div class="bs-component">
+                                            <div id='block'><span>ใช้งานปกติ</span></div>
                                         </div>
                                     </div>
                                 </div>
@@ -59,12 +57,10 @@
                         </div>
                         <div class="row">
                             <div class="col-md-12">
-                                <div class="admin-form">
-                                    <div class="form-group">
-                                        <div class="col-md-12">
-                                            <div class="bs-component">
-                                                <div id="tablesetcolor"></div>
-                                            </div>
+                                <div class="form-group">
+                                    <div class="col-md-12">
+                                        <div class="bs-component">
+                                            <div id="tablesetcolor"></div>
                                         </div>
                                     </div>
                                 </div>
@@ -72,16 +68,14 @@
                         </div>
                         <div class="row">
                             <div class="col-md-8">
-                                <div class="admin-form">
-                                    <div class="form-group">
-                                        <label class="col-md-4 control-label"></label>
-                                        <div class="col-md-8">
-                                            <div class="bs-component">
-                                                <button type="button" id="newBtn"><span class="fa fa-refresh"></span> เริ่มใหม่</button>
-                                                <button type="button" id="saveBtn"><span class="fa fa-floppy-o"></span> บันทึก</button>
-                                                <button type="button" id="searchBtn"><span class="fa fa-search"></span> ค้นหา</button>
-                                                <button type="button" id="deleteBtn"><span class="fa fa-trash-o"></span> ลบ</button>
-                                            </div>
+                                <div class="form-group">
+                                    <label class="col-md-4 control-label"></label>
+                                    <div class="col-md-8">
+                                        <div class="bs-component">
+                                            <button type="button" id="newBtn"><span class="fa fa-refresh"></span> เริ่มใหม่</button>
+                                            <button type="button" id="saveBtn"><span class="fa fa-floppy-o"></span> บันทึก</button>
+                                            <button type="button" id="searchBtn"><span class="fa fa-search"></span> ค้นหา</button>
+                                            <button type="button" id="deleteBtn"><span class="fa fa-trash-o"></span> ลบ</button>
                                         </div>
                                     </div>
                                 </div>
@@ -317,8 +311,10 @@
             action: 'keyup, blur',
             rule: function(input, commit) {
                 var colorcode = $('#colorcode').val();
-                if (colorcode !== '') {
+                if ((colorcode !== '') && (status === 'insert')) {
+                    var result = [];
                     $.ajax({
+                        async: false,
                         url: "duplicateCheck",
                         type: 'get',
                         data: {
@@ -326,15 +322,20 @@
                             field: 'COLORCOD',
                             value: colorcode
                         },
-                        success: function(data) {
+                        success: function (data) {
                             if (data === true) {
-                                commit(true);
-                            } else commit(false);
+                                result = true;
+                            } else {
+                                result = false;
+                            }
                         },
-                        error: function() {
-                            commit(false);
+                        error: function () {
+                            result = false;
                         }
                     });
+                    return result;
+                } else {
+                    return true;
                 }
             }
         }];
@@ -656,9 +657,6 @@
         });
         //ค้นหา
         $('#searchBtn').off().on('click', function() {
-            var rules2 = rules.slice();
-            rules2.splice(1, 1);
-            $('#fmSetcolor').jqxValidator('rules', rules2);
             //Show Dialog Search
             searchAll('setcolor', 'colorcode');
             $('#okButton').on('click', function() {

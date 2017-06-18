@@ -340,6 +340,10 @@
                 window.location.href = '/';
             });
 
+            //session
+            $.session.set('paramSrch1', '');
+            $.session.set('paramSrch2', '');
+
             //ค้นหา
             $('#search').jqxWindow({
                 width: width + 13,

@@ -18,40 +18,38 @@
                         <div class="row">
                             <div class="col-md-8">
                                 <!-- Start -->
-                                <div class="admin-form">
-                                    <div class="form-group">
-                                        <label class="col-md-4 control-label" for="cscode">รหัสการนำส่งเอกสาร</label>
-                                        <div class="col-md-8">
-                                            <div class="bs-component">
-                                                <input type="text" id="cscode" class="input" />
-                                            </div>
+                                <div class="form-group">
+                                    <label class="col-md-4 control-label required" for="cscode">รหัสการนำส่งเอกสาร</label>
+                                    <div class="col-md-8">
+                                        <div class="bs-component">
+                                            <input type="text" id="cscode" class="input" />
                                         </div>
                                     </div>
-                                    <div class="form-group">
-                                        <label class="col-md-4 control-label" for="csdesc">คำอธิบายรายการ</label>
-                                        <div class="col-md-8">
-                                            <div class="bs-component">
-                                                <input type="text" id="csdesc" class="input" />
-                                            </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-md-4 control-label" for="csdesc">คำอธิบายรายการ</label>
+                                    <div class="col-md-8">
+                                        <div class="bs-component">
+                                            <input type="text" id="csdesc" class="input" />
                                         </div>
                                     </div>
-                                    <div class="form-group">
-                                        <label class="col-md-4 control-label" for="csstat">เลือก</label>
-                                        <div class="col-md-8">
-                                            <div class="bs-component">
-                                                <div id='csstat'><span>ไม่ส่ง</span></div>
-                                            </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-md-4 control-label" for="csstat">เลือก</label>
+                                    <div class="col-md-8">
+                                        <div class="bs-component">
+                                            <div id='csstat'><span>ไม่ส่ง</span></div>
                                         </div>
                                     </div>
-                                    <div class="form-group">
-                                        <label class="col-md-4 control-label"></label>
-                                        <div class="col-md-8">
-                                            <div class="bs-component">
-                                                <button type="button" id="newBtn"><span class="fa fa-refresh"></span> เริ่มใหม่</button>
-                                                <button type="button" id="saveBtn"><span class="fa fa-floppy-o"></span> บันทึก</button>
-                                                <button type="button" id="searchBtn"><span class="fa fa-search"></span> ค้นหา</button>
-                                                <button type="button" id="deleteBtn"><span class="fa fa-trash-o"></span> ลบ</button>
-                                            </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-md-4 control-label"></label>
+                                    <div class="col-md-8">
+                                        <div class="bs-component">
+                                            <button type="button" id="newBtn"><span class="fa fa-refresh"></span> เริ่มใหม่</button>
+                                            <button type="button" id="saveBtn"><span class="fa fa-floppy-o"></span> บันทึก</button>
+                                            <button type="button" id="searchBtn"><span class="fa fa-search"></span> ค้นหา</button>
+                                            <button type="button" id="deleteBtn"><span class="fa fa-trash-o"></span> ลบ</button>
                                         </div>
                                     </div>
                                 </div>
@@ -128,8 +126,10 @@
             action: 'keyup, blur',
             rule: function(input, commit) {
                 var cscode = $('#cscode').val();
-                if (cscode !== '') {
+                if ((cscode !== '') && (status === 'insert')) {
+                    var result = [];
                     $.ajax({
+                        async: false,
                         url: "duplicateCheck",
                         type: 'get',
                         data: {
@@ -137,15 +137,20 @@
                             field: 'CSCODE',
                             value: cscode
                         },
-                        success: function(data) {
+                        success: function (data) {
                             if (data === true) {
-                                commit(true);
-                            } else commit(false);
+                                result = true;
+                            } else {
+                                result = false;
+                            }
                         },
-                        error: function() {
-                            commit(false);
+                        error: function () {
+                            result = false;
                         }
                     });
+                    return result;
+                } else {
+                    return true;
                 }
             }
         }];
@@ -268,9 +273,6 @@
         });
         //ค้นหา
         $('#searchBtn').off().on('click', function() {
-            var rules2 = rules.slice();
-            rules2.splice(1, 1);
-            $('#fmChannelsend').jqxValidator('rules', rules2);
             //Show Dialog Search
             searchAll('channelsend', 'cscode');
             $('#okButton').on('click', function() {

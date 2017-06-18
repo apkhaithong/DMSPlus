@@ -4,7 +4,7 @@
         <div class="panel" id="p2">
             <div class="panel-heading">
                 <span class="panel-icon"><span class="glyphicons glyphicons-shopping_cart"></span></span>
-                <span class="panel-title">บันทึกการจองสินค้า</span>
+                <span class="panel-title">บันทึกการจองสินค้า (Booking) </span>
                 <span class="panel-controls">
                     <a href="#" class="panel-control-loader"></a>
                     <a href="#" class="panel-control-remove"></a>
@@ -15,18 +15,17 @@
             </div>
             <div class="panel-body">
                 <div class="p15 pt5 mt15">
-                    <form class="form-horizontal" id="fmAcard">
+                    <form class="form-horizontal" id="fmArresv">
                         <div class="row">
                             <div class="col-md-8">
                                 <div class="form-group">
-                                    <label class="col-sm-2 control-label required" for="locat">สาขา</label>
+                                    <label class="col-sm-2 control-label required" for="locat">สาขาที่จอง</label>
                                     <div class="col-sm-10">
                                         <div class="row">
                                             <div class="col-sm-4">
                                                 <div id="locat" class="input-button">
                                                     <input type="text" id="v-locat" />
-                                                    <div id="searchInvlocat"><img alt="search" width="20" height="20" src="/images/search_lg.png"
-                                                        /></div>
+                                                    <div id="searchInvlocat"><img alt="search" width="20" height="20" src="/images/search_lg.png" /></div>
                                                 </div>
                                             </div>
                                             <div class="col-sm-8">
@@ -38,10 +37,49 @@
                             </div>
                             <div class="col-md-4">
                                 <div class="form-group">
-                                    <label class="col-sm-4 control-label required" for="acardno">เลขที่ A-card</label>
+                                    <label class="col-sm-4 control-label required" for="resvno">เลขที่ใบจอง</label>
                                     <div class="col-sm-8">
                                         <div class="bs-component">
-                                            <input type="text" id="acardno" style="color:#e9573f; font-weight: bold;" />
+                                            <input type="text" id="resvno" style="color:#e9573f; font-weight: bold;" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label class="col-sm-4 control-label required" for="acardno">เลขที่ A-card</label>
+                                    <div class="col-sm-8">
+                                        <div class="row">
+                                            <div class="col-sm-10">
+                                                <div id="acardno" class="input-button">
+                                                    <input type="text" id="v-acardno" />
+                                                    <div id="searchAcardno"><img alt="search" width="20" height="20" src="/images/search_lg.png" /></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label class="col-sm-4 control-label" for="custtyp">ประเภทลูกค้า</label>
+                                    <div class="col-sm-8">
+                                        <div class="row">
+                                            <div class="col-sm-12">
+                                                <div id='custtyp'></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label class="col-sm-4 control-label required" for="resvdt">วันที่ใบจอง</label>
+                                    <div class="col-sm-8">
+                                        <div class="bs-component">
+                                            <div id="resvdt"></div>
                                         </div>
                                     </div>
                                 </div>
@@ -50,14 +88,13 @@
                         <div class="row">
                             <div class="col-md-8">
                                 <div class="form-group">
-                                    <label class="col-sm-2 control-label required" for="cuscod">รหัสลูกค้า</label>
+                                    <label class="col-sm-2 control-label required" for="cuscod">ชื่อผู้จอง</label>
                                     <div class="col-sm-10">
                                         <div class="row">
                                             <div class="col-sm-4">
                                                 <div id="cuscod" class="input-button">
                                                     <input type="text" id="v-cuscod" />
-                                                    <div id="searchCustmast"><img alt="search" width="20" height="20" src="/images/search_lg.png"
-                                                        /></div>
+                                                    <div id="searchCustmast"><img alt="search" width="20" height="20" src="/images/search_lg.png" /></div>
                                                 </div>
                                             </div>
                                             <div class="col-sm-8">
@@ -69,10 +106,10 @@
                             </div>
                             <div class="col-md-4">
                                 <div class="form-group">
-                                    <label class="col-sm-4 control-label" for="acarddt">วันที่</label>
+                                    <label class="col-sm-4 control-label required" for="resvdue">วันที่นัดรับรถ</label>
                                     <div class="col-sm-8">
                                         <div class="bs-component">
-                                            <div id="acarddt"></div>
+                                            <div id="resvdue"></div>
                                         </div>
                                     </div>
                                 </div>
@@ -85,7 +122,10 @@
                                     <div class="col-sm-10">
                                         <div class="row">
                                             <div class="col-sm-4">
-                                                <input type="text" id="salcod" class="text-desc" readonly/>
+                                                <div id="salcod" class="input-button">
+                                                    <input type="text" id="v-salcod" />
+                                                    <div id="searchSalcod"><img alt="search" width="20" height="20" src="/images/search_lg.png" /></div>
+                                                </div>
                                             </div>
                                             <div class="col-sm-8">
                                                 <input type="text" id="officename" class="text-desc" readonly/>
@@ -96,11 +136,11 @@
                             </div>
                             <div class="col-md-4">
                                 <div class="form-group">
-                                    <label class="col-sm-4 control-label required" for="custtyp">ประเภทลูกค้า</label>
+                                    <label class="col-sm-4 control-label" for="bk_no">เล่มที่</label>
                                     <div class="col-sm-8">
                                         <div class="row">
                                             <div class="col-sm-12">
-                                                <div id='custtyp'></div>
+                                                <input type="text" id="bk_no" style="color:#e9573f; font-weight: bold;" />
                                             </div>
                                         </div>
                                     </div>
@@ -110,14 +150,17 @@
                         <div class="row">
                             <div class="col-md-8">
                                 <div class="form-group">
-                                    <label class="col-sm-2 control-label required" for="cartyp">ประเภทรถ</label>
+                                    <label class="col-sm-2 control-label" for="fleetcod">รหัส Fleet</label>
                                     <div class="col-sm-10">
                                         <div class="row">
                                             <div class="col-sm-4">
-                                                <div id='cartyp'></div>
+                                                <div id="fleetcod" class="input-button">
+                                                    <input type="text" id="v-fleetcod" />
+                                                    <div id="searchFleetcod"><img alt="search" width="20" height="20" src="/images/search_lg.png" /></div>
+                                                </div>
                                             </div>
                                             <div class="col-sm-8">
-                                                <input type="text" id="cardesc" class="text-desc" />
+                                                <input type="text" id="fleetname" class="text-desc" readonly/>
                                             </div>
                                         </div>
                                     </div>
@@ -125,32 +168,64 @@
                             </div>
                             <div class="col-md-4">
                                 <div class="form-group">
-                                    <label class="col-sm-4 control-label" for="modelcod">รุ่นรถ</label>
+                                    <label class="col-sm-4 control-label" for="docno">เลขที่</label>
+                                    <div class="col-sm-8">
+                                        <div class="row">
+                                            <div class="col-sm-12">
+                                                <input type="text" id="docno" style="color:#e9573f; font-weight: bold;" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-8">
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label" for="bookingcod">สถานะ Booking</label>
+                                    <div class="col-sm-10">
+                                        <div class="row">
+                                            <div class="col-sm-4">
+                                                <div id="bookingcod" class="input-button">
+                                                    <input type="text" id="v-bookingcod" />
+                                                    <div id="searchBookingcod"><img alt="search" width="20" height="20" src="/images/search_lg.png" /></div>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-8">
+                                                <input type="text" id="bookingname" class="text-desc" readonly/>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label class="col-sm-4 control-label required" for="typecod">ยี่ห้อ</label>
+                                    <div class="col-sm-8">
+                                        <div class="row">
+                                            <div class="col-sm-12">
+                                                <div id="typecod" class="input-button">
+                                                    <input type="text" id="v-typecod" />
+                                                    <div id="searchSettype"><img alt="search" width="20" height="20" src="/images/search_lg.png" /></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label class="col-sm-4 control-label required" for="modelcod">รุ่นรถ</label>
                                     <div class="col-sm-8">
                                         <div class="row">
                                             <div class="col-sm-12">
                                                 <div id="modelcod" class="input-button">
                                                     <input type="text" id="v-modelcod" />
-                                                    <div id="searchSetmodel"><img alt="search" width="20" height="20" src="/images/search_lg.png"
-                                                        /></div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-4">
-                                <div class="form-group">
-                                    <label class="col-sm-4 control-label" for="colorcod">สีรถ</label>
-                                    <div class="col-sm-8">
-                                        <div class="row">
-                                            <div class="col-sm-12">
-                                                <div id="colorcod" class="input-button">
-                                                    <input type="text" id="v-colorcod" />
-                                                    <div id="searchSetcolor"><img alt="search" width="20" height="20" src="/images/search_lg.png"
-                                                        /></div>
+                                                    <div id="searchSetmodel"><img alt="search" width="20" height="20" src="/images/search_lg.png" /></div>
                                                 </div>
                                             </div>
                                         </div>
@@ -159,40 +234,30 @@
                             </div>
                             <div class="col-md-4">
                                 <div class="form-group">
-                                    <label class="col-sm-4 control-label" for="manuyr">ปีผลิต</label>
-                                    <div class="col-sm-8">
-                                        <div class="row">
-                                            <div class="col-sm-12">
-                                                <input type="text" id="manuyr" class="text-desc" />
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <div class="form-group">
-                                    <label class="col-sm-4 control-label" for="cc">CC.</label>
-                                    <div class="col-sm-8">
-                                        <div class="row">
-                                            <div class="col-sm-12">
-                                                <input type="text" id="cc" class="text-desc" />
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-4">
-                                <div class="form-group">
-                                    <label class="col-sm-4 control-label" for="baabcod">แบบรถ</label>
+                                    <label class="col-sm-4 control-label required" for="baabcod">แบบรถ</label>
                                     <div class="col-sm-8">
                                         <div class="row">
                                             <div class="col-sm-12">
                                                 <div id="baabcod" class="input-button">
                                                     <input type="text" id="v-baabcod" />
-                                                    <div id="searchSetbaab"><img alt="search" width="20" height="20" src="/images/search_lg.png"
-                                                        /></div>
+                                                    <div id="searchSetbaab"><img alt="search" width="20" height="20" src="/images/search_lg.png" /></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label class="col-sm-4 control-label required" for="colorcod">สีรถ</label>
+                                    <div class="col-sm-8">
+                                        <div class="row">
+                                            <div class="col-sm-12">
+                                                <div id="colorcod" class="input-button">
+                                                    <input type="text" id="v-colorcod" />
+                                                    <div id="searchSetcolor"><img alt="search" width="20" height="20" src="/images/search_lg.png" /></div>
                                                 </div>
                                             </div>
                                         </div>
@@ -201,11 +266,11 @@
                             </div>
                             <div class="col-md-4">
                                 <div class="form-group">
-                                    <label class="col-sm-4 control-label" for="price">ราคา</label>
+                                    <label class="col-sm-4 control-label" for="price">ราคาหน้าร้าน</label>
                                     <div class="col-sm-8">
                                         <div class="row">
                                             <div class="col-sm-12">
-                                                <input type="text" id="price" class="text-desc" />
+                                                <div id="price"></div>
                                             </div>
                                         </div>
                                     </div>
@@ -217,7 +282,7 @@
                                     <div class="col-sm-8">
                                         <div class="row">
                                             <div class="col-sm-12">
-                                                <input type="text" id="disct" class="text-desc" />
+                                                <div id="disct"></div>
                                             </div>
                                         </div>
                                     </div>
@@ -227,11 +292,11 @@
                         <div class="row">
                             <div class="col-md-4">
                                 <div class="form-group">
-                                    <label class="col-sm-4 control-label required" for="saltyp">ซื้อแบบ</label>
+                                    <label class="col-sm-4 control-label" for="saleprc">ราคาขายจริง</label>
                                     <div class="col-sm-8">
                                         <div class="row">
                                             <div class="col-sm-12">
-                                                <div id='saltyp'></div>
+                                                <div id="saleprc"></div>
                                             </div>
                                         </div>
                                     </div>
@@ -239,11 +304,11 @@
                             </div>
                             <div class="col-md-4">
                                 <div class="form-group">
-                                    <label class="col-sm-4 control-label" for="dawn">เงินดาวน์</label>
+                                    <label class="col-sm-4 control-label" for="respay">เงินจอง</label>
                                     <div class="col-sm-8">
                                         <div class="row">
                                             <div class="col-sm-12">
-                                                <input type="text" id="dawn" class="text-desc" />
+                                                <div id="respay"></div>
                                             </div>
                                         </div>
                                     </div>
@@ -251,100 +316,15 @@
                             </div>
                             <div class="col-md-4">
                                 <div class="form-group">
-                                    <label class="col-sm-4 control-label" for="keyinupay">ผ่อนต่องวด</label>
+                                    <label class="col-sm-4 control-label" for="smpay">ชำระเงิน</label>
                                     <div class="col-sm-8">
                                         <div class="row">
                                             <div class="col-sm-12">
-                                                <input type="text" id="keyinupay" class="text-desc" />
+                                                <div id="smpay"></div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-4">
-                                <div class="form-group">
-                                    <label class="col-sm-4 control-label" for="t_nopay">จำนวนงวดผ่อน</label>
-                                    <div class="col-sm-8">
-                                        <div class="row">
-                                            <div class="col-sm-12">
-                                                <input type="text" id="t_nopay" class="text-desc" />
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <div class="form-group">
-                                    <label class="col-sm-4 control-label" for="regno">ทะเบียน</label>
-                                    <div class="col-sm-8">
-                                        <div class="row">
-                                            <div class="col-sm-12">
-                                                <input type="text" id="regno" class="text-desc" />
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-4"></div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-8">
-                                <div class="form-group">
-                                    <label class="col-sm-2 control-label" for="insure3">พ.ร.บ.</label>
-                                    <div class="col-sm-10">
-                                        <div class="row">
-                                            <div class="col-sm-12">
-                                                <input type="text" id="insure3" class="text-desc" />
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <div class="form-group">
-                                    <label class="col-sm-4 control-label" for="insure3prc">ราคา พ.ร.บ.</label>
-                                    <div class="col-sm-8">
-                                        <div class="row">
-                                            <div class="col-sm-12">
-                                                <input type="text" id="insure3prc" class="text-desc" />
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-8">
-                                <div class="form-group">
-                                    <label class="col-sm-2 control-label" for="insure1">ประกันภัย</label>
-                                    <div class="col-sm-10">
-                                        <div class="row">
-                                            <div class="col-sm-12">
-                                                <input type="text" id="insure1" class="text-desc" />
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <div class="form-group">
-                                    <label class="col-sm-4 control-label" for="insure1prc">ราคา ประกันภัย</label>
-                                    <div class="col-sm-8">
-                                        <div class="row">
-                                            <div class="col-sm-12">
-                                                <input type="text" id="insure1prc" class="text-desc" />
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <hr class="short alt">
-                        <div class="row">
-                            <div class="col-md-12">
-                                <div id="tableAcardtran"></div>
                             </div>
                         </div>
                         <hr class="short alt">
@@ -358,6 +338,12 @@
                                         </div>
                                     </div>
                                 </div>
+                            </div>
+                        </div>
+                        <hr class="short alt">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div id="tableArresvtran"></div>
                             </div>
                         </div>
                         <div class="row">
@@ -397,47 +383,43 @@
         //Default status Insert
         var status = 'insert';
         //เช็คสิทธิการใช้งาน
-        var chkright = checkRight('SAL003');
+        var chkright = checkRight('SAL004');
 
         //เช็ค Running เอกสาร
-        // var chkrun = checkRundoc('R_ACARDNO');
-        var chkrun = false;
+        var chkrun = checkRundoc('R_RESV');
+        // var chkrun = false;
 
         //ฟังก์ชั่น สถานะ Insert หรือ Edit
         function statusChange(disabled) {
             if (disabled === false) {
                 status = 'insert';
-                $('#acardno').val('');
+                $('#resvno').val('');
                 $('#locat').val($.session.get('locatcd'));
-                $('#acarddt').jqxDateTimeInput('setDate', new Date());
+                $('#resvdt').jqxDateTimeInput('setDate', new Date());
                 $('#cuscod').val('');
                 $('#salcod').val($.session.get('officecode'));
                 $("#custtyp").jqxDropDownList({
                     selectedIndex: -1
                 });
-                $("#cartyp").jqxDropDownList({
-                    selectedIndex: -1
-                });
+                $('#typecod').val('');
                 $('#modelcod').val('');
                 $('#colorcod').val('');
                 $('#baabcod').val('');
-                $('#manuyr').val('');
-                $('#cc').val('');
-                $('#price').val('');
-                $('#disct').val('');
-                $('#dawn').val('');
-                $('#keyinupay').val('');
-                $("#saltyp").jqxDropDownList({
-                    selectedIndex: -1
-                });
-                $('#t_nopay').val('');
+                $('#price').val(0);
+                $('#disct').val(0);
+                $('#dawn').val(0);
+                $('#keyinupay').val(0);
+                // $("#saltyp").jqxDropDownList({
+                //     selectedIndex: -1
+                // });
+                $('#t_nopay').val(0);
                 $('#regno').val('');
                 $('#insure1').val('');
-                $('#insure1prc').val('');
+                $('#insure1prc').val(0);
                 $('#insure3').val('');
-                $('#insure3prc').val('');
+                $('#insure3prc').val(0);
 
-                $('#tableAcardtran').jqxGrid('clear');
+                $('#tableArresvtran').jqxGrid('clear');
                 $('#searchInvlocat').show();
                 $('#flag').val('');
                 $('#textState').hide();
@@ -448,64 +430,113 @@
                 });
                 $('#searchInvlocat').hide();
             }
-            $("#acardno").prop("readonly", disabled);
+            $("#resvno").prop("readonly", disabled);
             $("#locat").jqxInput({
                 disabled: disabled
             });
             $("#deleteBtn").jqxButton({
                 disabled: !chkright.M_DELETE
             });
-            $("#printBtn").jqxButton({disabled: !disabled});
+            $("#printBtn").jqxButton({
+                disabled: !disabled
+            });
         }
 
-        function getAcard(acardno) {
+        function getArresv(resvno){
             $.ajax({
                 async: false,
                 method: 'GET',
                 dataType: 'json',
                 url: "sqltext",
                 data: {
-                    sql: "SELECT * FROM ACARD WHERE ACARDNO = '" +
-                        acardno + "' "
+                    sql: "SELECT A.RESVNO,A.RESVDT,A.RESVDUE,A.LOCAT,A.CUSCOD,A.SALCOD,A.PRICE,A.SALEPRC,A.RESPAY,A.SMPAY,A.DISCT,A.TYPECOD,A.MODELCOD,A.BAABCOD,A.COLORCOD,A.ACARDNO,A.FLAG,A.CUSTYP,A.MEMO1,A.BK_NO,A.DOCNO,A.FLEETCOD,A.BOOKINGCODE,TRIM(B.SNAM)||TRIM(B.NAME1)||' '||TRIM(B.NAME2) AS CUSTNAME,TRIM(C.NAME)||' '||TRIM(C.SURNAME) AS OFFNAME FROM ARRESV A LEFT JOIN CUSTMAST B ON(A.CUSCOD=B.CUSCOD) LEFT JOIN OFFICER C ON(A.SALCOD=C.CODE) WHERE A.RESVNO = '" +
+                        resvno + "' "
                 },
                 success: function (data) {
-                    $('#acardno').val(data[0].ACARDNO);
-                    $('#acarddt').val(data[0].ACARDDT);
                     $('#locat').val(data[0].LOCAT);
+                    $('#resvdt').val(data[0].RESVDT);
+                    $('#resvdue').val(data[0].RESVDUE);
+                    $('#bk_no').val(data[0].BK_NO);
+                    $('#docno').val(data[0].DOCNO);
+                    $('#acardno').val(data[0].ACARDNO);
+
+                    var xCusttyp = "";
+                    if(data[0].CUSTYP == "1"){
+                        xCusttyp = "บุคคลทั่วไป";
+                    }else{
+                        xCusttyp = "นิติบุคคล";
+                    }
+                    // console.log(data[0].CUSTYP);
+                    $('#custtyp').val(xCusttyp);
+
                     $('#cuscod').val(data[0].CUSCOD);
+                    $('#custname').val(data[0].CUSTNAME);
                     $('#salcod').val(data[0].SALCOD);
-                    $('#custtyp').val(data[0].CUSTTYP);
-                    $('#cartyp').val(data[0].CARTYP);
-                    $('#cardesc').val(data[0].CARDESC);
+                    $('#officename').val(data[0].OFFNAME);
+                    $('#fleetcod').val(data[0].FLEETCOD);
+                    $('#bookingcod').val(data[0].BOOKINGCODE);
+
+                    $('#typecod').val(data[0].TYPECOD);
                     $('#modelcod').val(data[0].MODELCOD);
                     $('#colorcod').val(data[0].COLORCOD);
                     $('#baabcod').val(data[0].BAABCOD);
-                    $('#manuyr').val(data[0].MANUYR);
-                    $('#cc').val(data[0].CC);
                     $('#price').val(data[0].PRICE);
                     $('#disct').val(data[0].DISCT);
-                    $('#dawn').val(data[0].DAWN);
-                    $('#keyinupay').val(data[0].KEYINUPAY);
-                    $('#saltyp').val(data[0].SALTYP);
-                    $('#t_nopay').val(data[0].T_NOPAY);
-                    $('#regno').val(data[0].REGNO);
-                    $('#insure1').val(data[0].INSURE1);
-                    $('#insure1prc').val(data[0].INSURE1PRC);
-                    $('#insure3').val(data[0].INSURE3);
-                    $('#insure3prc').val(data[0].INSURE3PRC);
+                    $('#saleprc').val(data[0].PRICE);
+                    $('#smpay').val(data[0].SMPAY);
+                    $('#respay').val(data[0].RESPAY);
+                    $('#memo1').val(data[0].MEMO1);
 
-                    $('#flag').val(data[0].FLAG);
-                    if (data[0].FLAG === 'C') {
-                        $('#textState').show();
-                    } else {
-                        $('#textState').hide();
+                    getTableArresvtran(data[0].RESVNO);
+                }
+            });
+        }
+
+        function getTableArresvtran(resvno) {
+            $.ajax({
+                async: false,
+                method: 'GET',
+                dataType: 'json',
+                url: "sqltext",
+                data: {
+                    sql: "SELECT A.IDNO,A.RESVNO,A.RESVDT,A.LOCAT,A.OPTCODE,A.OPTNAME,A.QTY,A.FLAG,(CASE WHEN A.FLSTAT='Y' THEN '1' ELSE '0' END) AS FLSTAT,(CASE WHEN A.INSTALL ='Y' THEN '1' ELSE '0' END) AS INSTALL,A.OPTTYP,A.OPTPRC,A.JOBNO,TRIM(A.OPTCODE)||' : '||TRIM(A.OPTNAME) AS SETMOD FROM ARRESVTRAN A WHERE A.RESVNO = '" +
+                        resvno + "' ORDER BY A.IDNO"
+                },
+                success: function (data) {
+                    sourceArresvtran.localdata = data;
+                    $('#tableArresvtran').jqxGrid('updatebounddata');
+                }
+            });
+        }
+
+        function getAcard(acardno) {
+            // console.log(acardno);
+            $.ajax({
+                async: false,
+                method: 'GET',
+                dataType: 'json',
+                url: "sqltext",
+                data: {
+                    sql: "SELECT A.ACARDNO,A.ACARDDT,A.SALCOD,A.LOCAT,A.CUSCOD,A.CUSTTYP,A.CARTYP,A.CARDESC,D.TYPECOD,A.MODELCOD,A.BAABCOD,A.COLORCOD,A.PRICE,A.DISCT,A.SALTYP,	TRIM(B.SNAM)||TRIM(B.NAME1)||' '||TRIM(B.NAME2) AS CUSTNAME,TRIM(C.NAME)||' '||TRIM(C.SURNAME) AS OFFNAME FROM ACARD A LEFT JOIN CUSTMAST B ON (A.CUSCOD=B.CUSCOD) LEFT JOIN OFFICER C ON(A.SALCOD=C.CODE) LEFT JOIN SETMODEL D ON(A.MODELCOD=D.MODELCOD) WHERE A.ACARDNO = '" +
+                        acardno + "' AND A.FLAG <> 'C' "
+                },
+                success: function (data) {
+                    if (data.length > 0) {
+                        $('#cuscod').val(data[0].CUSCOD);
+                        $('#custname').val(data[0].CUSTNAME);
+                        $('#salcod').val(data[0].SALCOD);
+                        $('#officename').val(data[0].OFFNAME);
+
+                        $('#typecod').val(data[0].TYPECOD);
+                        $('#modelcod').val(data[0].MODELCOD);
+                        $('#colorcod').val(data[0].COLORCOD);
+                        $('#baabcod').val(data[0].BAABCOD);
+                        $('#price').val(data[0].PRICE);
+                        $('#disct').val(data[0].DISCT);
+                        $('#saleprc').val(data[0].PRICE);
+
+                        getTableAcardtran(data[0].ACARDNO);
                     }
-
-                    // check booking and matching
-                    $('#booking').val(data[0].BOOKING);
-                    $('#matching').val(data[0].MATCHING);
-
-                    getTableAcardtran(data[0].ACARDNO);
                 }
             });
         }
@@ -517,17 +548,17 @@
                 dataType: 'json',
                 url: "sqltext",
                 data: {
-                    sql: "SELECT IDNO, ACARDNO, ACARDDT, LOCAT, OPTCODE, OPTNAME, QTY, FLAG, FLSTAT, USERID, INPUTDT, OPTPRC FROM ACARDTRAN WHERE ACARDNO = '" +
+                    sql: "SELECT IDNO, ACARDNO, ACARDDT, LOCAT, OPTCODE, OPTNAME, QTY, FLAG, (CASE WHEN FLSTAT='Y' THEN '1' ELSE '0' END) AS FLSTAT,'1' AS INSTALL,'1' AS OPTTYP, USERID, INPUTDT, OPTPRC, TRIM(OPTCODE)||' : '||TRIM(OPTNAME) AS SETMOD FROM ACARDTRAN WHERE ACARDNO = '" +
                         acardno + "' ORDER BY IDNO"
                 },
                 success: function (data) {
-                    sourceAcardtran.localdata = data;
-                    $('#tableAcardtran').jqxGrid('updatebounddata');
+                    sourceArresvtran.localdata = data;
+                    $('#tableArresvtran').jqxGrid('updatebounddata');
                 }
             });
         }
 
-        //เงื่อนไข validate ARCRED
+        //เงื่อนไข validate ARRESV
         var rules = [{
             input: '#locat',
             message: 'กรุณาระบุรหัสสาขา!',
@@ -540,7 +571,9 @@
             rule: function (input, commit) {
                 var locat = $('#locat').val();
                 if (locat !== '') {
+                    var result = [];
                     $.ajax({
+                        async: false,
                         url: "duplicateCheck",
                         type: 'get',
                         data: {
@@ -550,13 +583,55 @@
                         },
                         success: function (data) {
                             if (data === true) {
-                                commit(false);
-                            } else commit(true);
+                                result = false;
+                            } else {
+                                result = true;
+                            }
                         },
                         error: function () {
-                            commit(false);
+                            result = false;
                         }
                     });
+                    return result;
+                } else {
+                    return true;
+                }
+            }
+        }, {
+            input: '#acardno',
+            message: 'กรุณาระบุเลขที่ A-card!',
+            action: 'keyup, blur, focusout',
+            rule: 'required'
+        }, {
+            input: '#acardno',
+            message: 'ไม่พบเลขที่ A-card นี้!',
+            action: 'keyup, blur, focusout',
+            rule: function (input, commit) {
+                var acardno = $('#acardno').val();
+                if (acardno !== '') {
+                    var result = [];
+                    $.ajax({
+                        async: false,
+                        method: 'GET',
+                        dataType: 'json',
+                        url: "sqltext",
+                        data: {
+                            sql: "SELECT ACARDNO FROM ACARD WHERE ACARDNO = '" + acardno + "' AND FLAG <> 'C' "
+                        },
+                        success: function (data) {
+                            if (data.length === 0) {
+                                result = false;
+                            } else {
+                                result = true;
+                            }
+                        },
+                        error: function () {
+                            result = false;
+                        }
+                    });
+                    return result;
+                } else {
+                    return true;
                 }
             }
         }, {
@@ -571,7 +646,9 @@
             rule: function (input, commit) {
                 var cuscod = $('#cuscod').val();
                 if (cuscod !== '') {
+                    var result = [];
                     $.ajax({
+                        async: false,
                         url: "duplicateCheck",
                         type: 'get',
                         data: {
@@ -581,68 +658,8 @@
                         },
                         success: function (data) {
                             if (data === true) {
-                                commit(false);
-                            } else commit(true);
-                        },
-                        error: function () {
-                            commit(false);
-                        }
-                    });
-                }
-            }
-        }, {
-            input: '#custtyp',
-            message: 'กรุณาเลือกประเภทลูกค้า!',
-            action: 'keyup, blur, focusout',
-            rule: function (input, commit) {
-                var index = $("#custtyp").jqxDropDownList('getSelectedIndex');
-                return index != -1;
-            }
-        }, {
-            input: '#cartyp',
-            message: 'กรุณาเลือกประเภทรถ!',
-            action: 'keyup, blur, focusout',
-            rule: function (input, commit) {
-                var index = $("#cartyp").jqxDropDownList('getSelectedIndex');
-                return index != -1;
-            }
-        }, {
-            input: '#saltyp',
-            message: 'กรุณาเลือกประเภทการซื้อ!',
-            action: 'keyup, blur, focusout',
-            rule: function (input, commit) {
-                var index = $("#saltyp").jqxDropDownList('getSelectedIndex');
-                return index != -1;
-            }
-        }];
-
-        if (chkrun === false) {
-            rules.unshift({
-            input: '#acardno',
-            message: 'กรุณาระบุเลขที่ A-card!',
-            action: 'keyup, blur, focusout',
-            rule: 'required'
-        }, {
-            input: '#acardno',
-            message: 'ระบุเลขที่ acard ซ้ำ!x',
-            action: 'keyup, blur, focusout',
-            rule: function (input, commit) {
-                var acardno = $('#acardno').val();
-                // var locatresv = $('#locat').val();
-                if (acardno !== '') {
-                    var result = [];
-                    $.ajax({
-                        async: false,
-                        method: 'GET',
-                        dataType: 'json',
-                        url: "sqltext",
-                        data: {
-                            sql: "SELECT ACARDNO FROM ACARD WHERE ACARDNO ='" + acardno + "' "//AND LOCAT = '"+locatresv+"' "
-                        },
-                        success: function (data) {
-                            if (data.length > 0) {
                                 result = false;
-                            } else { 
+                            } else {
                                 result = true;
                             }
                         },
@@ -651,67 +668,261 @@
                         }
                     });
                     return result;
+                } else {
+                    return true;
                 }
             }
-        });
+        }, {
+            input: '#salcod',
+            message: 'กรุณาระบุพนักงานขาย!',
+            action: 'keyup, blur, focusout',
+            rule: 'required'
+        }, {
+            input: '#salcod',
+            message: 'ไม่พบรหัสพนักงาน!',
+            action: 'keyup, blur, focusout',
+            rule: function (input, commit) {
+                var salcod = $('#salcod').val();
+                if (salcod !== '') {
+                    var result = [];
+                    $.ajax({
+                        async: false,
+                        url: "duplicateCheck",
+                        type: 'get',
+                        data: {
+                            table: 'OFFICER',
+                            field: 'CODE',
+                            value: salcod
+                        },
+                        success: function (data) {
+                            if (data === true) {
+                                result = false;
+                            } else {
+                                result = true;
+                            }
+                        },
+                        error: function () {
+                            result = false;
+                        }
+                    });
+                    return result;
+                } else {
+                    return true;
+                }
+            }
+        }, {
+            input: '#typecod',
+            message: 'กรุณาระบุยี่ห้อสินค้า!',
+            action: 'keyup, blur, focusout',
+            rule: 'required'
+        }, {
+            input: '#typecod',
+            message: 'ไม่พบยี่ห้อสินค้า!',
+            action: 'keyup, blur, focusout',
+            rule: function (input, commit) {
+                var typecod = $('#typecod').val();
+                if (typecod !== '') {
+                    var result = [];
+                    $.ajax({
+                        async: false,
+                        url: "duplicateCheck",
+                        type: 'get',
+                        data: {
+                            table: 'SETTYPE',
+                            field: 'TYPECOD',
+                            value: typecod
+                        },
+                        success: function (data) {
+                            if (data === true) {
+                                result = false;
+                            } else {
+                                result = true;
+                            }
+                        },
+                        error: function () {
+                            result = false;
+                        }
+                    });
+                    return result;
+                } else {
+                    return true;
+                }
+            }
+        }, {
+            input: '#modelcod',
+            message: 'กรุณาระบุรุ่นสินค้า!',
+            action: 'keyup, blur, focusout',
+            rule: 'required'
+        }, {
+            input: '#modelcod',
+            message: 'ไม่พบรุ่นสินค้า!',
+            action: 'keyup, blur, focusout',
+            rule: function (input, commit) {
+                var modelcod = $('#modelcod').val();
+                if (modelcod !== '') {
+                    var result = [];
+                    $.ajax({
+                        async: false,
+                        url: "duplicateCheck",
+                        type: 'get',
+                        data: {
+                            table: 'SETMODEL',
+                            field: 'MODELCOD',
+                            value: modelcod
+                        },
+                        success: function (data) {
+                            if (data === true) {
+                                result = false;
+                            } else {
+                                result = true;
+                            }
+                        },
+                        error: function () {
+                            result = false;
+                        }
+                    });
+                    return result;
+                } else {
+                    return true;
+                }
+            }
+        }, {
+            input: '#baabcod',
+            message: 'กรุณาระบุแบบสินค้า!',
+            action: 'keyup, blur, focusout',
+            rule: 'required'
+        }, {
+            input: '#baabcod',
+            message: 'ไม่พบแบบสินค้า!',
+            action: 'keyup, blur, focusout',
+            rule: function (input, commit) {
+                var baabcod = $('#baabcod').val();
+                if (baabcod !== '') {
+                    var result = [];
+                    $.ajax({
+                        async: false,
+                        url: "duplicateCheck",
+                        type: 'get',
+                        data: {
+                            table: 'SETBAAB',
+                            field: 'BAABCOD',
+                            value: baabcod
+                        },
+                        success: function (data) {
+                            if (data === true) {
+                                result = false;
+                            } else {
+                                result = true;
+                            }
+                        },
+                        error: function () {
+                            result = false;
+                        }
+                    });
+                    return result;
+                } else {
+                    return true;
+                }
+            }
+        }, {
+            input: '#colorcod',
+            message: 'กรุณาระบุสีสินค้า!',
+            action: 'keyup, blur, focusout',
+            rule: 'required'
+        }, {
+            input: '#colorcod',
+            message: 'ไม่พบสีสินค้า!',
+            action: 'keyup, blur, focusout',
+            rule: function (input, commit) {
+                var colorcod = $('#colorcod').val();
+                if (colorcod !== '') {
+                    var result = [];
+                    $.ajax({
+                        async: false,
+                        url: "duplicateCheck",
+                        type: 'get',
+                        data: {
+                            table: 'SETCOLOR',
+                            field: 'COLORCOD',
+                            value: colorcod
+                        },
+                        success: function (data) {
+                            if (data === true) {
+                                result = false;
+                            } else {
+                                result = true;
+                            }
+                        },
+                        error: function () {
+                            result = false;
+                        }
+                    });
+                    return result;
+                } else {
+                    return true;
+                }
+            }
+        }];
+
+        if (chkrun === false) {
+            rules.push({
+                input: '#resvno',
+                message: 'กรุณาระบุเลขที่ใบจอง!',
+                action: 'keyup, blur, focusout',
+                rule: 'required'
+            }, {
+                input: '#resvno',
+                message: 'ระบุเลขที่ใบจอง ซ้ำ!x',
+                action: 'keyup, blur, focusout',
+                rule: function (input, commit) {
+                    var resvno = $('#resvno').val();
+                    // var locatresv = $('#locat').val();
+                    if (resvno !== '') {
+                        var result = [];
+                        $.ajax({
+                            async: false,
+                            method: 'GET',
+                            dataType: 'json',
+                            url: "sqltext",
+                            data: {
+                                sql: "SELECT RESVNO FROM ARRESV WHERE RESVNO ='" + resvno +
+                                    "' " //AND LOCAT = '"+locatresv+"' "
+                            },
+                            success: function (data) {
+                                if (data.length > 0) {
+                                    result = false;
+                                } else {
+                                    result = true;
+                                }
+                            },
+                            error: function () {
+                                result = false;
+                            }
+                        });
+                        return result;
+                    }
+                }
+            });
         }
         //console.log(rules);
-
         // custtyp //
         var dataCusttyp = [{
-            "custtyp": "ลูกค้าเก่า",
-            "desc": "ลูกค้าเก่า"
+            "custtyp": "บุคคลทั่วไป",
+            "custtypvalue": "1"
         }, {
-            "custtyp": "ลูกค้าใหม่",
-            "desc": "ลูกค้าใหม่"
-        }, {
-            "custtyp": "ลูกค้าโทรและติดตามต่อ",
-            "desc": "ลูกค้าโทรและติดตามต่อ"
-        }, {
-            "custtyp": "ลูกค้า Walkin",
-            "desc": "ลูกค้า Walkin"
-        }, {
-            "custtyp": "แนะนำจากลูกค้าเก่า",
-            "desc": "แนะนำจากลูกค้าเก่า"
-        }, {
-            "custtyp": "ออกตลาด",
-            "desc": "ออกตลาด"
-        }, {
-            "custtyp": "จัดงาน",
-            "desc": "จัดงาน"
+            "custtyp": "นิติบุคคล",
+            "custtypvalue": "2"
         }];
         var sourceCusttyp = {
             datafields: [{
                 name: 'custtyp'
             }, {
-                name: 'desc'
+                name: 'custtypvalue'
             }],
             localdata: dataCusttyp
         };
         var dataAdtCusttyp = new $.jqx.dataAdapter(sourceCusttyp);
-        //////// for cartyp ////
-        var dataCartyp = [{
-            "cartyp": "รถใหม่",
-            "desc": "รถใหม่"
-        }, {
-            "cartyp": "รถเก่า",
-            "desc": "รถเก่า"
-        }, {
-            "cartyp": "ไฟแนนซ์",
-            "desc": "ไฟแนนซ์"
-        }, {
-            "cartyp": "อื่นๆ",
-            "desc": "อื่นๆ"
-        }];
-        var sourceCartyp = {
-            datafields: [{
-                name: 'cartyp'
-            }, {
-                name: 'desc'
-            }],
-            localdata: dataCartyp
-        };
-        var dataAdtCartyp = new $.jqx.dataAdapter(sourceCartyp);
+
         //////// for saltyp ////
         var dataSaltyp = [{
             "saltyp": "ซื้อเงินสด",
@@ -730,74 +941,7 @@
         };
         var dataAdtSaltyp = new $.jqx.dataAdapter(sourceSaltyp);
         /////////
-        var sourcePaydue = {
-            async: false,
-            datatype: "json",
-            datafields: [{
-                name: 'DUECODE',
-                type: 'string'
-            }, {
-                name: 'DUEDESC',
-                type: 'string'
-            }],
-            url: "sqltext",
-            data: {
-                sql: "SELECT DUECODE, TRIM(DUECODE)||' : '||TRIM(DUEDESC) AS DUEDESC FROM PAYDUE ORDER BY DUECODE"
-            }
-        };
-        var dataAdtPaydue = new $.jqx.dataAdapter(sourcePaydue);
-        //DataSource ARRESVTRAN
-        var dataArresvtran = [];
-        var sourceArresvtran = {
-            async: false,
-            datatype: "json",
-            datafields: [{
-                name: 'IDNO',
-                type: 'integer'
-            }, {
-                name: 'OPTCODE',
-                type: 'string'
 
-            }, {
-                name: 'OPTNAME',
-                type: 'string'
-
-            }, {
-                name: 'QTY',
-                type: 'float'
-            }, {
-                name: 'OPTPRC',
-                type: 'float'
-            }, {
-                name: 'FLSTAT',
-                type: 'string'
-
-            }, {
-                name: 'INSTALL',
-                type: 'string'
-
-            }, {
-                name: 'JOBNO',
-                type: 'string'
-
-            }],
-            id: 'id',
-            localdata: dataArresvtran
-        };
-        var dataAdtArresvtran = new $.jqx.dataAdapter(sourceArresvtran);
-        $('.admin-panels').adminpanel({
-            grid: '.admin-grid',
-            callback: function () {
-                bootbox.confirm('<h3>A Custom Callback!</h3>', function () {});
-            },
-            onFinish: function () {
-                $('.admin-panels').addClass('animated fadeIn').removeClass('fade-onload');
-                demoHighCharts.init();
-            },
-            onSave: function () {
-                $(window).trigger('resize');
-            }
-        });
         $('#textState').hide();
         $('#locat').jqxInput({
             height: 25,
@@ -823,31 +967,69 @@
             width: '100%',
             maxLength: 8
         });
-        $('#salcod').val($.session.get('officecode'));
+        // $('#salcod').val($.session.get('officecode'));
         $('#officename').jqxInput({
             height: 25,
             width: '100%'
         });
 
+        $("#resvno").jqxInput({
+            height: 25,
+            width: '100%',
+            maxLength: 12
+        });
         $("#acardno").jqxInput({
             height: 25,
             width: '100%',
             maxLength: 12
         });
         if (chkrun === true) {
-            $("#acardno").jqxInput({
+            $("#resvno").jqxInput({
                 placeHolder: "Running Code"
             });
         } else {
-            $("#acardno").jqxInput({
-                placeHolder: "Enter a acard."
+            $("#resvno").jqxInput({
+                placeHolder: "ระบุเลขที่ใบจอง."
             });
         }
-        $("#acardno").prop("readonly", chkrun);
-        $("#acarddt").jqxDateTimeInput({
+        $("#resvno").prop("readonly", chkrun);
+        $("#resvdt").jqxDateTimeInput({
             height: 25,
             width: '100%',
             culture: 'en-US'
+        });
+        $("#resvdue").jqxDateTimeInput({
+            height: 25,
+            width: '100%',
+            culture: 'en-US'
+        });
+        $("#bk_no").jqxInput({
+            height: 25,
+            width: '100%',
+            maxLength: 12
+        });
+        $('#fleetcod').jqxInput({
+            height: 25,
+            width: '100%',
+            maxLength: 8
+        });
+        $('#fleetname').jqxInput({
+            height: 25,
+            width: '100%'
+        });
+        $("#docno").jqxInput({
+            height: 25,
+            width: '100%',
+            maxLength: 12
+        });
+        $('#bookingcod').jqxInput({
+            height: 25,
+            width: '100%',
+            maxLength: 8
+        });
+        $('#bookingname').jqxInput({
+            height: 25,
+            width: '100%'
         });
         $("#memo1").jqxInput({
             height: 50,
@@ -864,19 +1046,10 @@
             autoDropDownHeight: true,
             placeHolder: "เลือก :"
         });
-        $("#cartyp").jqxDropDownList({
-            source: dataAdtCartyp,
-            displayMember: "cartyp",
-            valueMember: "cartyp",
+        $('#typecod').jqxInput({
             height: 25,
             width: '100%',
-            autoDropDownHeight: true,
-            placeHolder: "เลือก :"
-        });
-        $('#cardesc').jqxInput({
-            height: 25,
-            width: '100%',
-            maxLength: 50
+            maxLength: 20
         });
         $('#modelcod').jqxInput({
             height: 25,
@@ -888,28 +1061,6 @@
             width: '100%',
             maxLength: 20
         });
-        $('#manuyr').jqxNumberInput({
-            height: 25,
-            width: '100%',
-            symbol: '',
-            groupSeparator: "",
-            spinButtons: true,
-            digits: 4,
-            decimalDigits: 0,
-            min: 0,
-            max: 9999
-        });
-        $('#cc').jqxNumberInput({
-            height: 25,
-            width: '100%',
-            symbol: '',
-            groupSeparator: "",
-            spinButtons: true,
-            digits: 6,
-            decimalDigits: 0,
-            min: 0,
-            max: 999999
-        });
         $('#baabcod').jqxInput({
             height: 25,
             width: '100%',
@@ -918,109 +1069,65 @@
         $('#price').jqxNumberInput({
             height: 25,
             width: '100%',
-            symbol: '',
-            groupSeparator: "",
+            symbol: '฿',
+            groupSeparator: ",",
             spinButtons: true,
             digits: 12,
-            decimalDigits: 0,
+            decimalDigits: 2,
             min: 0,
             max: 999999999999
         });
         $('#disct').jqxNumberInput({
             height: 25,
             width: '100%',
-            symbol: '',
-            groupSeparator: "",
-            spinButtons: true,
-            digits: 12,
-            decimalDigits: 0,
-            min: 0,
-            max: 999999999999
-        });
-        $("#saltyp").jqxDropDownList({
-            source: dataAdtSaltyp,
-            displayMember: "saltyp",
-            valueMember: "desc",
-            height: 25,
-            width: '100%',
-            autoDropDownHeight: true,
-            placeHolder: "เลือก :"
-        });
-        $('#dawn').jqxNumberInput({
-            height: 25,
-            width: '100%',
-            symbol: '',
-            groupSeparator: "",
-            spinButtons: true,
-            digits: 12,
-            decimalDigits: 0,
-            min: 0,
-            max: 999999999999
-        });
-        $('#keyinupay').jqxNumberInput({
-            height: 25,
-            width: '100%',
-            symbol: '',
-            groupSeparator: "",
-            spinButtons: true,
-            digits: 12,
-            decimalDigits: 0,
-            min: 0,
-            max: 999999999999
-        });
-        $('#t_nopay').jqxNumberInput({
-            height: 25,
-            width: '100%',
-            symbol: '',
-            groupSeparator: "",
-            spinButtons: true,
-            digits: 6,
-            decimalDigits: 0,
-            min: 0,
-            max: 999999
-        });
-        $('#regno').jqxInput({
-            height: 25,
-            width: '100%',
-            maxLength: 30
-        });
-        $('#insure3').jqxInput({
-            height: 25,
-            width: '100%',
-            maxLength: 50
-        });
-        $('#insure3prc').jqxNumberInput({
-            height: 25,
-            width: '100%',
-            symbol: '',
-            groupSeparator: "",
+            symbol: '฿',
+            groupSeparator: ",",
             spinButtons: true,
             digits: 12,
             decimalDigits: 2,
             min: 0,
             max: 999999999999
         });
-        $('#insure1').jqxInput({
+        $('#saleprc').jqxNumberInput({
             height: 25,
             width: '100%',
-            maxLength: 50
-        });
-        $('#insure1prc').jqxNumberInput({
-            height: 25,
-            width: '100%',
-            symbol: '',
-            groupSeparator: "",
+            symbol: '฿',
+            groupSeparator: ",",
             spinButtons: true,
             digits: 12,
             decimalDigits: 2,
             min: 0,
             max: 999999999999
+        });
+        $('#respay').jqxNumberInput({
+            height: 25,
+            width: '100%',
+            symbol: '฿',
+            groupSeparator: ",",
+            spinButtons: true,
+            digits: 12,
+            decimalDigits: 2,
+            min: 0,
+            max: 999999999999
+        });
+        $('#smpay').jqxNumberInput({
+            height: 25,
+            width: '100%',
+            symbol: '฿',
+            groupSeparator: ",",
+            spinButtons: true,
+            digits: 12,
+            decimalDigits: 2,
+            min: 0,
+            max: 999999999999,
+            disabled : true,
         });
 
-        //ฟังก์ชั่นเช็ค validate CUSTADDR
+
+        //ฟังก์ชั่นเช็ค validate arresvtran
         function validateTableAcardtran() {
-            $("#tableAcardtran").jqxGrid('hidevalidationpopups');
-            var rows = $("#tableAcardtran").jqxGrid('getdisplayrows');
+            $("#tableArresvtran").jqxGrid('hidevalidationpopups');
+            var rows = $("#tableArresvtran").jqxGrid('getdisplayrows');
             var optcode = 0,
                 nullOPTCODE = 0,
                 validateOPTCODE = 0,
@@ -1054,7 +1161,7 @@
                             var row2 = rows[j];
                             if ((row2.OPTCODE === row.OPTCODE) && (j !== i)) {
                                 duplicateOPTCODE++;
-                                $("#tableAcardtran").jqxGrid('showvalidationpopup', j, "OPTCODE",
+                                $("#tableArresvtran").jqxGrid('showvalidationpopup', j, "OPTCODE",
                                     "ไม่สามารถเลือกซ้ำกันได้");
                                 result = false;
                             }
@@ -1063,7 +1170,7 @@
                 }
 
                 if (nullOPTCODE !== 0) {
-                    $("#tableAcardtran").jqxGrid('showvalidationpopup', i, "OPTCODE", "กรุณาเลือกรหัส");
+                    $("#tableArresvtran").jqxGrid('showvalidationpopup', i, "OPTCODE", "กรุณาเลือกรหัส");
                     result = false;
                 };
 
@@ -1078,19 +1185,19 @@
                 name: 'OPTCODE',
                 type: 'string'
             }, {
-                name: 'OPTNMTH',
+                name: 'OPTNAME',
                 type: 'string'
             }],
             url: "sqltext",
             data: {
-                sql: "SELECT OPTCODE, TRIM(OPTCODE)||' : '||TRIM(OPTNMTH) AS OPTNMTH FROM OPTMAST ORDER BY OPTCODE"
+                sql: "SELECT OPTCODE, TRIM(OPTCODE)||' : '||TRIM(OPTNAME) AS OPTNAME FROM SETMOD ORDER BY OPTCODE"
             }
         };
         var adapterOptmast = new $.jqx.dataAdapter(sourceoptmast);
 
         //DataSource CUSTADDR
         var dataAcardtran = [];
-        var sourceAcardtran = {
+        var sourceArresvtran = {
             datatype: "json",
             datafields: [{
                 name: 'IDNO',
@@ -1099,6 +1206,14 @@
                 name: 'OPTCODE',
                 type: 'string'
             }, {
+                name: 'SETMOD',
+                value: 'OPTCODE',
+                values: {
+                    source: adapterOptmast.records,
+                    value: 'OPTCODE',
+                    name: 'OPTNAME'
+                }
+            }, {
                 name: 'OPTNAME',
                 type: 'string'
             }, {
@@ -1106,6 +1221,12 @@
                 type: 'integer'
             }, {
                 name: 'FLSTAT',
+                type: 'string'
+            }, {
+                name: 'INSTALL',
+                type: 'string'
+            }, {
+                name: 'OPTTYP',
                 type: 'string'
             }, {
                 name: 'OPTPRC',
@@ -1123,7 +1244,7 @@
             id: 'id',
             localdata: dataAcardtran
         };
-        var dataAdtAcardtran = new $.jqx.dataAdapter(sourceAcardtran);
+        var dataAdtAcardtran = new $.jqx.dataAdapter(sourceArresvtran);
         $('.admin-panels').adminpanel({
             grid: '.admin-grid',
             callback: function () {
@@ -1141,7 +1262,7 @@
         //validate in grid 
         var chkOPTCODE = function (cell, value) {
             if (cell.column === "OPTCODE") {
-                var rows = $("#tableAcardtran").jqxGrid('getdisplayrows');
+                var rows = $("#tableArresvtran").jqxGrid('getdisplayrows');
                 var typechk = '';
                 var x1 = 0;
                 // console.log(value);
@@ -1159,7 +1280,7 @@
                         };
                     };
                 } else {
-                    $("#tableAcardtran").val("false");
+                    $("#tableArresvtran").val("false");
                     return {
                         result: false,
                         message: "กรุณาเลือกรหัสx"
@@ -1170,7 +1291,7 @@
             return true;
         }
 
-        $("#tableAcardtran").jqxGrid({
+        $("#tableArresvtran").jqxGrid({
             width: '100%',
             height: 250,
             source: dataAdtAcardtran,
@@ -1219,36 +1340,47 @@
             }, {
                 text: 'รหัสอุปกรณ์',
                 datafield: 'OPTCODE',
-                width: 200,
+                width: 440,
                 align: 'center',
-                columntype: 'combobox',
+                columntype: 'dropdownlist',
+                displayfield: 'SETMOD',
                 validation: chkOPTCODE,
                 createeditor: function (row, value, editor) {
-                    editor.jqxComboBox({
+                    editor.jqxDropDownList({
                         source: adapterOptmast,
-                        displayMember: 'OPTNMTH',
+                        displayMember: 'OPTNAME',
                         valueMember: 'OPTCODE',
+                        placeHolder: "เลือกรหัสอุปกรณ์ :",
+                        dropDownHeight: 223,
+                        filterable: true,
+                        filterHeight: 30,
+                        filterPlaceHolder: "ค้นหา...",
                         searchMode: 'containsignorecase',
-                        placeHolder: "เลือก :",
-                        dropDownHeight: 104
+                        dropDownWidth: 450
+                    });
+                    editor.on('close', function (event) {
+                        $("#tableArresvtran").jqxGrid('hidevalidationpopups');
                     });
                 },
                 cellvaluechanging: function (row, datafield, columntype, oldvalue, newvalue) {
-                    if (newvalue != oldvalue) {
-                        var value = newvalue;
+                    if ((newvalue.value != oldvalue) && (newvalue.value != undefined)) {
+                        var value = newvalue.value;
+                        // console.log(newvalue.value);
                         $.ajax({
                             async: false,
                             method: 'GET',
                             dataType: 'json',
                             url: "sqltext",
                             data: {
-                                sql: "SELECT OPTNMTH FROM OPTMAST WHERE OPTCODE ='" +
+                                sql: "SELECT OPTCODE,OPTNAME FROM SETMOD WHERE OPTCODE ='" +
                                     value + "' "
                             },
                             success: function (data) {
-                                // console.log(data[0].OPTNMTH);
-                                $("#tableAcardtran").jqxGrid('setcellvalue',
-                                    row, "OPTNAME", data[0].OPTNMTH);
+                                // console.log(data[0].OPTCODE);
+                                $("#tableArresvtran").jqxGrid('setcellvalue',
+                                    row, "OPTCODE", data[0].OPTCODE);
+                                $("#tableArresvtran").jqxGrid('setcellvalue',
+                                    row, "OPTNAME", data[0].OPTNAME);
                             }
                         });
                     };
@@ -1258,27 +1390,46 @@
                 datafield: 'OPTNAME',
                 width: 300,
                 align: 'center',
-                cellsalign: 'left'
-            }, {
-                text: 'แถม',
-                datafield: 'FLSTAT',
-                columntype: 'checkbox',
-                width: 100,
-                align: 'center'
+                cellsalign: 'left',
+                hidden: true
             }, {
                 text: 'จำนวน',
                 datafield: 'QTY',
-                width: 150,
+                width: 60,
                 align: 'center',
                 cellsalign: 'right',
                 aggregates: ['sum']
             }, {
                 text: 'ราคา',
                 datafield: 'OPTPRC',
-                width: 150,
+                width: 120,
                 align: 'center',
                 cellsalign: 'right',
                 aggregates: ['sum']
+            }, {
+                text: 'แถม',
+                datafield: 'FLSTAT',
+                columntype: 'checkbox',
+                width: 50,
+                align: 'center'
+            }, {
+                text: 'ติดตั้ง',
+                datafield: 'INSTALL',
+                columntype: 'checkbox',
+                width: 50,
+                align: 'center'
+            }, {
+                text: 'สถานะอะไหล่แท้เทียม',
+                datafield: 'OPTTYP',
+                columntype: 'checkbox',
+                width: 150,
+                align: 'center'
+            }, {
+                text: 'เลขที่ JOB',
+                datafield: 'JOBNO',
+                width: 100,
+                align: 'center',
+                cellsalign: 'left'
             }],
             showtoolbar: true,
             rendertoolbar: function (toolbar) {
@@ -1290,24 +1441,27 @@
                 //Add row
                 $("#addrow1").on('click', function () {
                     if (validateTableAcardtran() === true) {
-                        var rowscount = $("#tableAcardtran").jqxGrid('getdatainformation').rowscount;
+                        var rowscount = $("#tableArresvtran").jqxGrid('getdatainformation')
+                            .rowscount;
                         var datarow = {
                             IDNO: 0,
                             OPTCODE: "",
                             FLSTAT: false,
+                            INSTALL: false,
+                            OPTTYP: false,
                             QTY: 0,
                             OPTPRC: 0
                         };
-                        var commit = $("#tableAcardtran").jqxGrid('addrow', null, datarow);
+                        var commit = $("#tableArresvtran").jqxGrid('addrow', null, datarow);
                         if (commit) {
                             setTimeout(
                                 function () {
-                                    var recodecount = $("#tableAcardtran").jqxGrid(
+                                    var recodecount = $("#tableArresvtran").jqxGrid(
                                         'getdatainformation').rowscount;
-                                    $("#tableAcardtran").jqxGrid('selectrow',
+                                    $("#tableArresvtran").jqxGrid('selectrow',
                                         recodecount -
                                         1);
-                                    $('#tableAcardtran').jqxGrid('begincelledit',
+                                    $('#tableArresvtran').jqxGrid('begincelledit',
                                         recodecount - 1, 'OPTCODE');
                                 },
                                 200
@@ -1318,12 +1472,12 @@
 
                 //Delete row
                 $("#deleterow").on('click', function () {
-                    var selectedrowindex = $("#tableAcardtran").jqxGrid(
+                    var selectedrowindex = $("#tableArresvtran").jqxGrid(
                         'getselectedrowindex');
-                    var rowscount = $("#tableAcardtran").jqxGrid('getdatainformation').rowscount;
+                    var rowscount = $("#tableArresvtran").jqxGrid('getdatainformation').rowscount;
                     if (selectedrowindex >= 0 && selectedrowindex < rowscount) {
-                        var id = $("#tableAcardtran").jqxGrid('getrowid', selectedrowindex);
-                        var commit = $("#tableAcardtran").jqxGrid('deleterow', id);
+                        var id = $("#tableArresvtran").jqxGrid('getrowid', selectedrowindex);
+                        var commit = $("#tableArresvtran").jqxGrid('deleterow', id);
                         //$("#validecolortrn").val("true");
                     }
                     return false;
@@ -1365,7 +1519,7 @@
             template: "inverse",
             width: 120
         });
-        $('#fmAcard').jqxValidator({
+        $('#fmArresv').jqxValidator({
             hintType: 'label',
             animationDuration: 0,
             closeOnClick: false,
@@ -1379,37 +1533,57 @@
         $('#v-cuscod').off().on('blur', function () {
             $('#custname').val(getCustname($('#cuscod').val()));
         });
-        $('#salcod').off().on('blur', function () {
+        $('#v-salcod').off().on('blur', function () {
             $('#officename').val(getOfficeName($('#salcod').val()));
         });
+        $('#v-fleetcod').off().on('blur', function () {
+            $('#fleetname').val(getFleetname($('#fleetcod').val()));
+        });
+        $('#v-bookingcod').off().on('blur', function () {
+            $('#bookingname').val(getBookingname($('#bookingcod').val()));
+        });
+        $('#v-acardno').off().on('blur', function () {
+            var acardno = $('#acardno').val();
+            if (acardno !== "") {
+                getAcard(acardno);
+            }
+        });
         $('#v-locat').trigger('blur');
-        $('#salcod').trigger('blur');
+        // $('#v-cuscod').trigger('blur');
+        // $('#v-salcod').trigger('blur');
 
         //เริ่มใหม่
         $('#newBtn').off().on('click', function () {
-            loadHTML("sale_acard");
+            loadHTML("sale_arresv");
         });
         //บันทึก
         $('#saveBtn').off().on('click', function () {
-            $('#fmAcard').jqxValidator('validate', function (result) {
-                var rowscountAcardtran = $("#tableAcardtran").jqxGrid('getdatainformation').rowscount;
+            $('#fmArresv').jqxValidator('validate', function (result) {
+                var rowscountArresvtran = $("#tableArresvtran").jqxGrid('getdatainformation').rowscount;
                 if (result) {
                     $.when($.confirmdlg('ต้องการบันทึกข้อมูล?', 'info')).then(function () {
-                        var date = $("#acarddt").jqxDateTimeInput('getDate');
+                        var date1 = $("#resvdt").jqxDateTimeInput('getDate');
+                        var date2 = $("#resvdue").jqxDateTimeInput('getDate');
                         var currentCulture = Globalize.cultures['en-US'];
                         var localizationObject = currentCulture.calendar;
-                        var acarddt = $.jqx.dataFormat.formatdate(date,
+                        var resvdt = $.jqx.dataFormat.formatdate(date1,
+                            "dd/MM/yyyy",
+                            localizationObject);
+                        var resvdue = $.jqx.dataFormat.formatdate(date2,
                             "dd/MM/yyyy",
                             localizationObject);
 
-                        var acardtran = [];
-                        for (var i = 0; i < rowscountAcardtran; i++) {
-                            var data = $("#tableAcardtran").jqxGrid('getrowdata', i);
+                        var resvtran = [];
+                        for (var i = 0; i < rowscountArresvtran; i++) {
+                            var data = $("#tableArresvtran").jqxGrid('getrowdata', i);
                             var optcode = '',
                                 optname = '',
                                 qty = 0,
                                 flstat = 'N',
-                                optprc = 0;
+                                install = 'N',
+                                opttyp = 'N',
+                                optprc = 0,
+                                jobno = '';
                             if (data.OPTCODE === undefined) {
                                 optcode = '';
                             } else {
@@ -1430,51 +1604,57 @@
                             } else {
                                 optprc = data.OPTPRC;
                             }
-                            acardtran.push({
+                            if (data.JOBNO === undefined) {
+                                jobno = '';
+                            } else {
+                                jobno = data.JOBNO;
+                            }
+
+                            resvtran.push({
                                 IDNO: data.IDNO,
                                 OPTCODE: optcode,
                                 OPTNAME: optname,
                                 QTY: qty,
                                 FLSTAT: flstat,
+                                INSTALL: install,
+                                OPTTYP: opttyp,
                                 OPTPRC: optprc,
+                                JOBNO: jobno,
                             });
                         };
 
                         var valueJSON = [{
                             status: status,
                             locat: $('#locat').val(),
-                            table: 'ACARD',
-                            key: $('#acardno').val(),
+                            table: 'ARRESV',
+                            key: $('#resvno').val(),
                             value: [{
-                                ACARDNO: $('#acardno').val(),
-                                ACARDDT: acarddt,
+                                RESVNO: $('#resvno').val(),
+                                RESVDT: resvdt,
                                 LOCAT: $('#locat').val(),
                                 CUSCOD: $('#cuscod').val(),
                                 SALCOD: $('#salcod').val(),
                                 CUSTTYP: $('#custtyp').val(),
-                                CARTYP: $('#cartyp').val(),
-                                CARDESC: $('#cardesc').val(),
+
+                                PRICE: $('#price').val(),
+                                DISCT: $('#disct').val(),
+                                SALEPRC: $('#saleprc').val(),
+                                RESPAY: $('#respay').val(),
+
+                                RESVDUE: resvdue,
+
+                                TYPECOD: $('#typecod').val(),
                                 MODELCOD: $('#modelcod').val(),
                                 COLORCOD: $('#colorcod').val(),
                                 BAABCOD: $('#baabcod').val(),
-                                MANUYR: $('#manuyr').val(),
-                                CC: $('#cc').val(),
-                                PRICE: $('#price').val(),
-                                DISCT: $('#disct').val(),
-                                SALTYP: $('#saltyp').val(),
-                                DAWN: $('#dawn').val(),
-                                KEYINUPAY: $('#keyinupay').val(),
-                                T_NOPAY: $('#t_nopay').val(),
-                                REGNO: $('#regno').val(),
-                                INSURE3: $('#insure3').val(),
-                                INSURE1: $('#insure1').val(),
-                                INSURE3PRC: $('#insure3prc').val(),
-                                INSURE1PRC: $('#insure1prc').val(),
+
                                 MEMO1: $('#memo1').val(),
+                                ACARDNO: $('#acardno').val(),
+
                             }]
                         }, {
-                            table: 'ACARDTRAN',
-                            value: acardtran
+                            table: 'ARRESVTRAN',
+                            value: resvtran
                         }];
                         // Convert Value To JSON String
                         var value = JSON.stringify(valueJSON);
@@ -1493,7 +1673,7 @@
                                             "บันทึกข้อมูลเรียบร้อย!",
                                             "success");
                                         statusChange(true);
-                                        getAcard(data[0].acardno);
+                                        getAcard(data[0].resvno);
                                     } else {
                                         ShowMessage(
                                             "บันทึกไม่สำเร็จ!",
@@ -1515,9 +1695,29 @@
         $('#searchInvlocat').off().on('click', function () {
             searchAll('invlocat', 'v-locat');
         });
+        //ค้นหา A-card
+        $('#searchAcardno').off().on('click', function () {
+            searchAll('acard', 'v-acardno');
+        });
         //ค้นหาลูกค้า
         $('#searchCustmast').off().on('click', function () {
             searchAll('custmast', 'v-cuscod');
+        });
+        //ค้นหาพนักงานขาย
+        $('#searchSalcod').off().on('click', function () {
+            searchAll('officer', 'v-salcod');
+        });
+        //ค้นหารหัส fleet
+        $('#searchFleetcod').off().on('click', function () {
+            searchAll('setfleet', 'v-fleetcod');
+        });
+        //ค้นหาสถานะ booking
+        $('#searchBookingcod').off().on('click', function () {
+            searchAll('booking_status', 'v-bookingcod');
+        });
+        //ค้นหายี่ห้อ
+        $('#searchSettype').off().on('click', function () {
+            searchAll('settype', 'v-typecod');
         });
         //ค้นหารุ่นรถ
         $('#searchSetmodel').off().on('click', function () {
@@ -1535,10 +1735,10 @@
         $('#searchBtn').off().on('click', function () {
             //Show Dialog Search
             chkrun = true;
-            searchAll('acard', 'acardno');
+            searchAll('arresv', 'resvno');
 
             $('#okButton').on('click', function (event) {
-                $('#fmAcard').jqxValidator('hide');
+                $('#fmArresv').jqxValidator('hide');
                 var rules2 = rules.slice();
                 // if (chkrun === false) {
                 //     // console.log('test');
@@ -1548,17 +1748,18 @@
                 rules2.splice(8, 1);
                 // console.log(rules);
                 // console.log(rules2);
-                // $('#fmAcard').jqxValidator('rules', rules);
-                $('#fmAcard').jqxValidator('rules', rules2);
+                // $('#fmArresv').jqxValidator('rules', rules);
+                $('#fmArresv').jqxValidator('rules', rules2);
                 event.preventDefault();
-                $('#fmAcard').jqxValidator('hide');
+                $('#fmArresv').jqxValidator('hide');
                 statusChange(true);
-                getAcard($('#acardno').val());
+                getArresv($('#resvno').val());
+                // getAcard($('#resvno').val());
             });
         });
         //ลบ
         $('#deleteBtn').off().on('click', function () {
-            if ($('#acardno').val() !== '') {
+            if ($('#resvno').val() !== '') {
                 if ($('#booking').val() === 'Y') {
                     ShowMessage("A-card นี้โดนจองแล้ว ยกเลิกไม่ได้! ", "danger");
                 } else if ($('#flag').val() === 'C') {
@@ -1569,9 +1770,9 @@
                     $.when($.confirmdlg('ต้องการยกเลิกการขาย?', 'warning')).then(function () {
                         $('#ok').on('click', function (event) {
                             var valueJSON = [{
-                                table: 'ACARD',
-                                field: 'ACARDNO',
-                                key: $('#acardno').val(),
+                                table: 'ARRESV',
+                                field: 'RESVNO',
+                                key: $('#resvno').val(),
                                 userid: $.session.get('username'),
                                 flag: 'C',
                             }];
@@ -1605,11 +1806,14 @@
             }
         });
         //พิมพ์
-        $('#printBtn').off().on('click', function () { 
+        $('#printBtn').off().on('click', function () {
             var baseUrl = document.location.origin;
             var reportname = 'fr_acard';
-            var vdocno = $('#acardno').val();
-            openReport('GET', baseUrl+'/report', {reportname: reportname, vdocno: vdocno});
+            var vdocno = $('#resvno').val();
+            openReport('GET', baseUrl + '/report', {
+                reportname: reportname,
+                vdocno: vdocno
+            });
         });
     });
 </script>

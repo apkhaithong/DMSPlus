@@ -1,0 +1,573 @@
+﻿<div class="row" id="spy2">
+    <!-- Chart with filter Widget -->
+    <div class="col-md-12 admin-grid">
+        <div class="panel" id="p2">
+            <div class="panel-heading">
+                <span class="panel-icon"><span class="glyphicons glyphicons-shopping_cart"></span></span>
+                <span class="panel-title">บันทึกการระบุเลขตัวถัง (Matching) </span>
+                <span class="panel-controls">
+                    <a href="#" class="panel-control-loader"></a>
+                    <a href="#" class="panel-control-remove"></a>
+                    <a href="#" class="panel-control-collapse"></a>
+                    <a href="#" class="panel-control-fullscreen"></a>
+                </span>
+                <span id="textState" class="text-danger"> [ รายการนี้ยกเลิกแล้ว ]</span>
+            </div>
+            <div class="panel-body">
+                <div class="p15 pt5 mt15">
+                    <form class="form-horizontal" id="fmMatching">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label required" for="resvno">เลขที่ใบจอง</label>
+                                    <div class="col-sm-10">
+                                        <div class="row">
+                                            <div class="col-sm-4">
+                                                <div id="resvno" class="input-button">
+                                                    <input type="text" id="v-resvno" />
+                                                    <div id="searchResvno"><img alt="search" width="20" height="20" src="/images/search_lg.png" /></div>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-8">
+                                                <input type="text" id="resvname" class="text-desc" readonly/>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label" for="salcod">พนักงานขาย</label>
+                                    <div class="col-sm-10">
+                                        <div class="row">
+                                            <div class="col-sm-4">
+                                                <input type="text" id="salcod" />
+                                            </div>
+                                            <div class="col-sm-8">
+                                                <input type="text" id="salname" class="text-desc" readonly/>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="col-sm-4 control-label" for="acardno">เลขที่ A-card</label>
+                                    <div class="col-sm-8">
+                                        <div class="row">
+                                            <div class="col-sm-12">
+                                                <input type="text" id="acardno" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="col-sm-4 control-label" for="resvdt">วันที่จอง</label>
+                                    <div class="col-sm-8">
+                                        <div class="bs-component">
+                                            <div id="resvdt"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="col-sm-4 control-label" for="price">ราคาขาย</label>
+                                    <div class="col-sm-8">
+                                        <div class="row">
+                                            <div class="col-sm-12">
+                                                <input type="text" id="price" class="text-desc" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="col-sm-4 control-label" for="respay">เงินจอง</label>
+                                    <div class="col-sm-8">
+                                        <div class="row">
+                                            <div class="col-sm-12">
+                                                <input type="text" id="respay" class="text-desc" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <hr class="short alt">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="col-sm-4 control-label required" for="strno">เลขตัวถัง</label>
+                                    <div class="col-sm-8">
+                                        <div class="row">
+                                            <div class="col-sm-12">
+                                                <div id="strno" class="input-button">
+                                                    <input type="text" id="v-strno" />
+                                                    <div id="searchStrno"><img alt="search" width="20" height="20" src="/images/search_lg.png" /></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="col-sm-4 control-label" for="matchdt">วันที่ Match</label>
+                                    <div class="col-sm-8">
+                                        <div class="bs-component">
+                                            <div id="matchdt"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <input type="hidden" id="locat" />
+                        <input type="hidden" id="idno" />
+                        <input type="hidden" id="contno" />
+                    </form>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="admin-form">
+                                <div class="form-group">
+                                    <label class="col-md-4 control-label"></label>
+                                    <div class="col-md-8">
+                                        <div class="bs-component">
+                                            <button type="button" id="newBtn"><span class="fa fa-refresh"></span> เริ่มใหม่</button>
+                                            <button type="button" id="saveBtn"><span class="fa fa-floppy-o"></span> บันทึก</button>
+                                            <button type="button" id="searchBtn"><span class="fa fa-search"></span> ค้นหา</button>
+                                            <button type="button" id="deleteBtn"><span class="fa fa-trash-o"></span> ลบ</button>
+                                            <button type="button" id="printBtn"><span class="fa fa-print"></span> พิมพ์เอกสาร</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- end: .col-md-12.admin-grid -->
+</div>
+<!-- end: .row -->
+<script type="text/javascript">
+    $(document).ready(function () {
+        //Default status Insert
+        var status = 'insert';
+        //เช็คสิทธิการใช้งาน
+        var chkright = checkRight('SAL005');
+
+        //เช็ค Running เอกสาร
+        var chkrun = checkRundoc('R_RESV');
+        // var chkrun = false;
+
+        //ฟังก์ชั่น สถานะ Insert หรือ Edit
+        function statusChange(disabled) {
+            if (disabled === false) {
+                status = 'insert';
+                $('#resvno').val('');
+                $('#locat').val($.session.get('locatcd'));
+                $('#resvdt').jqxDateTimeInput('setDate', new Date());
+                $('#acardno').val('');
+                $('#strno').val('');
+                $('#contno').val('');
+                $('#salcod').val($.session.get('officecode'));
+                $('#flag').val('A');
+                $('#idno').val(0);
+                $('#textState').hide();
+            } else {
+                status = 'update';
+                $("#saveBtn").jqxButton({
+                    disabled: !chkright.M_EDIT
+                });
+                $('#searchResvno').hide();
+            }
+            $("#resvno").jqxInput({
+                disabled: disabled
+            });
+            $("#deleteBtn").jqxButton({
+                disabled: !chkright.M_DELETE
+            });
+            $("#printBtn").jqxButton({
+                disabled: !disabled
+            });
+        }
+
+        function getMatchstrno(idno){
+            $.ajax({
+                async: false,
+                method: 'GET',
+                dataType: 'json',
+                url: "sqltext",
+                data: {
+                    sql: "SELECT * FROM MATCHSTRNO WHERE IDNO = "+idno+" ",
+                },
+                success: function (data) {
+                    $('#locat').val(data[0].LOCAT);
+                    $('#resvno').val(data[0].RESVNO);
+                    $('#strno').val(data[0].STRNO);
+                    $('#matchdt').val(data[0].MATCHDT);
+                    if (data[0].FLAG === 'C') {
+                        $('#textState').show();
+                    } else {
+                        $('#textState').hide();
+                    }
+                    getResvno($('#resvno').val());
+                }
+            });
+        }
+
+        function getResvno(resvno){
+            $.ajax({
+                async: false,
+                method: 'GET',
+                dataType: 'json',
+                url: "sqltext",
+                data: {
+                    sql: "SELECT A.RESVNO,A.RESVDT,A.RESVDUE,A.LOCAT,A.CUSCOD,A.SALCOD,A.PRICE,A.SALEPRC,A.RESPAY,A.SMPAY,A.DISCT,A.TYPECOD,A.MODELCOD,A.BAABCOD,A.COLORCOD,A.ACARDNO,A.FLAG,A.CUSTYP,A.MEMO1,A.BK_NO,A.DOCNO,A.FLEETCOD,A.BOOKINGCODE,TRIM(B.SNAM)||TRIM(B.NAME1)||' '||TRIM(B.NAME2) AS CUSTNAME,TRIM(C.NAME)||' '||TRIM(C.SURNAME) AS OFFNAME FROM ARRESV A LEFT JOIN CUSTMAST B ON(A.CUSCOD=B.CUSCOD) LEFT JOIN OFFICER C ON(A.SALCOD=C.CODE) WHERE A.RESVNO = '" +
+                        resvno + "' "
+                },
+                success: function (data) {
+                    
+                    if(data == ''){
+                        // console.log("ไม่มีค่าส่งมา");
+                    }else{
+                        $('#locat').val(data[0].LOCAT);
+                        $('#resvdt').val(data[0].RESVDT);
+                        $('#resvno').val(data[0].RESVNO);
+                        $('#acardno').val(data[0].ACARDNO);
+
+                        $('#resvname').val(data[0].CUSTNAME);
+                        $('#salcod').val(data[0].SALCOD);
+                        $('#salname').val(data[0].OFFNAME);
+
+                        $('#price').val(data[0].PRICE);
+                        $('#respay').val(data[0].RESPAY);
+                    }
+                }
+            });
+        }
+
+        $('#textState').hide();
+        $('#idno').val(0);
+        $('#contno').val('');
+
+        $("#resvno").jqxInput({
+            height: 25,
+            width: '100%',
+            maxLength: 12
+        });
+        $('#resvname').jqxInput({
+            height: 25,
+            width: '100%'
+        });
+        $("#resvdt").jqxDateTimeInput({
+            height: 25,
+            width: '100%',
+            culture: 'en-US',
+            disabled: true
+        });
+        $("#acardno").jqxInput({
+            height: 25,
+            width: '100%',
+            maxLength: 12
+        });
+        $('#price').jqxNumberInput({
+            height: 25,
+            width: '100%',
+            symbol: '',
+            groupSeparator: "",
+            spinButtons: true,
+            digits: 12,
+            decimalDigits: 2,
+            min: 0,
+            max: 999999999999,
+            disabled: true
+        });
+        $('#respay').jqxNumberInput({
+            height: 25,
+            width: '100%',
+            symbol: '',
+            groupSeparator: "",
+            spinButtons: true,
+            digits: 12,
+            decimalDigits: 2,
+            min: 0,
+            max: 999999999999,
+            disabled: true
+        });
+        $('#salcod').jqxInput({
+            height: 25,
+            width: '100%'
+        });
+        $('#salname').jqxInput({
+            height: 25,
+            width: '100%'
+        });
+        $('#strno').jqxInput({
+            height: 25,
+            width: '100%'
+        });
+        $("#matchdt").jqxDateTimeInput({
+            height: 25,
+            width: '100%',
+            culture: 'en-US'
+        });
+
+
+        /*** button ****/
+        $("#newBtn").jqxButton({
+            template: "info",
+            width: 90
+        });
+        $("#saveBtn").jqxButton({
+            template: "primary",
+            width: 90,
+            disabled: !chkright.M_INSERT
+        });
+        $("#searchBtn").jqxButton({
+            template: "success",
+            width: 90
+        });
+        $("#deleteBtn").jqxButton({
+            disabled: true,
+            template: "danger",
+            width: 90
+        });
+        $("#printBtn").jqxButton({
+            disabled: true,
+            template: "inverse",
+            width: 120
+        });
+        //เงื่อนไข validate MATCHING
+        var rules = [{
+            input: '#resvno',
+            message: 'กรุณาระบุเลขที่ใบจอง!',
+            action: 'keyup, blur, focusout',
+            rule: 'required'
+        }, {
+            input: '#resvno',
+            message: 'ไม่พบเลขที่ใบจอง!',
+            action: 'keyup, blur, focusout',
+            rule: function (input, commit) {
+                var resvno = $('#resvno').val();
+                if (resvno !== '') {
+                    var result = [];
+                    $.ajax({
+                        async: false,
+                        url: "duplicateCheck",
+                        type: 'get',
+                        data: {
+                            table: 'ARRESV',
+                            field: 'RESVNO',
+                            value: resvno
+                        },
+                        success: function (data) {
+                            if (data === true) {
+                                result = false;
+                            } else {
+                                result = true;
+                            }
+                        },
+                        error: function () {
+                            result = false;
+                        }
+                    });
+                    return result;
+                } else {
+                    return true;
+                }
+            }
+        }, {
+            input: '#strno',
+            message: 'กรุณาระบุเลขตัวถัง!',
+            action: 'keyup, blur, focusout',
+            rule: 'required'
+        }];
+        $('#fmMatching').jqxValidator({
+            hintType: 'label',
+            animationDuration: 0,
+            closeOnClick: false,
+            rules: rules
+        });
+
+        //แสดงคำอธิบาย
+        $('#v-resvno').off().on('blur', function () {
+            $('#resvname').val(getresvName($('#resvno').val()));
+        });
+
+        //ค้นหาเลขที่ใบจอง
+        $('#searchResvno').off().on('click', function () {
+            searchAll('resvnoformatch', 'v-resvno');
+        });
+        //ค้นหาเลขถัง
+        $('#searchStrno').off().on('click', function () {
+            // searchAll('strnoformatch', 'v-strno');
+            xresvno = $('#resvno').val();
+            // xlocat2 = $('#locat').val();
+            $.session.set('paramSrch1', '');
+            // console.log(xlocat);
+            if (xresvno === "") {
+                ShowMessage("กรุณาระบุเลขที่ใบจอง!", "danger");
+            } else {
+                searchAll('strnoSale', 'v-strno');
+            }
+        });
+
+        $('#v-resvno').off().on('blur', function () {
+            var resvno = $('#resvno').val();
+            if (resvno !== "") {
+                getResvno(resvno);
+            }
+        });        
+
+        //เริ่มใหม่
+        $('#newBtn').off().on('click', function () {
+            loadHTML("sale_matchstrno");
+        });
+        //บันทึก
+        $('#saveBtn').off().on('click', function () {
+            // console.log("222");
+            $('#fmMatching').jqxValidator('validate', function (result) {
+                //console.log("5555");
+                // var rowscountArresvtran = $("#tableArresvtran").jqxGrid('getdatainformation').rowscount;
+                if (result) {
+                    $.when($.confirmdlg('ต้องการบันทึกข้อมูล?', 'info')).then(function () {
+                        var date1 = $("#matchdt").jqxDateTimeInput('getDate');
+                        var currentCulture = Globalize.cultures['en-US'];
+                        var localizationObject = currentCulture.calendar;
+                        var matchdt = $.jqx.dataFormat.formatdate(date1, "dd/MM/yyyy", localizationObject);
+
+                        var valueJSON = [{
+                            status: status,
+                            locat: $('#locat').val(),
+                            table: 'MATCHSTRNO',
+                            key: $('#idno').val(),
+                            value: [{
+                                RESVNO: $('#resvno').val(),
+                                MATCHDT: matchdt,
+                                LOCAT: $('#locat').val(),
+                                STRNO: $('#strno').val(),
+                                FLAG: "A",
+                                USERID: $.session.get('username'),
+                            }]
+                        }];
+                        // Convert Value To JSON String
+                        var value = JSON.stringify(valueJSON);
+                        //console.log(value);
+                        $('#ok').on('click', function (event) {
+                            $.ajax({
+                                url: 'saveMathstrno',
+                                type: 'POST',
+                                contentType: "application/json",
+                                dataType: "json",
+                                data: value,
+                                success: function (data) {
+                                    //console.log(data);
+                                    if (data[0].save === true) {
+                                        ShowMessage(
+                                            "บันทึกข้อมูลเรียบร้อย!",
+                                            "success");
+                                        statusChange(true);
+                                        getMatchstrno(data[0].idno);
+                                    } else {
+                                        ShowMessage(
+                                            "บันทึกไม่สำเร็จ!",
+                                            "danger");
+                                    }
+                                },
+                                error: function (xhr, status, error) {
+                                    ShowMessage(
+                                        "บันทึกไม่สำเร็จ! ",
+                                        "danger");
+                                }
+                            });
+                        });
+                    });
+                }
+            });
+        });
+
+        //ค้นหา
+        $('#searchBtn').off().on('click', function () {
+            //Show Dialog Search
+            chkrun = true;
+            searchAll('matching', 'idno');
+
+            $('#okButton').on('click', function (event) {
+                $('#fmMatching').jqxValidator('hide');
+                event.preventDefault();
+                statusChange(true);
+                getMatchstrno($('#idno').val());
+            });
+        });
+        //ลบ
+        $('#deleteBtn').off().on('click', function () {
+            var contno = '';
+            $.ajax({
+                async: false,
+                method: 'GET',
+                dataType: 'json',
+                url: "sqltext",
+                data: {
+                    sql: "SELECT * FROM VWSALE WHERE RESVNO = '"+$('#resvno').val()+"' AND STRNO = '"+$('#strno').val()+"' ",
+                },
+                success: function (data) {
+                    if (data.length > 0) {
+                        contno = data[0].STRNO;
+                    }
+                }
+            });
+            if ($('#resvno').val() !== '') {
+                if ($('#flag').val() === 'C') {
+                    ShowMessage("รายการนี้อยู่ในสถานะยกเลิกแล้ว! ", "danger");
+                } else if (contno !== '') {
+                    ShowMessage("มีการขายแล้ว ยกเลิกไม่ได้! ", "danger");
+                } else {
+                    $.when($.confirmdlg('ต้องการยกเลิกการขาย?', 'warning')).then(function () {
+                        $('#ok').on('click', function (event) {
+                            var valueJSON = [{
+                                table: 'MATCHSTRNO',
+                                field: 'IDNO',
+                                key: $('#idno').val(),
+                                userid: $.session.get('username'),
+                                flag: 'C',
+                            }];
+                            // Convert Value To JSON String
+                            var value = JSON.stringify(valueJSON);
+                            $.ajax({
+                                async: false,
+                                method: 'POST',
+                                dataType: 'json',
+                                url: "cancelMacthstrno",
+                                data: value,
+                                success: function (data) {
+                                    if (data[0].cancel === true) {
+                                        ShowMessage("ยกเลิกเรียบร้อย!","success");
+                                        $('#textState').show();
+                                        //statusChange(false);
+                                    } else {
+                                        ShowMessage("ยกเลิกไม่สำเร็จ! ", "danger");
+                                    }
+                                },
+                                error: function (xhr, status, error) {
+                                    ShowMessage("ยกเลิกไม่สำเร็จ! ", "danger");
+                                }
+                            });
+                        });
+                    });
+                }
+            }
+        });
+    });
+</script>

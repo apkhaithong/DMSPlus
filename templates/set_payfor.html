@@ -18,70 +18,68 @@
                         <div class="row">
                             <div class="col-md-8">
                                 <!-- Start -->
-                                <div class="admin-form">
-                                    <div class="form-group">
-                                        <label class="col-md-4 control-label" for="forcode">รหัสการรับชำระ</label>
-                                        <div class="col-md-8">
-                                            <div class="bs-component">
-                                                <input type="text" id="forcode" />
+                                <div class="form-group">
+                                    <label class="col-md-4 control-label required" for="forcode">รหัสการรับชำระ</label>
+                                    <div class="col-md-8">
+                                        <div class="bs-component">
+                                            <input type="text" id="forcode" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-md-4 control-label" for="fordesc">รายละเอียดการรับขำระ</label>
+                                    <div class="col-md-8">
+                                        <div class="bs-component">
+                                            <input type="text" id="fordesc" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-md-4 control-label required" for="tsale">ปรเภทการขาย</label>
+                                    <div class="col-md-8">
+                                        <div class="bs-component">
+                                            <div id="tsale" class="input-button">
+                                                <input type="text" id="v-tsale" />
+                                                <div id="searchTsale"><img alt="search" width="20" height="20" src="/images/search_lg.png" /></div>
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="form-group">
-                                        <label class="col-md-4 control-label" for="fordesc">รายละเอียดการรับขำระ</label>
-                                        <div class="col-md-8">
-                                            <div class="bs-component">
-                                                <input type="text" id="fordesc" />
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-md-4 control-label" for="accmstcode">รหัสบัญชี</label>
+                                    <div class="col-md-8">
+                                        <div class="bs-component">
+                                            <div id="accmstcode" class="input-button">
+                                                <input type="text" id="v-accmstcode" />
+                                                <div id="searchAccmstcode"><img alt="search" width="20" height="20" src="/images/search_lg.png" /></div>
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="form-group">
-                                        <label class="col-md-4 control-label" for="tsale">ปรเภทการขาย</label>
-                                        <div class="col-md-8">
-                                            <div class="bs-component">
-                                                <div id="tsale" class="input-button">
-                                                    <input type="text" id="v-tsale" />
-                                                    <div id="searchTsale"><img alt="search" width="20" height="20" src="/images/search_lg.png" /></div>
-                                                </div>
-                                            </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-md-4 control-label" for="block">ระงับการใช้งาน</label>
+                                    <div class="col-md-8">
+                                        <div class="bs-component">
+                                            <div id='block'><span>ใช้งานปกติ</span></div>
                                         </div>
                                     </div>
-                                    <div class="form-group">
-                                        <label class="col-md-4 control-label" for="accmstcode">รหัสบัญชี</label>
-                                        <div class="col-md-8">
-                                            <div class="bs-component">
-                                                <div id="accmstcode" class="input-button">
-                                                    <input type="text" id="v-accmstcode" />
-                                                    <div id="searchAccmstcode"><img alt="search" width="20" height="20" src="/images/search_lg.png" /></div>
-                                                </div>
-                                            </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-md-4 control-label" for="taxfl">ออกใบกำกับภาษี</label>
+                                    <div class="col-md-8">
+                                        <div class="bs-component">
+                                            <div id='taxfl'><span>ไม่ออกใบกำกับ</span></div>
                                         </div>
                                     </div>
-                                    <div class="form-group">
-                                        <label class="col-md-4 control-label" for="block">ระงับการใช้งาน</label>
-                                        <div class="col-md-8">
-                                            <div class="bs-component">
-                                                <div id='block'><span>ใช้งานปกติ</span></div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="col-md-4 control-label" for="taxfl">ออกใบกำกับภาษี</label>
-                                        <div class="col-md-8">
-                                            <div class="bs-component">
-                                                <div id='taxfl'><span>ไม่ออกใบกำกับ</span></div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="col-md-4 control-label"></label>
-                                        <div class="col-md-8">
-                                            <div class="bs-component">
-                                                <button type="button" id="newBtn"><span class="fa fa-refresh"></span> เริ่มใหม่</button>
-                                                <button type="button" id="saveBtn"><span class="fa fa-floppy-o"></span> บันทึก</button>
-                                                <button type="button" id="searchBtn"><span class="fa fa-search"></span> ค้นหา</button>
-                                                <button type="button" id="deleteBtn"><span class="fa fa-trash-o"></span> ลบ</button>
-                                            </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-md-4 control-label"></label>
+                                    <div class="col-md-8">
+                                        <div class="bs-component">
+                                            <button type="button" id="newBtn"><span class="fa fa-refresh"></span> เริ่มใหม่</button>
+                                            <button type="button" id="saveBtn"><span class="fa fa-floppy-o"></span> บันทึก</button>
+                                            <button type="button" id="searchBtn"><span class="fa fa-search"></span> ค้นหา</button>
+                                            <button type="button" id="deleteBtn"><span class="fa fa-trash-o"></span> ลบ</button>
                                         </div>
                                     </div>
                                 </div>
@@ -171,8 +169,10 @@
             action: 'keyup, blur',
             rule: function(input, commit) {
                 var forcode = $('#forcode').val();
-                if (forcode !== '') {
+                if ((forcode !== '') && (status === 'insert')) {
+                    var result = [];
                     $.ajax({
+                        async: false,
                         url: "duplicateCheck",
                         type: 'get',
                         data: {
@@ -180,15 +180,91 @@
                             field: 'FORCODE',
                             value: forcode
                         },
-                        success: function(data) {
+                        success: function (data) {
                             if (data === true) {
-                                commit(true);
-                            } else commit(false);
+                                result = true;
+                            } else {
+                                result = false;
+                            }
                         },
-                        error: function() {
-                            commit(false);
+                        error: function () {
+                            result = false;
                         }
                     });
+                    return result;
+                } else {
+                    return true;
+                }
+            }
+        }, {
+            input: '#tsale',
+            message: 'กรุณาระบุรหัสรุ่น!',
+            action: 'keyup, blur, focusout',
+            rule: 'required'
+        }, {
+            input: '#tsale',
+            message: 'ไม่พบรหัสรุ่นนี้!',
+            action: 'keyup, blur, focusout',
+            rule: function(input, commit) {
+                var tsale = $('#tsale').val();
+                if (tsale !== '') {
+                    var result = [];
+                    $.ajax({
+                        async: false,
+                        url: "duplicateCheck",
+                        type: 'get',
+                        data: {
+                            table: 'TSALE',
+                            field: 'TSALE',
+                            value: tsale
+                        },
+                        success: function (data) {
+                            if (data === true) {
+                                result = false;
+                            } else {
+                                result = true;
+                            }
+                        },
+                        error: function () {
+                            result = false;
+                        }
+                    });
+                    return result;
+                } else {
+                    return true;
+                }
+            }
+        }, {
+            input: '#accmstcode',
+            message: 'ไม่พบรหัสบัญชีนี้!',
+            action: 'keyup, blur, focusout',
+            rule: function(input, commit) {
+                var accmstcode = $('#accmstcode').val();
+                if (accmstcode !== '') {
+                    var result = [];
+                    $.ajax({
+                        async: false,
+                        url: "duplicateCheck",
+                        type: 'get',
+                        data: {
+                            table: 'ACCMST',
+                            field: 'ACCMSTCOD',
+                            value: accmstcode
+                        },
+                        success: function (data) {
+                            if (data === true) {
+                                result = false;
+                            } else {
+                                result = true;
+                            }
+                        },
+                        error: function () {
+                            result = false;
+                        }
+                    });
+                    return result;
+                } else {
+                    return true;
                 }
             }
         }];
@@ -343,9 +419,6 @@
         });
         //ค้นหา
         $('#searchBtn').off().on('click', function() {
-            var rules2 = rules.slice();
-            rules2.splice(1, 1);
-            $('#fmPayfor').jqxValidator('rules', rules2);
             //Show Dialog Search
             searchAll('payfor', 'forcode');
             $('#okButton').on('click', function() {

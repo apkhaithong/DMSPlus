@@ -18,67 +18,65 @@
                         <div class="row">
                             <div class="col-md-8">
                                 <!-- Start -->
-                                <div class="admin-form">
-                                    <div class="form-group">
-                                        <label class="col-md-4 control-label" for="optcode">รหัสอุปกรณ์เสริม</label>
-                                        <div class="col-md-8">
-                                            <div class="bs-component">
-                                                <input type="text" id="optcode" />
+                                <div class="form-group">
+                                    <label class="col-md-4 control-label required" for="optcode">รหัสอุปกรณ์เสริม</label>
+                                    <div class="col-md-8">
+                                        <div class="bs-component">
+                                            <input type="text" id="optcode" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-md-4 control-label" for="optnmth">รายละเอียดอุปกรณ์เสริม</label>
+                                    <div class="col-md-8">
+                                        <div class="bs-component">
+                                            <input type="text" id="optnmth" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-md-4 control-label required" for="gcode">กลุ่มสินค้า</label>
+                                    <div class="col-md-8">
+                                        <div class="bs-component">
+                                            <div id="gcode" class="input-button">
+                                                <input type="text" id="v-gcode" />
+                                                <div id="searchUnit"><img alt="search" width="20" height="20" src="/images/search_lg.png" /></div>
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="form-group">
-                                        <label class="col-md-4 control-label" for="optnmth">รายละเอียดอุปกรณ์เสริม</label>
-                                        <div class="col-md-8">
-                                            <div class="bs-component">
-                                                <input type="text" id="optnmth" />
-                                            </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-md-4 control-label" for="memo1">รายละเอียดอื่นๆ</label>
+                                    <div class="col-md-8">
+                                        <div class="bs-component">
+                                            <input type="text" id="memo1" />
                                         </div>
                                     </div>
-                                    <div class="form-group">
-                                        <label class="col-md-4 control-label" for="gcode">หน่วยนับ</label>
-                                        <div class="col-md-8">
-                                            <div class="bs-component">
-                                                <div id="gcode" class="input-button">
-                                                    <input type="text" id="v-gcode" />
-                                                    <div id="searchUnit"><img alt="search" width="20" height="20" src="/images/search_lg.png" /></div>
-                                                </div>
-                                            </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-md-4 control-label" for="optcost">ราคาทุน</label>
+                                    <div class="col-md-8">
+                                        <div class="bs-component">
+                                            <div style='margin-top: 3px;' id='optcost'></div>
                                         </div>
                                     </div>
-                                    <div class="form-group">
-                                        <label class="col-md-4 control-label" for="memo1">รายละเอียดอื่นๆ</label>
-                                        <div class="col-md-8">
-                                            <div class="bs-component">
-                                                <input type="text" id="memo1" />
-                                            </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-md-4 control-label" for="optprc">ราคาขายต่อหน่วย</label>
+                                    <div class="col-md-8">
+                                        <div class="bs-component">
+                                            <div style='margin-top: 3px;' id='optprc'></div>
                                         </div>
                                     </div>
-                                    <div class="form-group">
-                                        <label class="col-md-4 control-label" for="optcost">ราคาทุน</label>
-                                        <div class="col-md-8">
-                                            <div class="bs-component">
-                                                <div style='margin-top: 3px;' id='optcost'></div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="col-md-4 control-label" for="optprc">ราคาขายต่อหน่วย</label>
-                                        <div class="col-md-8">
-                                            <div class="bs-component">
-                                                <div style='margin-top: 3px;' id='optprc'></div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="col-md-4 control-label"></label>
-                                        <div class="col-md-8">
-                                            <div class="bs-component">
-                                                <button type="button" id="newBtn"><span class="fa fa-refresh"></span> เริ่มใหม่</button>
-                                                <button type="button" id="saveBtn"><span class="fa fa-floppy-o"></span> บันทึก</button>
-                                                <button type="button" id="searchBtn"><span class="fa fa-search"></span> ค้นหา</button>
-                                                <button type="button" id="deleteBtn"><span class="fa fa-trash-o"></span> ลบ</button>
-                                            </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-md-4 control-label"></label>
+                                    <div class="col-md-8">
+                                        <div class="bs-component">
+                                            <button type="button" id="newBtn"><span class="fa fa-refresh"></span> เริ่มใหม่</button>
+                                            <button type="button" id="saveBtn"><span class="fa fa-floppy-o"></span> บันทึก</button>
+                                            <button type="button" id="searchBtn"><span class="fa fa-search"></span> ค้นหา</button>
+                                            <button type="button" id="deleteBtn"><span class="fa fa-trash-o"></span> ลบ</button>
                                         </div>
                                     </div>
                                 </div>
@@ -166,12 +164,14 @@
             rule: 'required'
         }, {
             input: '#optcode',
-            message: 'ระบุรหัสรุ่นซ้ำ!',
+            message: 'ระบุรหัสอุปกรณ์เสริมซ้ำ!',
             action: 'keyup, blur',
             rule: function(input, commit) {
                 var optcode = $('#optcode').val();
-                if (optcode !== '') {
+                if ((optcode !== '') && (status === 'insert')) {
+                    var result = [];
                     $.ajax({
+                        async: false,
                         url: "duplicateCheck",
                         type: 'get',
                         data: {
@@ -179,18 +179,60 @@
                             field: 'OPTCODE',
                             value: optcode
                         },
-                        success: function(data) {
+                        success: function (data) {
                             if (data === true) {
-                                commit(true);
-                            } else commit(false);
+                                result = true;
+                            } else {
+                                result = false;
+                            }
                         },
-                        error: function() {
-                            commit(false);
+                        error: function () {
+                            result = false;
                         }
                     });
+                    return result;
+                } else {
+                    return true;
                 }
             }
-
+        }, {
+            input: '#gcode',
+            message: 'กรุณาระบุรหัสกลุ่มสินค้า!',
+            action: 'keyup, blur, focusout',
+            rule: 'required'
+        }, {
+            input: '#gcode',
+            message: 'ไม่พบรหัสกลุ่มสินค้านี้!',
+            action: 'keyup, blur, focusout',
+            rule: function(input, commit) {
+                var gcode = $('#gcode').val();
+                if (gcode !== '') {
+                    var result = [];
+                    $.ajax({
+                        async: false,
+                        url: "duplicateCheck",
+                        type: 'get',
+                        data: {
+                            table: 'SETGROUP',
+                            field: 'GCODE',
+                            value: gcode
+                        },
+                        success: function (data) {
+                            if (data === true) {
+                                result = false;
+                            } else {
+                                result = true;
+                            }
+                        },
+                        error: function () {
+                            result = false;
+                        }
+                    });
+                    return result;
+                } else {
+                    return true;
+                }
+            }
         }];
         $('.admin-panels').adminpanel({
             grid: '.admin-grid',
@@ -317,9 +359,6 @@
         });
         //ค้นหา
         $('#searchBtn').off().on('click', function() {
-            var rules2 = rules.slice();
-            rules2.splice(1, 1);
-            $('#fmSetoptmast').jqxValidator('rules', rules2);
             //Show Dialog Search
             searchAll('optmast', 'optcode');
             $('#okButton').on('click', function() {

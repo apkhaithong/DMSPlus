@@ -18,32 +18,86 @@
                         <div class="row">
                             <div class="col-md-8">
                                 <!-- Start -->
-                                <div class="admin-form">
-                                    <div class="form-group">
-                                        <label class="col-md-4 control-label" for="divicod">รหัสแผนก</label>
-                                        <div class="col-md-8">
-                                            <div class="bs-component">
-                                                <input type="text" id="divicod" />
-                                            </div>
+                                <div class="form-group">
+                                    <label class="col-md-4 control-label required" for="code">รหัสพนักงาน</label>
+                                    <div class="col-md-8">
+                                        <div class="bs-component">
+                                            <input type="text" id="code" />
                                         </div>
                                     </div>
-                                    <div class="form-group">
-                                        <label class="col-md-4 control-label" for="divinam">คำอธิบาย</label>
-                                        <div class="col-md-8">
-                                            <div class="bs-component">
-                                                <input type="text" id="divinam" />
-                                            </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-md-4 control-label" for="name">ชื่อพนักงาน</label>
+                                    <div class="col-md-8">
+                                        <div class="bs-component">
+                                            <input type="text" id="name" />
                                         </div>
                                     </div>
-                                    <div class="form-group">
-                                        <label class="col-md-4 control-label"></label>
-                                        <div class="col-md-8">
-                                            <div class="bs-component">
-                                                <button type="button" id="newBtn"><span class="fa fa-refresh"></span> เริ่มใหม่</button>
-                                                <button type="button" id="saveBtn"><span class="fa fa-floppy-o"></span> บันทึก</button>
-                                                <button type="button" id="searchBtn"><span class="fa fa-search"></span> ค้นหา</button>
-                                                <button type="button" id="deleteBtn"><span class="fa fa-trash-o"></span> ลบ</button>
-                                            </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-md-4 control-label" for="surname">นามสกุล</label>
+                                    <div class="col-md-8">
+                                        <div class="bs-component">
+                                            <input type="text" id="surname" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-md-4 control-label" for="addr">ที่อยุ่</label>
+                                    <div class="col-md-8">
+                                        <div class="bs-component">
+                                            <input type="text" id="addr" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-md-4 control-label" for="telp">เบอร์โทร</label>
+                                    <div class="col-md-8">
+                                        <div class="bs-component">
+                                            <input type="text" id="telp" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-4 control-label" for="workdt">วันที่เริ่มงาน</label>
+                                    <div class="col-sm-8">
+                                        <div class="bs-component">
+                                            <div id="workdt"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-4 control-label" for="expire">วันที่ลาออก</label>
+                                    <div class="col-sm-8">
+                                        <div class="bs-component">
+                                            <div id="expire"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-md-4 control-label" for="status">สถานะภาพ</label>
+                                    <div class="col-md-8">
+                                        <div class="bs-component">
+                                            <div id='status'></div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-md-4 control-label" for="statsale">สถานะพนักงานขาย</label>
+                                    <div class="col-md-8">
+                                        <div class="bs-component">
+                                            <div id='statsale' style='margin-left: 10px; float: left;'><span>ไม่เป็นพนักงานขาย</span></div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-md-4 control-label"></label>
+                                    <div class="col-md-8">
+                                        <div class="bs-component">
+                                            <button type="button" id="newBtn"><span class="fa fa-refresh"></span> เริ่มใหม่</button>
+                                            <button type="button" id="saveBtn"><span class="fa fa-floppy-o"></span> บันทึก</button>
+                                            <button type="button" id="searchBtn"><span class="fa fa-search"></span> ค้นหา</button>
+                                            <button type="button" id="deleteBtn"><span class="fa fa-trash-o"></span> ลบ</button>
                                         </div>
                                     </div>
                                 </div>
@@ -104,12 +158,19 @@
         function statusChange(disabled) {
             if (disabled === false) {
                 status = 'insert';
-                $('#divicod').val('');
-                $('#divinam').val('');
+                $('#code').val('');
+                $('#name').val('');
+                $('#surname').val('');
+                $('#addr').val('');
+                $('#telp').val('');
+                $('#workdt').val('');
+                $('#expire').val('');
+                $('#status').val('Y');
+                $('#statsale').val(false);
             } else {
                 status = 'update';
             }
-            $('#divicod').jqxInput({
+            $('#code').jqxInput({
                 disabled: disabled
             });
             $("#deleteBtn").jqxButton({
@@ -118,37 +179,65 @@
         }
 
         var rules = [{
-            input: '#divicod',
-            message: 'กรุณาระบุรหัสแผนก!',
+            input: '#code',
+            message: 'กรุณาระบุรหัสพนักงาน!',
             action: 'keyup, blur',
             rule: 'required'
         }, {
-            input: '#divicod',
-            message: 'ระบุรหัสแผนกซ้ำ!',
+            input: '#code',
+            message: 'ระบุรหัสพนักงานซ้ำ!',
             action: 'keyup, blur',
             rule: function(input, commit) {
-                var divicod = $('#divicod').val();
-                if (divicod !== '') {
+                var code = $('#code').val();
+                if (code !== '') {
+                    var result = [];
                     $.ajax({
+                        async: false,
                         url: "duplicateCheck",
                         type: 'get',
                         data: {
-                            table: 'DIVISION',
-                            field: 'DIVICOD',
-                            value: divicod
+                            table: 'OFFICER',
+                            field: 'CODE',
+                            value: code
                         },
-                        success: function(data) {
+                        success: function (data) {
                             if (data === true) {
-                                commit(true);
-                            } else commit(false);
+                                result = false;
+                            } else {
+                                result = true;
+                            }
                         },
-                        error: function() {
-                            commit(false);
+                        error: function () {
+                            result = false;
                         }
                     });
+                    return result;
+                } else {
+                    return true;
                 }
             }
         }];
+
+        var statusData = [{
+                value: "Y",
+                label: "เป็นพนักงาน"
+            }, {
+                value: "N",
+                label: "ลาออก"
+            }, 
+        ];
+        var statusSource = {
+            datatype: "array",
+            datafields: [{
+                name: 'label',
+                type: 'string'
+            }, {
+                name: 'value',
+                type: 'string'
+            }],
+            localdata: statusData
+        };
+        var statusAdapter = new $.jqx.dataAdapter(statusSource);
         $('.admin-panels').adminpanel({
             grid: '.admin-grid',
             callback: function() {
@@ -163,17 +252,68 @@
             }
         });
 
-        $("#divicod").jqxInput({
+        $("#code").jqxInput({
             placeHolder: "Enter a code",
             height: 25,
             width: '100%',
-            maxLength: 10
+            maxLength: 8
         });
-        $("#divinam").jqxInput({
-            placeHolder: "Enter a description",
+        $("#name").jqxInput({
+            placeHolder: "Enter a name",
             height: 25,
             width: '100%',
-            maxLength: 30
+            maxLength: 50
+        });
+        $("#surname").jqxInput({
+            placeHolder: "Enter a surname",
+            height: 25,
+            width: '100%',
+            maxLength: 50
+        });
+        $("#addr").jqxInput({
+            placeHolder: "Enter a address",
+            height: 25,
+            width: '100%',
+            maxLength: 80
+        });
+        $("#telp").jqxInput({
+            placeHolder: "Enter a telephone",
+            height: 25,
+            width: '100%',
+            maxLength: 20
+        });
+        $("#workdt").jqxDateTimeInput({
+            height: 25,
+            width: '100%',
+            culture: 'en-US'
+        });
+        $("#expire").jqxDateTimeInput({
+            height: 25,
+            width: '100%',
+            culture: 'en-US'
+        });
+        $("#status").jqxDropDownList({
+            selectedIndex: 0,
+            source: statusAdapter,
+            displayMember: "label",
+            valueMember: "value",
+            height: 25,
+            width: '100%',
+            dropDownHeight: 52,
+            placeHolder: "เลือก :"
+        });
+        $("#statsale").jqxCheckBox({
+            width: 200,
+            height: 25,
+            checked: false
+        });
+        $("#statsale").on('change', function(event) {
+            var checked = event.args.checked;
+            if (checked) {
+                $("#statsale").find('span')[1].innerHTML = 'เป็นพนักงานขาย';
+            } else {
+                $("#statsale").find('span')[1].innerHTML = 'ไม่เป็นพนักงานขาย';
+            }
         });
 
         $("#newBtn").jqxButton({
@@ -202,35 +342,61 @@
         });
         //เริ่มใหม่
         $('#newBtn').off().on('click', function() {
-            loadHTML("set_division");
+            loadHTML("set_officer");
         });
         //บันทึก
         $('#saveBtn').off().on('click', function() {
             $('#fmDivision').jqxValidator('validate', function(result) {
                 if (result) {
                     $.when($.confirmdlg('ต้องการบันทึกข้อมูล?', 'info')).then(function() {
+                        var workdate = $("#workdt").jqxDateTimeInput('getDate');
+                        var expiredate = $("#expire").jqxDateTimeInput('getDate');
+                        var currentCulture = Globalize.cultures['en-US'];
+                        var localizationObject = currentCulture.calendar;
+                        var workdt = $.jqx.dataFormat.formatdate(workdate, "dd/MM/yyyy",localizationObject);
+                        var expire = null;
+                        if (expiredate === null) {
+                            expire = null;
+                        } else {
+                            expire = $.jqx.dataFormat.formatdate(expiredate, "dd/MM/yyyy",localizationObject);
+                        }
+                        var valueStatsale = '';
+                        if ($("#statsale").val() === true) {
+                            valueStatsale = 'Y';
+                        } else {
+                            valueStatsale = 'N';
+                        }
+
                         var valueJSON = [{
                             status: status,
-                            table: 'DIVISION',
-                            field: 'DIVICOD',
-                            key: $('#divicod').val(),
+                            table: 'OFFICER',
+                            field: 'CODE',
+                            key: $('#code').val(),
                             value: [{
-                                DIVICOD: $('#divicod').val(),
-                                DIVINAM: $('#divinam').val()
+                                CODE: $('#code').val(),
+                                NAME: $('#name').val(),
+                                SURNAME: $('#surname').val(),
+                                ADDR: $('#addr').val(),
+                                TELP: $('#telp').val(),
+                                WORKDT: workdt,
+                                EXPIRE: expire,
+                                STATUS: $('#status').val(),
+                                STATSALE: valueStatsale
                             }]
                         }];
                         //valueJSON.push();
                         // Convert Value To JSON String
                         var value = JSON.stringify(valueJSON);
+                        //console.log(value);
                         $('#ok').click(function(event) {
                             $.ajax({
-                                url: 'saveOne',
+                                url: 'saveOfficer',
                                 type: 'POST',
                                 contentType: "application/json",
                                 dataType: "json",
                                 data: value,
                                 success: function(data) {
-                                    if (data === true) {
+                                    if (data[0].save === true) {
                                         ShowMessage("บันทึกข้อมูลเรียบร้อย!", "success");
                                         statusChange(false);
                                     } else {
@@ -245,11 +411,8 @@
         });
         //ค้นหา
         $('#searchBtn').off().on('click', function() {
-            var rules2 = rules.slice();
-            rules2.splice(1, 1);
-            $('#fmDivision').jqxValidator('rules', rules2);
             //Show Dialog Search
-            searchAll('officer', 'divicod');
+            searchAll('officer', 'code');
             $('#okButton').on('click', function() {
                 statusChange(true);
                 $.ajax({
@@ -258,10 +421,21 @@
                     dataType: 'json',
                     url: "sqltext",
                     data: {
-                        sql: "SELECT * FROM DIVISION WHERE DIVICOD = '" + $('#divicod').val() + "' "
+                        sql: "SELECT * FROM OFFICER WHERE CODE = '" + $('#code').val() + "' "
                     },
                     success: function(data) {
-                        $('#divinam').val(data[0].DIVINAM);
+                        $('#name').val(data[0].NAME);
+                        $('#surname').val(data[0].SURNAME);
+                        $('#addr').val(data[0].ADDR);
+                        $('#telp').val(data[0].TELP);
+                        $('#workdt').val(data[0].WORKDT);
+                        $('#expire').val(data[0].EXPIRE);
+                        $('#status').val(data[0].STATUS);
+                        if (data[0].STATSALE === 'Y') {
+                            $('#statsale').val(true);
+                        } else {
+                            $('#statsale').val(false);
+                        }
                     }
                 });
             });
@@ -271,9 +445,9 @@
             $.when($.confirmdlg('ต้องการลบข้อมูล?', 'warning')).then(function() {
                 $('#ok').click(function(event) {
                     var valueJSON = [{
-                        table: 'DIVISION',
-                        field: 'DIVICOD',
-                        key: $('#divicod').val(),
+                        table: 'OFFICER',
+                        field: 'CODE',
+                        key: $('#code').val(),
                     }];
                     // Convert Value To JSON String
                     var value = JSON.stringify(valueJSON);

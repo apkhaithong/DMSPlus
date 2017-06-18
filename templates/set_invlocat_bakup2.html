@@ -1,0 +1,603 @@
+﻿<div class="row" id="spy2">
+    <!-- Chart with filter Widget -->
+    <div class="col-md-12 admin-grid">
+        <div class="panel" id="p2">
+            <div class="panel-heading">
+                <span class="panel-icon"><span class="glyphicons glyphicons-imac"></span></span>
+                <span class="panel-title">กำหนดข้อมูลสาขา</span>
+                <span class="panel-controls">
+                    <a href="#" class="panel-control-loader"></a>
+                    <a href="#" class="panel-control-remove"></a>
+                    <a href="#" class="panel-control-collapse"></a>
+                    <a href="#" class="panel-control-fullscreen"></a>
+                </span>
+            </div>
+            <div class="panel-body">
+                <form class="form-horizontal" id="fmInvlocat">
+                    <div class="p15 pt5 mt15">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <!-- Start -->
+                                <div class="admin-form">
+                                    <div class="form-group">
+                                        <label class="col-md-4 control-label" for="locatcd">รหัสสาขา</label>
+                                        <div class="col-md-8">
+                                            <div class="bs-component">
+                                                <input type="text" id="locatcd" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-md-4 control-label" for="hoffice">สถานะ</label>
+                                        <div class="col-md-8">
+                                            <div class="bs-component">
+                                                <div id='hoffice'><span>สาขา</span></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-md-4 control-label" for="locatnm">ชื่อสาขา</label>
+                                        <div class="col-md-8">
+                                            <div class="bs-component">
+                                                <input type="text" id="locatnm" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-md-4 control-label" for="locaddr1">ที่อยู่สาขา</label>
+                                        <div class="col-md-8">
+                                            <div class="bs-component">
+                                                <input type="text" id="locaddr1" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-md-4 control-label" for="locaddr2">ที่อยู่สาขา</label>
+                                        <div class="col-md-8">
+                                            <div class="bs-component">
+                                                <input type="text" id="locaddr2" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-md-4 control-label" for="telp">เบอร์โทร</label>
+                                        <div class="col-md-8">
+                                            <div class="bs-component">
+                                                <input type="text" id="telp" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-md-4 control-label" for="shortl">รหัสเอกสาร</label>
+                                        <div class="col-md-8">
+                                            <div class="bs-component">
+                                                <input type="text" id="shortl" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-md-4 control-label" for="aumpcod">รหัสอำเภอ</label>
+                                        <div class="col-md-8">
+                                            <div class="bs-component">
+                                                <div id="aumpcod" class="input-button">
+                                                    <input type="text" id="v-aumpcod" />
+                                                    <div id="searchAumpher"><img alt="search" width="20" height="20" src="/images/search_lg.png" /></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-md-4 control-label" for="provcod">รหัสจังหวัด</label>
+                                        <div class="col-md-8">
+                                            <div class="bs-component">
+                                                <div id="provcod" class="input-button">
+                                                    <input type="text" id="v-provcod" />
+                                                    <div id="searchProvince"><img alt="search" width="20" height="20" src="/images/search_lg.png" /></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-md-4 control-label" for="postcod">รหัสไปรษณีย์</label>
+                                        <div class="col-md-8">
+                                            <div class="bs-component">
+                                                <input type="text" id="postcod" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-md-4 control-label" for="locatgrp">กลุ่มสาขา</label>
+                                        <div class="col-md-8">
+                                            <div class="bs-component">
+                                                <input type="text" id="locatgrp" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-md-4 control-label" for="locatno">เลขที่สาขา</label>
+                                        <div class="col-md-8">
+                                            <div class="bs-component">
+                                                <input type="text" id="locatno" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-md-4 control-label" for="taxid">เลขประจำตัวผู้เสียภาษี</label>
+                                        <div class="col-md-8">
+                                            <div class="bs-component">
+                                                <input type="text" id="taxid" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-md-4 control-label"></label>
+                                        <div class="col-md-8">
+                                            <div class="bs-component">
+                                                <button type="button" id="newBtn"><span class="fa fa-refresh"></span> เริ่มใหม่</button>
+                                                <button type="button" id="saveBtn"><span class="fa fa-floppy-o"></span> บันทึก</button>
+                                                <button type="button" id="searchBtn"><span class="fa fa-search"></span> ค้นหา</button>
+                                                <button type="button" id="deleteBtn"><span class="fa fa-trash-o"></span> ลบ</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <!-- end: .col-md-12.admin-grid -->
+</div>
+<!-- end: .row -->
+<script type="text/javascript">
+    $(document).ready(function() {
+        //Default status Insert
+        var status = 'insert';
+        //เช็คสิทธิการใช้งาน
+        var chkright = [];
+        var value = JSON.stringify([{
+            menucode: 'SET106',
+            userid: $.session.get('username')
+        }]);
+        $.ajax({
+            async: false,
+            url: "checkright",
+            contentType: "application/json",
+            dataType: 'json',
+            type: 'POST',
+            data: value,
+            success: function(data) {
+                chkright = data[0];
+                if (chkright.M_ACCESS === 'Y') {
+                    chkright.M_ACCESS = true
+                } else {
+                    chkright.M_ACCESS = false
+                }
+                if (chkright.M_DELETE === 'Y') {
+                    chkright.M_DELETE = true
+                } else {
+                    chkright.M_DELETE = false
+                }
+                if (chkright.M_EDIT === 'Y') {
+                    chkright.M_EDIT = true
+                } else {
+                    chkright.M_EDIT = false
+                }
+                if (chkright.M_INSERT === 'Y') {
+                    chkright.M_INSERT = true
+                } else {
+                    chkright.M_INSERT = false
+                }
+            }
+        });
+        //ฟังก์ชั่น สถานะ Insert หรือ Edit
+        function statusChange(disabled) {
+            if (disabled === false) {
+                status = 'insert';
+                $('#locatcd').val('');
+                $('#locatnm').val('');
+                $('#locaddr1').val('');
+                $('#telp').val('');
+                $('#shortl').val('');
+                $('#aumpcod').val('');
+                $('#provcod').val('');
+                $('#postcod').val('');
+                $('#locatgrp').val('');
+                $('#locatno').val('');
+                $('#taxid').val('');
+            } else {
+                status = 'update';
+            }
+            $('#locatcd').jqxInput({
+                disabled: disabled
+            });
+            $('#shortl').jqxInput({
+                disabled: disabled
+            });
+            $("#deleteBtn").jqxButton({
+                disabled: !disabled
+            });
+        }
+
+        var rules = [{
+            input: '#locatcd',
+            message: 'กรุณาระบุรหัสสาขา!',
+            action: 'keyup, blur',
+            rule: 'required'
+        }, {
+            input: '#locatcd',
+            message: 'ระบุรหัสสาขาซ้ำ!',
+            action: 'keyup, blur',
+            rule: function(input, commit) {
+                var locatcd = $('#locatcd').val();
+                if (locatcd !== '') {
+                    $.ajax({
+                        url: "duplicateCheck",
+                        type: 'get',
+                        data: {
+                            table: 'INVLOCAT',
+                            field: 'LOCATCD',
+                            value: locatcd
+                        },
+                        success: function(data) {
+                            if (data === true) {
+                                commit(true);
+                            } else commit(false);
+                        },
+                        error: function() {
+                            commit(false);
+                        }
+                    });
+                }
+            }
+        }, {
+            input: '#shortl',
+            message: 'กรุณาระบุรหัสเอกสาร!',
+            action: 'keyup, blur, focusout',
+            rule: 'required'
+        }, {
+            input: '#shortl',
+            message: 'ระบุรหัสเอกสารซ้ำ!',
+            action: 'keyup, blur',
+            rule: function(input, commit) {
+                var shortl = $('#shortl').val();
+                if (shortl !== '') {
+                    $.ajax({
+                        url: "duplicateCheck",
+                        type: 'get',
+                        data: {
+                            table: 'INVLOCAT',
+                            field: 'SHORTL',
+                            value: shortl
+                        },
+                        success: function(data) {
+                            if (data === true) {
+                                commit(true);
+                            } else commit(false);
+                        },
+                        error: function() {
+                            commit(false);
+                        }
+                    });
+                }
+            }
+        }, {
+            input: '#aumpcod',
+            message: 'กรุณาระบุรหัสอำเภอ!',
+            action: 'keyup, blur, focusout',
+            rule: 'required'
+        }, {
+            input: '#aumpcod',
+            message: 'ไม่พบรหัสอำเภอนี้!',
+            action: 'keyup, blur, focusout',
+            rule: function(input, commit) {
+                var aumpcod = $('#aumpcod').val();
+                if (aumpcod !== '') {
+                    $.ajax({
+                        url: "duplicateCheck",
+                        type: 'get',
+                        data: {
+                            table: 'SETAUMP',
+                            field: 'AUMPCOD',
+                            value: aumpcod
+                        },
+                        success: function(data) {
+                            if (data === true) {
+                                commit(false);
+                            } else commit(true);
+                        },
+                        error: function() {
+                            commit(false);
+                        }
+                    });
+                }
+            }
+        }, {
+            input: '#provcod',
+            message: 'กรุณาระบุรหัสจังหวัด!',
+            action: 'keyup, blur, focusout',
+            rule: 'required'
+        }, {
+            input: '#provcod',
+            message: 'ไม่พบรหัสจังหวัดนี้!',
+            action: 'keyup, blur, focusout',
+            rule: function(input, commit) {
+                var provcod = $('#provcod').val();
+                if (provcod !== '') {
+                    $.ajax({
+                        url: "duplicateCheck",
+                        type: 'get',
+                        data: {
+                            table: 'SETPROV',
+                            field: 'PROVCOD',
+                            value: provcod
+                        },
+                        success: function(data) {
+                            if (data === true) {
+                                commit(false);
+                            } else commit(true);
+                        },
+                        error: function() {
+                            commit(false);
+                        }
+                    });
+                }
+            }
+        }];
+        $('.admin-panels').adminpanel({
+            grid: '.admin-grid',
+            callback: function() {
+                bootbox.confirm('<h3>A Custom Callback!</h3>', function() {});
+            },
+            onFinish: function() {
+                $('.admin-panels').addClass('animated fadeIn').removeClass('fade-onload');
+                demoHighCharts.init();
+            },
+            onSave: function() {
+                $(window).trigger('resize');
+            }
+        });
+
+        $("#locatcd").jqxInput({
+            placeHolder: "Enter a locat code",
+            height: 25,
+            width: '100%',
+            maxLength: 5
+        });
+        // states
+        $("#hoffice").jqxCheckBox({
+            width: 120,
+            height: 25,
+            checked: false
+        });
+        $("#hoffice").on('change', function(event) {
+            var checked = event.args.checked;
+            if (checked) {
+                $("#hoffice").find('span')[1].innerHTML = 'สำนักงานใหญ่';
+            } else {
+                $("#hoffice").find('span')[1].innerHTML = 'สาขา';
+            }
+        });
+        $("#locatnm").jqxInput({
+            placeHolder: "Enter a locat description",
+            height: 25,
+            width: '100%',
+            maxLength: 70
+        });
+        $("#locaddr1").jqxInput({
+            placeHolder: "Enter a addr",
+            height: 25,
+            width: '100%',
+            maxLength: 100
+        });
+        $("#locaddr2").jqxInput({
+            placeHolder: "Enter a addr",
+            height: 25,
+            width: '100%',
+            maxLength: 100
+        });
+        $("#telp").jqxInput({
+            placeHolder: "Enter a telphone",
+            height: 25,
+            width: '100%',
+            maxLength: 20
+        });
+        $("#shortl").jqxInput({
+            placeHolder: "Enter a shortl",
+            height: 25,
+            width: '50%',
+            maxLength: 2
+        });
+        $("#aumpcod").jqxInput({
+            placeHolder: "Enter a aumpher code",
+            height: 25,
+            width: '100%',
+            maxLength: 5
+        });
+        $("#provcod").jqxInput({
+            placeHolder: "Enter a province code",
+            height: 25,
+            width: '100%',
+            maxLength: 5
+        });
+        $("#postcod").jqxInput({
+            placeHolder: "Enter a post code",
+            height: 25,
+            width: '100%',
+            maxLength: 5
+        });
+        $("#locatgrp").jqxInput({
+            placeHolder: "Enter a locatgroup",
+            height: 25,
+            width: '100%',
+            maxLength: 3
+        });
+        $("#locatno").jqxInput({
+            placeHolder: "Enter a locatno",
+            height: 25,
+            width: '100%',
+            maxLength: 10
+        });
+        $("#taxid").jqxInput({
+            placeHolder: "Enter a tax",
+            height: 25,
+            width: '100%',
+            maxLength: 13
+        });
+
+        $("#newBtn").jqxButton({
+            template: "info",
+            width: 90
+        });
+        $("#saveBtn").jqxButton({
+            template: "primary",
+            width: 90
+        });
+        $("#searchBtn").jqxButton({
+            template: "success",
+            width: 90
+        });
+        $("#deleteBtn").jqxButton({
+            disabled: true,
+            template: "danger",
+            width: 90
+        });
+
+        $('#fmInvlocat').jqxValidator({
+            hintType: 'label',
+            animationDuration: 0,
+            closeOnClick: false,
+            rules: rules
+        });
+        //เริ่มใหม่
+        $('#newBtn').off().on('click', function() {
+            loadHTML("set_invlocat");
+        });
+        //บันทึก
+        $('#saveBtn').off().on('click', function() {
+            $('#fmInvlocat').jqxValidator('validate', function(result) {
+                if (result) {
+                    $.when($.confirmdlg('ต้องการบันทึกข้อมูล?', 'info')).then(function() {
+                        var valueJSON = [{
+                            status: status,
+                            table: 'INVLOCAT',
+                            field: 'LOCATCD',
+                            key: $('#locatcd').val(),
+                            value: [{
+                                LOCATCD: $('#locatcd').val(),
+                                LOCATNM: $('#locatnm').val(),
+                                LOCATADDR1: $('#locaddr1').val(),
+                                LOCATADDR2: $('#locaddr2').val(),
+                                TELP: $('#telp').val(),
+                                SHORTL: $('#shortl').val(),
+                                AUMPCOD: $('#aumpcod').val(),
+                                PROVCOD: $('#provcod').val(),
+                                POSTCOD: $('#postcod').val(),
+                                LOCATGRP: $('#locatgrp').val(),
+                                LOCATNO: $('#locatno').val(),
+                                TAXID: $('#taxid').val()
+                            }]
+                        }];
+                        //valueJSON.push();
+                        // Convert Value To JSON String
+                        var value = JSON.stringify(valueJSON);
+                        $('#ok').click(function(event) {
+                            $.ajax({
+                                url: 'saveOne',
+                                type: 'POST',
+                                contentType: "application/json",
+                                dataType: "json",
+                                data: value,
+                                success: function(data) {
+                                    if (data === true) {
+                                        ShowMessage("บันทึกข้อมูลเรียบร้อย!", "success");
+                                        statusChange(false);
+                                    } else {
+                                        ShowMessage("บันทึกไม่สำเร็จ!", "danger");
+                                    }
+                                }
+                            });
+                        });
+                    });
+                }
+            });
+        });
+        //ค้นหา
+        $('#searchBtn').off().on('click', function() {
+            var rules2 = rules.slice();
+            rules2.splice(1, 1);
+            $('#fmInvlocat').jqxValidator('rules', rules2);
+            //Show Dialog Search
+            searchAll('invlocat', 'locatcd');
+            $('#okButton').on('click', function() {
+                statusChange(true);
+                $.ajax({
+                    async: false,
+                    method: 'GET',
+                    dataType: 'json',
+                    url: "sqltext",
+                    data: {
+                        sql: "SELECT * FROM INVLOCAT WHERE LOCATCD = '" + $('#locatcd').val() + "' "
+                    },
+                    success: function(data) {
+                        $('#locatnm').val(data[0].LOCATNM);
+                        $('#locaddr1').val(data[0].LOCADDR1);
+                        $('#locaddr2').val(data[0].LOCADDR2);
+                        $('#telp').val(data[0].TELP);
+                        $('#shortl').val(data[0].SHORTL);
+                        $('#aumpcod').val(data[0].AUMPCOD);
+                        $('#provcod').val(data[0].PROVCOD);
+                        $('#postcod').val(data[0].POSTCOD);
+                        $('#locatgrp').val(data[0].LOCATGRP);
+                        $('#locatno').val(data[0].LOCATNO);
+                        $('#taxid').val(data[0].TAXID);
+                    }
+                });
+            });
+            $('#fmInvlocat').jqxValidator('hide');
+        });
+        //ค้นหา อำเภอ
+        $('#searchAumpher').off().on('click', function() {
+            //Show Dialog Search
+            searchAll('setaump', 'aumpcod');
+        });
+        $('#searchProvince').off().on('click', function() {
+            //Show Dialog Search
+            searchAll('setprov', 'provcod');
+        });
+        //ลบ
+        $('#deleteBtn').off().on('click', function() {
+            $.when($.confirmdlg('ต้องการลบข้อมูล?', 'warning')).then(function() {
+                $('#ok').click(function(event) {
+                    var valueJSON = [{
+                        table: 'INVLOCAT',
+                        field: 'LOCATCD',
+                        key: $('#locatcd').val(),
+                    }];
+                    // Convert Value To JSON String
+                    var value = JSON.stringify(valueJSON);
+                    $.ajax({
+                        async: false,
+                        method: 'POST',
+                        dataType: 'json',
+                        url: "delete",
+                        data: value,
+                        success: function(data) {
+                            if (data === true) {
+                                ShowMessage("ลบข้อมูลเรียบร้อย!", "success");
+                                statusChange(false);
+                            }
+                        },
+                        error: function(xhr, status, error) {
+                            ShowMessage("ลบข้อมูลไม่สำเร็จ! ", "danger");
+                        }
+                    });
+                });
+            });
+        });
+    });
+</script>

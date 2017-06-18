@@ -867,6 +867,68 @@
             { text: 'สถานะ', datafield: 'FLAG', minwidth: 100, width: 100 },
         ];
         keyno = 'TMBILL';
+    } else if (show === "division") {
+        datafields = [
+            { name: 'DIVICOD', type: 'string' },
+            { name: 'DIVINAM', type: 'string' },
+        ];
+        fields = [
+            { text: 'รหัสแผนก', datafield: 'DIVICOD', minwidth: 100, width: 250 },
+            { text: 'คำอธิบาย', datafield: 'DIVINAM', minwidth: 200, width: 250 },
+        ];
+        keyno = 'DIVICOD';
+    } else if (show === "acard") {
+        datafields = [
+            { name: 'ACARDNO', type: 'string' },
+            { name: 'ACARDDT', type: 'date' },
+            { name: 'SALCOD', type: 'string' },
+            { name: 'NAME1', type: 'string' },
+            { name: 'NAME2', type: 'string' },
+            { name: 'FLAG', type: 'string' },
+        ];
+        fields = [
+            { text: 'เลขที่ A-Card', datafield: 'ACARDNO', minwidth: 100, width: 100 },
+            { text: 'วันที่', datafield: 'ACARDDT', minwidth: 100, width: 100, cellsalign: 'left', columntype: 'datetimeinput', cellsformat: 'dd/MM/yyyy' },
+            { text: 'พนักงานขาย', datafield: 'SALCOD', minwidth: 100, width: 100 },
+            { text: 'ชื่อลูกค้า', datafield: 'NAME1', minwidth: 100, width: 250 },
+            { text: 'นามสกุลลูกค้า', datafield: 'NAME2', minwidth: 100, width: 250 },
+            { text: 'สถานะ', datafield: 'FLAG', minwidth: 100, width: 100 },
+        ];
+        keyno = 'ACARDNO';
+    } else if (show === "resvnoformatch") {
+        datafields = [
+            { name: 'RESVNO', type: 'string' },
+            { name: 'RESVDT', type: 'date' },
+            { name: 'NAME1', type: 'string' },
+            { name: 'NAME2', type: 'string' },
+        ];
+        fields = [
+            { text: 'เลขที่ใบจอง', datafield: 'RESVNO', minwidth: 100, width: 100 },
+            { text: 'วันที่จอง', datafield: 'RESVDT', minwidth: 100, width: 100, cellsalign: 'left', columntype: 'datetimeinput', cellsformat: 'dd/MM/yyyy' },
+            { text: 'ชื่อลูกค้า', datafield: 'NAME1', minwidth: 100, width: 250 },
+            { text: 'นามสกุลลูกค้า', datafield: 'NAME2', minwidth: 100, width: 250 },
+        ];
+        keyno = 'RESVNO';
+    } else if (show === "matching") {
+        datafields = [
+            { name: 'IDNO', type: 'integer' },
+            { name: 'STRNO', type: 'string' },
+            { name: 'RESVNO', type: 'string' },
+            { name: 'ACARDNO', type: 'string' },
+            { name: 'NAME1', type: 'string' },
+            { name: 'NAME2', type: 'string' },
+            { name: 'FLAG', type: 'string' },
+        ];
+        fields = [
+            { text: 'IDNO', datafield: 'IDNO', minwidth: 100, width: 100, hidden: true },
+            { text: 'เลขตัวถัง', datafield: 'STRNO', minwidth: 100, width: 100 },
+            { text: 'เลขที่ใบจอง', datafield: 'RESVNO', minwidth: 100, width: 100 },
+            { text: 'เลขที่ A-Card', datafield: 'ACARDNO', minwidth: 100, width: 100 },
+            { text: 'ชื่อลูกค้า', datafield: 'NAME1', minwidth: 100, width: 250 },
+            { text: 'นามสกุลลูกค้า', datafield: 'NAME2', minwidth: 100, width: 250 },
+            { text: 'สถานะ', datafield: 'FLAG', minwidth: 100, width: 100 },
+        ];
+        keyno = 'IDNO';
     }
 
     fields.unshift({
@@ -1002,7 +1064,7 @@
         } else if (show === "apmast") {
             sqltxt = "SELECT APCODE, APNAME FROM APMAST WHERE UPPER(COALESCE(APCODE,'')||COALESCE(APNAME,'')) LIKE '%" + param1 + "%' ORDER BY APCODE";
         } else if (show === "officer") {
-            sqltxt = "SELECT * FROM OFFICER WHERE UPPER(COALESCE(CODE,'')||COALESCE(NAME,'')) LIKE '%" + param1 + "%' ORDER BY CODE";
+            sqltxt = "SELECT CODE, COALESCE(NAME,'')||'   '||COALESCE(SURNAME,'') AS NAME FROM OFFICER WHERE UPPER(COALESCE(CODE,'')||COALESCE(NAME,'')||COALESCE(SURNAME,'')) LIKE '%" + param1 + "%' ORDER BY CODE";
         } else if (show === "channelsend") {
             sqltxt = "SELECT CSCODE, CSDESC, CASE CSSTAT WHEN 'Y' THEN 'ส่ง' ELSE '' END AS CSSTAT FROM CHANNELSEND WHERE UPPER(COALESCE(CSCODE,'')||COALESCE(CSDESC,'')) LIKE '%" + param1 + "%' ORDER BY CSCODE";
         } else if (show === "setfollowupcall") {
@@ -1018,7 +1080,7 @@
         } else if (show === "arresvSale") {
             sqltxt = "SELECT A.RESPAY,A.SMPAY,A.FLAG,A.IDNO,A.RESVNO,A.RESVDT,B.CUSCOD,B.NAME1,B.NAME2,A.SDATE,A.LOCAT,A.STRNO,A.CHQMAS FROM ARRESV A,CUSTMAST B WHERE A.CUSCOD=B.CUSCOD AND UPPER(COALESCE(A.RESVNO,'')||COALESCE(B.NAME1,'')||COALESCE(B.NAME2,'')||COALESCE(A.STRNO,'')) LIKE '%" + param1 + "%' AND A.CANFLAG <> 'C' AND A.SMPAY<=A.RESPAY AND A.STRNO <> '' AND A.SDATE IS NULL ORDER BY A.RESVNO ";
         } else if (show === "strnoSale") {
-            sqltxt = "SELECT A.IDNO,B.STRNO,A.ENGNO,A.REGNO,A.TYPECOD,A.MODELCOD,A.BAABCOD,A.COLORCOD,B.CURSTAT,B.REFDTIN,B.IDNO AS IDNO1, B.TADDCOST,B.CRCOST,B.DISCT,B.NETCOST,B.CRVAT,B.TOTCOST,B.STDPRC,B.REFNOIN FROM INVTRAN A,STKCARD B WHERE A.STRNO = B.STRNO AND B.FLAG = 'D' AND B.LOCAT = '"+$.session.get('paramSrch1')+"' AND UPPER(COALESCE(B.STRNO,'')||COALESCE(A.ENGNO,'')||COALESCE(A.REGNO,'')||COALESCE(A.TYPECOD,'')||COALESCE(A.MODELCOD,'')||COALESCE(A.BAABCOD,'')||COALESCE(A.COLORCOD,'')) LIKE '%" + param1 + "%' ORDER BY B.STRNO";
+            sqltxt = "SELECT A.IDNO,B.STRNO,A.ENGNO,A.REGNO,A.TYPECOD,A.MODELCOD,A.BAABCOD,A.COLORCOD,B.CURSTAT,B.REFDTIN,B.IDNO AS IDNO1, B.TADDCOST,B.CRCOST,B.DISCT,B.NETCOST,B.CRVAT,B.TOTCOST,B.STDPRC,B.REFNOIN FROM INVTRAN A,STKCARD B WHERE A.STRNO = B.STRNO AND B.FLAG = 'D' AND B.LOCAT LIKE '"+$.session.get('paramSrch1')+"%' AND UPPER(COALESCE(B.STRNO,'')||COALESCE(A.ENGNO,'')||COALESCE(A.REGNO,'')||COALESCE(A.TYPECOD,'')||COALESCE(A.MODELCOD,'')||COALESCE(A.BAABCOD,'')||COALESCE(A.COLORCOD,'')) LIKE '%" + param1 + "%' ORDER BY B.STRNO";
         } else if (show === "arcred") {
             sqltxt = "SELECT A.CONTNO, A.RESVNO, B.NAME1, B.NAME2, A.STRNO, C.REGNO, (CASE WHEN A.FLAG = 'C' THEN 'ยกเลิก' ELSE ' ' END) AS FLAG FROM ARCRED A, CUSTMAST B, INVTRAN C WHERE A.CUSCOD = B.CUSCOD AND A.STRNO = C.STRNO AND UPPER(COALESCE(A.CONTNO,'')||COALESCE(A.RESVNO,'')||COALESCE(B.NAME1,'')||COALESCE(B.NAME2,'')||COALESCE(A.STRNO,'')||COALESCE(C.REGNO,'')) LIKE '%" + param1 + "%' ORDER BY A.CONTNO";
         } else if (show === "arfinc") {
@@ -1059,6 +1121,14 @@
             sqltxt = "SELECT IDNO, LOCAT, CHQNO, CHQDT, BOOKCODE, CHQAMT, CHQPAY, OFFCHQ, (CASE WHEN FLAG = 'C' THEN 'ยกเลิก' ELSE ' ' END) AS FLAG, ACC_CODE, USERID, INPUTDT, CANDT, CANUSERID, POSTGL FROM PAYMENTTRANFER WHERE UPPER(COALESCE(LOCAT,'')||COALESCE(CHQNO,'')||COALESCE(BOOKCODE,'')) LIKE '%" + param1 + "%' ORDER BY CHQDT DESC,CHQNO";
         } else if (show === "chqanother") {
             sqltxt = "SELECT A.TMBILL, B.NAME1, B.NAME2, A.FORCODE, C.FORDESC, A.PAYAMT, (CASE WHEN A.FLAG = 'C' THEN 'ยกเลิก' ELSE ' ' END) AS FLAG FROM CHQANOTHER A, CUSTANOTHER B, PAYFORANO C WHERE A.CUSCOD = B.CUSCOD AND A.FORCODE = C.FORCODE AND UPPER(COALESCE(A.TMBILL,'')||COALESCE(B.NAME1,'')||COALESCE(B.NAME2,'')||COALESCE(A.FORCODE,'')||COALESCE(C.FORDESC,'')) LIKE '%" + param1 + "%' ORDER BY A.TMBILL";
+        } else if (show === "division") {
+            sqltxt = "SELECT * FROM DIVISION WHERE UPPER(COALESCE(DIVICOD,'')||COALESCE(DIVINAM,'')) LIKE '%" + param1 + "%' ORDER BY DIVICOD";
+        } else if (show === "acard") {
+            sqltxt = "SELECT A.ACARDNO, A.ACARDDT, A.SALCOD, A.CUSCOD, B.NAME1, B.NAME2, (CASE WHEN A.FLAG = 'C' THEN 'ยกเลิก' ELSE ' ' END) AS FLAG FROM ACARD A, CUSTMAST B WHERE A.CUSCOD = B.CUSCOD AND UPPER(COALESCE(A.ACARDNO,'')||COALESCE(A.SALCOD,'')||COALESCE(B.NAME1,'')||COALESCE(B.NAME2,'')) LIKE '%" + param1 + "%' ORDER BY A.ACARDNO";
+        } else if (show === "resvnoformatch") {
+            sqltxt = "SELECT A.RESPAY,A.SMPAY,A.FLAG,A.IDNO,A.RESVNO,A.RESVDT,B.CUSCOD,B.NAME1,B.NAME2,A.SDATE,A.LOCAT,A.STRNO,A.REFUND FROM ARRESV A,CUSTMAST B WHERE UPPER(COALESCE(A.RESVNO,'')||COALESCE(B.NAME1,'')||COALESCE(B.NAME2,'')) LIKE '%" + param1 + "%' AND A.CUSCOD=B.CUSCOD AND (A.STRNO = '' OR A.STRNO IS NULL) ORDER BY A.RESVNO";
+        } else if (show === "matching") {
+            sqltxt = "SELECT A.IDNO, A.LOCAT, A.STRNO, A.RESVNO, A.MATCHDT, B.ACARDNO, C.NAME1, C.NAME2, (CASE WHEN A.FLAG = 'C' THEN 'ยกเลิก' ELSE ' ' END) AS FLAG FROM MATCHSTRNO A, ARRESV B LEFT JOIN CUSTMAST C ON B.CUSCOD = C.CUSCOD WHERE A.RESVNO = B.RESVNO AND UPPER(COALESCE(A.RESVNO,'')||COALESCE(A.STRNO,'')||COALESCE(B.ACARDNO,'')||COALESCE(C.NAME1,'')||COALESCE(C.NAME2,'')) LIKE '%" + param1 + "%' ORDER BY A.RESVNO ";
         }
 
         // Qurey Data

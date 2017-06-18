@@ -17,25 +17,21 @@
                     <div class="p15 pt5 mt15">
                         <div class="row">
                             <div class="col-md-4">
-                                <div class="admin-form">
-                                    <div class="form-group">
-                                        <label class="col-md-4 control-label" for="modno">เลขที่ชุดแต่ง</label>
-                                        <div class="col-md-8">
-                                            <div class="bs-component">
-                                                <input type="text" id="modno" style="color:#e9573f; font-weight: bold;" />
-                                            </div>
+                                <div class="form-group">
+                                    <label class="col-md-4 control-label required" for="modno">เลขที่ชุดแต่ง</label>
+                                    <div class="col-md-8">
+                                        <div class="bs-component">
+                                            <input type="text" id="modno" style="color:#e9573f; font-weight: bold;" />
                                         </div>
                                     </div>
                                 </div>
                             </div>
                             <div class="col-md-4">
-                                <div class="admin-form">
-                                    <div class="form-group">
-                                        <label class="col-md-4 control-label" for="moddt">วันที่จัดชุด</label>
-                                        <div class="col-md-8">
-                                            <div class="bs-component">
-                                                <div id="moddt"></div>
-                                            </div>
+                                <div class="form-group">
+                                    <label class="col-md-4 control-label" for="moddt">วันที่จัดชุด</label>
+                                    <div class="col-md-8">
+                                        <div class="bs-component">
+                                            <div id="moddt"></div>
                                         </div>
                                     </div>
                                 </div>
@@ -45,28 +41,24 @@
                         </div>
                         <div class="row">
                             <div class="col-md-4">
-                                <div class="admin-form">
-                                    <div class="form-group">
-                                        <label class="col-md-4 control-label" for="modelcode">รหัสรุ่นสินค้า</label>
-                                        <div class="col-md-8">
-                                            <div class="bs-component">
-                                                <div id="modelcode" class="input-button">
-                                                    <input type="text" id="v-modelcode" />
-                                                    <div id="searchModelcode"><img alt="search" width="20" height="20" src="/images/search_lg.png" /></div>
-                                                </div>
+                                <div class="form-group">
+                                    <label class="col-md-4 control-label required" for="modelcode">รหัสรุ่นสินค้า</label>
+                                    <div class="col-md-8">
+                                        <div class="bs-component">
+                                            <div id="modelcode" class="input-button">
+                                                <input type="text" id="v-modelcode" />
+                                                <div id="searchModelcode"><img alt="search" width="20" height="20" src="/images/search_lg.png" /></div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                             <div class="col-md-4">
-                                <div class="admin-form">
-                                    <div class="form-group">
-                                        <label class="col-md-4 control-label" for="sumoptprc">ราคา</label>
-                                        <div class="col-md-8">
-                                            <div class="bs-component">
-                                                <div id='sumoptprc'></div>
-                                            </div>
+                                <div class="form-group">
+                                    <label class="col-md-4 control-label" for="sumoptprc">ราคา</label>
+                                    <div class="col-md-8">
+                                        <div class="bs-component">
+                                            <div id='sumoptprc'></div>
                                         </div>
                                     </div>
                                 </div>
@@ -76,13 +68,11 @@
                         </div>
                         <div class="row">
                             <div class="col-md-8">
-                                <div class="admin-form">
-                                    <div class="form-group">
-                                        <label class="col-md-2 control-label" for="memo1">หมายเหตุ</label>
-                                        <div class="col-md-10">
-                                            <div class="bs-component">
-                                                <textarea id="memo1"></textarea>
-                                            </div>
+                                <div class="form-group">
+                                    <label class="col-md-2 control-label" for="memo1">หมายเหตุ</label>
+                                    <div class="col-md-10">
+                                        <div class="bs-component">
+                                            <textarea id="memo1"></textarea>
                                         </div>
                                     </div>
                                 </div>
@@ -92,22 +82,20 @@
                         </div>
                         <div class="row">
                             <div class="col-md-12">
-                                <div class="admin-form">
-                                    <div class="form-group">
-                                        <div class="col-md-12">
-                                            <div id="tableModtran"></div>
-                                        </div>
+                                <div class="form-group">
+                                    <div class="col-md-12">
+                                        <div id="tableModtran"></div>
                                     </div>
-                                    <div class="form-group">
-                                        <label class="col-md-4 control-label"></label>
-                                        <div class="col-md-8">
-                                            <div class="bs-component">
-                                                <button type="button" id="newBtn"><span class="fa fa-refresh"></span> เริ่มใหม่</button>
-                                                <button type="button" id="saveBtn"><span class="fa fa-floppy-o"></span> บันทึก</button>
-                                                <button type="button" id="searchBtn"><span class="fa fa-search"></span> ค้นหา</button>
-                                                <button type="button" id="deleteBtn"><span class="fa fa-trash-o"></span> ลบ</button>
-                                                <input type="hidden" id="sumqty" value="">
-                                            </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-md-4 control-label"></label>
+                                    <div class="col-md-8">
+                                        <div class="bs-component">
+                                            <button type="button" id="newBtn"><span class="fa fa-refresh"></span> เริ่มใหม่</button>
+                                            <button type="button" id="saveBtn"><span class="fa fa-floppy-o"></span> บันทึก</button>
+                                            <button type="button" id="searchBtn"><span class="fa fa-search"></span> ค้นหา</button>
+                                            <button type="button" id="deleteBtn"><span class="fa fa-trash-o"></span> ลบ</button>
+                                            <input type="hidden" id="sumqty" value="">
                                         </div>
                                     </div>
                                 </div>
@@ -259,6 +247,57 @@
         var dataAdtOptmast = new $.jqx.dataAdapter(sourceOptmast);
         //เงื่อนไข validate MODMAST
         var rules = [{
+            input: '#modno',
+            message: 'กรุณาระบุเลขที่ชุดแต่ง!',
+            action: 'keyup, blur, focusout',
+            rule: function (input, commit) {
+                var modno = $('#modno').val()
+                if (chkrun === false) {
+                    var result = [];
+                    if (modno === '') {
+                        result = false;
+                    } else {
+                        result = true;
+                    }
+                    return result;
+                } else {
+                    return true;
+                }
+            }
+        }, {
+            input: '#modno',
+            message: 'ระบุเลขที่ชุดแต่ง!',
+            action: 'keyup, blur',
+            rule: function(input, commit) {
+                var modno = $('#modno').val();
+                if ((modno !== '') && (status === 'insert')) {
+                    var result = [];
+                    $.ajax({
+                        async: false,
+                        url: "duplicateCheck",
+                        type: 'get',
+                        data: {
+                            table: 'MODMAST',
+                            field: 'MODNO',
+                            value: modno
+                        },
+                        success: function (data) {
+                            if (data === true) {
+                                result = true;
+                            } else {
+                                result = false;
+                            }
+                        },
+                        error: function () {
+                            result = false;
+                        }
+                    });
+                    return result;
+                } else {
+                    return true;
+                }
+            }
+        },{
             input: '#modelcode',
             message: 'กรุณาระบุรหัสรุ่น!',
             action: 'keyup, blur, focusout',
@@ -270,7 +309,9 @@
             rule: function(input, commit) {
                 var modelcode = $('#modelcode').val();
                 if (modelcode !== '') {
+                    var result = [];
                     $.ajax({
+                        async: false,
                         url: "duplicateCheck",
                         type: 'get',
                         data: {
@@ -278,52 +319,24 @@
                             field: 'MODELCOD',
                             value: modelcode
                         },
-                        success: function(data) {
+                        success: function (data) {
                             if (data === true) {
-                                commit(false);
-                            } else commit(true);
+                                result = false;
+                            } else {
+                                result = true;
+                            }
                         },
-                        error: function() {
-                            commit(false);
+                        error: function () {
+                            result = false;
                         }
                     });
+                    return result;
+                } else {
+                    return true;
                 }
             }
         }];
-        if (chkrun === false) {
-            rules.unshift({
-                input: '#modno',
-                message: 'กรุณาระบุเลขที่ชุดแต่ง!',
-                action: 'keyup, blur, focusout',
-                rule: 'required'
-            }, {
-                input: '#modno',
-                message: 'ระบุเลขที่ชุดแต่ง!',
-                action: 'keyup, blur',
-                rule: function(input, commit) {
-                    var modno = $('#modno').val();
-                    if (modno !== '') {
-                        $.ajax({
-                            url: "duplicateCheck",
-                            type: 'get',
-                            data: {
-                                table: 'MODMAST',
-                                field: 'MODNO',
-                                value: modno
-                            },
-                            success: function(data) {
-                                if (data === true) {
-                                    commit(true);
-                                } else commit(false);
-                            },
-                            error: function() {
-                                commit(false);
-                            }
-                        });
-                    }
-                }
-            });
-        }
+
         //DataSource MODTRAN
         var dataModtran = [];
         var sourceModtran = {
@@ -752,9 +765,6 @@
         });
         //ค้นหา
         $('#searchBtn').off().on('click', function() {
-            var rules2 = rules.slice();
-            rules2.splice(1, 1);
-            $('#fmModmast').jqxValidator('rules', rules2);
             //Show Dialog Search
             searchAll('modmast', 'modno');
             $('#okButton').on('click', function(event) {

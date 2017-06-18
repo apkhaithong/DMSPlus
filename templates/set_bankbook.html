@@ -18,84 +18,82 @@
                         <div class="row">
                             <div class="col-md-8">
                                 <!-- Start -->
-                                <div class="admin-form">
-                                    <div class="form-group">
-                                        <label class="col-md-4 control-label" for="bankbookcod">รหัส</label>
-                                        <div class="col-md-8">
-                                            <div class="bs-component">
-                                                <input type="text" id="bankbookcod" />
+                                <div class="form-group">
+                                    <label class="col-md-4 control-label required" for="bankbookcod">รหัส</label>
+                                    <div class="col-md-8">
+                                        <div class="bs-component">
+                                            <input type="text" id="bankbookcod" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-md-4 control-label required" for="bankcod">ธนาคาร</label>
+                                    <div class="col-md-8">
+                                        <div class="bs-component">
+                                            <div id="bankcod" class="input-button">
+                                                <input type="text" id="v-bankcod" />
+                                                <div id="searchBankcod"><img alt="search" width="20" height="20" src="/images/search_lg.png" /></div>
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="form-group">
-                                        <label class="col-md-4 control-label" for="bankcod">ธนาคาร</label>
-                                        <div class="col-md-8">
-                                            <div class="bs-component">
-                                                <div id="bankcod" class="input-button">
-                                                    <input type="text" id="v-bankcod" />
-                                                    <div id="searchBankcod"><img alt="search" width="20" height="20" src="/images/search_lg.png" /></div>
-                                                </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-md-4 control-label required" for="bankloccod">สาขา</label>
+                                    <div class="col-md-8">
+                                        <div class="bs-component">
+                                            <div id="bankloccod" class="input-button">
+                                                <input type="text" id="v-bankloccod" />
+                                                <div id="searchBankloccod"><img alt="search" width="20" height="20" src="/images/search_lg.png" /></div>
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="form-group">
-                                        <label class="col-md-4 control-label" for="bankloccod">สาขา</label>
-                                        <div class="col-md-8">
-                                            <div class="bs-component">
-                                                <div id="bankloccod" class="input-button">
-                                                    <input type="text" id="v-bankloccod" />
-                                                    <div id="searchBankloccod"><img alt="search" width="20" height="20" src="/images/search_lg.png" /></div>
-                                                </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-md-4 control-label required" for="bookno">เลขที่บัญชีธนาคาร</label>
+                                    <div class="col-md-8">
+                                        <div class="bs-component">
+                                            <input type="text" id="bookno" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-md-4 control-label" for="booknam">ชื่อบัญชี</label>
+                                    <div class="col-md-8">
+                                        <div class="bs-component">
+                                            <input type="text" id="booknam" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-md-4 control-label required" for="booktypcod">ประเภทบัญชี</label>
+                                    <div class="col-md-8">
+                                        <div class="bs-component">
+                                            <div id="booktypcod" class="input-button">
+                                                <input type="text" id="v-booktypcod" />
+                                                <div id="searchBkbooktyp"><img alt="search" width="20" height="20" src="/images/search_lg.png" /></div>
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="form-group">
-                                        <label class="col-md-4 control-label" for="bookno">รหัสบัญชีธนาคาร</label>
-                                        <div class="col-md-8">
-                                            <div class="bs-component">
-                                                <input type="text" id="bookno" />
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-md-4 control-label" for="accmstcod">รหัสบัญชี</label>
+                                    <div class="col-md-8">
+                                        <div class="bs-component">
+                                            <div id="accmstcod" class="input-button">
+                                                <input type="text" id="v-accmstcod" />
+                                                <div id="searchAccmst"><img alt="search" width="20" height="20" src="/images/search_lg.png" /></div>
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="form-group">
-                                        <label class="col-md-4 control-label" for="booknam">ชื่อบัญชี</label>
-                                        <div class="col-md-8">
-                                            <div class="bs-component">
-                                                <input type="text" id="booknam" />
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="col-md-4 control-label" for="booktypcod">ประเภทบัญชี</label>
-                                        <div class="col-md-8">
-                                            <div class="bs-component">
-                                                <div id="booktypcod" class="input-button">
-                                                    <input type="text" id="v-booktypcod" />
-                                                    <div id="searchBkbooktyp"><img alt="search" width="20" height="20" src="/images/search_lg.png" /></div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="col-md-4 control-label" for="accmstcod">รหัสบัญชี</label>
-                                        <div class="col-md-8">
-                                            <div class="bs-component">
-                                                <div id="accmstcod" class="input-button">
-                                                    <input type="text" id="v-accmstcod" />
-                                                    <div id="searchAccmst"><img alt="search" width="20" height="20" src="/images/search_lg.png" /></div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="col-md-4 control-label"></label>
-                                        <div class="col-md-8">
-                                            <div class="bs-component">
-                                                <button type="button" id="newBtn"><span class="fa fa-refresh"></span> เริ่มใหม่</button>
-                                                <button type="button" id="saveBtn"><span class="fa fa-floppy-o"></span> บันทึก</button>
-                                                <button type="button" id="searchBtn"><span class="fa fa-search"></span> ค้นหา</button>
-                                                <button type="button" id="deleteBtn"><span class="fa fa-trash-o"></span> ลบ</button>
-                                            </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-md-4 control-label"></label>
+                                    <div class="col-md-8">
+                                        <div class="bs-component">
+                                            <button type="button" id="newBtn"><span class="fa fa-refresh"></span> เริ่มใหม่</button>
+                                            <button type="button" id="saveBtn"><span class="fa fa-floppy-o"></span> บันทึก</button>
+                                            <button type="button" id="searchBtn"><span class="fa fa-search"></span> ค้นหา</button>
+                                            <button type="button" id="deleteBtn"><span class="fa fa-trash-o"></span> ลบ</button>
                                         </div>
                                     </div>
                                 </div>
@@ -188,8 +186,10 @@
             action: 'keyup, blur',
             rule: function(input, commit) {
                 var bankbookcod = $('#bankbookcod').val();
-                if (bankbookcod !== '') {
+                if ((bankbookcod !== '') && (status === 'insert')) {
+                    var result = [];
                     $.ajax({
+                        async: false,
                         url: "duplicateCheck",
                         type: 'get',
                         data: {
@@ -197,15 +197,58 @@
                             field: 'BANKBOOKCOD',
                             value: bankbookcod
                         },
-                        success: function(data) {
+                        success: function (data) {
                             if (data === true) {
-                                commit(true);
-                            } else commit(false);
+                                result = true;
+                            } else {
+                                result = false;
+                            }
                         },
-                        error: function() {
-                            commit(false);
+                        error: function () {
+                            result = false;
                         }
                     });
+                    return result;
+                } else {
+                    return true;
+                }
+            }
+        }, {
+            input: '#bankcod',
+            message: 'กรุณาระบุธนาคาร!',
+            action: 'keyup, blur, focusout',
+            rule: 'required'
+        }, {
+            input: '#bankcod',
+            message: 'ไม่พบธนาคารนี้!',
+            action: 'keyup, blur, focusout',
+            rule: function(input, commit) {
+                var bankcod = $('#bankcod').val();
+                if (bankcod !== '') {
+                    var result = [];
+                    $.ajax({
+                        async: false,
+                        url: "duplicateCheck",
+                        type: 'get',
+                        data: {
+                            table: 'SETBANK',
+                            field: 'BANKCOD',
+                            value: bankcod
+                        },
+                        success: function (data) {
+                            if (data === true) {
+                                result = false;
+                            } else {
+                                result = true;
+                            }
+                        },
+                        error: function () {
+                            result = false;
+                        }
+                    });
+                    return result;
+                } else {
+                    return true;
                 }
             }
         }, {
@@ -220,7 +263,9 @@
             rule: function(input, commit) {
                 var bankloccod = $('#bankloccod').val();
                 if (bankloccod !== '') {
+                    var result = [];
                     $.ajax({
+                        async: false,
                         url: "duplicateCheck",
                         type: 'get',
                         data: {
@@ -228,15 +273,129 @@
                             field: 'BANKLOCCOD',
                             value: bankloccod
                         },
-                        success: function(data) {
+                        success: function (data) {
                             if (data === true) {
-                                commit(false);
-                            } else commit(true);
+                                result = false;
+                            } else {
+                                result = true;
+                            }
                         },
-                        error: function() {
-                            commit(false);
+                        error: function () {
+                            result = false;
                         }
                     });
+                    return result;
+                } else {
+                    return true;
+                }
+            }
+        }, {
+            input: '#bookno',
+            message: 'กรุณาระบุเลขที่บัญชีธนาคาร!',
+            action: 'keyup, blur',
+            rule: 'required'
+        }, {
+            input: '#bookno',
+            message: 'ระบุเลขที่บัญชีธนาคารซ้ำ!',
+            action: 'keyup, blur',
+            rule: function(input, commit) {
+                var bookno = $('#bookno').val();
+                if ((bookno !== '') && (status === 'insert')) {
+                    var result = [];
+                    $.ajax({
+                        async: false,
+                        url: "duplicateCheck",
+                        type: 'get',
+                        data: {
+                            table: 'BANKBOOK',
+                            field: 'BOOKNO',
+                            value: bookno
+                        },
+                        success: function (data) {
+                            if (data === true) {
+                                result = true;
+                            } else {
+                                result = false;
+                            }
+                        },
+                        error: function () {
+                            result = false;
+                        }
+                    });
+                    return result;
+                } else {
+                    return true;
+                }
+            }
+        }, {
+            input: '#booktypcod',
+            message: 'กรุณาระบุประเภทบัญชี!',
+            action: 'keyup, blur, focusout',
+            rule: 'required'
+        }, {
+            input: '#booktypcod',
+            message: 'ไม่พบประเภทบัญชีนี้!',
+            action: 'keyup, blur, focusout',
+            rule: function(input, commit) {
+                var booktypcod = $('#booktypcod').val();
+                if (booktypcod !== '') {
+                    var result = [];
+                    $.ajax({
+                        async: false,
+                        url: "duplicateCheck",
+                        type: 'get',
+                        data: {
+                            table: 'BKBOOKTYPE',
+                            field: 'BOOKTYPCOD',
+                            value: booktypcod
+                        },
+                        success: function (data) {
+                            if (data === true) {
+                                result = false;
+                            } else {
+                                result = true;
+                            }
+                        },
+                        error: function () {
+                            result = false;
+                        }
+                    });
+                    return result;
+                } else {
+                    return true;
+                }
+            }
+        }, {
+            input: '#accmstcod',
+            message: 'ไม่พบรหัสบัญชีนี้!',
+            action: 'keyup, blur, focusout',
+            rule: function(input, commit) {
+                var accmstcod = $('#accmstcod').val();
+                if (accmstcod !== '') {
+                    var result = [];
+                    $.ajax({
+                        async: false,
+                        url: "duplicateCheck",
+                        type: 'get',
+                        data: {
+                            table: 'ACCMST',
+                            field: 'ACCMSTCOD',
+                            value: accmstcod
+                        },
+                        success: function (data) {
+                            if (data === true) {
+                                result = false;
+                            } else {
+                                result = true;
+                            }
+                        },
+                        error: function () {
+                            result = false;
+                        }
+                    });
+                    return result;
+                } else {
+                    return true;
                 }
             }
         }];
@@ -372,9 +531,6 @@
         });
         //ค้นหา
         $('#searchBtn').off().on('click', function() {
-            var rules2 = rules.slice();
-            rules2.splice(1, 1);
-            $('#fmBankbook').jqxValidator('rules', rules2);
             //Show Dialog Search
             searchAll('bankbook', 'bankbookcod');
             $('#okButton').on('click', function() {

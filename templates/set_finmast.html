@@ -18,112 +18,110 @@
                         <div class="row">
                             <div class="col-md-8">
                                 <!-- Start -->
-                                <div class="admin-form">
-                                    <div class="form-group">
-                                        <label class="col-md-4 control-label" for="fincode">รหัสบริษัท</label>
-                                        <div class="col-md-8">
-                                            <div class="bs-component">
-                                                <input type="text" id="fincode" />
+                                <div class="form-group">
+                                    <label class="col-md-4 control-label required" for="fincode">รหัสบริษัท</label>
+                                    <div class="col-md-8">
+                                        <div class="bs-component">
+                                            <input type="text" id="fincode" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-md-4 control-label" for="finname">ชื่อบริษัท</label>
+                                    <div class="col-md-8">
+                                        <div class="bs-component">
+                                            <input type="text" id="finname" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-md-4 control-label" for="finaddr1">ที่อยู่</label>
+                                    <div class="col-md-8">
+                                        <div class="bs-component">
+                                            <input type="text" id="finaddr1" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-md-4 control-label" for="finaddr2"></label>
+                                    <div class="col-md-8">
+                                        <div class="bs-component">
+                                            <input type="text" id="finaddr2" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-md-4 control-label" for="finaddr3"></label>
+                                    <div class="col-md-8">
+                                        <div class="bs-component">
+                                            <input type="text" id="finaddr3" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-md-4 control-label" for="fintelp">โทรศัพท์</label>
+                                    <div class="col-md-8">
+                                        <div class="bs-component">
+                                            <input type="text" id="fintelp" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-md-4 control-label" for="taxid">เลขประจำตัวผู้เสียภาษี</label>
+                                    <div class="col-md-8">
+                                        <div class="bs-component">
+                                            <input type="text" id="taxid" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-md-4 control-label" for="acc_code">รหัสบัญชี</label>
+                                    <div class="col-md-8">
+                                        <div class="bs-component">
+                                            <div id="acc_code" class="input-button">
+                                                <input type="text" id="v-acc_code" />
+                                                <div id="searchAccmst"><img alt="search" width="20" height="20" src="/images/search_lg.png"
+                                                    /></div>
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="form-group">
-                                        <label class="col-md-4 control-label" for="finname">ชื่อบริษัท</label>
-                                        <div class="col-md-8">
-                                            <div class="bs-component">
-                                                <input type="text" id="finname" />
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-md-4 control-label" for="acc_code1">ค่าคอมไฟแนนซ์</label>
+                                    <div class="col-md-8">
+                                        <div class="bs-component">
+                                            <div id="acc_code1" class="input-button">
+                                                <input type="text" id="v-acc_code1" />
+                                                <div id="searchAccmst1"><img alt="search" width="20" height="20" src="/images/search_lg.png"
+                                                    /></div>
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="form-group">
-                                        <label class="col-md-4 control-label" for="finaddr1">ที่อยู่</label>
-                                        <div class="col-md-8">
-                                            <div class="bs-component">
-                                                <input type="text" id="finaddr1" />
-                                            </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-md-4 control-label" for="comrate">ค่านายหน้า-อัตรา</label>
+                                    <div class="col-md-8">
+                                        <div class="bs-component">
+                                            <div id='comrate'></div>
                                         </div>
                                     </div>
-                                    <div class="form-group">
-                                        <label class="col-md-4 control-label" for="finaddr2"></label>
-                                        <div class="col-md-8">
-                                            <div class="bs-component">
-                                                <input type="text" id="finaddr2" />
-                                            </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-md-4 control-label" for="block">ระงับการใช้งาน</label>
+                                    <div class="col-md-8">
+                                        <div class="bs-component">
+                                            <div id='block' style='margin-left: 10px; float: left;'><span>ใช้งานปกติ</span></div>
                                         </div>
                                     </div>
-                                    <div class="form-group">
-                                        <label class="col-md-4 control-label" for="finaddr3"></label>
-                                        <div class="col-md-8">
-                                            <div class="bs-component">
-                                                <input type="text" id="finaddr3" />
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="col-md-4 control-label" for="fintelp">โทรศัพท์</label>
-                                        <div class="col-md-8">
-                                            <div class="bs-component">
-                                                <input type="text" id="fintelp" />
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="col-md-4 control-label" for="taxid">เลขประจำตัวผู้เสียภาษี</label>
-                                        <div class="col-md-8">
-                                            <div class="bs-component">
-                                                <input type="text" id="taxid" />
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="col-md-4 control-label" for="acc_code">รหัสบัญชี</label>
-                                        <div class="col-md-8">
-                                            <div class="bs-component">
-                                                <div id="acc_code" class="input-button">
-                                                    <input type="text" id="v-acc_code" />
-                                                    <div id="searchAccmst"><img alt="search" width="20" height="20" src="/images/search_lg.png"
-                                                        /></div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="col-md-4 control-label" for="acc_code1">ค่าคอมไฟแนนซ์</label>
-                                        <div class="col-md-8">
-                                            <div class="bs-component">
-                                                <div id="acc_code1" class="input-button">
-                                                    <input type="text" id="v-acc_code1" />
-                                                    <div id="searchAccmst1"><img alt="search" width="20" height="20" src="/images/search_lg.png"
-                                                        /></div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="col-md-4 control-label" for="comrate">ค่านายหน้า-อัตรา</label>
-                                        <div class="col-md-8">
-                                            <div class="bs-component">
-                                                <div id='comrate'></div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="col-md-4 control-label" for="block">ระงับการใช้งาน</label>
-                                        <div class="col-md-8">
-                                            <div class="bs-component">
-                                                <div id='block' style='margin-left: 10px; float: left;'><span>ใช้งานปกติ</span></div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="col-md-4 control-label"></label>
-                                        <div class="col-md-8">
-                                            <div class="bs-component">
-                                                <button type="button" id="newBtn"><span class="fa fa-refresh"></span> เริ่มใหม่</button>
-                                                <button type="button" id="saveBtn"><span class="fa fa-floppy-o"></span> บันทึก</button>
-                                                <button type="button" id="searchBtn"><span class="fa fa-search"></span> ค้นหา</button>
-                                                <button type="button" id="deleteBtn"><span class="fa fa-trash-o"></span> ลบ</button>
-                                            </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-md-4 control-label"></label>
+                                    <div class="col-md-8">
+                                        <div class="bs-component">
+                                            <button type="button" id="newBtn"><span class="fa fa-refresh"></span> เริ่มใหม่</button>
+                                            <button type="button" id="saveBtn"><span class="fa fa-floppy-o"></span> บันทึก</button>
+                                            <button type="button" id="searchBtn"><span class="fa fa-search"></span> ค้นหา</button>
+                                            <button type="button" id="deleteBtn"><span class="fa fa-trash-o"></span> ลบ</button>
                                         </div>
                                     </div>
                                 </div>
@@ -210,8 +208,10 @@
             action: 'keyup, blur',
             rule: function(input, commit) {
                 var fincode = $('#fincode').val();
-                if (fincode !== '') {
+                if ((fincode !== '') && (status === 'insert')) {
+                    var result = [];
                     $.ajax({
+                        async: false,
                         url: "duplicateCheck",
                         type: 'get',
                         data: {
@@ -219,15 +219,20 @@
                             field: 'FINCODE',
                             value: fincode
                         },
-                        success: function(data) {
+                        success: function (data) {
                             if (data === true) {
-                                commit(true);
-                            } else commit(false);
+                                result = true;
+                            } else {
+                                result = false;
+                            }
                         },
-                        error: function() {
-                            commit(false);
+                        error: function () {
+                            result = false;
                         }
                     });
+                    return result;
+                } else {
+                    return true;
                 }
             }
         }, {
@@ -237,7 +242,9 @@
             rule: function(input, commit) {
                 var acc_code = $('#acc_code').val();
                 if (acc_code !== '') {
+                    var result = [];
                     $.ajax({
+                        async: false,
                         url: "duplicateCheck",
                         type: 'get',
                         data: {
@@ -245,15 +252,20 @@
                             field: 'ACCMSTCOD',
                             value: acc_code
                         },
-                        success: function(data) {
+                        success: function (data) {
                             if (data === true) {
-                                commit(false);
-                            } else commit(true);
+                                result = false;
+                            } else {
+                                result = true;
+                            }
                         },
-                        error: function() {
-                            commit(false);
+                        error: function () {
+                            result = false;
                         }
                     });
+                    return result;
+                } else {
+                    return true;
                 }
             }
         }, {
@@ -263,7 +275,9 @@
             rule: function(input, commit) {
                 var acc_code1 = $('#acc_code1').val();
                 if (acc_code1 !== '') {
+                    var result = [];
                     $.ajax({
+                        async: false,
                         url: "duplicateCheck",
                         type: 'get',
                         data: {
@@ -271,15 +285,20 @@
                             field: 'ACCMSTCOD',
                             value: acc_code1
                         },
-                        success: function(data) {
+                        success: function (data) {
                             if (data === true) {
-                                commit(false);
-                            } else commit(true);
+                                result = false;
+                            } else {
+                                result = true;
+                            }
                         },
-                        error: function() {
-                            commit(false);
+                        error: function () {
+                            result = false;
                         }
                     });
+                    return result;
+                } else {
+                    return true;
                 }
             }
         }];
@@ -459,9 +478,6 @@
         });
         //ค้นหา
         $('#searchBtn').off().on('click', function() {
-            var rules2 = rules.slice();
-            rules2.splice(1, 1);
-            $('#fmFinmast').jqxValidator('rules', rules2);
             //Show Dialog Search
             searchAll('finmast', 'fincode');
             $('#okButton').on('click', function() {

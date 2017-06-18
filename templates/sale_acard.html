@@ -117,7 +117,7 @@
                                                 <div id='cartyp'></div>
                                             </div>
                                             <div class="col-sm-8">
-                                                <input type="text" id="cardesc" class="text-desc" />
+                                                <input type="text" id="cardesc" />
                                             </div>
                                         </div>
                                     </div>
@@ -205,7 +205,7 @@
                                     <div class="col-sm-8">
                                         <div class="row">
                                             <div class="col-sm-12">
-                                                <input type="text" id="price" class="text-desc" />
+                                                <div id='price'></div>
                                             </div>
                                         </div>
                                     </div>
@@ -217,7 +217,7 @@
                                     <div class="col-sm-8">
                                         <div class="row">
                                             <div class="col-sm-12">
-                                                <input type="text" id="disct" class="text-desc" />
+                                                <div id='disct'></div>
                                             </div>
                                         </div>
                                     </div>
@@ -243,7 +243,7 @@
                                     <div class="col-sm-8">
                                         <div class="row">
                                             <div class="col-sm-12">
-                                                <input type="text" id="dawn" class="text-desc" />
+                                                <div id='dawn'></div>
                                             </div>
                                         </div>
                                     </div>
@@ -255,7 +255,7 @@
                                     <div class="col-sm-8">
                                         <div class="row">
                                             <div class="col-sm-12">
-                                                <input type="text" id="keyinupay" class="text-desc" />
+                                                <div id='keyinupay'></div>
                                             </div>
                                         </div>
                                     </div>
@@ -269,7 +269,7 @@
                                     <div class="col-sm-8">
                                         <div class="row">
                                             <div class="col-sm-12">
-                                                <input type="text" id="t_nopay" class="text-desc" />
+                                                <div id='t_nopay'></div>
                                             </div>
                                         </div>
                                     </div>
@@ -281,7 +281,7 @@
                                     <div class="col-sm-8">
                                         <div class="row">
                                             <div class="col-sm-12">
-                                                <input type="text" id="regno" class="text-desc" />
+                                                <input type="text" id="regno"/>
                                             </div>
                                         </div>
                                     </div>
@@ -296,7 +296,7 @@
                                     <div class="col-sm-10">
                                         <div class="row">
                                             <div class="col-sm-12">
-                                                <input type="text" id="insure3" class="text-desc" />
+                                                <input type="text" id="insure3" />
                                             </div>
                                         </div>
                                     </div>
@@ -308,7 +308,7 @@
                                     <div class="col-sm-8">
                                         <div class="row">
                                             <div class="col-sm-12">
-                                                <input type="text" id="insure3prc" class="text-desc" />
+                                                <div id='insure3prc'></div>
                                             </div>
                                         </div>
                                     </div>
@@ -322,7 +322,7 @@
                                     <div class="col-sm-10">
                                         <div class="row">
                                             <div class="col-sm-12">
-                                                <input type="text" id="insure1" class="text-desc" />
+                                                <input type="text" id="insure1" />
                                             </div>
                                         </div>
                                     </div>
@@ -334,7 +334,7 @@
                                     <div class="col-sm-8">
                                         <div class="row">
                                             <div class="col-sm-12">
-                                                <input type="text" id="insure1prc" class="text-desc" />
+                                                <div id='insure1prc'></div>
                                             </div>
                                         </div>
                                     </div>
@@ -422,20 +422,20 @@
                 $('#colorcod').val('');
                 $('#baabcod').val('');
                 $('#manuyr').val('');
-                $('#cc').val('');
-                $('#price').val('');
-                $('#disct').val('');
-                $('#dawn').val('');
-                $('#keyinupay').val('');
+                $('#cc').val(0);
+                $('#price').val(0);
+                $('#disct').val(0);
+                $('#dawn').val(0);
+                $('#keyinupay').val(0);
                 $("#saltyp").jqxDropDownList({
                     selectedIndex: -1
                 });
-                $('#t_nopay').val('');
+                $('#t_nopay').val(0);
                 $('#regno').val('');
                 $('#insure1').val('');
-                $('#insure1prc').val('');
+                $('#insure1prc').val(0);
                 $('#insure3').val('');
-                $('#insure3prc').val('');
+                $('#insure3prc').val(0);
 
                 $('#tableAcardtran').jqxGrid('clear');
                 $('#searchInvlocat').show();
@@ -517,7 +517,7 @@
                 dataType: 'json',
                 url: "sqltext",
                 data: {
-                    sql: "SELECT IDNO, ACARDNO, ACARDDT, LOCAT, OPTCODE, OPTNAME, QTY, FLAG, FLSTAT, USERID, INPUTDT, OPTPRC FROM ACARDTRAN WHERE ACARDNO = '" +
+                    sql: "SELECT IDNO, ACARDNO, ACARDDT, LOCAT, OPTCODE, OPTNAME, QTY, FLAG, (CASE WHEN FLSTAT='Y' THEN '1' ELSE '0' END) AS FLSTAT, USERID, INPUTDT, OPTPRC, TRIM(OPTCODE)||' : '||TRIM(OPTNAME) AS SETMOD FROM ACARDTRAN WHERE ACARDNO = '" +
                         acardno + "' ORDER BY IDNO"
                 },
                 success: function (data) {
@@ -529,6 +529,44 @@
 
         //เงื่อนไข validate ARCRED
         var rules = [{
+            input: '#acardno',
+            message: 'กรุณาระบุเลขที่ A-card!',
+            action: 'keyup, blur, focusout',
+            rule: 'required'
+        }, {
+            input: '#acardno',
+            message: 'ระบุเลขที่ acard ซ้ำ!x',
+            action: 'keyup, blur, focusout',
+            rule: function (input, commit) {
+                var acardno = $('#acardno').val();
+                // var locatresv = $('#locat').val();
+                if ((acardno !== '') && (status === 'insert')) {
+                    var result = [];
+                    $.ajax({
+                        async: false,
+                        method: 'GET',
+                        dataType: 'json',
+                        url: "sqltext",
+                        data: {
+                            sql: "SELECT ACARDNO FROM ACARD WHERE ACARDNO ='" + acardno + "' "//AND LOCAT = '"+locatresv+"' "
+                        },
+                        success: function (data) {
+                            if (data.length > 0) {
+                                result = false;
+                            } else { 
+                                result = true;
+                            }
+                        },
+                        error: function () {
+                            result = false;
+                        }
+                    });
+                    return result;
+                } else {
+                    return true;
+                }
+            }
+        }, {
             input: '#locat',
             message: 'กรุณาระบุรหัสสาขา!',
             action: 'keyup, blur, focusout',
@@ -540,7 +578,9 @@
             rule: function (input, commit) {
                 var locat = $('#locat').val();
                 if (locat !== '') {
+                    var result = [];
                     $.ajax({
+                        async: false,
                         url: "duplicateCheck",
                         type: 'get',
                         data: {
@@ -550,13 +590,18 @@
                         },
                         success: function (data) {
                             if (data === true) {
-                                commit(false);
-                            } else commit(true);
+                                result = false;
+                            } else {
+                                result = true;
+                            }
                         },
                         error: function () {
-                            commit(false);
+                            result = false;
                         }
                     });
+                    return result;
+                } else {
+                    return true;
                 }
             }
         }, {
@@ -571,7 +616,9 @@
             rule: function (input, commit) {
                 var cuscod = $('#cuscod').val();
                 if (cuscod !== '') {
+                    var result = [];
                     $.ajax({
+                        async: false,
                         url: "duplicateCheck",
                         type: 'get',
                         data: {
@@ -581,13 +628,18 @@
                         },
                         success: function (data) {
                             if (data === true) {
-                                commit(false);
-                            } else commit(true);
+                                result = false;
+                            } else {
+                                result = true;
+                            }
                         },
                         error: function () {
-                            commit(false);
+                            result = false;
                         }
                     });
+                    return result;
+                } else {
+                    return true;
                 }
             }
         }, {
@@ -616,45 +668,6 @@
             }
         }];
 
-        if (chkrun === false) {
-            rules.unshift({
-            input: '#acardno',
-            message: 'กรุณาระบุเลขที่ A-card!',
-            action: 'keyup, blur, focusout',
-            rule: 'required'
-        }, {
-            input: '#acardno',
-            message: 'ระบุเลขที่ acard ซ้ำ!x',
-            action: 'keyup, blur, focusout',
-            rule: function (input, commit) {
-                var acardno = $('#acardno').val();
-                // var locatresv = $('#locat').val();
-                if (acardno !== '') {
-                    var result = [];
-                    $.ajax({
-                        async: false,
-                        method: 'GET',
-                        dataType: 'json',
-                        url: "sqltext",
-                        data: {
-                            sql: "SELECT ACARDNO FROM ACARD WHERE ACARDNO ='" + acardno + "' "//AND LOCAT = '"+locatresv+"' "
-                        },
-                        success: function (data) {
-                            if (data.length > 0) {
-                                result = false;
-                            } else { 
-                                result = true;
-                            }
-                        },
-                        error: function () {
-                            result = false;
-                        }
-                    });
-                    return result;
-                }
-            }
-        });
-        }
         //console.log(rules);
 
         // custtyp //
@@ -729,75 +742,7 @@
             localdata: dataSaltyp
         };
         var dataAdtSaltyp = new $.jqx.dataAdapter(sourceSaltyp);
-        /////////
-        var sourcePaydue = {
-            async: false,
-            datatype: "json",
-            datafields: [{
-                name: 'DUECODE',
-                type: 'string'
-            }, {
-                name: 'DUEDESC',
-                type: 'string'
-            }],
-            url: "sqltext",
-            data: {
-                sql: "SELECT DUECODE, TRIM(DUECODE)||' : '||TRIM(DUEDESC) AS DUEDESC FROM PAYDUE ORDER BY DUECODE"
-            }
-        };
-        var dataAdtPaydue = new $.jqx.dataAdapter(sourcePaydue);
-        //DataSource ARRESVTRAN
-        var dataArresvtran = [];
-        var sourceArresvtran = {
-            async: false,
-            datatype: "json",
-            datafields: [{
-                name: 'IDNO',
-                type: 'integer'
-            }, {
-                name: 'OPTCODE',
-                type: 'string'
-
-            }, {
-                name: 'OPTNAME',
-                type: 'string'
-
-            }, {
-                name: 'QTY',
-                type: 'float'
-            }, {
-                name: 'OPTPRC',
-                type: 'float'
-            }, {
-                name: 'FLSTAT',
-                type: 'string'
-
-            }, {
-                name: 'INSTALL',
-                type: 'string'
-
-            }, {
-                name: 'JOBNO',
-                type: 'string'
-
-            }],
-            id: 'id',
-            localdata: dataArresvtran
-        };
-        var dataAdtArresvtran = new $.jqx.dataAdapter(sourceArresvtran);
-        $('.admin-panels').adminpanel({
-            grid: '.admin-grid',
-            callback: function () {
-                bootbox.confirm('<h3>A Custom Callback!</h3>', function () {});
-            },
-            onFinish: function () {
-                $('.admin-panels').addClass('animated fadeIn').removeClass('fade-onload');
-                demoHighCharts.init();
-            },
-            onSave: function () {
-                $(window).trigger('resize');
-            }
-        });
+        ///////////
         $('#textState').hide();
         $('#locat').jqxInput({
             height: 25,
@@ -918,22 +863,22 @@
         $('#price').jqxNumberInput({
             height: 25,
             width: '100%',
-            symbol: '',
-            groupSeparator: "",
+            symbol: '฿',
+            groupSeparator: ",",
             spinButtons: true,
             digits: 12,
-            decimalDigits: 0,
+            decimalDigits: 2,
             min: 0,
             max: 999999999999
         });
         $('#disct').jqxNumberInput({
             height: 25,
             width: '100%',
-            symbol: '',
-            groupSeparator: "",
+            symbol: '฿',
+            groupSeparator: ",",
             spinButtons: true,
             digits: 12,
-            decimalDigits: 0,
+            decimalDigits: 2,
             min: 0,
             max: 999999999999
         });
@@ -949,22 +894,22 @@
         $('#dawn').jqxNumberInput({
             height: 25,
             width: '100%',
-            symbol: '',
-            groupSeparator: "",
+            symbol: '฿',
+            groupSeparator: ",",
             spinButtons: true,
             digits: 12,
-            decimalDigits: 0,
+            decimalDigits: 2,
             min: 0,
             max: 999999999999
         });
         $('#keyinupay').jqxNumberInput({
             height: 25,
             width: '100%',
-            symbol: '',
-            groupSeparator: "",
+            symbol: '฿',
+            groupSeparator: ",",
             spinButtons: true,
             digits: 12,
-            decimalDigits: 0,
+            decimalDigits: 2,
             min: 0,
             max: 999999999999
         });
@@ -992,8 +937,8 @@
         $('#insure3prc').jqxNumberInput({
             height: 25,
             width: '100%',
-            symbol: '',
-            groupSeparator: "",
+            symbol: '฿',
+            groupSeparator: ",",
             spinButtons: true,
             digits: 12,
             decimalDigits: 2,
@@ -1008,8 +953,8 @@
         $('#insure1prc').jqxNumberInput({
             height: 25,
             width: '100%',
-            symbol: '',
-            groupSeparator: "",
+            symbol: '฿',
+            groupSeparator: ",",
             spinButtons: true,
             digits: 12,
             decimalDigits: 2,
@@ -1029,7 +974,7 @@
             //Check validate
             for (var i = 0; i < rows.length; i++) {
                 var row = rows[i];
-                // console.log(row.OPTCODE);
+                console.log(row.OPTCODE);
                 if ((row.OPTCODE === undefined) || (row.OPTCODE === '')) {
                     nullOPTCODE++;
                 } else {
@@ -1078,12 +1023,12 @@
                 name: 'OPTCODE',
                 type: 'string'
             }, {
-                name: 'OPTNMTH',
+                name: 'OPTNAME',
                 type: 'string'
             }],
             url: "sqltext",
             data: {
-                sql: "SELECT OPTCODE, TRIM(OPTCODE)||' : '||TRIM(OPTNMTH) AS OPTNMTH FROM OPTMAST ORDER BY OPTCODE"
+                sql: "SELECT OPTCODE, TRIM(OPTCODE)||' : '||TRIM(OPTNAME) AS OPTNAME FROM SETMOD ORDER BY OPTCODE"
             }
         };
         var adapterOptmast = new $.jqx.dataAdapter(sourceoptmast);
@@ -1098,6 +1043,14 @@
             }, {
                 name: 'OPTCODE',
                 type: 'string'
+            }, {
+                name: 'SETMOD',
+                value: 'OPTCODE',
+                values: {
+                    source: adapterOptmast.records,
+                    value: 'OPTCODE',
+                    name: 'OPTNAME'
+                }
             }, {
                 name: 'OPTNAME',
                 type: 'string'
@@ -1219,36 +1172,45 @@
             }, {
                 text: 'รหัสอุปกรณ์',
                 datafield: 'OPTCODE',
-                width: 200,
+                width: 500,
                 align: 'center',
-                columntype: 'combobox',
+                columntype: 'dropdownlist',
+                displayfield: 'SETMOD',
                 validation: chkOPTCODE,
                 createeditor: function (row, value, editor) {
-                    editor.jqxComboBox({
+                    editor.jqxDropDownList({
                         source: adapterOptmast,
-                        displayMember: 'OPTNMTH',
+                        displayMember: 'OPTNAME',
                         valueMember: 'OPTCODE',
+                        placeHolder: "เลือกรหัสอุปกรณ์ :",
+                        dropDownHeight: 223,
+                        filterable: true,
+                        filterHeight: 30,
+                        filterPlaceHolder: "ค้นหา...",
                         searchMode: 'containsignorecase',
-                        placeHolder: "เลือก :",
-                        dropDownHeight: 104
+                        dropDownWidth: 450
+                    });
+                    editor.on('close', function(event) {
+                        $("#tableAcardtran").jqxGrid('hidevalidationpopups');
                     });
                 },
                 cellvaluechanging: function (row, datafield, columntype, oldvalue, newvalue) {
-                    if (newvalue != oldvalue) {
-                        var value = newvalue;
+                    if ((newvalue.value != oldvalue) && (newvalue.value != undefined)) {
+                        var value = newvalue.value;
+                        // console.log(newvalue.value);
                         $.ajax({
                             async: false,
                             method: 'GET',
                             dataType: 'json',
                             url: "sqltext",
                             data: {
-                                sql: "SELECT OPTNMTH FROM OPTMAST WHERE OPTCODE ='" +
+                                sql: "SELECT OPTCODE,OPTNAME FROM SETMOD WHERE OPTCODE ='" +
                                     value + "' "
                             },
                             success: function (data) {
-                                // console.log(data[0].OPTNMTH);
-                                $("#tableAcardtran").jqxGrid('setcellvalue',
-                                    row, "OPTNAME", data[0].OPTNMTH);
+                                // console.log(data[0].OPTCODE);
+                                $("#tableAcardtran").jqxGrid('setcellvalue', row, "OPTCODE", data[0].OPTCODE);
+                                $("#tableAcardtran").jqxGrid('setcellvalue', row, "OPTNAME", data[0].OPTNAME);
                             }
                         });
                     };
@@ -1258,7 +1220,8 @@
                 datafield: 'OPTNAME',
                 width: 300,
                 align: 'center',
-                cellsalign: 'left'
+                cellsalign: 'left',
+                hidden: true
             }, {
                 text: 'แถม',
                 datafield: 'FLSTAT',
@@ -1403,6 +1366,8 @@
                             localizationObject);
 
                         var acardtran = [];
+                        var sumqty = 0,
+                            sumprc = 0;
                         for (var i = 0; i < rowscountAcardtran; i++) {
                             var data = $("#tableAcardtran").jqxGrid('getrowdata', i);
                             var optcode = '',
@@ -1410,6 +1375,11 @@
                                 qty = 0,
                                 flstat = 'N',
                                 optprc = 0;
+                            if (data.FLSTAT === true) {
+                                flstat = 'Y'
+                            } else {
+                                flstat = 'N'
+                            }
                             if (data.OPTCODE === undefined) {
                                 optcode = '';
                             } else {
@@ -1430,13 +1400,17 @@
                             } else {
                                 optprc = data.OPTPRC;
                             }
+                            sumqty = sumqty+qty;
+                            sumprc = sumprc+optprc;
                             acardtran.push({
                                 IDNO: data.IDNO,
+                                LOCAT: $('#locat').val(),
                                 OPTCODE: optcode,
                                 OPTNAME: optname,
                                 QTY: qty,
                                 FLSTAT: flstat,
                                 OPTPRC: optprc,
+                                USERID: $.session.get('username'),
                             });
                         };
 
@@ -1470,7 +1444,10 @@
                                 INSURE1: $('#insure1').val(),
                                 INSURE3PRC: $('#insure3prc').val(),
                                 INSURE1PRC: $('#insure1prc').val(),
+                                SUMQTY: sumqty,
+                                SUMOPTPRC: sumprc,
                                 MEMO1: $('#memo1').val(),
+                                USERID: $.session.get('username'),
                             }]
                         }, {
                             table: 'ACARDTRAN',
@@ -1478,7 +1455,7 @@
                         }];
                         // Convert Value To JSON String
                         var value = JSON.stringify(valueJSON);
-                        //console.log(value);
+                        console.log(value);
                         $('#ok').on('click', function (event) {
                             $.ajax({
                                 url: 'saveAcard',
@@ -1534,22 +1511,8 @@
         //ค้นหา
         $('#searchBtn').off().on('click', function () {
             //Show Dialog Search
-            chkrun = true;
             searchAll('acard', 'acardno');
-
             $('#okButton').on('click', function (event) {
-                $('#fmAcard').jqxValidator('hide');
-                var rules2 = rules.slice();
-                // if (chkrun === false) {
-                //     // console.log('test');
-                //     rules.splice(8, 1);
-                //     rules2.splice(8, 1);
-                // }
-                rules2.splice(8, 1);
-                // console.log(rules);
-                // console.log(rules2);
-                // $('#fmAcard').jqxValidator('rules', rules);
-                $('#fmAcard').jqxValidator('rules', rules2);
                 event.preventDefault();
                 $('#fmAcard').jqxValidator('hide');
                 statusChange(true);
@@ -1585,13 +1548,11 @@
                                 data: value,
                                 success: function (data) {
                                     if (data[0].cancel === true) {
-                                        ShowMessage("ยกเลิกเรียบร้อย!",
-                                            "success");
+                                        ShowMessage("ยกเลิกเรียบร้อย!","success");
                                         $('#textState').show();
                                         //statusChange(false);
                                     } else {
-                                        ShowMessage("ยกเลิกไม่สำเร็จ! ",
-                                            "danger");
+                                        ShowMessage("ยกเลิกไม่สำเร็จ! ","danger");
                                     }
                                 },
                                 error: function (xhr, status, error) {

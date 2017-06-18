@@ -1,0 +1,416 @@
+﻿<div class="row" id="spy2">
+    <!-- Chart with filter Widget -->
+    <div class="col-md-12 admin-grid">
+        <div class="panel" id="p2">
+            <div class="panel-heading">
+                <span class="panel-icon"><span class="glyphicons glyphicons-imac"></span></span>
+                <span class="panel-title">กำหนดอัตราภาษี</span>
+                <span class="panel-controls">
+                    <a href="#" class="panel-control-loader"></a>
+                    <a href="#" class="panel-control-remove"></a>
+                    <a href="#" class="panel-control-collapse"></a>
+                    <a href="#" class="panel-control-fullscreen"></a>
+                </span>
+            </div>
+            <div class="panel-body">
+                <form class="form-horizontal" id="fmVatmast">
+                    <div class="p15 pt5 mt15">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <div class="col-md-12">
+                                        <div class="bs-component">
+                                            <div id="tablevatmast"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="col-md-4 control-label"></label>
+                                    <div class="col-md-8">
+                                        <div class="bs-component">
+                                            <button type="button" id="newBtn"><span class="fa fa-refresh"></span> เริ่มใหม่</button>
+                                            <button type="button" id="saveBtn"><span class="fa fa-floppy-o"></span> บันทึก</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <!-- end: .col-md-12.admin-grid -->
+</div>
+<!-- end: .row -->
+<script type="text/javascript">
+    $(document).ready(function () {
+        //Default status Insert
+        var status = 'insert';
+        //เช็คสิทธิการใช้งาน
+        var chkright = [];
+        var value = JSON.stringify([{
+            menucode: 'SET707',
+            userid: $.session.get('username')
+        }]);
+        $.ajax({
+            async: false,
+            url: "checkright",
+            contentType: "application/json",
+            dataType: 'json',
+            type: 'POST',
+            data: value,
+            success: function (data) {
+                chkright = data[0];
+                if (chkright.M_ACCESS === 'Y') {
+                    chkright.M_ACCESS = true
+                } else {
+                    chkright.M_ACCESS = false
+                }
+                if (chkright.M_DELETE === 'Y') {
+                    chkright.M_DELETE = true
+                } else {
+                    chkright.M_DELETE = false
+                }
+                if (chkright.M_EDIT === 'Y') {
+                    chkright.M_EDIT = true
+                } else {
+                    chkright.M_EDIT = false
+                }
+                if (chkright.M_INSERT === 'Y') {
+                    chkright.M_INSERT = true
+                } else {
+                    chkright.M_INSERT = false
+                }
+            }
+        });
+        //ฟังก์ชั่น สถานะ Insert หรือ Edit
+        function statusChange(disabled) {
+            if (disabled === false) {
+                status = 'insert';
+                // $('#tablevatmast').jqxGrid('clear');
+            } else {
+                status = 'update';
+                $("#saveBtn").jqxButton({
+                    disabled: !chkright.M_EDIT
+                });
+            }
+        }
+        //ฟังก์ชั่น Get Data VATMAST
+        function getVatmast() {
+            $.ajax({
+                async: false,
+                method: 'GET',
+                dataType: 'json',
+                url: "sqltext",
+                data: {
+                    sql: "SELECT * FROM VATMAST "
+                },
+                success: function (data) {
+                    sourceVatmast.localdata = data;
+                    $('#tablevatmast').jqxGrid('updatebounddata');
+                }
+            });
+        }
+        //ฟังก์ชั่นเช็ค validate VATMAST
+        function validateVatmast() {
+            $("#tablevatmast").jqxGrid('hidevalidationpopups');
+            var rows = $("#tablevatmast").jqxGrid('getdisplayrows');
+            var nullBook = 0,
+                nullDate = 0,
+                result = true;
+            //Check validate
+            for (var i = 0; i < rows.length; i++) {
+                var row = rows[i];
+                if ((row.FRMDATE === undefined) || (row.FRMDATE === '') || (row.FRMDATE === null)) {
+                    $("#tablevatmast").jqxGrid('showvalidationpopup', i, "FRMDATE", "กรุณาระบุวันที่เริ่มต้น");
+                    result = false;
+                };
+                if ((row.TODATE === undefined) || (row.TODATE === '') || (row.TODATE === null)) {
+                    $("#tablevatmast").jqxGrid('showvalidationpopup', i, "TODATE", "กรุณาระบุวันที่สิ้นสุด");
+                    result = false;
+                };
+            }
+            return result;
+        }
+
+        //DataSource VATMAST
+        var dataVatmast = [];
+        var sourceVatmast = {
+            datatype: "json",
+            datafields: [{
+                name: 'IDNO',
+                type: 'integer'
+            }, {
+                name: 'FRMDATE',
+                type: 'date'
+            }, {
+                name: 'TODATE',
+                type: 'date'
+            }, {
+                name: 'VATRT',
+                type: 'string'
+            }],
+            url: "sqltext",
+            data: {
+                sql: "SELECT IDNO, FRMDATE, TODATE, VATRT FROM VATMAST ORDER BY FRMDATE"
+            }
+        };
+        var dataAdtVatmast = new $.jqx.dataAdapter(sourceVatmast);
+        $('.admin-panels').adminpanel({
+            grid: '.admin-grid',
+            callback: function () {
+                bootbox.confirm('<h3>A Custom Callback!</h3>', function () {});
+            },
+            onFinish: function () {
+                $('.admin-panels').addClass('animated fadeIn').removeClass('fade-onload');
+                demoHighCharts.init();
+            },
+            onSave: function () {
+                $(window).trigger('resize');
+            }
+        });
+
+        $("#tablevatmast").jqxGrid({
+            width: '100%',
+            height: 250,
+            source: dataAdtVatmast,
+            editable: true,
+            altrows: true,
+            sortable: false,
+            filterable: false,
+            columnsresize: true,
+            selectionmode: 'singlerow',
+            editmode: 'selectedcell',
+            showstatusbar: true,
+            statusbarheight: 35,
+            showaggregates: true,
+            columns: [{
+                text: '#',
+                sortable: false,
+                filterable: false,
+                editable: false,
+                groupable: false,
+                draggable: false,
+                resizable: false,
+                align: 'center',
+                cellsalign: 'center',
+                datafield: '',
+                columntype: 'number',
+                width: 15,
+                cellsrenderer: function (row, column, value) {
+                    return "<div style='margin:4px; text-align:center;'>" + (value + 1) +
+                        "</div>";
+                },
+                aggregates: ['count'],
+                aggregatesrenderer: function (aggregates, column, element) {
+                    var renderstring = "";
+                    $.each(aggregates, function (key, value) {
+                        renderstring +=
+                            '<div style="position: relative; margin: 4px; overflow: hidden; font-weight: bold;">' +
+                            value + '</div>';
+                    });
+                    return renderstring;
+                }
+            }, {
+                text: 'IDNO',
+                datafield: 'IDNO',
+                width: 80,
+                hidden: true
+            }, {
+                text: 'วันที่เริ่มต้น',
+                datafield: 'FRMDATE',
+                columntype: 'datetimeinput',
+                width: 150,
+                align: 'center',
+                cellsalign: 'right',
+                cellsformat: 'dd/MM/yyyy',
+                validation: function (cell, value) {
+                    if (value == "")
+                        return true;
+                    var year = value.getFullYear();
+                    // if (year >= 2017) {
+                    //     return {
+                    //         result: false,
+                    //         message: "Ship Date should be before 1/1/2017"
+                    //     };
+                    // }
+                    return true;
+                },
+                cellvaluechanging: function(row, datafield, columntype, oldvalue, newvalue) {
+                    $("#tablevatmast").jqxGrid('hidevalidationpopups');
+                }
+            }, {
+                text: 'วันที่สิ้นสุด',
+                datafield: 'TODATE',
+                columntype: 'datetimeinput',
+                width: 150,
+                align: 'center',
+                cellsalign: 'right',
+                cellsformat: 'dd/MM/yyyy',
+                validation: function (cell, value) {
+                    if (value == "")
+                        return true;
+                    var year = value.getFullYear();
+                    // if (year >= 2017) {
+                    //     return {
+                    //         result: false,
+                    //         message: "Ship Date should be before 1/1/2017"
+                    //     };
+                    // }
+                    return true;
+                },
+                cellvaluechanging: function(row, datafield, columntype, oldvalue, newvalue) {
+                    $("#tablevatmast").jqxGrid('hidevalidationpopups');
+                }
+            }, {
+                text: 'อัตราภาษี',
+                datafield: 'VATRT',
+                width: 70,
+                align: 'right',
+                cellsalign: 'right',
+                columntype: 'numberinput',
+                validation: function (cell, value) {
+                    if (value < 0 || value > 100) {
+                        return {
+                            result: false,
+                            message: "VATRATE should be in the 0-100 interval"
+                        };
+                    }
+                    return true;
+                },
+                createeditor: function (row, cellvalue, editor) {
+                    editor.jqxNumberInput({
+                        decimalDigits: 0,
+                        digits: 3
+                    });
+                }
+            }],
+            showtoolbar: true,
+            rendertoolbar: function (toolbar) {
+                var container = $("<div style='margin: 5px;'></div>");
+                toolbar.append(container);
+                container.append(
+                    '<button type="button" id="addrow1"><span class="fa fa-plus"></span> เพิ่มรายการ</button> <button type="button" id="deleterow"><span class="fa fa-minus"></span> ลบรายการ</button>'
+                );
+                //Add row
+                $("#addrow1").on('click', function () {
+                    if (validateVatmast() === true) {
+                        var datarow = {
+                            FRMDATE: '',
+                            TODATE: '',
+                            VATRT: 0
+                        };
+                        var commit = $("#tablevatmast").jqxGrid('addrow', null, datarow);
+                        if (commit) {
+                            setTimeout(
+                                function () {
+                                    var recodecount = $("#tablevatmast").jqxGrid(
+                                        'getdatainformation').rowscount;
+                                    $("#tablevatmast").jqxGrid('selectrow', recodecount -
+                                        1);
+                                    $('#tablevatmast').jqxGrid('begincelledit',
+                                        recodecount - 1, 'FRMDATE');
+                                },
+                                200
+                            );
+                        };
+                    }
+                });
+
+                //Delete row
+                $("#deleterow").on('click', function () {
+                    var selectedrowindex = $("#tablevatmast").jqxGrid('getselectedrowindex');
+                    var rowscount = $("#tablevatmast").jqxGrid('getdatainformation').rowscount;
+                    if (selectedrowindex >= 0 && selectedrowindex < rowscount) {
+                        var id = $("#tablevatmast").jqxGrid('getrowid', selectedrowindex);
+                        var commit = $("#tablevatmast").jqxGrid('deleterow', id);
+                        //$("#validecolortrn").val("true");
+                    }
+                    return false;
+                });
+
+                $("#addrow1").jqxButton({
+                    width: 100,
+                    height: 25,
+                    template: "success"
+                });
+                $("#deleterow").jqxButton({
+                    width: 100,
+                    height: 25,
+                    template: "danger",
+                });
+            }
+        });
+
+        $("#newBtn").jqxButton({
+            template: "info",
+            width: 90
+        });
+        $("#saveBtn").jqxButton({
+            template: "primary",
+            width: 90,
+            disabled: !chkright.M_INSERT
+        });
+
+        //เริ่มใหม่
+        $('#newBtn').off().on('click', function () {
+            loadHTML("set_vatmast");
+        });
+        //บันทึก
+        $('#saveBtn').off().on('click', function () {
+            if (validateVatmast() === true) {
+                $.when($.confirmdlg('ต้องการบันทึกข้อมูล?', 'info')).then(function () {
+                    $("#tablevatmast").jqxGrid('refreshdata');
+                    var rowscount = $("#tablevatmast").jqxGrid('getdatainformation').rowscount;
+                    var vatmast = [];
+                    var currentCulture = Globalize.cultures['en-US'];
+                    var localizationObject = currentCulture.calendar;
+                    for (var i = 0; i < rowscount; i++) {
+                        var data = $("#tablevatmast").jqxGrid('getrowdata', i);
+                        var frdate = $.jqx.dataFormat.formatdate(data.FRMDATE, "dd/MM/yyyy", localizationObject);
+                        var todate = $.jqx.dataFormat.formatdate(data.TODATE, "dd/MM/yyyy", localizationObject);
+                        vatmast.push({
+                            IDNO: data.IDNO,
+                            FRMDATE: frdate,
+                            TODATE: todate,
+                            VATRT: data.VATRT
+                        });
+                    };
+                    var valueJSON = [{
+                        table: 'VATMAST',
+                        value: vatmast
+                    }];
+                    // Convert Value To JSON String
+                    var value = JSON.stringify(valueJSON);
+                    console.log(value);
+                    $('#ok').click(function (event) {
+                        $.ajax({
+                            url: 'saveVatmast',
+                            type: 'POST',
+                            contentType: "application/json",
+                            dataType: "json",
+                            data: value,
+                            success: function (data) {
+                                if (data[0].save === true) {
+                                    ShowMessage(
+                                        "บันทึกข้อมูลเรียบร้อย!",
+                                        "success");
+                                    statusChange(false);
+                                } else {
+                                    ShowMessage(
+                                        "บันทึกไม่สำเร็จ!",
+                                        "danger");
+                                }
+                            }
+                        });
+                    });
+                });
+            }
+        });
+    });
+</script>
