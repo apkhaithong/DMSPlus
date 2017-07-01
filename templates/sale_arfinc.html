@@ -532,6 +532,7 @@
                     </div>
                     <input type="hidden" id="flag" />
                     <input type="hidden" id="postgl" />
+                    <input type="hidden" id="refno" />
                 </div>
             </form>
             <hr class="short alt">
@@ -597,6 +598,8 @@
                 $('#smpay').val(0);
                 $('#tableArmgar').jqxGrid('clear');
                 $('#searchInvlocat').show();
+                $('#searchArresv').show();
+                $('#searchStrno').show();
                 $('#flag').val('');
                 $('#postgl').val('');
                 $('#textState').hide();
@@ -606,6 +609,8 @@
                     disabled: !chkright.M_EDIT
                 });
                 $('#searchInvlocat').hide();
+                $('#searchArresv').hide();
+                $('#searchStrno').hide();
             }
             $("#contno").prop("readonly", disabled);
             $("#locat").jqxInput({
@@ -663,7 +668,7 @@
                     $('#smpay').val(data[0].SMPAY);
                     $('#paytyp').val(data[0].PAYTYP);
                     $('#t_nopay').val(data[0].T_NOPAY);
-
+                    $('#refno').val(data[0].REFNO);
                     $('#salcod').val(data[0].SALCOD);
                     $('#keyinupay').val(data[0].KEYINUPAY);
                     var valFlagTx = 'N';
@@ -739,6 +744,57 @@
 
         //เงื่อนไข validate ARfinc
         var rules = [{
+            input: '#contno',
+            message: 'กรุณาระบุเลขที่สัญญา!',
+            action: 'keyup, blur, focusout',
+            rule: function (input, commit) {
+                var contno = $('#contno').val()
+                if (chkrun === false) {
+                    var result = [];
+                    if (contno === '') {
+                        result = false;
+                    } else {
+                        result = true;
+                    }
+                    return result;
+                } else {
+                    return true;
+                }
+            }
+        }, {
+            input: '#contno',
+            message: 'ระบุเลขที่สัญญาซ้ำ!',
+            action: 'keyup, blur',
+            rule: function (input, commit) {
+                var contno = $('#contno').val();
+                if ((contno !== '') && (status === 'insert')) {
+                    var result = [];
+                    $.ajax({
+                        async: false,
+                        url: "duplicateCheck",
+                        type: 'get',
+                        data: {
+                            table: 'ARFINC',
+                            field: 'CONTNO',
+                            value: contno
+                        },
+                        success: function (data) {
+                            if (data === true) {
+                                result = true;
+                            } else {
+                                result = false;
+                            }
+                        },
+                        error: function () {
+                            result = false;
+                        }
+                    });
+                    return result;
+                } else {
+                    return true;
+                }
+            }
+        }, {
             input: '#locat',
             message: 'กรุณาระบุรหัสสาขา!',
             action: 'keyup, blur, focusout',
@@ -750,7 +806,9 @@
             rule: function (input, commit) {
                 var locat = $('#locat').val();
                 if (locat !== '') {
+                    var result = [];
                     $.ajax({
+                        async: false,
                         url: "duplicateCheck",
                         type: 'get',
                         data: {
@@ -760,13 +818,18 @@
                         },
                         success: function (data) {
                             if (data === true) {
-                                commit(false);
-                            } else commit(true);
+                                result = false;
+                            } else {
+                                result = true;
+                            }
                         },
                         error: function () {
-                            commit(false);
+                            result = false;
                         }
                     });
+                    return result;
+                } else {
+                    return true;
                 }
             }
         }, {
@@ -781,7 +844,9 @@
             rule: function (input, commit) {
                 var cuscod = $('#cuscod').val();
                 if (cuscod !== '') {
+                    var result = [];
                     $.ajax({
+                        async: false,
                         url: "duplicateCheck",
                         type: 'get',
                         data: {
@@ -791,13 +856,18 @@
                         },
                         success: function (data) {
                             if (data === true) {
-                                commit(false);
-                            } else commit(true);
+                                result = false;
+                            } else {
+                                result = true;
+                            }
                         },
                         error: function () {
-                            commit(false);
+                            result = false;
                         }
                     });
+                    return result;
+                } else {
+                    return true;
                 }
             }
         }, {
@@ -807,7 +877,7 @@
             rule: function (input, commit) {
                 var resvno = $('#resvno').val();
                 var locatresv = $('#locat').val();
-                if (resvno !== '') {
+                if ((resvno !== '') && (status === 'insert')) {
                     var result = [];
                     $.ajax({
                         async: false,
@@ -815,7 +885,7 @@
                         dataType: 'json',
                         url: "sqltext",
                         data: {
-                            sql: "SELECT RESVNO, FLAG, SDATE, RESVDT, SMPAY, RESPAY FROM ARRESV WHERE RESVNO ='" + resvno + "' AND LOCAT = '"+locatresv+"' "
+                            sql: "SELECT RESVNO, FLAG, SDATE, RESVDT, SMPAY, RESPAY FROM ARRESV WHERE RESVNO ='" + resvno +"' " //"' AND LOCAT = '"+locatresv+"' "
                         },
                         success: function (data) {
                             if (data.length > 0) {
@@ -829,6 +899,8 @@
                         }
                     });
                     return result;
+                } else {
+                    return true;
                 }
             }
         }, {
@@ -838,7 +910,7 @@
             rule: function (input, commit) {
                 var resvno = $('#resvno').val();
                 //var locatresv = $('#locat').val();
-                if (resvno !== '') {
+                if ((resvno !== '') && (status === 'insert')) {
                     var result = [];
                     $.ajax({
                         async: false,
@@ -862,6 +934,8 @@
                         }
                     });
                     return result;
+                } else {
+                    return true;
                 }
             }
         }, {
@@ -871,7 +945,7 @@
             rule: function (input, commit) {
                 var resvno = $('#resvno').val();
                 //var locatresv = $('#locat').val();
-                if (resvno !== '') {
+                if ((resvno !== '') && (status === 'insert')) {
                     var result = [];
                     $.ajax({
                         async: false,
@@ -895,6 +969,8 @@
                         }
                     });
                     return result;
+                } else {
+                    return true;
                 }
             }
         }, {
@@ -904,7 +980,7 @@
             rule: function (input, commit) {
                 var resvno = $('#resvno').val();
                 //var locatresv = $('#locat').val();
-                if (resvno !== '') {
+                if ((resvno !== '') && (status === 'insert')) {
                     var result = [];
                     $.ajax({
                         async: false,
@@ -928,6 +1004,8 @@
                         }
                     });
                     return result;
+                } else {
+                    return true;
                 }
             }
         }, {
@@ -937,7 +1015,7 @@
             rule: function (input, commit) {
                 var resvno = $('#resvno').val();
                 var locatresv = $('#locat').val();
-                if (resvno !== '') {
+                if ((resvno !== '') && (status === 'insert')) {
                     var result = [];
                     $.ajax({
                         async: false,
@@ -959,6 +1037,8 @@
                         }
                     });
                     return result;
+                } else {
+                    return true;
                 }
             }
         }, {
@@ -974,7 +1054,7 @@
                 var strno = $('#strno').val();
                 var resvno = $('#resvno').val();
                 var locatresv = $('#locat').val();
-                if (strno !== '') {
+                if ((strno !== '') && (status === 'insert')) {
                     var result = [];
                     $.ajax({
                         async: false,
@@ -999,6 +1079,8 @@
                         }
                     });
                     return result;
+                } else {
+                    return true;
                 }
             }
         }, {
@@ -1009,7 +1091,7 @@
                 var strno = $('#strno').val();
                 var resvno = $('#resvno').val();
                 var locatresv = $('#locat').val();
-                if (strno !== '') {
+                if ((strno !== '') && (status === 'insert')) {
                     var result = [];
                     $.ajax({
                         async: false,
@@ -1031,6 +1113,8 @@
                         }
                     });
                     return result;
+                } else {
+                    return true;
                 }
             }
         }, {
@@ -1041,7 +1125,7 @@
                 var strno = $('#strno').val();
                 var locatresv = $('#locat').val();
                 var sdate = $('#sdate').jqxDateTimeInput('getDate');
-                if (strno !== '') {
+                if ((strno !== '') && (status === 'insert')) {
                     var result = [];
                     $.ajax({
                         async: false,
@@ -1066,6 +1150,8 @@
                         }
                     });
                     return result;
+                } else {
+                    return true;
                 }
             }
         }, {
@@ -1080,7 +1166,9 @@
             rule: function (input, commit) {
                 var locsale = $('#locsale').val();
                 if (locsale !== '') {
+                    var result = [];
                     $.ajax({
+                        async: false,
                         url: "duplicateCheck",
                         type: 'get',
                         data: {
@@ -1090,13 +1178,18 @@
                         },
                         success: function (data) {
                             if (data === true) {
-                                commit(false);
-                            } else commit(true);
+                                result = false;
+                            } else {
+                                result = true;
+                            }
                         },
                         error: function () {
-                            commit(false);
+                            result = false;
                         }
                     });
+                    return result;
+                } else {
+                    return true;
                 }
             }
         }, {
@@ -1111,7 +1204,9 @@
             rule: function (input, commit) {
                 var fincod = $('#fincod').val();
                 if (fincod !== '') {
+                    var result = [];
                     $.ajax({
+                        async: false,
                         url: "duplicateCheck",
                         type: 'get',
                         data: {
@@ -1121,51 +1216,21 @@
                         },
                         success: function (data) {
                             if (data === true) {
-                                commit(false);
-                            } else commit(true);
+                                result = false;
+                            } else {
+                                result = true;
+                            }
                         },
                         error: function () {
-                            commit(false);
+                            result = false;
                         }
                     });
+                    return result;
+                } else {
+                    return true;
                 }
             }
         }];
-
-        if (chkrun === false) {
-            rules.push({
-                input: '#contno',
-                message: 'กรุณาระบุเลขที่สัญญา!',
-                action: 'keyup, blur, focusout',
-                rule: 'required'
-            }, {
-                input: '#contno',
-                message: 'ระบุเลขที่สัญญาซ้ำ!',
-                action: 'keyup, blur',
-                rule: function (input, commit) {
-                    var contno = $('#contno').val();
-                    if (contno !== '') {
-                        $.ajax({
-                            url: "duplicateCheck",
-                            type: 'get',
-                            data: {
-                                table: 'ARFINC',
-                                field: 'CONTNO',
-                                value: contno
-                            },
-                            success: function (data) {
-                                if (data === true) {
-                                    commit(true);
-                                } else commit(false);
-                            },
-                            error: function () {
-                                commit(false);
-                            }
-                        });
-                    }
-                }
-            });
-        }
 
         $('#textState').hide();
         $('#locat').jqxInput({
@@ -1266,68 +1331,62 @@
         $('#stdprc').jqxNumberInput({
             height: 25,
             width: '100%',
-            symbol: '',
-            groupSeparator: "",
+            symbol: '฿',
             spinButtons: true,
-            digits: 12,
+            digits: 10,
             decimalDigits: 2,
             min: 0,
-            max: 999999999999
+            max: 9999999999
         });
         $('#disct').jqxNumberInput({
             height: 25,
             width: '100%',
-            symbol: '',
-            groupSeparator: "",
+            symbol: '฿',
             spinButtons: true,
-            digits: 12,
+            digits: 10,
             decimalDigits: 2,
             min: 0,
-            max: 999999999999
+            max: 9999999999
         });
         $('#keyinprc').jqxNumberInput({
             height: 25,
             width: '100%',
-            symbol: '',
-            groupSeparator: "",
+            symbol: '฿',
             spinButtons: true,
-            digits: 12,
+            digits: 10,
             decimalDigits: 2,
             min: 0,
-            max: 999999999999
+            max: 9999999999
         });
         $('#tdawn').jqxNumberInput({
             height: 25,
             width: '100%',
-            symbol: '',
-            groupSeparator: "",
+            symbol: '฿',
             spinButtons: true,
-            digits: 12,
+            digits: 10,
             decimalDigits: 2,
             min: 0,
-            max: 999999999999
+            max: 9999999999
         });
         $('#tkang').jqxNumberInput({
             height: 25,
             width: '100%',
-            symbol: '',
-            groupSeparator: "",
+            symbol: '฿',
             spinButtons: true,
-            digits: 12,
+            digits: 10,
             decimalDigits: 2,
             min: 0,
-            max: 999999999999
+            max: 9999999999
         });
         $('#comfin').jqxNumberInput({
             height: 25,
             width: '100%',
-            symbol: '',
-            groupSeparator: "",
+            symbol: '฿',
             spinButtons: true,
-            digits: 12,
+            digits: 10,
             decimalDigits: 2,
             min: 0,
-            max: 999999999999
+            max: 9999999999
         });
         $("#issueno").jqxInput({
             height: 25,
@@ -1342,13 +1401,12 @@
         $('#comint').jqxNumberInput({
             height: 25,
             width: '100%',
-            symbol: '',
-            groupSeparator: "",
+            symbol: '฿',
             spinButtons: true,
-            digits: 12,
+            digits: 10,
             decimalDigits: 2,
             min: 0,
-            max: 999999999999
+            max: 9999999999
         });
         $("#taxno").jqxInput({
             height: 25,
@@ -1365,13 +1423,12 @@
         $('#paydawn').jqxNumberInput({
             height: 25,
             width: '100%',
-            symbol: '',
-            groupSeparator: "",
+            symbol: '฿',
             spinButtons: true,
-            digits: 12,
+            digits: 10,
             decimalDigits: 2,
             min: 0,
-            max: 999999999999,
+            max: 9999999999,
             readOnly: true,
             disabled: true
         });
@@ -1387,13 +1444,12 @@
         $('#smpay').jqxNumberInput({
             height: 25,
             width: '100%',
-            symbol: '',
-            groupSeparator: "",
+            symbol: '฿',
             spinButtons: true,
-            digits: 12,
+            digits: 10,
             decimalDigits: 2,
             min: 0,
-            max: 999999999999,
+            max: 9999999999,
             readOnly: true,
             disabled: true
         });
@@ -1429,13 +1485,12 @@
         $('#keyinupay').jqxNumberInput({
             height: 25,
             width: '100%',
-            symbol: '',
-            groupSeparator: "",
+            symbol: '฿',
             spinButtons: true,
-            digits: 12,
+            digits: 10,
             decimalDigits: 2,
             min: 0,
-            max: 999999999999
+            max: 9999999999
         });
         $("#flagtx").jqxCheckBox({
             width: 250,
@@ -1987,6 +2042,25 @@
             rules: rules
         });
 
+        $('#strno').on('change', function (event) {
+            var locatresv = $('#locat').val();
+            var strno = $('#strno').val();
+            if (status === 'insert') {
+                $.ajax({
+                    async: false,
+                    method: 'GET',
+                    dataType: 'json',
+                    url: "sqltext",
+                    data: {
+                        sql: "SELECT IDNO,STRNO,FLAG,CURSTAT,STDPRC FROM STKCARD WHERE STRNO ='"+strno+"' AND LOCAT ='"+locatresv+"' AND FLAG ='D' "
+                    },
+                    success: function (data) {
+                        $('#refno').val(data[0].IDNO);
+                    },
+                });
+            }
+        });
+
         //แสดงคำอธิบาย
         $('#v-locat').off().on('blur', function () {
             $('#locatnm').val(getLocatName($('#locat').val()));
@@ -1998,10 +2072,21 @@
             $('#cuscod2nm').val(getCustname($('#cuscod2').val()));
         });
         $('#v-fincod').off().on('blur', function () {
-            $('#fincodenm').val(getfinName($('#fincod').val()));
+            $('#fincodenm').val(getFinname($('#fincod').val()));
         });
         $('#v-acticod').off().on('blur', function () {
-            $('#acticodnm').val(getSetactiname($('#acticod').val()));
+            $.ajax({
+                async: false,
+                method: 'GET',
+                dataType: 'json',
+                url: "sqltext",
+                data: {
+                    sql: "SELECT ACTIDESC FROM SETACTI WHERE ACTICODE = '"+$('#v-acticod').val()+"' "
+                },
+                success: function (data) {
+                    $('#acticodnm').val(data[0].ACTIDESC);
+                },
+            });
         });
         $('#v-paytyp').off().on('blur', function () {
             $('#paytypnm').val(getPaydue($('#paytyp').val()));
@@ -2050,7 +2135,9 @@
         });
         //บันทึก
         $('#saveBtn').off().on('click', function () {
+            console.log('click');
             $('#fmArfinc').jqxValidator('validate', function (result) {
+                console.log(result);
                 if (result) {
                     $.when($.confirmdlg('ต้องการบันทึกข้อมูล?', 'info')).then(function () {
                         var docdate = $("#sdate").jqxDateTimeInput('getDate');
@@ -2064,6 +2151,7 @@
                             localizationObject);
                         var fdate = $.jqx.dataFormat.formatdate(fdate1, "dd/MM/yyyy",
                             localizationObject);
+                        var rowscountArmgar = $("#tableArmgar").jqxGrid('getdatainformation').rowscount;
                         //flagtx
                         var flagtx = 'N';
                         if ($("#flagtx").val() === true){
@@ -2081,6 +2169,20 @@
                         if ($("#typ3").val() === true){
                             typsale = "H";
                         }
+                        var garno = 1;
+                        var valueArmgar = [];
+                        for (var i = 0; i < rowscountArmgar; i++) {
+                            var data = $("#tableArmgar").jqxGrid('getrowdata', i);
+                            valueArmgar.push({
+                                IDNO: data.IDNO,
+                                CONTID: data.CONTID,
+                                CUSCOD: data.CUSCOD,
+                                RELATION: data.RELATION,
+                                GARNO: garno,
+                                TSALE: 'F',
+                            });
+                            garno++;
+                        };
 
                         var valueJSON = [{
                             status: status,
@@ -2102,7 +2204,6 @@
                                 STDPRC: $('#stdprc').val(),
                                 DISCT: $('#disct').val(),
                                 KEYINPRC: $('#keyinprc').val(),
-                                DISCT: $('#disct').val(),
                                 TKANG: $('#tkang').val(),
                                 PAYRES: 0,
                                 COMFIN: $('#comfin').val(),
@@ -2111,6 +2212,7 @@
                                 TAXNO: '',
                                 TAXDT: sdate,
                                 PAYDAWN: 0,
+                                REFNO: $('#refno').val(),
                                 ACTICOD: $('#acticod').val(),
                                 SMPAY: 0,
                                 PAYTYP: $('#paytyp').val(),
@@ -2129,13 +2231,16 @@
                                 USERID: $.session.get('username'),
                                 FLAG: 'A',
                             }]
+                        }, {
+                            table: 'ARMGAR',
+                            value: valueArmgar
                         }];
                         // Convert Value To JSON String
                         var value = JSON.stringify(valueJSON);
-                        //console.log(value);
+                        console.log(value);
                         $('#ok').on('click', function (event) {
                             $.ajax({
-                                url: 'saveArfin',
+                                url: 'saveArfinc',
                                 type: 'POST',
                                 contentType: "application/json",
                                 dataType: "json",
@@ -2211,15 +2316,6 @@
             //Show Dialog Search
             searchAll('arfinc', 'contno');
             $('#okButton').on('click', function (event) {
-                var rules2 = rules.slice();
-                if (chkrun === false) {
-                    // console.log('test');
-                    rules2.splice(1, 1);
-                }
-                console.log(rules);
-                rules2.splice(4, 8);
-                console.log(rules2);
-                $('#fmArfinc').jqxValidator('rules', rules2);
                 event.preventDefault();
                 $('#fmArfinc').jqxValidator('hide');
                 statusChange(true);

@@ -415,6 +415,57 @@
 
         //เงื่อนไข validate ARCRED
         var rules = [{
+            input: '#contno',
+            message: 'กรุณาระบุเลขที่สัญญา!',
+            action: 'keyup, blur, focusout',
+            rule: function (input, commit) {
+                var contno = $('#contno').val()
+                if (chkrun === false) {
+                    var result = [];
+                    if (contno === '') {
+                        result = false;
+                    } else {
+                        result = true;
+                    }
+                    return result;
+                } else {
+                    return true;
+                }
+            }
+        }, {
+            input: '#contno',
+            message: 'ระบุเลขที่สัญญาซ้ำ!',
+            action: 'keyup, blur',
+            rule: function (input, commit) {
+                var contno = $('#contno').val();
+                if ((contno !== '') && (status === 'insert')) {
+                    var result = [];
+                    $.ajax({
+                        async: false,
+                        url: "duplicateCheck",
+                        type: 'get',
+                        data: {
+                            table: 'ARCRED',
+                            field: 'CONTNO',
+                            value: contno
+                        },
+                        success: function (data) {
+                            if (data === true) {
+                                result = true;
+                            } else {
+                                result = false;
+                            }
+                        },
+                        error: function () {
+                            result = false;
+                        }
+                    });
+                    return result;
+                } else {
+                    return true;
+                }
+            }
+        }, {
             input: '#locat',
             message: 'กรุณาระบุรหัสสาขา!',
             action: 'keyup, blur, focusout',
@@ -426,7 +477,9 @@
             rule: function (input, commit) {
                 var locat = $('#locat').val();
                 if (locat !== '') {
+                    var result = [];
                     $.ajax({
+                        async: false,
                         url: "duplicateCheck",
                         type: 'get',
                         data: {
@@ -436,13 +489,18 @@
                         },
                         success: function (data) {
                             if (data === true) {
-                                commit(false);
-                            } else commit(true);
+                                result = false;
+                            } else {
+                                result = true;
+                            }
                         },
                         error: function () {
-                            commit(false);
+                            result = false;
                         }
                     });
+                    return result;
+                } else {
+                    return true;
                 }
             }
         }, {
@@ -457,7 +515,9 @@
             rule: function (input, commit) {
                 var cuscod = $('#cuscod').val();
                 if (cuscod !== '') {
+                    var result = [];
                     $.ajax({
+                        async: false,
                         url: "duplicateCheck",
                         type: 'get',
                         data: {
@@ -467,13 +527,18 @@
                         },
                         success: function (data) {
                             if (data === true) {
-                                commit(false);
-                            } else commit(true);
+                                result = false;
+                            } else {
+                                result = true;
+                            }
                         },
                         error: function () {
-                            commit(false);
+                            result = false;
                         }
                     });
+                    return result;
+                } else {
+                    return true;
                 }
             }
         }, {
@@ -746,40 +811,6 @@
             }
         }];
 
-        if (chkrun === false) {
-            rules.unshift({
-                input: '#contno',
-                message: 'กรุณาระบุเลขที่สัญญา!',
-                action: 'keyup, blur, focusout',
-                rule: 'required'
-            }, {
-                input: '#contno',
-                message: 'ระบุเลขที่สัญญาซ้ำ!',
-                action: 'keyup, blur',
-                rule: function (input, commit) {
-                    var contno = $('#contno').val();
-                    if (contno !== '') {
-                        $.ajax({
-                            url: "duplicateCheck",
-                            type: 'get',
-                            data: {
-                                table: 'ARCRED',
-                                field: 'CONTNO',
-                                value: contno
-                            },
-                            success: function (data) {
-                                if (data === true) {
-                                    commit(true);
-                                } else commit(false);
-                            },
-                            error: function () {
-                                commit(false);
-                            }
-                        });
-                    }
-                }
-            });
-        }
         //console.log(rules);
         var sourceSetacti = {
             async: false,
@@ -1369,13 +1400,6 @@
             //Show Dialog Search
             searchAll('arcred', 'contno');
             $('#okButton').on('click', function (event) {
-                var rules2 = rules.slice();
-                // if (chkrun === false) {
-                    rules2.splice(1, 1);
-                // }
-                rules2.splice(4, 8);
-                //console.log(rules2);
-                $('#fmArcred').jqxValidator('rules', rules2);
                 event.preventDefault();
                 $('#fmArcred').jqxValidator('hide');
                 statusChange(true);
