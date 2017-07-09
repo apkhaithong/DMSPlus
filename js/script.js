@@ -282,3 +282,18 @@ function getFinname(fincode) {
     });
     return finname;
 };
+
+function getPaydue(paytyp) {
+    var duedesc = '';
+    $.ajax({
+        async: false,
+        url: "sqltext",
+        data: { sql: "SELECT DUECODE, DUEDESC FROM PAYDUE WHERE DUECODE = '"+paytyp+"' " },
+        type: 'GET',
+        dataType: 'json',
+        success: function(data) {
+            duedesc = data[0].DUEDESC;
+        }
+    });
+    return duedesc;
+};

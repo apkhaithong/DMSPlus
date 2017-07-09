@@ -320,6 +320,7 @@
     $(document).ready(function () {
         //Default status Insert
         var status = 'insert';
+        var smpay = 0;
         //เช็คสิทธิการใช้งาน
         var chkright = checkRight('SAL009');
 
@@ -353,7 +354,7 @@
                 $('#acticod').val('');
                 $('#othpay').val(0);
                 $('#paytyp').val('');
-                $('#smpay').val(0);
+                smpay = 0;
                 $('#tableArinvoitran').jqxGrid('clear');
                 $('#searchInvlocat').show();
                 $('#flag').val('');
@@ -388,7 +389,7 @@
                 dataType: 'json',
                 url: "sqltext",
                 data: {
-                    sql: "SELECT A.IDNO,A.CONTNO,A.LOCAT,A.SDATE,A.INCLVAT,A.VATRT,A.ADDRNO,A.CUSCOD,A.CREDTM,A.DUEDATE,A.SALCOD,A.ISSUNO,A.ISSUDT,A.LPAYD,	A.KEYINPRC,A.NPRICE,A.VATPRC,A.TOTPRC,A.NETPRC,A.NETVAT,A.SMPAY,A.FLAG,A.CANDT,A.TAXNO,A.TAXDT,A.MEMO1,A.SMCHQ,A.POSTGL,A.LOCSALE,A.FLCANCL,TRIM(B.SNAM)||TRIM(B.NAME1)||' '||TRIM(B.NAME2) AS CUSTNAME,TRIM(C.NAME)||' '||TRIM(C.SURNAME) AS OFFNAME FROM AR_INVOI A LEFT JOIN CUSTMAST B ON(A.CUSCOD=B.CUSCOD) LEFT JOIN OFFICER C ON(A.SALCOD=C.CODE) WHERE A.CONTNO = '" + contno + "' "
+                    sql: "SELECT A.IDNO,A.CONTNO,A.LOCAT,A.SDATE,A.INCLVAT,A.VATRT, A.PAYTYP,A.ADDRNO,A.CUSCOD,A.CREDTM,A.DUEDATE,A.SALCOD,A.ISSUNO,A.ISSUDT,A.LPAYD,	A.KEYINPRC,A.NPRICE,A.VATPRC,A.TOTPRC,A.NETPRC,A.NETVAT,A.SMPAY,A.FLAG,A.CANDT,A.TAXNO,A.TAXDT,A.MEMO1,A.SMCHQ,A.POSTGL,A.LOCSALE,A.FLCANCL,TRIM(B.SNAM)||TRIM(B.NAME1)||' '||TRIM(B.NAME2) AS CUSTNAME,TRIM(C.NAME)||' '||TRIM(C.SURNAME) AS OFFNAME FROM AR_INVOI A LEFT JOIN CUSTMAST B ON(A.CUSCOD=B.CUSCOD) LEFT JOIN OFFICER C ON(A.SALCOD=C.CODE) WHERE A.CONTNO = '" + contno + "' "
                 },
                 success: function (data) {
                     $('#locat').val(data[0].LOCAT);
@@ -413,12 +414,15 @@
                     $('#memo1').val(data[0].MEMO1);
                     $('#flag').val(data[0].FLAG);
                     $('#postgl').val(data[0].POSTGL);
+                    smpay = data[0].SMPAY;
                     if (data[0].FLAG === 'C') {
                         $('#textState').show();
                     } else {
                         $('#textState').hide();
                     }
-
+                    $('#v-locat').trigger('blur');
+                    $('#v-salcod').trigger('blur');
+                    $('#v-paytyp').trigger('blur');
                     getTableArinvoitran(data[0].CONTNO);
                     // getTableArresv(data[0].RESVNO);
                 }
@@ -432,7 +436,7 @@
                 dataType: 'json',
                 url: "sqltext",
                 data: {
-                    sql: "SELECT CONTID,CONTNO,STRNO,LOCAT,VATRT,SDATE,STDPRC,KEYIN,VKEYIN,NKEYIN,TOTPRC,NETPRC,NETVAT,CRDAMT,CRDNO,FLAG,REFNO,LOCSALE FROM AR_TRANS WHERE CONTNO = '" + contno + "' ORDER BY STRNO"
+                    sql: "SELECT IDNO,CONTID,CONTNO,STRNO,LOCAT,VATRT,SDATE,STDPRC,KEYIN,VKEYIN,NKEYIN,TOTPRC,NETPRC,NETVAT,CRDAMT,CRDNO,FLAG,REFNO,LOCSALE FROM AR_TRANS WHERE CONTNO = '" + contno + "' ORDER BY STRNO"
                 },
                 success: function (data) {
                     sourceArtran.localdata = data;
@@ -460,6 +464,57 @@
 
         //เงื่อนไข validate ARfinc
         var rules = [{
+            input: '#contno',
+            message: 'กรุณาระบุเลขที่สัญญา!',
+            action: 'keyup, blur, focusout',
+            rule: function (input, commit) {
+                var contno = $('#contno').val()
+                if (chkrun === false) {
+                    var result = [];
+                    if (contno === '') {
+                        result = false;
+                    } else {
+                        result = true;
+                    }
+                    return result;
+                } else {
+                    return true;
+                }
+            }
+        }, {
+            input: '#contno',
+            message: 'ระบุเลขที่สัญญาซ้ำ!',
+            action: 'keyup, blur',
+            rule: function (input, commit) {
+                var contno = $('#contno').val();
+                if ((contno !== '') && (status === 'insert')) {
+                    var result = [];
+                    $.ajax({
+                        async: false,
+                        url: "duplicateCheck",
+                        type: 'get',
+                        data: {
+                            table: 'AR_INVOI',
+                            field: 'CONTNO',
+                            value: contno
+                        },
+                        success: function (data) {
+                            if (data === true) {
+                                result = true;
+                            } else {
+                                result = false;
+                            }
+                        },
+                        error: function () {
+                            result = false;
+                        }
+                    });
+                    return result;
+                } else {
+                    return true;
+                }
+            }
+        }, {
             input: '#locat',
             message: 'กรุณาระบุรหัสสาขา!',
             action: 'keyup, blur, focusout',
@@ -471,7 +526,9 @@
             rule: function (input, commit) {
                 var locat = $('#locat').val();
                 if (locat !== '') {
+                    var result = [];
                     $.ajax({
+                        async: false,
                         url: "duplicateCheck",
                         type: 'get',
                         data: {
@@ -481,13 +538,18 @@
                         },
                         success: function (data) {
                             if (data === true) {
-                                commit(false);
-                            } else commit(true);
+                                result = false;
+                            } else {
+                                result = true;
+                            }
                         },
                         error: function () {
-                            commit(false);
+                            result = false;
                         }
                     });
+                    return result;
+                } else {
+                    return true;
                 }
             }
         }, {
@@ -502,7 +564,9 @@
             rule: function (input, commit) {
                 var cuscod = $('#cuscod').val();
                 if (cuscod !== '') {
+                    var result = [];
                     $.ajax({
+                        async: false,
                         url: "duplicateCheck",
                         type: 'get',
                         data: {
@@ -512,13 +576,18 @@
                         },
                         success: function (data) {
                             if (data === true) {
-                                commit(false);
-                            } else commit(true);
+                                result = false;
+                            } else {
+                                result = true;
+                            }
                         },
                         error: function () {
-                            commit(false);
+                            result = false;
                         }
                     });
+                    return result;
+                } else {
+                    return true;
                 }
             }
         }, {
@@ -533,7 +602,9 @@
             rule: function (input, commit) {
                 var locsale = $('#locsale').val();
                 if (locsale !== '') {
+                    var result = [];
                     $.ajax({
+                        async: false,
                         url: "duplicateCheck",
                         type: 'get',
                         data: {
@@ -543,51 +614,21 @@
                         },
                         success: function (data) {
                             if (data === true) {
-                                commit(false);
-                            } else commit(true);
+                                result = false;
+                            } else {
+                                result = true;
+                            }
                         },
                         error: function () {
-                            commit(false);
+                            result = false;
                         }
                     });
+                    return result;
+                } else {
+                    return true;
                 }
             }
         }];
-
-        if (chkrun === false) {
-            rules.push({
-                input: '#contno',
-                message: 'กรุณาระบุเลขที่สัญญา!',
-                action: 'keyup, blur, focusout',
-                rule: 'required'
-            }, {
-                input: '#contno',
-                message: 'ระบุเลขที่สัญญาซ้ำ!',
-                action: 'keyup, blur',
-                rule: function (input, commit) {
-                    var contno = $('#contno').val();
-                    if (contno !== '') {
-                        $.ajax({
-                            url: "duplicateCheck",
-                            type: 'get',
-                            data: {
-                                table: 'ARFINC',
-                                field: 'CONTNO',
-                                value: contno
-                            },
-                            success: function (data) {
-                                if (data === true) {
-                                    commit(true);
-                                } else commit(false);
-                            },
-                            error: function () {
-                                commit(false);
-                            }
-                        });
-                    }
-                }
-            });
-        }
 
         $('#textState').hide();
         $('#locat').jqxInput({
@@ -727,10 +768,17 @@
             width: '100%',
             maxLength: 8
         });
+        $('#salcod').val($.session.get('officecode'));
         $('#salcodnm').jqxInput({
             height: 25,
             width: '100%'
-        });        
+        });  
+        $('#credtm').on('valueChanged', function (event) {
+            var value = parseFloat(event.args.value);
+            var sdate = $("#sdate").jqxDateTimeInput('getDate');
+            sdate.setDate(sdate.getDate() + value);
+            $('#duedate').jqxDateTimeInput('setDate', sdate);
+        });      
 
         function statusClear() {
             $('#strno').val('');
@@ -762,6 +810,9 @@
             datatype: "json",
             datafields: [{
                 name: 'IDNO',
+                type: 'integer'
+            }, {
+                name: 'REFNO',
                 type: 'integer'
             }, {
                 name: 'STRNO',
@@ -909,37 +960,97 @@
                 datafield: 'STDPRC',
                 width: 120,
                 align: 'center',
-                cellsalign: 'left'
+                cellsalign: 'right',
+                cellsformat: 'd2',
+                columntype: 'numberinput',
+                createeditor: function(row, value, editor) {
+                    editor.jqxNumberInput({
+                        decimalDigits: 2,
+                        digits: 12,
+                        spinButtons: false,
+                        spinButtonsStep: 0,
+                        min: 0,
+                        inputMode: 'simple'
+                    });
+                },
             }, {
                 text: 'ราคาขายจริง',
                 datafield: 'KEYIN',
                 width: 120,
                 align: 'center',
-                cellsalign: 'left'
+                cellsalign: 'right',
+                cellsformat: 'd2',
+                columntype: 'numberinput',
+                createeditor: function(row, value, editor) {
+                    editor.jqxNumberInput({
+                        decimalDigits: 2,
+                        digits: 12,
+                        spinButtons: false,
+                        spinButtonsStep: 0,
+                        min: 0,
+                        inputMode: 'simple'
+                    });
+                },
             }, {
                 text: 'มูลค่าราคาขาย',
                 datafield: 'NKEYIN',
                 width: 120,
                 align: 'center',
-                cellsalign: 'left'
+                cellsalign: 'right',
+                cellsformat: 'd2',
+                columntype: 'numberinput',
+                createeditor: function(row, value, editor) {
+                    editor.jqxNumberInput({
+                        decimalDigits: 2,
+                        digits: 12,
+                        spinButtons: false,
+                        spinButtonsStep: 0,
+                        min: 0,
+                        inputMode: 'simple'
+                    });
+                },
             }, {
                 text: 'ภาษีราคาขาย',
                 datafield: 'VKEYIN',
                 width: 120,
                 align: 'center',
-                cellsalign: 'left'
+                cellsalign: 'right',
+                cellsformat: 'd2',
+                columntype: 'numberinput',
+                createeditor: function(row, value, editor) {
+                    editor.jqxNumberInput({
+                        decimalDigits: 2,
+                        digits: 12,
+                        spinButtons: false,
+                        spinButtonsStep: 0,
+                        min: 0,
+                        inputMode: 'simple'
+                    });
+                },
             }, {
                 text: 'ใบลดหนี้',
                 datafield: 'GRDNO',
                 width: 100,
                 align: 'center',
-                cellsalign: 'left'
+                cellsalign: 'left',
             }, {
                 text: 'จำนวนเงินใบลดหนี้',
                 datafield: 'CRDAMT',
                 width: 120,
                 align: 'center',
-                cellsalign: 'left'
+                cellsalign: 'right',
+                cellsformat: 'd2',
+                columntype: 'numberinput',
+                createeditor: function(row, value, editor) {
+                    editor.jqxNumberInput({
+                        decimalDigits: 2,
+                        digits: 12,
+                        spinButtons: false,
+                        spinButtonsStep: 0,
+                        min: 0,
+                        inputMode: 'simple'
+                    });
+                },
             }],
             showtoolbar: true,
             rendertoolbar: function (toolbar) {
@@ -963,9 +1074,14 @@
                             if (result) {
                                 var datarow = {
                                     IDNO: 0,
+                                    REFNO: $("#strnoid").val(),
                                     STRNO: $("#v-strno").val(),
                                     STDPRC: $("#stdprc").val(),
-                                    REFNO: $("#strnoid").val(),
+                                    KEYIN: 0,
+                                    NKEYIN: 0,
+                                    VKEYIN: 0,
+                                    GRDNO: '',
+                                    CRDAMT: 0,
                                 };
                                 var commit = $("#tableArinvoitran").jqxGrid('addrow', null, datarow);
                                 if (commit) {
@@ -1088,6 +1204,7 @@
         });
 
         $('#v-locat').trigger('blur');
+        $('#v-salcod').trigger('blur');
 
         //เมื่อค้นหาจากใบจอง
         $('#v-strno').off().on('blur', function () {
@@ -1099,7 +1216,7 @@
 
         //เริ่มใหม่
         $('#newBtn').off().on('click', function () {
-            loadHTML("sale_arfinc");
+            loadHTML("sale_ar_invoi");
         });
         //บันทึก
         $('#saveBtn').off().on('click', function () {
@@ -1120,16 +1237,33 @@
                             localizationObject);
 
                         var arinvoitran = [];
+                        var sumkeyin = 0,
+                            sumnkeyin = 0,
+                            sumvkeyin = 0,
+                            sumcrdamt = 0,
+                            sumtotprc = 0,
+                            sumnetprc = 0,
+                            sumnetvat = 0;
                         for (var i = 0; i < rowscountArinvoitran; i++) {
                             var data = $("#tableArinvoitran").jqxGrid('getrowdata', i);
-                            var strno = '',
+                            var vatrt = $('#vatrt').val();
+                            var idno = 0,
+                                strno = '',
                                 stdprc = 0,
                                 keyin = 0,
                                 nkeyin = 0,
                                 vkeyin = 0,
                                 crdno = '',
                                 crdamt = 0,
-                                refno =0;
+                                refno = 0;
+                                totprc = 0;
+                                netprc = 0;
+                                netvat = 0;
+                            if (data.IDNO === undefined) {
+                                idno = 0;
+                            } else {
+                                idno = data.IDNO;
+                            }
                             if (data.STRNO === undefined) {
                                 strno = '';
                             } else {
@@ -1165,16 +1299,38 @@
                             } else {
                                 vkeyin = data.VKEYIN;
                             }
+                            if (data.CRDAMT === undefined) {
+                                crdamt = 0;
+                            } else {
+                                crdamt = data.CRDAMT;
+                            }
+                            if (crdamt > 0) {
+                                totprc = keyin-crdamt;
+                                netvat = (totprc * vatrt)/(vatrt+100);
+                                netprc = totprc - netvat;
+                            }
+                            sumkeyin = sumkeyin + keyin;
+                            sumnkeyin = sumnkeyin + nkeyin;
+                            sumvkeyin = sumvkeyin + vkeyin;
+                            sumcrdamt = sumcrdamt + crdamt
+                            sumtotprc = sumtotprc + totprc;
+                            sumnetprc = sumnetprc + netprc;
+                            sumnetvat = sumnetvat + netvat;
                             arinvoitran.push({
-                                IDNO: data.IDNO,
+                                IDNO: idno,
                                 STRNO: strno,
-                                REFNO: refno,
                                 STDPRC: stdprc,
                                 KEYIN: keyin,
                                 NKEYIN: nkeyin,
                                 VKEYIN: vkeyin,
-                                GRDNO: crdno,
-                                GRDAMT: crdamt,
+                                TOTPRC: totprc,
+                                NETPRC: netprc,
+                                NETVAT: netvat,
+                                CRDAMT: crdamt,
+                                CRDNO: crdno,
+                                FLAG: 'A',
+                                REFNO: refno,
+                                LOCSALE: $('#locsale').val()
                             });
                         };
 
@@ -1187,24 +1343,28 @@
                                 LOCAT: $('#locat').val(),
                                 CONTNO: $('#contno').val(),
                                 SDATE: sdate,
-                                LPAYD: sdate,
-                                CUSCOD: $('#cuscod').val(),
-                                SALCOD: $('#salcod').val(),
                                 VATRT: $('#vatrt').val(),
                                 ADDRNO: $('#addrno').val(),
+                                CUSCOD: $('#cuscod').val(),
                                 CREDTM: $('#credtm').val(),
-                                PAYTYP: $('#paytyp').val(),
-                                ISSUENO: $('#issueno').val(),
-                                ISSUDT: issudt,
                                 DUEDATE: duedate,
-                                INPUTDT: sdate,
-                                TAXNO: '',
-                                TAXDT: sdate,                                                                
-                                LOCSALE: $('#locsale').val(),
-                                                                
-                                MEMO1: $('#memo1').val(),
+                                SALCOD: $('#salcod').val(), 
+                                ISSUNO: $('#issueno').val(), 
+                                ISSUDT: issudt,
+                                LPAYD: sdate,
                                 USERID: $.session.get('username'),
-                                FLAG: 'A',
+                                PAYTYP: $('#paytyp').val(),
+                                ACTICOD: '',
+                                CREDAMT: sumcrdamt,
+                                KEYINPRC: sumkeyin,
+                                NPRICE: sumnkeyin,
+                                VATPRC: sumvkeyin,
+                                TOTPRC: sumtotprc,
+                                NETPRC: sumnetprc,
+                                NETVAT: sumnetvat,                                                             
+                                LOCSALE: $('#locsale').val(),
+                                FLAG: 'A',                                
+                                MEMO1: $('#memo1').val(),
                             }]
                         }, {
                             table: 'AR_TRANS',
@@ -1212,10 +1372,10 @@
                         }];
                         // Convert Value To JSON String
                         var value = JSON.stringify(valueJSON);
-                        //console.log(value);
+                        console.log(value);
                         $('#ok').on('click', function (event) {
                             $.ajax({
-                                url: 'saveArinvoi',
+                                url: 'saveAr_invoi',
                                 type: 'POST',
                                 contentType: "application/json",
                                 dataType: "json",
@@ -1246,30 +1406,33 @@
         });
         //ค้นหาสาขา
         $('#searchInvlocat').off().on('click', function () {
+            $('#fmArinvoi').jqxValidator('hideHint', '#locat');
             searchAll('invlocat', 'v-locat');
         });
         //ค้นหาสาขา ที่ขาย
         $('#searchLocsale').off().on('click', function () {
+            $('#fmArinvoi').jqxValidator('hideHint', '#locsale');
             searchAll('locsale', 'v-locsale');
         });
         //ค้นหาลูกค้า
         $('#searchCustmast').off().on('click', function () {
+            $('#fmArinvoi').jqxValidator('hideHint', '#cuscod');
             searchAll('custmast', 'v-cuscod');
         });
         //ค้นหาใบจอง
-        $('#searchArresv').off().on('click', function () {
-            xlocat  = $('#locat').val()
-            searchAll('arresvSale', 'v-resvno');
-        });
+        // $('#searchArresv').off().on('click', function () {
+        //     xlocat  = $('#locat').val()
+        //     searchAll('arresvSale', 'v-resvno');
+        // });
         //ค้นหาเลขตัวถัง
         $('#searchStrno').off().on('click', function () {
             $.session.set('paramSrch1', $('#locat').val());
             searchAll('strnoSale', 'v-strno');
         });
         //ค้นหาไฟแนนซ์
-        $('#searchFinmast').off().on('click', function () {
-            searchAll('finmast', 'v-fincod');
-        });
+        // $('#searchFinmast').off().on('click', function () {
+        //     searchAll('finmast', 'v-fincod');
+        // });
         //ค้นหากิจกรรม
         $('#searchSetacti').off().on('click', function () {
             searchAll('setacti', 'v-acticod');
@@ -1280,6 +1443,7 @@
         });
         //ค้นหาพนักงานขาย
         $('#searchSalcod').off().on('click', function () {
+            $('#fmArinvoi').jqxValidator('hideHint', '#salcod');
             searchAll('officer', 'v-salcod');
         });
         //ค้นหาผู้ค้ำประกัน
@@ -1291,15 +1455,6 @@
             //Show Dialog Search
             searchAll('arinvoi', 'contno');
             $('#okButton').on('click', function (event) {
-                var rules2 = rules.slice();
-                if (chkrun === false) {
-                    // console.log('test');
-                    rules2.splice(1, 1);
-                }
-                console.log(rules);
-                rules2.splice(4, 8);
-                console.log(rules2);
-                $('#fmArinvoi').jqxValidator('rules', rules2);
                 event.preventDefault();
                 $('#fmArinvoi').jqxValidator('hide');
                 statusChange(true);
@@ -1309,7 +1464,7 @@
         //ลบ
         $('#deleteBtn').off().on('click', function () {
             if ($('#contno').val() !== '') {
-                if ($('#smpay').val() > 0) {
+                if (smpay > 0) {
                     ShowMessage("รับชำระเงินแล้ว ยกเลิกไม่ได้! ", "danger");
                 } else if ($('#flag').val() === 'C') {
                     ShowMessage("รายการนี้อยู่ในสถานะยกเลิกแล้ว! ", "danger");
@@ -1319,7 +1474,7 @@
                     $.when($.confirmdlg('ต้องการยกเลิกการขาย?', 'warning')).then(function () {
                         $('#ok').on('click', function (event) {
                             var valueJSON = [{
-                                table: 'ARFINC',
+                                table: 'AR_INVOI',
                                 field: 'CONTNO',
                                 key: $('#contno').val(),
                                 userid: $.session.get('username'),
@@ -1331,7 +1486,7 @@
                                 async: false,
                                 method: 'POST',
                                 dataType: 'json',
-                                url: "cancelArfinc",
+                                url: "cancelAr_invoi",
                                 data: value,
                                 success: function (data) {
                                     if (data[0].cancel === true) {

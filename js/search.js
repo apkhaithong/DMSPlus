@@ -929,6 +929,22 @@
             { text: 'สถานะ', datafield: 'FLAG', minwidth: 100, width: 100 },
         ];
         keyno = 'IDNO';
+    } else if (show === "arinvoi") {
+        datafields = [
+            { name: 'CONTNO', type: 'string' },
+            { name: 'STRNO', type: 'string' },
+            { name: 'NAME1', type: 'string' },
+            { name: 'NAME2', type: 'string' },
+            { name: 'FLAG', type: 'string' },
+        ];
+        fields = [
+            { text: 'เลขที่สัญญา', datafield: 'CONTNO', minwidth: 100, width: 100 },
+            { text: 'เลขตัวถัง', datafield: 'STRNO', minwidth: 100, width: 100 },
+            { text: 'ชื่อลูกค้า', datafield: 'NAME1', minwidth: 100, width: 250 },
+            { text: 'นามสกุลลูกค้า', datafield: 'NAME2', minwidth: 100, width: 250 },
+            { text: 'สถานะ', datafield: 'FLAG', minwidth: 100, width: 100 },
+        ];
+        keyno = 'CONTNO';
     }
 
     fields.unshift({
@@ -1129,6 +1145,8 @@
             sqltxt = "SELECT A.RESPAY,A.SMPAY,A.FLAG,A.IDNO,A.RESVNO,A.RESVDT,B.CUSCOD,B.NAME1,B.NAME2,A.SDATE,A.LOCAT,A.STRNO,A.REFUND FROM ARRESV A,CUSTMAST B WHERE UPPER(COALESCE(A.RESVNO,'')||COALESCE(B.NAME1,'')||COALESCE(B.NAME2,'')) LIKE '%" + param1 + "%' AND A.CUSCOD=B.CUSCOD AND (A.STRNO = '' OR A.STRNO IS NULL) ORDER BY A.RESVNO";
         } else if (show === "matching") {
             sqltxt = "SELECT A.IDNO, A.LOCAT, A.STRNO, A.RESVNO, A.MATCHDT, B.ACARDNO, C.NAME1, C.NAME2, (CASE WHEN A.FLAG = 'C' THEN 'ยกเลิก' ELSE ' ' END) AS FLAG FROM MATCHSTRNO A, ARRESV B LEFT JOIN CUSTMAST C ON B.CUSCOD = C.CUSCOD WHERE A.RESVNO = B.RESVNO AND UPPER(COALESCE(A.RESVNO,'')||COALESCE(A.STRNO,'')||COALESCE(B.ACARDNO,'')||COALESCE(C.NAME1,'')||COALESCE(C.NAME2,'')) LIKE '%" + param1 + "%' ORDER BY A.RESVNO ";
+        } else if (show === "arinvoi") {
+            sqltxt = "SELECT A.IDNO,A.LOCAT,A.CONTNO,A.CUSCOD,C.NAME1,C.NAME2,I.STRNO, (CASE WHEN A.FLAG = 'C' THEN 'ยกเลิก' ELSE ' ' END) AS FLAG FROM AR_INVOI A,CUSTMAST C,AR_TRANS I WHERE A.IDNO = I.CONTID AND A.CUSCOD=C.CUSCOD AND UPPER(COALESCE(A.CONTNO,'')||COALESCE(I.STRNO,'')||COALESCE(C.NAME1,'')||COALESCE(C.NAME2,'')) LIKE '%" + param1 + "%' ORDER BY A.CONTNO, I.STRNO ";
         }
 
         // Qurey Data
