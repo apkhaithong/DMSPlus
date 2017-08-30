@@ -973,6 +973,14 @@
                         inputMode: 'simple'
                     });
                 },
+                aggregates: ['sum'],
+                aggregatesrenderer: function(aggregates) {
+                    var renderstring = "";
+                    $.each(aggregates, function(key, value) {
+                        renderstring += '<div style="position: relative; margin: 4px; overflow: hidden; font-weight: bold;">' + value + '</div>';
+                    });
+                    return renderstring;
+                }
             }, {
                 text: 'ราคาขายจริง',
                 datafield: 'KEYIN',
@@ -991,6 +999,28 @@
                         inputMode: 'simple'
                     });
                 },
+                cellvaluechanging: function(row, datafield, columntype, oldvalue, newvalue) {
+                    if (newvalue != undefined) {
+                        if (newvalue >= 0) {
+                            var rowdata = $('#tableArinvoitran').jqxGrid('getrowdata', row);
+                            var vatrt = $('#vatrt').val()
+                            var vkeyin = (newvalue*parseFloat(vatrt))/100;
+                            var nkeyin = newvalue-vkeyin;
+                            $("#tableArinvoitran").jqxGrid('setcellvalue', row, "VKEYIN", vkeyin);
+                            $("#tableArinvoitran").jqxGrid('setcellvalue', row, "NKEYIN", nkeyin);
+                        } else {
+                            return oldvalue;
+                        }
+                    };
+                },
+                aggregates: ['sum'],
+                aggregatesrenderer: function(aggregates) {
+                    var renderstring = "";
+                    $.each(aggregates, function(key, value) {
+                        renderstring += '<div style="position: relative; margin: 4px; overflow: hidden; font-weight: bold;">' + value + '</div>';
+                    });
+                    return renderstring;
+                }
             }, {
                 text: 'มูลค่าราคาขาย',
                 datafield: 'NKEYIN',
@@ -1009,6 +1039,14 @@
                         inputMode: 'simple'
                     });
                 },
+                aggregates: ['sum'],
+                aggregatesrenderer: function(aggregates) {
+                    var renderstring = "";
+                    $.each(aggregates, function(key, value) {
+                        renderstring += '<div style="position: relative; margin: 4px; overflow: hidden; font-weight: bold;">' + value + '</div>';
+                    });
+                    return renderstring;
+                }
             }, {
                 text: 'ภาษีราคาขาย',
                 datafield: 'VKEYIN',
@@ -1027,6 +1065,14 @@
                         inputMode: 'simple'
                     });
                 },
+                aggregates: ['sum'],
+                aggregatesrenderer: function(aggregates) {
+                    var renderstring = "";
+                    $.each(aggregates, function(key, value) {
+                        renderstring += '<div style="position: relative; margin: 4px; overflow: hidden; font-weight: bold;">' + value + '</div>';
+                    });
+                    return renderstring;
+                }
             }, {
                 text: 'ใบลดหนี้',
                 datafield: 'GRDNO',
@@ -1051,6 +1097,14 @@
                         inputMode: 'simple'
                     });
                 },
+                aggregates: ['sum'],
+                aggregatesrenderer: function(aggregates) {
+                    var renderstring = "";
+                    $.each(aggregates, function(key, value) {
+                        renderstring += '<div style="position: relative; margin: 4px; overflow: hidden; font-weight: bold;">' + value + '</div>';
+                    });
+                    return renderstring;
+                }
             }],
             showtoolbar: true,
             rendertoolbar: function (toolbar) {
@@ -1061,37 +1115,42 @@
                 );
                 //Add row
                 $("#addrow1").on('click', function () {
-                    var rows = $("#tableArinvoitran").jqxGrid('getdisplayrows');
-                    var duplicateCuscod = 0;
-                    for (var i = 0; i < rows.length; i++) {
-                        var row = rows[i];
-                        if (row.STRNO === $("#strno").val()) {
-                            duplicateCuscod++;
+                    var Xstrno = $("#strno").val();
+                    if(Xstrno === ""){
+                        ShowMessage("กรุณาระบุเลขถัง!","danger");
+                    }else{
+                        var rows = $("#tableArinvoitran").jqxGrid('getdisplayrows');
+                        var duplicateStrno = 0;
+                        for (var i = 0; i < rows.length; i++) {
+                            var row = rows[i];
+                            if (row.STRNO === $("#strno").val()) {
+                                duplicateStrno++;
+                            }
+                        };
+                        if (duplicateStrno === 0){
+                            $('#fmArinvoi').jqxValidator('validate', function (result) {
+                                if (result) {
+                                    var datarow = {
+                                        IDNO: 0,
+                                        REFNO: $("#strnoid").val(),
+                                        STRNO: $("#v-strno").val(),
+                                        STDPRC: $("#stdprc").val(),
+                                        KEYIN: 0,
+                                        NKEYIN: 0,
+                                        VKEYIN: 0,
+                                        GRDNO: '',
+                                        CRDAMT: 0,
+                                    };
+                                    var commit = $("#tableArinvoitran").jqxGrid('addrow', null, datarow);
+                                    if (commit) {
+                                        statusClear();
+                                        $('#tableArinvoitran').jqxGrid('clearselection');
+                                    };
+                                };
+                            });
+                        } else {
+                            ShowMessage("ระบุรหัสซ้ำ!","danger");
                         }
-                    };
-                    if (duplicateCuscod === 0){
-                        $('#fmArinvoi').jqxValidator('validate', function (result) {
-                            if (result) {
-                                var datarow = {
-                                    IDNO: 0,
-                                    REFNO: $("#strnoid").val(),
-                                    STRNO: $("#v-strno").val(),
-                                    STDPRC: $("#stdprc").val(),
-                                    KEYIN: 0,
-                                    NKEYIN: 0,
-                                    VKEYIN: 0,
-                                    GRDNO: '',
-                                    CRDAMT: 0,
-                                };
-                                var commit = $("#tableArinvoitran").jqxGrid('addrow', null, datarow);
-                                if (commit) {
-                                    statusClear();
-                                    $('#tableArinvoitran').jqxGrid('clearselection');
-                                };
-                            };
-                        });
-                    } else {
-                        ShowMessage("ระบุรหัสซ้ำ!","danger");
                     }
                 });
 

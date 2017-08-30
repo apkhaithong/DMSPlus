@@ -1,0 +1,610 @@
+﻿<div class="row" id="spy2">
+    <!-- Chart with filter Widget -->
+    <div class="col-md-12 admin-grid">
+        <div class="panel" id="p2">
+            <div class="panel-heading">
+                <span class="panel-icon"><span class="glyphicons glyphicons-shield"></span></span>
+                <span class="panel-title">กำหนด User Id เข้าใช้ระบบ </span>
+                <span class="panel-controls">
+                    <a href="#" class="panel-control-loader"></a>
+                    <a href="#" class="panel-control-remove"></a>
+                    <a href="#" class="panel-control-collapse"></a>
+                    <a href="#" class="panel-control-fullscreen"></a>
+                </span>
+                <span id="textState" class="text-danger"> [ รายการนี้ยกเลิกแล้ว ]</span>
+            </div>
+            <div class="panel-body">
+                <div class="p15 pt5 mt15">
+                    <form class="form-horizontal" id="fmSetuserid">
+                        <div class="row">
+                            <div class="col-md-8">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label class="col-sm-4 control-label required" for="userid">UserId</label>
+                                            <div class="col-sm-8">
+                                                <div class="row">
+                                                    <div class="col-sm-12">
+                                                        <input type="text" style="text-transform: uppercase" id="userid" />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label class="col-sm-4 control-label required" for="password">Password</label>
+                                            <div class="col-sm-8">
+                                                <div class="row">
+                                                    <div class="col-sm-12">
+                                                        <input type="password" id="password" />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <label class="col-sm-2 control-label required" for="cuscod">รหัสพนักงาน</label>
+                                            <div class="col-sm-10">
+                                                <div class="row">
+                                                    <div class="col-sm-4">
+                                                        <div id="cuscod" class="input-button">
+                                                            <input type="text" id="v-cuscod" />
+                                                            <div id="searchOfficer"><img alt="search" width="20" height="20" src="/images/search_lg.png" /></div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-sm-8">
+                                                        <input type="text" id="cusname" class="text-desc" readonly/>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <label class="col-sm-2 control-label required" for="locatcd">ประจำสาขา</label>
+                                            <div class="col-sm-10">
+                                                <div class="row">
+                                                    <div class="col-sm-4">
+                                                        <div id="locatcd" class="input-button">
+                                                            <input type="text" id="v-locatcd" />
+                                                            <div id="searchInvlocat"><img alt="search" width="20" height="20" src="/images/search_lg.png" /></div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-sm-8">
+                                                        <input type="text" id="locatname" class="text-desc" readonly/>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <hr class="short alt">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <label class="col-sm-2 control-label" for="level">ระดับการทำงาน</label>
+                                            <div class="col-sm-10">
+                                                <div class="row">
+                                                    <div class="col-sm-4">
+                                                        <div id='level1'><span>ระดับผู้บริหาร</span></div>
+                                                    </div>
+                                                    <div class="col-sm-4">
+                                                        <div id='level2'><span>ระดับผู้จัดการ</span></div>
+                                                    </div>
+                                                    <div class="col-sm-4">
+                                                        <div id='level3'><span>ระดับพนักงาน</span></div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <hr class="short alt">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <label class="col-sm-2 control-label" for="chk">สิทธิการใช้งาน</label>
+                                            <div class="col-sm-10">
+                                                <div class="row">
+                                                    <div class="col-sm-3">
+                                                        <div id='chk1'><span>ระงับการใช้งาน</span></div>
+                                                    </div>
+                                                    <div class="col-sm-3">
+                                                        <div id='chk2'><span>คีย์ข้อมูลย้อนหลัง</span></div>
+                                                    </div>
+                                                    <div class="col-sm-3">
+                                                        <div id='chk3'><span>แก้ไขประวัติลูกค้า</span></div>
+                                                    </div>
+                                                    <div class="col-sm-3">
+                                                        <div id='chk4'><span>ให้ส่วนลดลูกค้า</span></div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+
+                            </div>
+                        </div>
+                    </form>
+                    <div class="row">
+                        <div class="col-md-8">
+                            <div class="admin-form">
+                                <div class="form-group">
+                                    <label class="col-md-4 control-label"></label>
+                                    <div class="col-md-8">
+                                        <div class="bs-component">
+                                            <button type="button" id="newBtn"><span class="fa fa-refresh"></span> เริ่มใหม่</button>
+                                            <button type="button" id="saveBtn"><span class="fa fa-floppy-o"></span> บันทึก</button>
+                                            <button type="button" id="searchBtn"><span class="fa fa-search"></span> ค้นหา</button>
+                                            <button type="button" id="deleteBtn"><span class="fa fa-trash-o"></span> ลบ</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- end: .col-md-12.admin-grid -->
+</div>
+<!-- end: .row -->
+<script type="text/javascript">
+    $(document).ready(function () {
+        //Default status Insert
+        var status = 'insert';
+        //เช็คสิทธิการใช้งาน
+        var chkright = checkRight('ADMIN001');
+
+        //เช็ค Running เอกสาร
+        var chkrun = checkRundoc('R_RESV');
+        // var chkrun = false;
+
+        //ฟังก์ชั่น สถานะ Insert หรือ Edit
+        function statusChange(disabled) {
+            if (disabled === false) {
+                status = 'insert';
+                $('#userid').val('');
+                $('#locatcd').val('');
+                $('#cuscod').val('');
+                $('#password').val('');
+                $('#textState').hide();
+            } else {
+                status = 'update';
+                $("#saveBtn").jqxButton({
+                    disabled: !chkright.M_EDIT
+                });
+            }
+            $("#userid").jqxInput({
+                disabled: disabled
+            });
+            $("#deleteBtn").jqxButton({
+                disabled: !chkright.M_DELETE
+            });
+        }
+
+        function getUserid(userid){
+            $.ajax({
+                async: false,
+                method: 'GET',
+                dataType: 'json',
+                url: "sqltext",
+                data: {
+                    sql: "SELECT USERID, PASSWD, CUSCOD, LOCATCD, DEPRT, COALESCE(LEVEL,'3') AS LEVEL, SRHACTV, KEYDISC, BLOCK, GROUP, EXPIRE, DESIGN, CHGLOC, CHGDATE, UPDATE1, EDITGL, OVERYEAR, FLAGID, BPRN, RPRN, CHGLOCAT, EDITPRN, EDITCUST, APPROVE, APPROVE_AMNT FROM PASSWRD WHERE USERID = '"+userid+"' ",
+                },
+                success: function (data) {
+                    $('#locatcd').val(data[0].LOCATCD);
+                    $('#userid').val(data[0].USERID);
+                    $('#password').val(data[0].PASSWD);
+                    $('#cuscod').val(data[0].CUSCOD);
+                    //console.log(data[0].LEVEL);
+                    if (data[0].LEVEL === '1') {
+                        $('#level1').jqxRadioButton('check');
+                    } else if (data[0].LEVEL === '2') {
+                        $('#level2').jqxRadioButton('check');
+                    }  else if (data[0].LEVEL === '3') {
+                        $('#level3').jqxRadioButton('check');
+                    }
+                    if (data[0].BLOCK === 'Y') {
+                        $('#chk1').jqxCheckBox('check');
+                    } else {
+                        $('#chk1').jqxCheckBox('uncheck');
+                    }
+                    if (data[0].SRHACTV === 'Y') {
+                        $('#chk2').jqxCheckBox('check');
+                    } else {
+                        $('#chk2').jqxCheckBox('uncheck');
+                    }
+                    if (data[0].EDITCUST === 'Y') {
+                        $('#chk3').jqxCheckBox('check');
+                    } else {
+                        $('#chk3').jqxCheckBox('uncheck');
+                    }
+                    if (data[0].KEYDISC === 'Y') {
+                        $('#chk4').jqxCheckBox('check');
+                    } else {
+                        $('#chk4').jqxCheckBox('uncheck');
+                    }
+                    $('#v-locatcd').trigger('blur');
+                    $('#v-cuscod').trigger('blur');
+                }
+            });
+        }
+
+        $('#textState').hide();
+        $("#userid").jqxInput({
+            height: 25,
+            width: '100%',
+            maxLength: 8
+        });
+        $("#password").jqxPasswordInput({ 
+            width: '100%', 
+            height: 25,
+            maxLength: 8
+        });
+        $('#cuscod').jqxInput({
+            height: 25,
+            width: '100%',
+            maxLength: 8
+        });
+        $('#cusname').jqxInput({
+            height: 25,
+            width: '100%'
+        });
+        $('#locatcd').jqxInput({
+            height: 25,
+            width: '100%',
+            maxLength: 5
+        });
+        $('#locatname').jqxInput({
+            height: 25,
+            width: '100%'
+        });
+        $("#level1").jqxRadioButton({
+            width: 250,
+            height: 25
+        });
+        $("#level2").jqxRadioButton({
+            width: 250,
+            height: 25
+        });
+        $("#level3").jqxRadioButton({
+            width: 250,
+            height: 25
+        });
+        $("#chk1").jqxCheckBox({ 
+            width: 120, 
+            height: 25
+        });
+        $("#chk2").jqxCheckBox({ 
+            width: 120, 
+            height: 25
+        });
+        $("#chk3").jqxCheckBox({ 
+            width: 120, 
+            height: 25
+        });
+        $("#chk4").jqxCheckBox({ 
+            width: 120, 
+            height: 25
+        });
+
+
+        /*** button ****/
+        $("#newBtn").jqxButton({
+            template: "info",
+            width: 90
+        });
+        $("#saveBtn").jqxButton({
+            template: "primary",
+            width: 90,
+            disabled: !chkright.M_INSERT
+        });
+        $("#searchBtn").jqxButton({
+            template: "success",
+            width: 90
+        });
+        $("#deleteBtn").jqxButton({
+            disabled: true,
+            template: "danger",
+            width: 90
+        });
+        //เงื่อนไข validate MATCHING
+        var rules = [{
+            input: '#userid',
+            message: 'กรุณาระบุ UserId!',
+            action: 'keyup, blur, focusout',
+            rule: 'required'
+        }, {
+            input: '#userid',
+            message: 'ระบุ UserId ซ้ำ!',
+            action: 'keyup, blur, focusout',
+            rule: function (input, commit) {
+                var userid = $('#userid').val().toUpperCase();
+                if ((userid !== '') && (status === 'insert')) {
+                    var result = [];
+                    $.ajax({
+                        async: false,
+                        url: "duplicateCheck",
+                        type: 'get',
+                        data: {
+                            table: 'PASSWRD',
+                            field: 'USERID',
+                            value: userid
+                        },
+                        success: function (data) {
+                            if (data === true) {
+                                result = true;
+                            } else {
+                                result = false;
+                            }
+                        },
+                        error: function () {
+                            result = false;
+                        }
+                    });
+                    return result;
+                } else {
+                    return true;
+                }
+            }
+        }, {
+            input: '#password',
+            message: 'กรุณาระบุ Password!',
+            action: 'keyup, blur, focusout',
+            rule: 'required'
+        }, {
+            input: '#cuscod',
+            message: 'กรุณาระบุรหัสพนักงาน!',
+            action: 'keyup, blur, focusout',
+            rule: 'required'
+        }, {
+            input: '#cuscod',
+            message: 'ไม่พบรหัสผู้พนักงานนี้!',
+            action: 'keyup, blur, focusout',
+            rule: function (input, commit) {
+                var cuscod = $('#cuscod').val();
+                if (cuscod !== '') {
+                    var result = [];
+                    $.ajax({
+                        async: false,
+                        url: "duplicateCheck",
+                        type: 'get',
+                        data: {
+                            table: 'OFFICER',
+                            field: 'CODE',
+                            value: cuscod
+                        },
+                        success: function (data) {
+                            if (data === true) {
+                                result = false;
+                            } else {
+                                result = true;
+                            }
+                        },
+                        error: function () {
+                            result = false;
+                        }
+                    });
+                    return result;
+                } else {
+                    return true;
+                }
+            }
+        }, {
+            input: '#locatcd',
+            message: 'กรุณาระบุรหัสสาขา!',
+            action: 'keyup, blur, focusout',
+            rule: 'required'
+        }, {
+            input: '#locatcd',
+            message: 'ไม่พบรหัสสาขานี้!',
+            action: 'keyup, blur, focusout',
+            rule: function (input, commit) {
+                var locatcd = $('#locatcd').val();
+                if (locatcd !== '') {
+                    var result = [];
+                    $.ajax({
+                        async: false,
+                        url: "duplicateCheck",
+                        type: 'get',
+                        data: {
+                            table: 'INVLOCAT',
+                            field: 'LOCATCD',
+                            value: locatcd
+                        },
+                        success: function (data) {
+                            if (data === true) {
+                                result = false;
+                            } else {
+                                result = true;
+                            }
+                        },
+                        error: function () {
+                            result = false;
+                        }
+                    });
+                    return result;
+                } else {
+                    return true;
+                }
+            }
+        }];
+        $('#fmSetuserid').jqxValidator({
+            hintType: 'label',
+            animationDuration: 0,
+            closeOnClick: false,
+            rules: rules
+        });
+
+        //แสดงคำอธิบาย
+        $('#v-locatcd').off().on('blur', function () {
+            $('#locatname').val(getLocatName($('#locatcd').val()));
+        });
+        $('#v-cuscod').off().on('blur', function () {
+            $('#cusname').val(getOfficeName($('#cuscod').val()));
+        });
+
+        //ค้นหาสาขา
+        $('#searchInvlocat').off().on('click', function () {
+            searchAll('invlocat', 'v-locatcd');
+        });    
+        //ค้นหารหัสพนักงาน
+        $('#searchOfficer').off().on('click', function () {
+            searchAll('officer', 'v-cuscod');
+        });      
+
+        //เริ่มใหม่
+        $('#newBtn').off().on('click', function () {
+            loadHTML("admin_setuserid");
+        });
+        //บันทึก
+        $('#saveBtn').off().on('click', function () {
+            $('#fmSetuserid').jqxValidator('validate', function (result) {
+                if (result) {
+                    $.when($.confirmdlg('ต้องการบันทึกข้อมูล?', 'info')).then(function () {
+                        var valueLevel = '3',
+                            varBlock = 'N',
+                            varShractv = 'N',
+                            varEditcust = 'N',
+                            varKeydisct = 'N';
+                        if ($("#level1").jqxRadioButton('val') == true) {
+                            valueLevel = "1";
+                        } else if ($("#level2").jqxRadioButton('val') == true) {
+                            valueLevel = "2";
+                        } else if ($("#level3").jqxRadioButton('val') == true) {
+                            valueLevel = "3";
+                        }
+
+                        if ($("#chk1").jqxCheckBox('val') == true) {
+                            varBlock = 'Y';
+                        } else {
+                            varBlock = 'N';
+                        }
+                        if ($("#chk2").jqxCheckBox('val') == true) {
+                            varShractv = 'Y';
+                        } else {
+                            varShractv = 'N';
+                        }
+                        if ($("#chk3").jqxCheckBox('val') == true) {
+                            varEditcust = 'Y';
+                        } else {
+                            varEditcust = 'N';
+                        }
+                        if ($("#chk4").jqxCheckBox('val') == true) {
+                            varKeydisct = 'Y';
+                        } else {
+                            varKeydisct = 'N';
+                        }
+
+                        var valueJSON = [{
+                            status: status,
+                            locat: $('#locatcd').val(),
+                            table: 'PASSWRD',
+                            key: $('#userid').val(),
+                            value: [{
+                                USERID: $('#userid').val(),
+                                PASSWD: $('#password').val(),
+                                CUSCOD: $('#cuscod').val(),
+                                LOCATCD: $('#locatcd').val(),
+                                LEVEL: valueLevel,
+                                BLOCK: varBlock,
+                                SRHACTV: varShractv,
+                                KEYDISC: varKeydisct,
+                                EDITCUST: varEditcust
+                            }]
+                        }];
+                        // Convert Value To JSON String
+                        var value = JSON.stringify(valueJSON);
+                        //console.log(value);
+                        $('#ok').on('click', function (event) {
+                            $.ajax({
+                                url: 'savePasswrd',
+                                type: 'POST',
+                                contentType: "application/json",
+                                dataType: "json",
+                                data: value,
+                                success: function (data) {
+                                    //console.log(data);
+                                    if (data[0].save === true) {
+                                        ShowMessage(
+                                            "บันทึกข้อมูลเรียบร้อย!",
+                                            "success");
+                                        statusChange(true);
+                                        getUserid(data[0].userid);
+                                    } else {
+                                        ShowMessage(
+                                            "บันทึกไม่สำเร็จ!",
+                                            "danger");
+                                    }
+                                },
+                                error: function (xhr, status, error) {
+                                    ShowMessage(
+                                        "บันทึกไม่สำเร็จ! ",
+                                        "danger");
+                                }
+                            });
+                        });
+                    });
+                }
+            });
+        });
+
+        //ค้นหา
+        $('#searchBtn').off().on('click', function () {
+            //Show Dialog Search
+            chkrun = true;
+            searchAll('passwrd', 'userid');
+
+            $('#okButton').on('click', function (event) {
+                $('#fmSetuserid').jqxValidator('hide');
+                event.preventDefault();
+                statusChange(true);
+                getUserid($('#userid').val());
+            });
+        });
+        //ลบ
+        $('#deleteBtn').off().on('click', function() {
+            $.when($.confirmdlg('ต้องการลบข้อมูล?', 'warning')).then(function() {
+                $('#ok').click(function(event) {
+                    var valueJSON = [{
+                        table: 'PASSWRD',
+                        field: 'USERID',
+                        key: $('#userid').val(),
+                    }];
+                    // Convert Value To JSON String
+                    var value = JSON.stringify(valueJSON);
+                    $.ajax({
+                        async: false,
+                        method: 'POST',
+                        dataType: 'json',
+                        url: "delete",
+                        data: value,
+                        success: function(data) {
+                            if (data === true) {
+                                ShowMessage("ลบข้อมูลเรียบร้อย!", "success");
+                                statusChange(false);
+                            }
+                        },
+                        error: function(xhr, status, error) {
+                            ShowMessage("ลบข้อมูลไม่สำเร็จ! ", "danger");
+                        }
+                    });
+                });
+            });
+        });
+    });
+</script>

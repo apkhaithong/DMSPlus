@@ -1,0 +1,480 @@
+﻿<div class="row" id="spy2">
+    <!-- Chart with filter Widget -->
+    <div class="col-md-12 admin-grid">
+        <div class="panel" id="p2">
+            <div class="panel-heading">
+                <span class="panel-icon"><span class="glyphicons glyphicons-shield"></span></span>
+                <span class="panel-title">กำหนดสิทธิการใช้งาน</span>
+                <span class="panel-controls">
+                    <a href="#" class="panel-control-loader"></a>
+                    <a href="#" class="panel-control-remove"></a>
+                    <a href="#" class="panel-control-collapse"></a>
+                    <a href="#" class="panel-control-fullscreen"></a>
+                </span>
+            </div>
+            <div class="panel-body">
+                <form class="form-horizontal" id="fmUserauthor">
+                    <div class="p15 pt5 mt15">
+                        <div class="row">
+                            <div class="col-md-8">
+                                <!-- Start -->
+                                <div class="form-group">
+                                    <label class="col-md-4 control-label required" for="userid">User Id</label>
+                                    <div class="col-md-8">
+                                        <div class="bs-component">
+                                            <div id='userid'></div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-md-4 control-label required" for="mainmenu">เมนูหลัก</label>
+                                    <div class="col-md-8">
+                                        <div class="bs-component">
+                                            <div id='mainmenu'></div>
+                                        </div>
+                                    </div>
+                                </div>
+                                    <label class="col-md-4 control-label required"></label>
+                                    <div class="col-md-8">
+                                        <div class="bs-component">
+                                            <button type="button" id="loadmenu"><span class="fa fa-download"></span> คลิ๊กโหลดเมนู</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-8">
+                                <div class="col-md-4">
+                                </div>
+                                <div class="col-md-8">
+                                    <table style="margin-bottom: 4px;">
+                                        <tr>
+                                            <td>
+                                            </td>
+                                            <td style="width: 284px; text-align: right;">
+                                                คลิกเพื่อเลือกทั้งหมด
+                                            </td>
+                                            <td>
+                                                <div id="all_access" style="vertical-align: middle; float: left; margin-left: 8px;">
+                                                    <i class="fa fa-check"></i>
+                                                </div>
+                                                <div id="all_insert" style="vertical-align: middle; float: left; margin-left: 8px;">
+                                                    <i class="fa fa-check"></i>
+                                                </div>
+                                                <div id="all_edit" style="vertical-align: middle; float: left; margin-left: 8px;">
+                                                    <i class="fa fa-check"></i>
+                                                </div>
+                                                <div id="all_delete" style="vertical-align: middle; float: left; margin-left: 8px;">
+                                                    <i class="fa fa-check"></i>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    </table>    
+                                    <div id="menugrid"></div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div style="margin-top: 10px;"></div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-8">
+                                <div class="form-group">
+                                    <label class="col-md-4 control-label"></label>
+                                    <div class="col-md-8">
+                                        <div class="bs-component">
+                                            <button type="button" id="newBtn"><span class="fa fa-refresh"></span> เริ่มใหม่</button>
+                                            <button type="button" id="saveBtn"><span class="fa fa-floppy-o"></span> บันทึก</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <!-- end: .col-md-12.admin-grid -->
+</div>
+<!-- end: .row -->
+<script type="text/javascript">
+    $(document).ready(function() {
+        //Default status Insert
+        var status = 'insert';
+        //เช็คสิทธิการใช้งาน
+        var chkright = checkRight('ADMIN003');
+        //ฟังก์ชั่น สถานะ Insert หรือ Edit
+        function statusChange(disabled) {
+            if (disabled === false) {
+                status = 'insert';
+                $('#userid').val('');
+            } else {
+                status = 'update';
+                $("#saveBtn").jqxButton({
+                    disabled: !chkright.M_EDIT
+                });
+            }
+        }
+        //ฟังก์ชั่น โหลดเมนู
+        function loadMenu(userid, mainmenu) {
+            if ((userid !== '') && (userid !== undefined) && (mainmenu !== '') && (mainmenu !== undefined)) {
+                $.ajax({
+                    async: false,
+                    method: 'GET',
+                    dataType: 'json',
+                    url: "sqltext",
+                    data: {
+                        sql: "SELECT A.USERID, A.MENUCODE, B.MENUNAME, A.M_ACCESS, A.M_EDIT, A.M_INSERT, A.M_DELETE FROM USERMENU A, MAINMENU B WHERE A.MENUCODE = B.MENUCODE AND A.USERID = '"+userid+"' AND SUBSTR(B.MENUGRP,1,5) = '"+mainmenu.substring(0, 5)+"' AND B.ACTIVE = 'Y' ORDER BY B.MENUGRP, B.SORT, A.MENUCODE"
+                    },
+                    success: function(data) {
+                        srctbmenumstgrp.localdata = data;
+                        $('#menugrid').jqxGrid('updatebounddata');
+                    }
+                });
+            }
+        }
+
+        //เงื่อนไข validate Change Password
+        var rules = [{
+            input: '#userid',
+            message: 'กรุณาระบุ User Id!',
+            action: 'keyup, blur, focusout',
+            rule: function (input, commit) {
+                var userid = $('#userid').val().toUpperCase();
+                if (userid !== '') {
+                    return true;
+                } else {
+                    return false;
+                }
+            }
+        }, {
+            input: '#userid',
+            message: 'ไม่พบ User Id นี้!',
+            action: 'keyup, blur, focusout',
+            rule: function (input, commit) {
+                var userid = $('#userid').val().toUpperCase();
+                if (userid !== '') {
+                    var result = [];
+                    $.ajax({
+                        async: false,
+                        url: "duplicateCheck",
+                        type: 'get',
+                        data: {
+                            table: 'PASSWRD',
+                            field: 'USERID',
+                            value: userid
+                        },
+                        success: function (data) {
+                            if (data === true) {
+                                result = false;
+                            } else {
+                                result = true;
+                            }
+                        },
+                        error: function () {
+                            result = false;
+                        }
+                    });
+                    return result;
+                } else {
+                    return true;
+                }
+            }
+        }, {
+            input: '#mainmenu',
+            message: 'กรุณาระบุเมนูหลัก!',
+            action: 'keyup, blur, focusout',
+            rule: function (input, commit) {
+                var mainmenu = $('#mainmenu').val();
+                if (mainmenu !== '') {
+                    return true;
+                } else {
+                    return false;
+                }
+            }
+        }, {
+            input: '#mainmenu',
+            message: 'ไม่พบเมนูหลักนี้!',
+            action: 'keyup, blur, focusout',
+            rule: function (input, commit) {
+                var mainmenu = $('#mainmenu').val();
+                if (mainmenu !== '') {
+                    var result = [];
+                    $.ajax({
+                        async: false,
+                        url: "duplicateCheck",
+                        type: 'get',
+                        data: {
+                            table: 'MAINMENU',
+                            field: 'MENUCODE',
+                            value: mainmenu
+                        },
+                        success: function (data) {
+                            if (data === true) {
+                                result = false;
+                            } else {
+                                result = true;
+                            }
+                        },
+                        error: function () {
+                            result = false;
+                        }
+                    });
+                    return result;
+                } else {
+                    return true;
+                }
+            }
+        }];
+        var sourceUserid = [];
+        var sourceMainmenu = [];
+        var datamenumst = [];
+        $.ajax({
+            async: false,
+            method: 'GET',
+            dataType: 'json',
+            url: "sqltext",
+            data: {
+                sql: "SELECT TRIM(A.USERID) AS USERID, TRIM(A.USERID)||' : '||TRIM(B.NAME)||'  '||TRIM(B.SURNAME) AS OFFICERNAME FROM PASSWRD A, OFFICER B WHERE A.CUSCOD = B.CODE ORDER BY A.USERID"
+            },
+            success: function(data) {
+                sourceUserid = data;
+            }
+        });
+        $.ajax({
+            async: false,
+            method: 'GET',
+            dataType: 'json',
+            url: "sqltext",
+            data: {
+                sql: "SELECT MENUCODE, MENUNAME FROM MAINMENU WHERE LEVAL = '1' AND ACTIVE = 'Y' "
+            },
+            success: function(data) {
+                sourceMainmenu = data;
+            }
+        });
+
+        var srctbmenumstgrp =
+        {
+            localdata: datamenumst,
+            datatype: 'json'
+        };
+        var adapterUserid = new $.jqx.dataAdapter(sourceUserid);
+        var adapterMainmenu = new $.jqx.dataAdapter(sourceMainmenu);
+        var dataAdttbmenumstgrp = new $.jqx.dataAdapter(srctbmenumstgrp, {
+            beforeLoadComplete: function (data) {
+                for (var i = 0; i < dataAdttbmenumstgrp.records.length; i++) {
+                    if (data[i]["M_ACCESS"] == 'Y') {
+                        data[i]["M_ACCESS"] = true;
+                    } else {
+                        data[i]["M_ACCESS"] = false;
+                    }
+                    if (data[i]["M_INSERT"] == 'Y') {
+                        data[i]["M_INSERT"] = true;
+                    } else {
+                        data[i]["M_INSERT"] = false;
+                    }
+                    if (data[i]["M_EDIT"] == 'Y') {
+                        data[i]["M_EDIT"] = true;
+                    } else {
+                        data[i]["M_EDIT"] = false;
+                    }
+                    if (data[i]["M_DELETE"] == 'Y') {
+                        data[i]["M_DELETE"] = true;
+                    } else {
+                        data[i]["M_DELETE"] = false;
+                    }
+                }
+                return data;
+            }
+        });
+        $('.admin-panels').adminpanel({
+            grid: '.admin-grid',
+            callback: function() {
+                bootbox.confirm('<h3>A Custom Callback!</h3>', function() {});
+            },
+            onFinish: function() {
+                $('.admin-panels').addClass('animated fadeIn').removeClass('fade-onload');
+                demoHighCharts.init();
+            },
+            onSave: function() {
+                $(window).trigger('resize');
+            }
+        });
+        $("#userid").jqxComboBox({ width: '100%', height: 25, source: adapterUserid, displayMember: 'OFFICERNAME', valueMember: 'USERID', placeHolder: "เลือกรหัสผู้ใช้งาน :" , dropDownHeight: 127, selectionMode: "dropDownList", searchMode:'containsignorecase' });
+        $("#mainmenu").jqxComboBox({ width: '100%', height: 25, source: adapterMainmenu, displayMember: 'MENUNAME', valueMember: 'MENUCODE', placeHolder: "เลือกเมนูหลัก :" , dropDownHeight: 127, selectionMode: "dropDownList", searchMode:'containsignorecase' });
+        $("#loadmenu").jqxButton({ 
+            template: "success",
+            width: '100%'
+        });
+        $("#all_access").jqxButton({ height: 13, width: 23});
+        $("#all_insert").jqxButton({ height: 13, width: 23});
+        $("#all_edit").jqxButton({ height: 13, width: 23});
+        $("#all_delete").jqxButton({ height: 13, width: 23});
+        $("#newBtn").jqxButton({
+            template: "info",
+            width: 90
+        });
+        $("#saveBtn").jqxButton({
+            template: "primary",
+            width: 90,
+            disabled: !chkright.M_INSERT
+        });
+        $('#fmUserauthor').jqxValidator({
+            hintType: 'label',
+            animationDuration: 0,
+            closeOnClick: false,
+            rules: rules
+        });
+
+        $("#menugrid").jqxGrid({
+            width: '100%',
+            height: 521,
+            source: dataAdttbmenumstgrp,
+            editable: true,
+            altrows: true,
+            editmode: 'selectedcell',
+            columns: [
+                {text: 'รหัสเมนู', datafield: 'MENUCODE', width: 70, align: 'center', editable: false},
+                {text: 'ชื่อเมนู', datafield: 'MENUNAME', width: 220, align: 'center', editable: false},
+                {text: 'เข้าถึง', datafield: 'M_ACCESS', width: 55, align: 'center', columntype: 'checkbox' },
+                {text: 'เพิ่ม', datafield: 'M_INSERT', width: 55, align: 'center', columntype: 'checkbox' },
+                {text: 'แก้ไข', datafield: 'M_EDIT', width: 55, align: 'center', columntype: 'checkbox' },
+                {text: 'ลบ', datafield: 'M_DELETE', width: 55, align: 'center', columntype: 'checkbox' }
+            ]
+        });
+
+        //คลิ๊กโหลดเมนู
+        $('#loadmenu').off().on('click', function() {
+            loadMenu($("#userid").val(), $("#mainmenu").val());
+        });
+
+        //คลิ๊กเข้าระบบทั้งหมด
+        $('#all_access').on('click', function () {
+            var rowscount = $("#menugrid").jqxGrid('getdatainformation').rowscount;
+            if (rowscount > 0) {
+                var data = $('#menugrid').jqxGrid('getrowdata', 0);
+                var check = true;
+                if (data.M_ACCESS == true) {
+                    check = false;
+                }
+                for (var i = 0; i < rowscount; i++) {
+                    $("#menugrid").jqxGrid('setcellvalue', i, "M_ACCESS", check);
+                }
+            }
+        });
+
+        //คลิ๊กเพิ่มทั้งหมด
+        $('#all_insert').on('click', function () {
+            var rowscount = $("#menugrid").jqxGrid('getdatainformation').rowscount;
+            if (rowscount > 0) {
+                var data = $('#menugrid').jqxGrid('getrowdata', 0);
+                var check = true;
+                if (data.M_INSERT == true) {
+                    check = false;
+                }
+                for (var i = 0; i < rowscount; i++) {
+                    $("#menugrid").jqxGrid('setcellvalue', i, "M_INSERT", check);
+                }
+            }
+        });
+
+        //คลิ๊กแก้ไขทั้งหมด
+        $('#all_edit').on('click', function () {
+            var rowscount = $("#menugrid").jqxGrid('getdatainformation').rowscount;
+            if (rowscount > 0) {
+                var data = $('#menugrid').jqxGrid('getrowdata', 0);
+                var check = true;
+                if (data.M_EDIT == true) {
+                    check = false;
+                }
+                for (var i = 0; i < rowscount; i++) {
+                    $("#menugrid").jqxGrid('setcellvalue', i, "M_EDIT", check);
+                }
+            }
+        });
+
+        //คลิ๊กลบทั้งหมด
+        $('#all_delete').on('click', function () {
+            var rowscount = $("#menugrid").jqxGrid('getdatainformation').rowscount;
+            if (rowscount > 0) {
+                var data = $('#menugrid').jqxGrid('getrowdata', 0);
+                var check = true;
+                if (data.M_DELETE == true) {
+                    check = false;
+                }
+                for (var i = 0; i < rowscount; i++) {
+                    $("#menugrid").jqxGrid('setcellvalue', i, "M_DELETE", check);
+                }
+            }
+        });
+
+        //เริ่มใหม่
+        $('#newBtn').off().on('click', function() {
+            loadHTML("admin_userauthorized");
+        });
+        //บันทึก
+        $('#saveBtn').off().on('click', function() {
+            $('#fmUserauthor').jqxValidator('validate', function(result) {
+                var rowscount = $("#menugrid").jqxGrid('getdatainformation').rowscount;
+                if ((result) && (rowscount > 0)) {
+                    $.when($.confirmdlg('ต้องการบันทึกข้อมูล?', 'info')).then(function() {
+                        var rows = [],
+                            FlgAccess = 'T',
+                            FlgInsert = 'T',
+                            FlgEdit   = 'T',
+                            FlgDelete = 'T';
+                        for (var i = 0; i < rowscount; i++) {
+                            var data = $('#menugrid').jqxGrid('getrowdata', i);
+                            if (data.M_ACCESS == false) { FlgAccess = 'N'; } else { FlgAccess = 'Y'; }
+                            if (data.M_INSERT == false) { FlgInsert = 'N'; } else { FlgInsert = 'Y'; }
+                            if (data.M_EDIT   == false) { FlgEdit   = 'N'; } else { FlgEdit   = 'Y'; }
+                            if (data.M_DELETE == false) { FlgDelete = 'N'; } else { FlgDelete = 'Y'; }
+                            rows.push({ USERID: $('#userid').val(), MENUCODE: data.MENUCODE, M_ACCESS: FlgAccess, M_INSERT: FlgInsert, M_EDIT: FlgEdit, M_DELETE: FlgDelete });
+                        }
+                        var valueJSON = [{
+                            status: status,
+                            locat: $.session.get('locatcd'),
+                            table: 'USERMENU',
+                            key: $('#userid').val().toUpperCase(),
+                            value: rows
+                        }];
+                        // Convert Value To JSON String
+                        var value = JSON.stringify(valueJSON);
+                        console.log(value);
+                        $('#ok').click(function(event) {
+                            $.ajax({
+                                url: 'saveUserauthorize',
+                                type: 'POST',
+                                contentType: "application/json",
+                                dataType: "json",
+                                data: value,
+                                success: function (data) {
+                                    //console.log(data);
+                                    if (data[0].save === true) {
+                                        ShowMessage("บันทึกข้อมูลเรียบร้อย!", "success");
+                                    } else {
+                                        ShowMessage("บันทึกไม่สำเร็จ รหัสผ่านเดิมไม่ถูกต้อง!", "danger");
+                                    }
+                                },
+                                error: function (xhr, status, error) {
+                                    ShowMessage("บันทึกไม่สำเร็จ! ", "danger");
+                                }
+                            });
+                        });
+                    });
+                }
+            });
+        });
+    });
+</script>

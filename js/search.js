@@ -945,6 +945,42 @@
             { text: 'สถานะ', datafield: 'FLAG', minwidth: 100, width: 100 },
         ];
         keyno = 'CONTNO';
+    } else if (show === "passwrd") {
+        datafields = [
+            { name: 'USERID', type: 'string' },
+            { name: 'NAME', type: 'string' },
+            { name: 'SURNAME', type: 'string' },
+        ];
+        fields = [
+            { text: 'Userid', datafield: 'USERID', minwidth: 100, width: 100 },
+            { text: 'ชื่อ', datafield: 'NAME', minwidth: 100, width: 250 },
+            { text: 'นามสกุล', datafield: 'SURNAME', minwidth: 100, width: 250 },
+        ];
+        keyno = 'USERID';
+    } else if (show === "arresv") {
+        datafields = [
+            { name: 'RESVNO', type: 'string' },
+            { name: 'CUSTNAME', type: 'string' },
+            { name: 'STRNO', type: 'string' },
+            { name: 'ACARDNO', type: 'string' },
+        ];
+        fields = [
+            { text: 'เลขที่ใบจอง', datafield: 'RESVNO', minwidth: 100, width: 250 },
+            { text: 'ชื่อผู้จอง', datafield: 'CUSTNAME', minwidth: 150, width: 250 },
+            { text: 'เลขตัวถัง', datafield: 'STRNO', minwidth: 150, width: 250 },
+            { text: 'เลขที่ A-card', datafield: 'ACARDNO', minwidth: 100, width: 250 },
+        ];
+        keyno = 'RESVNO';
+    } else if (show === "locsale") {
+        datafields = [
+            { name: 'LOCATCD', type: 'string' },
+            { name: 'LOCATNM', type: 'string' },
+        ];
+        fields = [
+            { text: 'รหัสสาขา', datafield: 'LOCATCD', minwidth: 100, width: 250 },
+            { text: 'ชื่อสาขา', datafield: 'LOCATNM', minwidth: 200, width: 250 },
+        ];
+        keyno = 'LOCATCD';
     }
 
     fields.unshift({
@@ -1147,6 +1183,12 @@
             sqltxt = "SELECT A.IDNO, A.LOCAT, A.STRNO, A.RESVNO, A.MATCHDT, B.ACARDNO, C.NAME1, C.NAME2, (CASE WHEN A.FLAG = 'C' THEN 'ยกเลิก' ELSE ' ' END) AS FLAG FROM MATCHSTRNO A, ARRESV B LEFT JOIN CUSTMAST C ON B.CUSCOD = C.CUSCOD WHERE A.RESVNO = B.RESVNO AND UPPER(COALESCE(A.RESVNO,'')||COALESCE(A.STRNO,'')||COALESCE(B.ACARDNO,'')||COALESCE(C.NAME1,'')||COALESCE(C.NAME2,'')) LIKE '%" + param1 + "%' ORDER BY A.RESVNO ";
         } else if (show === "arinvoi") {
             sqltxt = "SELECT A.IDNO,A.LOCAT,A.CONTNO,A.CUSCOD,C.NAME1,C.NAME2,I.STRNO, (CASE WHEN A.FLAG = 'C' THEN 'ยกเลิก' ELSE ' ' END) AS FLAG FROM AR_INVOI A,CUSTMAST C,AR_TRANS I WHERE A.IDNO = I.CONTID AND A.CUSCOD=C.CUSCOD AND UPPER(COALESCE(A.CONTNO,'')||COALESCE(I.STRNO,'')||COALESCE(C.NAME1,'')||COALESCE(C.NAME2,'')) LIKE '%" + param1 + "%' ORDER BY A.CONTNO, I.STRNO ";
+        } else if (show === "passwrd") {
+            sqltxt = "SELECT A.USERID, B.NAME, B.SURNAME FROM PASSWRD A, OFFICER B WHERE A.CUSCOD = B.CODE AND UPPER(COALESCE(A.USERID,'')||COALESCE(B.NAME,'')||COALESCE(B.SURNAME,'')) LIKE '%" + param1 + "%' ORDER BY A.USERID, B.NAME ";
+        } else if (show === "arresv") {
+            sqltxt = "SELECT A.RESVNO,A.ACARDNO,A.RESVDT,A.STRNO,A.SALCOD,B.NAME||' '||B.SURNAME AS SALNAME,A.CUSCOD,TRIM(C.SNAM)||TRIM(C.NAME1)||' '||TRIM(C.NAME2) AS CUSTNAME FROM ARRESV A LEFT JOIN OFFICER B ON(A.SALCOD=B.CODE) LEFT JOIN CUSTMAST C ON(A.CUSCOD=C.CUSCOD) WHERE UPPER(COALESCE(A.RESVNO,'')||COALESCE(A.ACARDNO,'')||COALESCE(A.STRNO,'')||COALESCE(A.CUSCOD,'')||COALESCE(C.NAME1,'')||COALESCE(C.NAME2,'')) LIKE '%" + param1 + "%' ORDER BY A.RESVNO";
+        } else if (show === "locsale") {
+            sqltxt = "SELECT * FROM INVLOCAT WHERE UPPER(LOCATCD||LOCATNM) LIKE '%" + param1 + "%' ORDER BY LOCATCD";
         }
 
         // Qurey Data

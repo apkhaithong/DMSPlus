@@ -323,6 +323,20 @@
             width: '100%',
             culture: 'en-US'
         });
+		
+		$('.admin-panels').adminpanel({
+            grid: '.admin-grid',
+            callback: function () {
+                bootbox.confirm('<h3>A Custom Callback!</h3>', function () {});
+            },
+            onFinish: function () {
+                $('.admin-panels').addClass('animated fadeIn').removeClass('fade-onload');
+                demoHighCharts.init();
+            },
+            onSave: function () {
+                $(window).trigger('resize');
+            }
+        });
 
 
         /*** button ****/
